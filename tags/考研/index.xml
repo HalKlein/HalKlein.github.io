@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>考研 on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/tags/%E8%80%83%E7%A0%94/</link>
+    <description>Recent content in 考研 on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>@gmail.com (HalKlein)</managingEditor>
+    <webMaster>@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Mon, 28 Oct 2019 12:52:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/%E8%80%83%E7%A0%94/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数学拾遗</title>
+      <link>https://halklein.github.io/2019/03/</link>
+      <pubDate>Mon, 28 Oct 2019 12:52:23 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/03/</guid>
+      <description>泰勒公式 $ln(1+x) = x-\frac{1}{2}x^2+\frac{1}{3}x^3-&amp;hellip;+(-1)^{n-1}\frac{x^n}{n}$ $(1+x)^\alpha = 1+\alpha x+\frac{\alpha(\alpha-1)}{2}x^2+o(x^2)$ ，常考 $\alpha=\frac{1}{2}$时 $\frac{1}{1-x} = 1+x+x^2+x^3+&amp;hellip;$ 同理有：$\frac{1}{1+x} = 1-x+x^2-x^3+&amp;hellip;$ 补充的： $1-\cos^\alpha x \sim \frac{\alpha}{2}x^2$ $\lim_{x \to +\infty }x^{\frac{1}{x}}</description>
+    </item>
+    
+  </channel>
+</rss>

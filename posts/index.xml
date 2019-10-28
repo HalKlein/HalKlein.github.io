@@ -1,0 +1,98 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/posts/</link>
+    <description>Recent content in Posts on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>@gmail.com (HalKlein)</managingEditor>
+    <webMaster>@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Mon, 28 Oct 2019 12:52:23 +0800</lastBuildDate>
+    <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>数学拾遗</title>
+      <link>https://halklein.github.io/2019/03/</link>
+      <pubDate>Mon, 28 Oct 2019 12:52:23 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/03/</guid>
+      <description>
+
+&lt;h2 id=&#34;泰勒公式&#34;&gt;泰勒公式&lt;/h2&gt;
+
+&lt;p&gt;$ln(1+x) = x-\frac{1}{2}x^2+\frac{1}{3}x^3-&amp;hellip;+(-1)^{n-1}\frac{x^n}{n}$&lt;/p&gt;
+
+&lt;p&gt;$(1+x)^\alpha = 1+\alpha x+\frac{\alpha(\alpha-1)}{2}x^2+o(x^2)$ ，常考 $\alpha=\frac{1}{2}$时&lt;/p&gt;
+
+&lt;p&gt;$\frac{1}{1-x} = 1+x+x^2+x^3+&amp;hellip;$&lt;/p&gt;
+
+&lt;p&gt;同理有：$\frac{1}{1+x} = 1-x+x^2-x^3+&amp;hellip;$&lt;/p&gt;
+
+&lt;p&gt;补充的：&lt;/p&gt;
+
+&lt;p&gt;$1-\cos^\alpha x \sim  \frac{\alpha}{2}x^2$&lt;/p&gt;
+
+&lt;p&gt;$\lim_{x \to +\infty }x^{\frac{1}{x}} \sim 1$&lt;/p&gt;
+
+&lt;p&gt;$\lim_{x \to 0^{+} }x^{x} \sim 1$&lt;/p&gt;
+
+&lt;p&gt;$\lim_{x \to \infty }\sqrt[n]{a} \sim 1$&lt;/p&gt;
+
+&lt;p&gt;$\lim_{x \to \infty }\sqrt[n]{n} \sim 1$&lt;/p&gt;
+
+&lt;p&gt;$\lim_{x \to 0^{+} }x\ln{x} \sim 0$&lt;/p&gt;
+
+&lt;h2 id=&#34;函数极限的存在性&#34;&gt;函数极限的存在性&lt;/h2&gt;
+
+&lt;p&gt;1.具体型，给出具体函数，洛必达失效或极限无法计算 ==&amp;gt; 采用 夹逼准则&lt;/p&gt;
+
+&lt;p&gt;2.抽象型，不给出具体函数 ==&amp;gt;  采用 单调有界准则&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>采坑小记</title>
+      <link>https://halklein.github.io/2019/02/</link>
+      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/02/</guid>
+      <description>
+
+&lt;h2 id=&#34;提高-git-clone-的速度&#34;&gt;提高 git clone 的速度&lt;/h2&gt;
+
+&lt;p&gt;之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己是有小飞机的，开了全局代理，居然还是很慢&lt;/p&gt;
+
+&lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;socks5代理端口在这里查看：&lt;/p&gt;
+
+&lt;p&gt;MacOS 未知来源：sudo spctl &amp;ndash;master-disable&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>第一篇文章</title>
+      <link>https://halklein.github.io/2019/01/</link>
+      <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/01/</guid>
+      <description>
+
+&lt;h1 id=&#34;你眼中有春与秋&#34;&gt;你眼中有春与秋，&lt;/h1&gt;
+
+&lt;h1 id=&#34;胜过我见过爱过的一切山川与河流&#34;&gt;胜过我见过爱过的一切山川与河流；&lt;/h1&gt;
+
+&lt;h1 id=&#34;有一天我会懂你&#34;&gt;有一天我会懂你，&lt;/h1&gt;
+
+&lt;h1 id=&#34;也懂这世界悲欢&#34;&gt;也懂这世界悲欢，&lt;/h1&gt;
+
+&lt;h1 id=&#34;陪你走千帆-仍方寸不乱&#34;&gt;陪你走千帆，仍方寸不乱。&lt;/h1&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
