@@ -7,8 +7,66 @@
     <language>zh-cn</language>
     <managingEditor>@gmail.com (HalKlein)</managingEditor>
     <webMaster>@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 28 Oct 2019 12:52:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Oct 2019 22:56:37 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>插入排序</title>
+      <link>https://halklein.github.io/2019/04/</link>
+      <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/04/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-直接插入排序&#34;&gt;1.直接插入排序&lt;/h2&gt;
+
+&lt;p&gt;通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要小我们就抽出插入到第1张前面，否则我们就不动；继续看第3张牌，和之前的两张进行比较并放到合适的位置；依次类推即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;imagesimage-20191029223609801.png&#34; alt=&#34;image-20191029223609801&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C语言代码实现：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
+/* 直接插入排序 */
+void InsertSort( int A[], int n )
+{
+	int i, j;
+	for ( i = 2; i &amp;lt;= n; i++ )
+	{
+		if ( A[i] &amp;lt; A[i - 1] )
+		{
+			A[0] = A[i]; /* 第一个位置 A[0] 作为哨兵 */
+			for ( j = i - 1; A[0] &amp;lt; A[j]; j-- )
+				A[j + 1] = A[j];
+			A[j + 1] = A[0];
+		}
+	}
+}
+
+int main()
+{
+	int e, n, i;
+	printf( &amp;quot;序列元素个数：&amp;quot; );
+	scanf( &amp;quot;%d&amp;quot;, &amp;amp;n );
+	int A[n + 1];
+	printf( &amp;quot;请依次输入：\n&amp;quot; );
+	for ( i = 1; i &amp;lt;= n; i++ )
+	{
+		scanf( &amp;quot;%d&amp;quot;, &amp;amp;e );
+		A[i] = e;
+	}
+	InsertSort( A, n );
+	printf( &amp;quot;直接插入排序结果：&amp;quot; );
+	for ( i = 1; i &amp;lt;= n; i++ )
+		printf( &amp;quot;%4d&amp;quot;, A[i] );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;测试效果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;imagesimage-20191029225229034.png&#34; alt=&#34;image-20191029225229034&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>数学拾遗</title>

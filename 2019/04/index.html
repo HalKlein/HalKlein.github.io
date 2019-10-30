@@ -9,9 +9,9 @@
   
   
   
-  <link rel="prev" href="https://halklein.github.io/2019/02/" />
-  <link rel="next" href="https://halklein.github.io/2019/04/" />
-  <link rel="canonical" href="https://halklein.github.io/2019/03/" />
+  <link rel="prev" href="https://halklein.github.io/2019/03/" />
+  
+  <link rel="canonical" href="https://halklein.github.io/2019/04/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -22,10 +22,10 @@
   <title>
        
        
-           数学拾遗 | HalKlein`s Blog
+           插入排序 | HalKlein`s Blog
        
   </title>
-  <meta name="title" content="数学拾遗 | HalKlein`s Blog">
+  <meta name="title" content="插入排序 | HalKlein`s Blog">
     
   <link rel="stylesheet" href="/css/main.min.css">
 
@@ -42,9 +42,9 @@
          "@id": "https:\/\/halklein.github.io"
     },
     "articleSection" : "posts",
-    "name" : "数学拾遗",
-    "headline" : "数学拾遗",
-    "description" : "泰勒公式 $ln(1\x2bx) = x-\\frac{1}{2}x^2\x2b\\frac{1}{3}x^3-\x26hellip;\x2b(-1)^{n-1}\\frac{x^n}{n}$ $(1\x2bx)^\\alpha = 1\x2b\\alpha x\x2b\\frac{\\alpha(\\alpha-1)}{2}x^2\x2bo(x^2)$ ，常考 $\\alpha=\\frac{1}{2}$时 $\\frac{1}{1-x} = 1\x2bx\x2bx^2\x2bx^3\x2b\x26hellip;$ 同理有：$\\frac{1}{1\x2bx} = 1-x\x2bx^2-x^3\x2b\x26hellip;$ 补充的： $1-\\cos^\\alpha x \\sim \\frac{\\alpha}{2}x^2$ $\\lim_{x \\to \x2b\\infty }x^{\\frac{1}{x}}",
+    "name" : "插入排序",
+    "headline" : "插入排序",
+    "description" : "1.直接插入排序 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
     "creator" : "HalKlein",
@@ -52,11 +52,11 @@
     "accountablePerson" : "HalKlein",
     "copyrightHolder" : "HalKlein",
     "copyrightYear" : "2019",
-    "datePublished": "2019-10-28 12:52:23 \x2b0800 CST",
-    "dateModified" : "2019-10-28 12:52:23 \x2b0800 CST",
-    "url" : "https:\/\/halklein.github.io\/2019\/03\/",
-    "wordCount" : "158",
-    "keywords" : [ "考研","数学", "HalKlein`s Blog"]
+    "datePublished": "2019-10-29 22:56:37 \x2b0800 CST",
+    "dateModified" : "2019-10-29 22:56:37 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/04\/",
+    "wordCount" : "340",
+    "keywords" : [ "数据结构","算法", "HalKlein`s Blog"]
 }
 </script>
 
@@ -140,11 +140,11 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">数学拾遗</h1>
+        <h1 class="post-title" itemprop="name headline">插入排序</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
                 <span class="post-time">
-                on <time datetime=2019-10-28 itemprop="datePublished">October 28, 2019</time>
+                on <time datetime=2019-10-29 itemprop="datePublished">October 29, 2019</time>
                 </span>
                 in
                 <i class="iconfont icon-folder"></i>
@@ -152,12 +152,14 @@
                         <a href="https://halklein.github.io/categories/%E8%80%83%E7%A0%94/"> 考研 </a>
                         
                 </span>
-                <span class="post-word-count">, 158 words</span>
+                <span class="post-word-count">, 340 words</span>
         </div>
     </header>
     <div class="post-content">
         
 
+        
+            
         
 
         
@@ -173,35 +175,53 @@
 
           
 
-<h2 id="泰勒公式">泰勒公式</h2>
+<h2 id="1-直接插入排序">1.直接插入排序</h2>
 
-<p>$ln(1+x) = x-\frac{1}{2}x^2+\frac{1}{3}x^3-&hellip;+(-1)^{n-1}\frac{x^n}{n}$</p>
+<p>通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要小我们就抽出插入到第1张前面，否则我们就不动；继续看第3张牌，和之前的两张进行比较并放到合适的位置；依次类推即可。</p>
 
-<p>$(1+x)^\alpha = 1+\alpha x+\frac{\alpha(\alpha-1)}{2}x^2+o(x^2)$ ，常考 $\alpha=\frac{1}{2}$时</p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="imagesimage-20191029223609801.png" alt="image-20191029223609801" class="lazyload"><figcaption class="image-caption">image-20191029223609801</figcaption></figure></p>
 
-<p>$\frac{1}{1-x} = 1+x+x^2+x^3+&hellip;$</p>
+<p><strong>C语言代码实现：</strong></p>
 
-<p>同理有：$\frac{1}{1+x} = 1-x+x^2-x^3+&hellip;$</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+/* 直接插入排序 */
+void InsertSort( int A[], int n )
+{
+	int i, j;
+	for ( i = 2; i &lt;= n; i++ )
+	{
+		if ( A[i] &lt; A[i - 1] )
+		{
+			A[0] = A[i]; /* 第一个位置 A[0] 作为哨兵 */
+			for ( j = i - 1; A[0] &lt; A[j]; j-- )
+				A[j + 1] = A[j];
+			A[j + 1] = A[0];
+		}
+	}
+}
 
-<p>补充的：</p>
+int main()
+{
+	int e, n, i;
+	printf( &quot;序列元素个数：&quot; );
+	scanf( &quot;%d&quot;, &amp;n );
+	int A[n + 1];
+	printf( &quot;请依次输入：\n&quot; );
+	for ( i = 1; i &lt;= n; i++ )
+	{
+		scanf( &quot;%d&quot;, &amp;e );
+		A[i] = e;
+	}
+	InsertSort( A, n );
+	printf( &quot;直接插入排序结果：&quot; );
+	for ( i = 1; i &lt;= n; i++ )
+		printf( &quot;%4d&quot;, A[i] );
+}
+</code></pre>
 
-<p>$1-\cos^\alpha x \sim  \frac{\alpha}{2}x^2$</p>
+<p><strong>测试效果：</strong></p>
 
-<p>$\lim_{x \to +\infty }x^{\frac{1}{x}} \sim 1$</p>
-
-<p>$\lim_{x \to 0^{+} }x^{x} \sim 1$</p>
-
-<p>$\lim_{x \to \infty }\sqrt[n]{a} \sim 1$</p>
-
-<p>$\lim_{x \to \infty }\sqrt[n]{n} \sim 1$</p>
-
-<p>$\lim_{x \to 0^{+} }x\ln{x} \sim 0$</p>
-
-<h2 id="函数极限的存在性">函数极限的存在性</h2>
-
-<p>1.具体型，给出具体函数，洛必达失效或极限无法计算 ==&gt; 采用 夹逼准则</p>
-
-<p>2.抽象型，不给出具体函数 ==&gt;  采用 单调有界准则</p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="imagesimage-20191029225229034.png" alt="image-20191029225229034" class="lazyload"><figcaption class="image-caption">image-20191029225229034</figcaption></figure></p>
 
     </div>
 
@@ -216,7 +236,7 @@
              
             <p class="copyright-item">
                     <span>Link:</span>
-                    <a href=https://halklein.github.io/2019/03/>https://halklein.github.io/2019/03/</span>
+                    <a href=https://halklein.github.io/2019/04/>https://halklein.github.io/2019/04/</span>
             </p>
             
              
@@ -232,11 +252,11 @@
             <section>
             <i class="iconfont icon-tag"></i>Tag(s): 
             
-            <span class="tag"><a href="https://halklein.github.io/tags/%E8%80%83%E7%A0%94/">
-                    #考研</a></span>
+            <span class="tag"><a href="https://halklein.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                    #数据结构</a></span>
             
-            <span class="tag"><a href="https://halklein.github.io/tags/%E6%95%B0%E5%AD%A6/">
-                    #数学</a></span>
+            <span class="tag"><a href="https://halklein.github.io/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
             
             </section>
         
@@ -248,10 +268,8 @@
 
     <div class="post-nav">
         
-        <a href="https://halklein.github.io/2019/02/" class="prev" rel="prev" title="采坑小记"><i class="iconfont icon-left"></i>&nbsp;采坑小记</a>
+        <a href="https://halklein.github.io/2019/03/" class="prev" rel="prev" title="数学拾遗"><i class="iconfont icon-left"></i>&nbsp;数学拾遗</a>
          
-        
-        <a href="https://halklein.github.io/2019/04/" class="next" rel="next" title="插入排序">插入排序&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 
@@ -321,8 +339,9 @@
 
 
     
-    
-    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
     
   
 

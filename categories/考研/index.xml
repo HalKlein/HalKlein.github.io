@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>@gmail.com (HalKlein)</managingEditor>
     <webMaster>@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 28 Oct 2019 12:52:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Oct 2019 22:56:37 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/categories/%E8%80%83%E7%A0%94/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>插入排序</title>
+      <link>https://halklein.github.io/2019/04/</link>
+      <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/04/</guid>
+      <description>1.直接插入排序 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要</description>
+    </item>
     
     <item>
       <title>数学拾遗</title>
