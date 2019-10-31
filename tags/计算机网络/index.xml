@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 31 Oct 2019 09:14:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 31 Oct 2019 13:56:16 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TCP四次挥手</title>
+      <link>https://halklein.github.io/2019/07/</link>
+      <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/07/</guid>
+      <description>四次挥手，关闭连接 由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成它</description>
+    </item>
     
     <item>
       <title>TCP三次握手</title>

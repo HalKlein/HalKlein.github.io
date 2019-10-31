@@ -7,8 +7,90 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 31 Oct 2019 09:14:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 31 Oct 2019 13:56:16 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TCP四次挥手</title>
+      <link>https://halklein.github.io/2019/07/</link>
+      <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/07/</guid>
+      <description>
+
+&lt;h2 id=&#34;四次挥手-关闭连接&#34;&gt;四次挥手，关闭连接&lt;/h2&gt;
+
+&lt;p&gt;由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个&lt;code&gt;FIN&lt;/code&gt;来终止这个方向的连接。收到一个&lt;code&gt;FIN&lt;/code&gt;只意味着这一方向上没有数据流动，一个 TCP 连接在收到一个&lt;code&gt;FIN&lt;/code&gt;后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭，因此在断开时存在一个半关闭状态，即有有一方失去发送数据的能力，却还能接收数据。所以，断开连接需要分为四次 ，称为&lt;strong&gt;四次挥手&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行&lt;code&gt;close()&lt;/code&gt;操作即可产生挥手操作。&lt;/p&gt;
+
+&lt;p&gt;以下，我们假设由客户端主动触发close()。&lt;/p&gt;
+
+&lt;h2 id=&#34;四次挥手流程图&#34;&gt;四次挥手流程图&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/四次挥手.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;第一次挥手(FIN=1，seq=u)&lt;/strong&gt;
+假设假客户端主动触发close()，客户端发送一个FIN标志位为 1 的包，表示自己已经没有数据可以发送了，但是仍然可以接受数据。因为有可能服务器还要发送数据，所以发送自己的序列号seq=u，等待服务器确认。发送完毕后，客户端进入FIN_WAIT_1状态。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;第二次挥手(ACK=1，seq=v，ack=u+1)&lt;/strong&gt;
+服务器端确认客户端的FIN包，发送一个确认包【ACK=1(确认)、seq=v(自己的序列号)、ack=u+1(确认收到序列号)】，表明自己接受到了客户端关闭连接的请求，但还没有准备好关闭连接(可能有数据发送)。
+发送完毕后，服务器端进入CLOSE_WAIT状态，客户端接收到这个确认包之后，进入FIN_WAIT_2状态，等待服务器端关闭连接。
+在这过程中 TCP 服务器进程会通知高层应用进程。然后从客户端到服务器这个方向的连接就释放了，TCP 连接处于半关闭状态。但是服务器若发送数据，客户端仍要接收。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;第三次挥手(FIN=1，ACK=1，seq=w，ack=u+1)&lt;/strong&gt;
+若服务器已经没有要向客户端发送的数据，其应用进程就通知 TCP 释放连接。
+服务器端准备好关闭连接时，向客户端发送结束连接请求FIN置为 1，ACK=1，seq=w(有数据发送过)，ack=u+1。
+发送完毕后，服务器端进入LAST_ACK状态，等待来自客户端的最后一个ACK。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;第四次挥手(ACK=1，seq=u+1，ack=w+1)&lt;/strong&gt;
+客户端接收到来自服务器端的关闭请求，发送一个确认包(在确认报文段中ACK=1，确认号ack=w+1，自己的序号seq=u+1)，并进入TIME_WAIT状态，等待可能出现的要求重传的ACK包。(这个确认包是内核进行发送的，上面不能发数据的是客户端的send函数)
+服务器端接收到这个确认包之后，关闭连接，进入CLOSED状态。
+客户端等待了某个固定时间（两个最大段生命周期，&lt;code&gt;2MSL&lt;/code&gt;（2 Maximum Segment Lifetime），即2个最长报文段寿命， &lt;code&gt;RFC 793&lt;/code&gt;中规定MSL为2分钟，而Linux中设置为30秒 ）之后，没有收到服务器端的ACK，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入CLOSED状态。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;为什么会有time-wait状态&#34;&gt;为什么会有TIME_WAIT状态？&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;网络可能不可靠，需要确保有足够的时间让对方收到ACK包。被动关闭方处于&lt;code&gt;LAST_ACK&lt;/code&gt;状态下的&lt;code&gt;SOCKET&lt;/code&gt;可能会因为超时未收到ACK报文，而重发FIN报文（这一来一去正好是2SML）。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;避免新旧连接混淆。有的路由器会缓存IP数据包，如果连接被重用了，那么这些延迟收到的包就有可能会跟新连接混在一起。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;time-wait状态所带来的影响&#34;&gt;TIME_WAIT状态所带来的影响&lt;/h3&gt;
+
+&lt;p&gt;当某个连接的一端处于TIME_WAIT状态时，该连接将不能再被使用。事实上，对于我们比较有现实意义的是，这个端口将不能再被使用。&lt;/p&gt;
+
+&lt;p&gt;某个端口处于TIME_WAIT状态(其实应该是这个连接)时，这意味着这个 TCP 连接并没有断开(完全断开)，那么，如果你bind这个端口，就会失败。对于服务器而言，如果服务器突然坏掉了，那么它将无法再2MSL内重新启动，因为bind会失败。&lt;/p&gt;
+
+&lt;p&gt;解决这个问题的一个方法就是设置 socket 的&lt;code&gt;SO_REUSEADDR&lt;/code&gt;选项。这个选项意味着你可以重用一个地址。&lt;/p&gt;
+
+&lt;h3 id=&#34;服务器出现大量close-wait状态的原因&#34;&gt;服务器出现大量CLOSE_WAIT状态的原因？&lt;/h3&gt;
+
+&lt;p&gt;对方关闭socket连接，我方忙于读或写，没有及时关闭连接。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;检查代码，特别是释放资源的代码&lt;/li&gt;
+&lt;li&gt;检查配置，特别是处理请求的线程配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以使用以下命令查看服务器是否有大量CLOSE_WAIT&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;netstat -n | awk &#39;/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ScreenShot00004.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;为什么需要四次握手才能断开连接&#34;&gt;为什么需要四次握手才能断开连接？&lt;/h3&gt;
+
+&lt;p&gt;因为全双工，发送方和接收方都需要FIN报文和ACK报文，当被动方收到主动方的FIN报文通知时，它仅仅表示主动方没有数据再发送给被动方了。但未必被动方所有的数据都完整的发送给了主动方，所以被动方不会马上关闭SOCKET，它可能还需要发送一些数据给主动方后，再发送FIN报文给主动方，告诉主动方同意关闭连接，所以这里的ACK报文和FIN报文多数情况下都是分开发送的。&lt;/p&gt;
+
+&lt;p&gt;由于网络服务的不可靠性，必须考虑到在释放连接时，可能由于数据包的失序而使释放连接请求的数据包会比其他数据包先到达目的端。此时，如果目的端由于收到了释放连接请求的数据包而立即释放该连接，则会造成那些先发而后至的数据包丢失。&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>TCP三次握手</title>
@@ -215,6 +297,8 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 &lt;p&gt;&lt;strong&gt;保活机制&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -326,6 +410,8 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 &lt;h3 id=&#34;ping命令使用osi哪一层协议&#34;&gt;PING命令使用OSI哪一层协议&lt;/h3&gt;
 
 &lt;p&gt;ping命令使用的是ICMP协议，位于OSI七层网络模型中的第三层，网络层。&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -384,6 +470,8 @@ int main()
 &lt;p&gt;&lt;strong&gt;测试效果：&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191029225229034.png&#34; alt=&#34;测试效果&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -424,6 +512,8 @@ int main()
 &lt;p&gt;1.具体型，给出具体函数，洛必达失效或极限无法计算 ==&amp;gt; 采用 夹逼准则&lt;/p&gt;
 
 &lt;p&gt;2.抽象型，不给出具体函数 ==&amp;gt;  采用 单调有界准则&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -448,6 +538,8 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;p&gt;socks5代理端口在这里查看：&lt;/p&gt;
 
 &lt;p&gt;MacOS 未知来源：sudo spctl &amp;ndash;master-disable&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -468,6 +560,8 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;h1 id=&#34;也懂这世界悲欢&#34;&gt;也懂这世界悲欢，&lt;/h1&gt;
 
 &lt;h1 id=&#34;陪你走千帆-仍方寸不乱&#34;&gt;陪你走千帆，仍方寸不乱。&lt;/h1&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
