@@ -189,25 +189,25 @@
 
 <h3 id="数据链路层-datalink-layer">数据链路层<strong>（Datalink Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/DatalinkLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/DatalinkLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： <code>HDLC</code> 、<code>PPP</code>、<code>STP</code>等。</p>
 
 <h3 id="网络层-network-layer">网络层 <strong>（Network Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/NetworkLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/NetworkLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：<code>IP</code>、<code>ICMP</code>（互联网控制报文协议）、<code>ARP</code>（地址转换协议）、<code>RARP</code>（反向地址转换协议）</p>
 
 <h3 id="传输层-transport-layer"><strong>传输层（Transport Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/TransportLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/TransportLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：<code>TCP</code>（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），<code>UDP</code>（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。</p>
 
 <h3 id="会话层-session-layer"><strong>会话层（Session Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/SessionLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/SessionLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。</p>
 
@@ -217,19 +217,19 @@
 
 <h3 id="表示层-presentation-layer"><strong>表示层（Presentation Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/PresentationLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/PresentationLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有<code>ASCII</code>、<code>SSL/TLS</code> 等。</p>
 
 <h3 id="应用层-application-layer"><strong>应用层（Application Layer）</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/ApplicationLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/ApplicationLayer.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 <code>HTTP</code>，<code>FTP</code>，<code>TELNET</code>、<code>SMTP</code> 等。</p>
 
 <h3 id="osi模型-数据传输流程概览">OSI模型 数据传输流程概览</h3>
 
-<p><img src="https://halklein.github.io/2019-10-29_154127.png" alt="" style="zoom:67%;" /></p>
+<p><img src="https://halklein.github.io/images/2019-10-29_154127.png" alt="" style="zoom:67%;" /></p>
 
 <h2 id="2-tcp-ip四层网络模型">2.TCP/IP四层网络模型</h2>
 
@@ -257,7 +257,7 @@
 
 <h3 id="对应关系及协议整理">对应关系及协议整理</h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/image-20191029161333373.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/image-20191029161333373.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <h3 id="tcp-ip模型-数据传输流程概览">TCP/IP模型 数据传输流程概览</h3>
 

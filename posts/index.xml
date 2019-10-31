@@ -38,7 +38,7 @@
 
 &lt;p&gt;在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/tcp_01.bb7fb4ac.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/iamges/tcphead.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;Source port&lt;/code&gt;源端口、&lt;code&gt;Destination port&lt;/code&gt;目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.&lt;/p&gt;&lt;/li&gt;
@@ -80,7 +80,7 @@
 
 &lt;p&gt;“握手”是为了&lt;strong&gt;建立连接&lt;/strong&gt;，TCP三次握手的流程图如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/201803220759346.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/201803220759346.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。&lt;/p&gt;
 
@@ -104,7 +104,7 @@
 &lt;pre&gt;&lt;code&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/iamges/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;顺便查阅归纳下，&lt;strong&gt;Wireshark的过滤规则&lt;/strong&gt;：&lt;/p&gt;
 
@@ -241,25 +241,25 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;
 
 &lt;h3 id=&#34;数据链路层-datalink-layer&#34;&gt;数据链路层&lt;strong&gt;（Datalink Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/DatalinkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/DatalinkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： &lt;code&gt;HDLC&lt;/code&gt; 、&lt;code&gt;PPP&lt;/code&gt;、&lt;code&gt;STP&lt;/code&gt;等。&lt;/p&gt;
 
 &lt;h3 id=&#34;网络层-network-layer&#34;&gt;网络层 &lt;strong&gt;（Network Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/NetworkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/NetworkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：&lt;code&gt;IP&lt;/code&gt;、&lt;code&gt;ICMP&lt;/code&gt;（互联网控制报文协议）、&lt;code&gt;ARP&lt;/code&gt;（地址转换协议）、&lt;code&gt;RARP&lt;/code&gt;（反向地址转换协议）&lt;/p&gt;
 
 &lt;h3 id=&#34;传输层-transport-layer&#34;&gt;&lt;strong&gt;传输层（Transport Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/TransportLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/TransportLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：&lt;code&gt;TCP&lt;/code&gt;（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），&lt;code&gt;UDP&lt;/code&gt;（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。&lt;/p&gt;
 
 &lt;h3 id=&#34;会话层-session-layer&#34;&gt;&lt;strong&gt;会话层（Session Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/SessionLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/SessionLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。&lt;/p&gt;
 
@@ -269,19 +269,19 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;
 
 &lt;h3 id=&#34;表示层-presentation-layer&#34;&gt;&lt;strong&gt;表示层（Presentation Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/PresentationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/PresentationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有&lt;code&gt;ASCII&lt;/code&gt;、&lt;code&gt;SSL/TLS&lt;/code&gt; 等。&lt;/p&gt;
 
 &lt;h3 id=&#34;应用层-application-layer&#34;&gt;&lt;strong&gt;应用层（Application Layer）&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/ApplicationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ApplicationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 &lt;code&gt;HTTP&lt;/code&gt;，&lt;code&gt;FTP&lt;/code&gt;，&lt;code&gt;TELNET&lt;/code&gt;、&lt;code&gt;SMTP&lt;/code&gt; 等。&lt;/p&gt;
 
 &lt;h3 id=&#34;osi模型-数据传输流程概览&#34;&gt;OSI模型 数据传输流程概览&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/2019-10-29_154127.png&#34; alt=&#34;&#34; style=&#34;zoom:67%;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/2019-10-29_154127.png&#34; alt=&#34;&#34; style=&#34;zoom:67%;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;2-tcp-ip四层网络模型&#34;&gt;2.TCP/IP四层网络模型&lt;/h2&gt;
 
@@ -309,7 +309,7 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;
 
 &lt;h3 id=&#34;对应关系及协议整理&#34;&gt;对应关系及协议整理&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/image-20191029161333373.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191029161333373.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;tcp-ip模型-数据传输流程概览&#34;&gt;TCP/IP模型 数据传输流程概览&lt;/h3&gt;
 
