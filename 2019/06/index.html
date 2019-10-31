@@ -55,7 +55,7 @@
     "datePublished": "2019-10-31 09:14:18 \x2b0800 CST",
     "dateModified" : "2019-10-31 09:14:18 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/06\/",
-    "wordCount" : "3895",
+    "wordCount" : "3880",
     "keywords" : [ "计算机网络", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 3895 words</span>
+                <span class="post-word-count">, 3880 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -239,17 +239,23 @@
 
 <p>其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。</p>
 
-<p><strong>第一次握手：</strong>建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；</p>
+<p><strong>第一次握手</strong></p>
 
-<p><strong>第二次握手：</strong>Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+<p>建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；</p>
 
-<p><strong>第三次握手：</strong>Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+<p><strong>第二次握手</strong></p>
 
-<p>注意：</p>
+<p>Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+
+<p><strong>第三次握手</strong></p>
+
+<p>Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+
+<p><strong>注意</strong></p>
 
 <ul>
-<li><strong>不要将确认序号ack与标志位中的ACK搞混了。</strong></li>
-<li><strong>确认方ack=发起方seq+1，两端配对。</strong></li>
+<li>不要将确认序号ack与标志位中的ACK搞混了。</li>
+<li>确认方ack=发起方seq+1，两端配对。</li>
 </ul>
 
 <h3 id="三次握手抓包分析">三次握手抓包分析</h3>
@@ -263,7 +269,7 @@
 
 <p>顺便查阅归纳下，<strong>Wireshark的过滤规则</strong>：</p>
 
-<p><strong>1. 过滤IP：</strong></p>
+<p><strong>1. 过滤IP</strong></p>
 
 <pre><code>ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
 或者ip.addr eq 192.168.1.107
@@ -338,16 +344,22 @@ http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，
 
 <h3 id="首次握手的隐患-syn超时">首次握手的隐患&ndash;SYN超时</h3>
 
-<p><strong>原因：</strong>三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（<code>half-open connect</code>），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。</p>
+<p><strong>原因</strong></p>
 
-<p><strong>SYN攻击：</strong>Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p>
+<p>三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（<code>half-open connect</code>），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。</p>
 
-<p><strong>检测：</strong>SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看<code>SYN_RECV</code>状态：</p>
+<p><strong>SYN攻击</strong></p>
+
+<p>Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p>
+
+<p><strong>检测</strong></p>
+
+<p>SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看<code>SYN_RECV</code>状态：</p>
 
 <pre><code># netstat -nap | grep SYN_RECV 
 </code></pre>
 
-<p><strong>针对SYN Flood的防护措施：</strong></p>
+<p><strong>针对SYN Flood的防护措施</strong></p>
 
 <p>Linux下给了一个叫<code>tcp_syncookies</code>的参数来应对这个事——当SYN队列满了后，TCP会通过源地址端口、目标地址端口和时间戳打造出一个特别的<code>Sequence Number</code>发回去（又叫SYN Cookie），如果是攻击者则不会有响应，如果是正常连接，则会把这个 <code>SYN Cookie</code>发回来，然后服务端可以通过cookie建连接（即使你不在SYN队列中）。请注意，慎用<code>tcp_syncookies</code>来处理正常的大负载的连接的情况。因为，<code>synccookies</code>是妥协版的TCP协议，并不严谨。 对于正常的请求，可以调整以下三个参数：</p>
 
@@ -357,7 +369,9 @@ http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，
 <li><code>tcp_abort_on_overflow</code> ，处理不过来，直接拒绝连接了。</li>
 </ul>
 
-<p><strong>保活机制：</strong>如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接</p>
+<p><strong>保活机制</strong></p>
+
+<p>如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接</p>
 
     </div>
 

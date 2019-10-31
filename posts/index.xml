@@ -82,17 +82,23 @@
 
 &lt;p&gt;其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;第一次握手：&lt;/strong&gt;建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第一次握手&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;第二次握手：&lt;/strong&gt;Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。&lt;/p&gt;
+&lt;p&gt;建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;第三次握手：&lt;/strong&gt;Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第二次握手&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;注意：&lt;/p&gt;
+&lt;p&gt;Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;第三次握手&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;不要将确认序号ack与标志位中的ACK搞混了。&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;确认方ack=发起方seq+1，两端配对。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;不要将确认序号ack与标志位中的ACK搞混了。&lt;/li&gt;
+&lt;li&gt;确认方ack=发起方seq+1，两端配对。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&#34;三次握手抓包分析&#34;&gt;三次握手抓包分析&lt;/h3&gt;
@@ -106,7 +112,7 @@
 
 &lt;p&gt;顺便查阅归纳下，&lt;strong&gt;Wireshark的过滤规则&lt;/strong&gt;：&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;1. 过滤IP：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. 过滤IP&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
 或者ip.addr eq 192.168.1.107
@@ -181,16 +187,22 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 
 &lt;h3 id=&#34;首次握手的隐患-syn超时&#34;&gt;首次握手的隐患&amp;ndash;SYN超时&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;原因：&lt;/strong&gt;三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（&lt;code&gt;half-open connect&lt;/code&gt;），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;SYN攻击：&lt;/strong&gt;Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。&lt;/p&gt;
+&lt;p&gt;三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（&lt;code&gt;half-open connect&lt;/code&gt;），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;检测：&lt;/strong&gt;SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看&lt;code&gt;SYN_RECV&lt;/code&gt;状态：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SYN攻击&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;检测&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看&lt;code&gt;SYN_RECV&lt;/code&gt;状态：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;# netstat -nap | grep SYN_RECV 
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;针对SYN Flood的防护措施：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;针对SYN Flood的防护措施&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Linux下给了一个叫&lt;code&gt;tcp_syncookies&lt;/code&gt;的参数来应对这个事——当SYN队列满了后，TCP会通过源地址端口、目标地址端口和时间戳打造出一个特别的&lt;code&gt;Sequence Number&lt;/code&gt;发回去（又叫SYN Cookie），如果是攻击者则不会有响应，如果是正常连接，则会把这个 &lt;code&gt;SYN Cookie&lt;/code&gt;发回来，然后服务端可以通过cookie建连接（即使你不在SYN队列中）。请注意，慎用&lt;code&gt;tcp_syncookies&lt;/code&gt;来处理正常的大负载的连接的情况。因为，&lt;code&gt;synccookies&lt;/code&gt;是妥协版的TCP协议，并不严谨。 对于正常的请求，可以调整以下三个参数：&lt;/p&gt;
 
@@ -200,7 +212,9 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 &lt;li&gt;&lt;code&gt;tcp_abort_on_overflow&lt;/code&gt; ，处理不过来，直接拒绝连接了。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;保活机制：&lt;/strong&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;保活机制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
 </description>
     </item>
     
