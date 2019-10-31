@@ -6,8 +6,8 @@
     <description>Recent content on HalKlein`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>@gmail.com (HalKlein)</managingEditor>
-    <webMaster>@gmail.com (HalKlein)</webMaster>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
     <lastBuildDate>Thu, 31 Oct 2019 09:14:18 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +17,7 @@
       <title>TCP三次握手</title>
       <link>https://halklein.github.io/2019/06/</link>
       <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/06/</guid>
       <description>TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第四</description>
     </item>
@@ -26,7 +26,7 @@
       <title>OSI模型和TCP/IP模型</title>
       <link>https://halklein.github.io/2019/05/</link>
       <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/05/</guid>
       <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型，由国际标准化组织</description>
     </item>
@@ -35,7 +35,7 @@
       <title>插入排序</title>
       <link>https://halklein.github.io/2019/04/</link>
       <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/04/</guid>
       <description>1.直接插入排序 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要</description>
     </item>
@@ -44,7 +44,7 @@
       <title>数学拾遗</title>
       <link>https://halklein.github.io/2019/03/</link>
       <pubDate>Mon, 28 Oct 2019 12:52:23 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/03/</guid>
       <description>泰勒公式 $ln(1+x) = x-\frac{1}{2}x^2+\frac{1}{3}x^3-&amp;hellip;+(-1)^{n-1}\frac{x^n}{n}$ $(1+x)^\alpha = 1+\alpha x+\frac{\alpha(\alpha-1)}{2}x^2+o(x^2)$ ，常考 $\alpha=\frac{1}{2}$时 $\frac{1}{1-x} = 1+x+x^2+x^3+&amp;hellip;$ 同理有：$\frac{1}{1+x} = 1-x+x^2-x^3+&amp;hellip;$ 补充的： $1-\cos^\alpha x \sim \frac{\alpha}{2}x^2$ $\lim_{x \to +\infty }x^{\frac{1}{x}}</description>
     </item>
@@ -53,7 +53,7 @@
       <title>采坑小记</title>
       <link>https://halklein.github.io/2019/02/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/02/</guid>
       <description>提高 git clone 的速度 之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己是</description>
     </item>
@@ -62,7 +62,7 @@
       <title>第一篇文章</title>
       <link>https://halklein.github.io/2019/01/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/01/</guid>
       <description>你眼中有春与秋， 胜过我见过爱过的一切山川与河流； 有一天我会懂你， 也懂这世界悲欢， 陪你走千帆，仍方寸不乱。</description>
     </item>
@@ -71,7 +71,7 @@
       <title>About</title>
       <link>https://halklein.github.io/about/</link>
       <pubDate>Thu, 10 Oct 2019 12:55:48 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/about/</guid>
       <description>关于我 大四，软件工程在读。 My Github chart:</description>
     </item>

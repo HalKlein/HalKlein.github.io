@@ -6,8 +6,8 @@
     <description>Recent content in 数据结构 on HalKlein`s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <managingEditor>@gmail.com (HalKlein)</managingEditor>
-    <webMaster>@gmail.com (HalKlein)</webMaster>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
     <lastBuildDate>Tue, 29 Oct 2019 22:56:37 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +17,7 @@
       <title>插入排序</title>
       <link>https://halklein.github.io/2019/04/</link>
       <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
-      <author>@gmail.com (HalKlein)</author>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/04/</guid>
       <description>1.直接插入排序 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要</description>
     </item>
