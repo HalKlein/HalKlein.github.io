@@ -195,7 +195,7 @@
 
 <p>在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址</p>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/iamges/tcphead.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/tcphead.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <ol>
 <li><p><code>Source port</code>源端口、<code>Destination port</code>目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.</p></li>
