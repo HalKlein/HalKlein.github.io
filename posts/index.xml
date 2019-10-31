@@ -77,10 +77,10 @@
 
 &lt;p&gt;可以使用以下命令查看服务器是否有大量CLOSE_WAIT&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;netstat -n | awk &#39;/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}&#39;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;netstat -n | awk &#39;/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}&#39;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ScreenShot00004.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ScreenShot00004.jpg&#34; alt=&#34;MacOS下的测试&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;为什么需要四次握手才能断开连接&#34;&gt;为什么需要四次握手才能断开连接？&lt;/h3&gt;
 
@@ -187,7 +187,7 @@
 
 &lt;p&gt;筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
@@ -196,13 +196,13 @@
 
 &lt;p&gt;&lt;strong&gt;1. 过滤IP&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
 或者ip.addr eq 192.168.1.107
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;2. 过滤端口&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
 tcp.port eq 80 or udp.port eq 80
 tcp.dstport == 80 //只显tcp协议的目标端口80
 tcp.srcport == 80 //只显tcp协议的源端口80
@@ -211,13 +211,13 @@ tcp.port &amp;gt;= 1 and tcp.port &amp;lt;= 80 //端口范围过滤
 
 &lt;p&gt;&lt;strong&gt;3. 过滤协议&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
 排除协议过滤：如 !arp 或者 not arp
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;4. 过滤MAC&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
 eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -231,7 +231,7 @@ eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 
 &lt;p&gt;&lt;strong&gt;5. 包长度过滤&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
 tcp.len &amp;gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
 ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
 frame.len == 119 //整个数据包长度,从eth开始到最后
@@ -239,7 +239,7 @@ frame.len == 119 //整个数据包长度,从eth开始到最后
 
 &lt;p&gt;&lt;strong&gt;6. http模式过滤&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;例子:
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;例子:
 http.request.method == “GET”
 http.request.method == “POST”
 http.request.uri == “/img/logo.png”
@@ -281,7 +281,7 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 
 &lt;p&gt;SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看&lt;code&gt;SYN_RECV&lt;/code&gt;状态：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;# netstat -nap | grep SYN_RECV 
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;# netstat -nap | grep SYN_RECV
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;针对SYN Flood的防护措施&lt;/strong&gt;&lt;/p&gt;
@@ -531,7 +531,7 @@ int main()
 
 &lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;/code&gt;&lt;/pre&gt;
 

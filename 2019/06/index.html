@@ -262,7 +262,7 @@
 
 <p>筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。</p>
 
-<pre><code>ip.dst==61.128.252.10 or ip.src==61.128.252.10
+<pre><code class="language-c">ip.dst==61.128.252.10 or ip.src==61.128.252.10
 </code></pre>
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/ScreenShot00003.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
@@ -271,13 +271,13 @@
 
 <p><strong>1. 过滤IP</strong></p>
 
-<pre><code>ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
+<pre><code class="language-c">ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
 或者ip.addr eq 192.168.1.107
 </code></pre>
 
 <p><strong>2. 过滤端口</strong></p>
 
-<pre><code>tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
+<pre><code class="language-c">tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
 tcp.port eq 80 or udp.port eq 80
 tcp.dstport == 80 //只显tcp协议的目标端口80
 tcp.srcport == 80 //只显tcp协议的源端口80
@@ -286,13 +286,13 @@ tcp.port &gt;= 1 and tcp.port &lt;= 80 //端口范围过滤
 
 <p><strong>3. 过滤协议</strong></p>
 
-<pre><code>直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
+<pre><code class="language-c">直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
 排除协议过滤：如 !arp 或者 not arp
 </code></pre>
 
 <p><strong>4. 过滤MAC</strong></p>
 
-<pre><code>eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
+<pre><code class="language-c">eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
 eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 </code></pre>
 
@@ -306,7 +306,7 @@ eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 
 <p><strong>5. 包长度过滤</strong></p>
 
-<pre><code>udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+<pre><code class="language-c">udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
 tcp.len &gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
 ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
 frame.len == 119 //整个数据包长度,从eth开始到最后
@@ -314,7 +314,7 @@ frame.len == 119 //整个数据包长度,从eth开始到最后
 
 <p><strong>6. http模式过滤</strong></p>
 
-<pre><code>例子:
+<pre><code class="language-c">例子:
 http.request.method == “GET”
 http.request.method == “POST”
 http.request.uri == “/img/logo.png”
@@ -356,7 +356,7 @@ http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，
 
 <p>SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看<code>SYN_RECV</code>状态：</p>
 
-<pre><code># netstat -nap | grep SYN_RECV 
+<pre><code class="language-c"># netstat -nap | grep SYN_RECV
 </code></pre>
 
 <p><strong>针对SYN Flood的防护措施</strong></p>

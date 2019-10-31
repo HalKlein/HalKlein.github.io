@@ -234,10 +234,10 @@
 
 <p>可以使用以下命令查看服务器是否有大量CLOSE_WAIT</p>
 
-<pre><code>netstat -n | awk '/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}'
+<pre><code class="language-c">netstat -n | awk '/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}'
 </code></pre>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/ScreenShot00004.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/ScreenShot00004.jpg" alt="MacOS下的测试" class="lazyload"><figcaption class="image-caption">MacOS下的测试</figcaption></figure></p>
 
 <h3 id="为什么需要四次握手才能断开连接">为什么需要四次握手才能断开连接？</h3>
 
