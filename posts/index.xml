@@ -18,9 +18,7 @@
       <guid>https://halklein.github.io/2019/06/</guid>
       <description>
 
-&lt;h2 id=&#34;tcp三次握手&#34;&gt;TCP三次握手&lt;/h2&gt;
-
-&lt;h3 id=&#34;tcp-transmission-control-protocol-传输控制协议&#34;&gt;TCP(Transmission Control Protocol)　传输控制协议&lt;/h3&gt;
+&lt;h2 id=&#34;tcp-transmission-control-protocol-传输控制协议&#34;&gt;TCP(Transmission Control Protocol)　传输控制协议&lt;/h2&gt;
 
 &lt;p&gt;TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。&lt;/p&gt;
 
@@ -76,7 +74,7 @@
 &lt;li&gt;&lt;p&gt;&lt;code&gt;TCP Options&lt;/code&gt; 可选项，其长度可变，定义一些其它的可选参数。&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&#34;tcp三次握手-1&#34;&gt;TCP三次握手&lt;/h3&gt;
+&lt;h3 id=&#34;tcp三次握手&#34;&gt;TCP三次握手&lt;/h3&gt;
 
 &lt;p&gt;“握手”是为了&lt;strong&gt;建立连接&lt;/strong&gt;，TCP三次握手的流程图如下：&lt;/p&gt;
 
