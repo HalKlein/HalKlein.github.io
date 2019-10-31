@@ -55,7 +55,7 @@
     "datePublished": "2019-10-31 09:14:18 \x2b0800 CST",
     "dateModified" : "2019-10-31 09:14:18 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/06\/",
-    "wordCount" : "3887",
+    "wordCount" : "3895",
     "keywords" : [ "计算机网络", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 3887 words</span>
+                <span class="post-word-count">, 3895 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -259,7 +259,7 @@
 <pre><code>ip.dst==61.128.252.10 or ip.src==61.128.252.10
 </code></pre>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/iamges/ScreenShot00003.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/ScreenShot00003.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
 
 <p>顺便查阅归纳下，<strong>Wireshark的过滤规则</strong>：</p>
 
@@ -300,10 +300,10 @@ eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 
 <p><strong>5. 包长度过滤</strong></p>
 
-<pre><code>udp.length == 26 这个长度是指udp本身固定长度8加上udp下面那块数据包之和
-tcp.len &gt;= 7   指的是ip数据包(tcp下面那块数据),不包括tcp本身
-ip.len == 94 除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
-frame.len == 119 整个数据包长度,从eth开始到最后
+<pre><code>udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+tcp.len &gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
+ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
+frame.len == 119 //整个数据包长度,从eth开始到最后
 </code></pre>
 
 <p><strong>6. http模式过滤</strong></p>
@@ -316,33 +316,20 @@ http contains “GET”
 http contains “HTTP/1.”
 http.request.method == “GET” &amp;&amp; http contains “Host: “
 
-http.host == xxx.com
-// 过滤 host
-http.response == 1
-// 过滤所有的 http 响应包
-http.response.code == 302
-// 过滤状态码 202
-http.request.method==POST 
-// 过滤 POST 请求包
-http.cookie contains xxx
-// cookie 包含 xxx
-http.request.uri==&quot;/robots.txt&quot;
-//过滤请求的uri，取值是域名后的部分
-http.request.full_uri==&quot;http://1.com&quot;
-// 过滤含域名的整个url
-http.server contains &quot;nginx&quot;
-//过滤http头中server字段含有nginx字符的数据包
-http.content_type == &quot;text/html&quot;
-//过滤content_type是text/html
-http.content_encoding == &quot;gzip&quot;
-//过滤content_encoding是gzip的http包
-http.transfer_encoding == &quot;chunked&quot;
-//根据transfer_encoding过滤
+http.host == xxx.com	// 过滤 host
+http.response == 1	// 过滤所有的 http 响应包
+http.response.code == 302	// 过滤状态码 202
+http.request.method==POST 	// 过滤 POST 请求包
+http.cookie contains xxx	// cookie 包含 xxx
+http.request.uri==&quot;/robots.txt&quot;	//过滤请求的uri，取值是域名后的部分
+http.request.full_uri==&quot;http://1.com&quot;	// 过滤含域名的整个url
+http.server contains &quot;nginx&quot;	//过滤http头中server字段含有nginx字符的数据包
+http.content_type == &quot;text/html&quot;	//过滤content_type是text/html
+http.content_encoding == &quot;gzip&quot;	//过滤content_encoding是gzip的http包
+http.transfer_encoding == &quot;chunked&quot;	//根据transfer_encoding过滤
 http.content_length == 279
-http.content_length_header == &quot;279&quot;
-//根据content_length的数值过滤
-http.request.version == &quot;HTTP/1.1&quot;
-//过滤HTTP/1.1版本的http包，包括请求和响应
+http.content_length_header == &quot;279&quot;	//根据content_length的数值过滤
+http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，包括请求和响应
 </code></pre>
 
 <h3 id="为什么需要三次握手才能建立起连接">为什么需要三次握手才能建立起连接</h3>

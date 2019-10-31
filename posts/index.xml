@@ -102,7 +102,7 @@
 &lt;pre&gt;&lt;code&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/iamges/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;顺便查阅归纳下，&lt;strong&gt;Wireshark的过滤规则&lt;/strong&gt;：&lt;/p&gt;
 
@@ -143,10 +143,10 @@ eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
 
 &lt;p&gt;&lt;strong&gt;5. 包长度过滤&lt;/strong&gt;&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;udp.length == 26 这个长度是指udp本身固定长度8加上udp下面那块数据包之和
-tcp.len &amp;gt;= 7   指的是ip数据包(tcp下面那块数据),不包括tcp本身
-ip.len == 94 除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
-frame.len == 119 整个数据包长度,从eth开始到最后
+&lt;pre&gt;&lt;code&gt;udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+tcp.len &amp;gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
+ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
+frame.len == 119 //整个数据包长度,从eth开始到最后
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;6. http模式过滤&lt;/strong&gt;&lt;/p&gt;
@@ -159,33 +159,20 @@ http contains “GET”
 http contains “HTTP/1.”
 http.request.method == “GET” &amp;amp;&amp;amp; http contains “Host: “
 
-http.host == xxx.com
-// 过滤 host
-http.response == 1
-// 过滤所有的 http 响应包
-http.response.code == 302
-// 过滤状态码 202
-http.request.method==POST 
-// 过滤 POST 请求包
-http.cookie contains xxx
-// cookie 包含 xxx
-http.request.uri==&amp;quot;/robots.txt&amp;quot;
-//过滤请求的uri，取值是域名后的部分
-http.request.full_uri==&amp;quot;http://1.com&amp;quot;
-// 过滤含域名的整个url
-http.server contains &amp;quot;nginx&amp;quot;
-//过滤http头中server字段含有nginx字符的数据包
-http.content_type == &amp;quot;text/html&amp;quot;
-//过滤content_type是text/html
-http.content_encoding == &amp;quot;gzip&amp;quot;
-//过滤content_encoding是gzip的http包
-http.transfer_encoding == &amp;quot;chunked&amp;quot;
-//根据transfer_encoding过滤
+http.host == xxx.com	// 过滤 host
+http.response == 1	// 过滤所有的 http 响应包
+http.response.code == 302	// 过滤状态码 202
+http.request.method==POST 	// 过滤 POST 请求包
+http.cookie contains xxx	// cookie 包含 xxx
+http.request.uri==&amp;quot;/robots.txt&amp;quot;	//过滤请求的uri，取值是域名后的部分
+http.request.full_uri==&amp;quot;http://1.com&amp;quot;	// 过滤含域名的整个url
+http.server contains &amp;quot;nginx&amp;quot;	//过滤http头中server字段含有nginx字符的数据包
+http.content_type == &amp;quot;text/html&amp;quot;	//过滤content_type是text/html
+http.content_encoding == &amp;quot;gzip&amp;quot;	//过滤content_encoding是gzip的http包
+http.transfer_encoding == &amp;quot;chunked&amp;quot;	//根据transfer_encoding过滤
 http.content_length == 279
-http.content_length_header == &amp;quot;279&amp;quot;
-//根据content_length的数值过滤
-http.request.version == &amp;quot;HTTP/1.1&amp;quot;
-//过滤HTTP/1.1版本的http包，包括请求和响应
+http.content_length_header == &amp;quot;279&amp;quot;	//根据content_length的数值过滤
+http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的http包，包括请求和响应
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;为什么需要三次握手才能建立起连接&#34;&gt;为什么需要三次握手才能建立起连接&lt;/h3&gt;
