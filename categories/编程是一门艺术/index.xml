@@ -19,7 +19,7 @@
       <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/07/</guid>
-      <description>四次挥手，关闭连接 由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成它</description>
+      <description>1. 四次挥手，关闭连接 由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成</description>
     </item>
     
     <item>
