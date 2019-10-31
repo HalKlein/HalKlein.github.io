@@ -7,8 +7,328 @@
     <language>zh-cn</language>
     <managingEditor>@gmail.com (HalKlein)</managingEditor>
     <webMaster>@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 29 Oct 2019 22:56:37 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 31 Oct 2019 09:14:18 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TCP三次握手</title>
+      <link>https://halklein.github.io/2019/06/</link>
+      <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/06/</guid>
+      <description>
+
+&lt;h2 id=&#34;tcp三次握手&#34;&gt;TCP三次握手&lt;/h2&gt;
+
+&lt;h3 id=&#34;tcp-transmission-control-protocol-传输控制协议&#34;&gt;TCP(Transmission Control Protocol)　传输控制协议&lt;/h3&gt;
+
+&lt;p&gt;TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。&lt;/p&gt;
+
+&lt;p&gt;TCP工作在网络OSI的七层模型中的第四层（Transport层），IP在第三层（Network层），ARP在第二层（Data Link层）；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一种&lt;strong&gt;面向连接的、可靠的、基于字节流的&lt;/strong&gt;传输层通信协议&lt;/li&gt;
+&lt;li&gt;将应用层的数据流分割成报文段并发送给目标节点的TCP层&lt;/li&gt;
+&lt;li&gt;数据包都有序号，对方收到则发送ACK确认，未收到则重传&lt;/li&gt;
+&lt;li&gt;使用校验和来检验数据在传输过程中是否有误&lt;/li&gt;
+&lt;li&gt;在一个 TCP 连接中，仅有两方进行彼此通信。广播和多播不能用于 TCP&lt;/li&gt;
+&lt;li&gt;TCP 给数据分节进行排序，并使用累积确认保证数据的顺序不变和非重复&lt;/li&gt;
+&lt;li&gt;TCP 使用&lt;strong&gt;滑动窗口机制&lt;/strong&gt;来实现流量控制，通过动态改变窗口的大小进行拥塞控制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/tcp_01.bb7fb4ac.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Source port&lt;/code&gt;源端口、&lt;code&gt;Destination port&lt;/code&gt;目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Sequence Number&lt;/code&gt;序号：Seq序号，占4个字节，用来标识从TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记。是包的序号，用来解决网络包乱序（reordering）问题。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Acknowledgement Number&lt;/code&gt;确认序号：Ack序号，占4个字节，只有ACK标志位为1时，确认序号字段才有效，Ack=Seq+1。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Data offset&lt;/code&gt;数据偏移：由于头部有可选字段长度不固定，因此它指出TCP报文的数据离TCP报文起始有多远。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Reserved&lt;/code&gt;保留域：保留以后使用的。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP Flags&lt;/code&gt; 标志位：常见的有6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如下：&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;URG&lt;/code&gt; 紧急指针标志：为1时有效，为0则忽略。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ACK&lt;/code&gt; &lt;strong&gt;确认序号标志&lt;/strong&gt;：为1时确认号有效，为0标识报文中不含确认信息。 TCP 规定在连接建立后传送的所有报文段都必须把 ACK 置为一。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;PSH&lt;/code&gt; push标志：为1时，指示接收方接收到报文后应该尽快将这个报文交给应用层程序，而不是在缓冲区排队。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RST&lt;/code&gt; 重置连接标志：重置连接，重置由于主机崩溃或其它原因而出现的异常连接，或者用于拒绝非法的报文段和拒绝连接请求。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SYN&lt;/code&gt; &lt;strong&gt;同步序号&lt;/strong&gt;：用于建立连接过程。 当SYN=1，ACK=0时，表示当前报文段是一个连接请求报文。当SYN=1，ACK=1时，表示当前报文段是一个同意建立连接的应答报文。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;FIN&lt;/code&gt; &lt;strong&gt;finish标志&lt;/strong&gt;：用于释放连接。为1时， 该字段为一表示此报文段是一个释放连接的请求报文&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Window Size&lt;/code&gt;窗口大小，指滑动窗口的大小，用于告知发送端接受方的缓存大小，以此控制发送端发送数据的速率从而进行流量控制 。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Checksum&lt;/code&gt;校验和，指奇偶校验，对整个TCP报文以16位进行计算所得，由发送端计算和存储并由接收端验证。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Urgent Pointer&lt;/code&gt; 紧急指针，当TCP Flags中的&lt;code&gt;URG&lt;/code&gt;为1时才有效，指出本TCP报文中紧急数据的字节数。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP Options&lt;/code&gt; 可选项，其长度可变，定义一些其它的可选参数。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;tcp三次握手-1&#34;&gt;TCP三次握手&lt;/h3&gt;
+
+&lt;p&gt;“握手”是为了&lt;strong&gt;建立连接&lt;/strong&gt;，TCP三次握手的流程图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/201803220759346.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;第一次握手：&lt;/strong&gt;建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;第二次握手：&lt;/strong&gt;Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;第三次握手：&lt;/strong&gt;Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。&lt;/p&gt;
+
+&lt;p&gt;注意：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;不要将确认序号ack与标志位中的ACK搞混了。&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;确认方ack=发起方seq+1，两端配对。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;三次握手抓包分析&#34;&gt;三次握手抓包分析&lt;/h3&gt;
+
+&lt;p&gt;筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/ScreenShot00003.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;顺便查阅归纳下，&lt;strong&gt;Wireshark的过滤规则&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. 过滤IP：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
+或者ip.addr eq 192.168.1.107
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2. 过滤端口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
+tcp.port eq 80 or udp.port eq 80
+tcp.dstport == 80 //只显tcp协议的目标端口80
+tcp.srcport == 80 //只显tcp协议的源端口80
+tcp.port &amp;gt;= 1 and tcp.port &amp;lt;= 80 //端口范围过滤
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;3. 过滤协议&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
+排除协议过滤：如 !arp 或者 not arp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;4. 过滤MAC&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
+eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;小于 less than（lt）&lt;/p&gt;
+
+&lt;p&gt;等于 eq&lt;/p&gt;
+
+&lt;p&gt;大于等于 ge&lt;/p&gt;
+
+&lt;p&gt;不等 ne&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. 包长度过滤&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;udp.length == 26 这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+tcp.len &amp;gt;= 7   指的是ip数据包(tcp下面那块数据),不包括tcp本身
+ip.len == 94 除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
+frame.len == 119 整个数据包长度,从eth开始到最后
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;6. http模式过滤&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;例子:
+http.request.method == “GET”
+http.request.method == “POST”
+http.request.uri == “/img/logo.png”
+http contains “GET”
+http contains “HTTP/1.”
+http.request.method == “GET” &amp;amp;&amp;amp; http contains “Host: “
+
+http.host == xxx.com
+// 过滤 host
+http.response == 1
+// 过滤所有的 http 响应包
+http.response.code == 302
+// 过滤状态码 202
+http.request.method==POST 
+// 过滤 POST 请求包
+http.cookie contains xxx
+// cookie 包含 xxx
+http.request.uri==&amp;quot;/robots.txt&amp;quot;
+//过滤请求的uri，取值是域名后的部分
+http.request.full_uri==&amp;quot;http://1.com&amp;quot;
+// 过滤含域名的整个url
+http.server contains &amp;quot;nginx&amp;quot;
+//过滤http头中server字段含有nginx字符的数据包
+http.content_type == &amp;quot;text/html&amp;quot;
+//过滤content_type是text/html
+http.content_encoding == &amp;quot;gzip&amp;quot;
+//过滤content_encoding是gzip的http包
+http.transfer_encoding == &amp;quot;chunked&amp;quot;
+//根据transfer_encoding过滤
+http.content_length == 279
+http.content_length_header == &amp;quot;279&amp;quot;
+//根据content_length的数值过滤
+http.request.version == &amp;quot;HTTP/1.1&amp;quot;
+//过滤HTTP/1.1版本的http包，包括请求和响应
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;为什么需要三次握手才能建立起连接&#34;&gt;为什么需要三次握手才能建立起连接&lt;/h3&gt;
+
+&lt;p&gt;为了初始化Sequence Number的初始值，通信双方要互相通知对方自己的Sequence Number，作为以后数据通信的序号，以保证接收到的数据不会因为网络上的问题而乱序，即TCP会用这个序号来拼接数据， 确保数据能够完整传输。&lt;/p&gt;
+
+&lt;h3 id=&#34;首次握手的隐患-syn超时&#34;&gt;首次握手的隐患&amp;ndash;SYN超时&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;原因：&lt;/strong&gt;三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（&lt;code&gt;half-open connect&lt;/code&gt;），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SYN攻击：&lt;/strong&gt;Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;检测：&lt;/strong&gt;SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看&lt;code&gt;SYN_RECV&lt;/code&gt;状态：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# netstat -nap | grep SYN_RECV 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;针对SYN Flood的防护措施：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Linux下给了一个叫&lt;code&gt;tcp_syncookies&lt;/code&gt;的参数来应对这个事——当SYN队列满了后，TCP会通过源地址端口、目标地址端口和时间戳打造出一个特别的&lt;code&gt;Sequence Number&lt;/code&gt;发回去（又叫SYN Cookie），如果是攻击者则不会有响应，如果是正常连接，则会把这个 &lt;code&gt;SYN Cookie&lt;/code&gt;发回来，然后服务端可以通过cookie建连接（即使你不在SYN队列中）。请注意，慎用&lt;code&gt;tcp_syncookies&lt;/code&gt;来处理正常的大负载的连接的情况。因为，&lt;code&gt;synccookies&lt;/code&gt;是妥协版的TCP协议，并不严谨。 对于正常的请求，可以调整以下三个参数：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;tcp_synack_retries&lt;/code&gt; ，用于减少重试次数；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tcp_max_syn_backlog&lt;/code&gt;，用于增大SYN连接数；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tcp_abort_on_overflow&lt;/code&gt; ，处理不过来，直接拒绝连接了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;保活机制：&lt;/strong&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OSI模型和TCP/IP模型</title>
+      <link>https://halklein.github.io/2019/05/</link>
+      <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
+      <author>@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/05/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-osi-开放式系统互联参考模型&#34;&gt;1. OSI 开放式系统互联参考模型&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;开放式系统互联模型&lt;/strong&gt;（英语：&lt;strong&gt;O&lt;/strong&gt;pen &lt;strong&gt;S&lt;/strong&gt;ystem &lt;strong&gt;I&lt;/strong&gt;nterconnection Model，缩写：OSI；简称为&lt;strong&gt;OSI模型&lt;/strong&gt;）是一种&lt;a href=&#34;https://zh.wikipedia.org/wiki/概念模型&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;概念模型&lt;/a&gt;，由&lt;a href=&#34;https://zh.wikipedia.org/wiki/国际标准化组织&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;国际标准化组织&lt;/a&gt;提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/0_1325744597WM32.gif&#34; alt=&#34;OSI 开放式系统互联参考模型&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;物理层-physical-layer&#34;&gt;物理层（Physical Layer）&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/PhysicalLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在局部局域网上传送&lt;a href=&#34;https://zh.wikipedia.org/wiki/数据帧&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;数据帧&lt;/a&gt;（data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis&lt;/p&gt;
+
+&lt;h3 id=&#34;数据链路层-datalink-layer&#34;&gt;数据链路层&lt;strong&gt;（Datalink Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/DatalinkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： &lt;code&gt;HDLC&lt;/code&gt; 、&lt;code&gt;PPP&lt;/code&gt;、&lt;code&gt;STP&lt;/code&gt;等。&lt;/p&gt;
+
+&lt;h3 id=&#34;网络层-network-layer&#34;&gt;网络层 &lt;strong&gt;（Network Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/NetworkLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：&lt;code&gt;IP&lt;/code&gt;、&lt;code&gt;ICMP&lt;/code&gt;（互联网控制报文协议）、&lt;code&gt;ARP&lt;/code&gt;（地址转换协议）、&lt;code&gt;RARP&lt;/code&gt;（反向地址转换协议）&lt;/p&gt;
+
+&lt;h3 id=&#34;传输层-transport-layer&#34;&gt;&lt;strong&gt;传输层（Transport Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/TransportLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：&lt;code&gt;TCP&lt;/code&gt;（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），&lt;code&gt;UDP&lt;/code&gt;（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。&lt;/p&gt;
+
+&lt;h3 id=&#34;会话层-session-layer&#34;&gt;&lt;strong&gt;会话层（Session Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/SessionLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。&lt;/p&gt;
+
+&lt;p&gt;通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。&lt;/p&gt;
+
+&lt;p&gt;常见的协议有 &lt;code&gt;ADSP&lt;/code&gt;、&lt;code&gt;RPC&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;h3 id=&#34;表示层-presentation-layer&#34;&gt;&lt;strong&gt;表示层（Presentation Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/PresentationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有&lt;code&gt;ASCII&lt;/code&gt;、&lt;code&gt;SSL/TLS&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;h3 id=&#34;应用层-application-layer&#34;&gt;&lt;strong&gt;应用层（Application Layer）&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/ApplicationLayer.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 &lt;code&gt;HTTP&lt;/code&gt;，&lt;code&gt;FTP&lt;/code&gt;，&lt;code&gt;TELNET&lt;/code&gt;、&lt;code&gt;SMTP&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;h3 id=&#34;osi模型-数据传输流程概览&#34;&gt;OSI模型 数据传输流程概览&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/2019-10-29_154127.png&#34; alt=&#34;&#34; style=&#34;zoom:67%;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-tcp-ip四层网络模型&#34;&gt;2.TCP/IP四层网络模型&lt;/h2&gt;
+
+&lt;h3 id=&#34;提出&#34;&gt;提出&lt;/h3&gt;
+
+&lt;p&gt;OSI模型是一个定义良好的协议规范集，定义了开放系统的层次结构和之间的关系，但并没有提供一个可实现的方法，其并非一个标准，而是一个慨念型框架。TCP/IP是被广泛使用的OSI模型的实现。&lt;/p&gt;
+
+&lt;h3 id=&#34;简介&#34;&gt;简介&lt;/h3&gt;
+
+&lt;p&gt;TCP/IP协议栈是美国国防部高级研究计划局计算机网（Advanced Research Projects Agency Network，ARPANET）和其后继因特网使用的参考模型。ARPANET是由美国国防部（U.S．Department of Defense，DoD）赞助的研究网络。最初，它只连接了美国境内的四所大学。随后的几年中，它通过租用的电话线连接了数百所大学和政府部门。最终ARPANET发展成为全球规模最大的互连网络-因特网。最初的ARPANET于1990年永久性地关闭。&lt;/p&gt;
+
+&lt;p&gt;TCP/IP是一组协议的代名词，它&lt;strong&gt;还包括许多协议，组成了TCP/IP协议簇&lt;/strong&gt;。TCP/IP协议簇分为四层，IP位于协议簇的第二层(对应OSI的第三层)，TCP位于协议簇的第三层(对应OSI的第四层)。&lt;/p&gt;
+
+&lt;h3 id=&#34;层次&#34;&gt;层次&lt;/h3&gt;
+
+&lt;p&gt;TCP/IP协议采用了4层的层级结构，每一层都呼叫它的下一层所提供的网络来完成自己的需求。分别为：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;应用层&lt;/strong&gt;：应用程序间沟通的层，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;传输层&lt;/strong&gt;：在此层中，它提供了节点间的数据传送服务，如传输控制协议（TCP）、用户数据报协议（UDP）等，TCP和UDP给数据包加入传输数据并把它传输到下一层中，这一层负责传送数据，并且确定数据已被送达并接收。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;网络层&lt;/strong&gt;：负责提供基本的数据封包传送功能，让每一块数据包都能够到达目的主机（但不检查是否被正确接收），如网际协议（IP）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;网络接口层&lt;/strong&gt;：对实际的网络媒体的管理，定义如何使用实际网络（如Ethernet、Serial Line等）来传送数据。&lt;/p&gt;
+
+&lt;h3 id=&#34;对应关系及协议整理&#34;&gt;对应关系及协议整理&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/image-20191029161333373.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;tcp-ip模型-数据传输流程概览&#34;&gt;TCP/IP模型 数据传输流程概览&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/2019-10-29_161516.png&#34; alt=&#34;&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;交换机工作在osi的哪一层&#34;&gt;交换机工作在OSI的哪一层&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;二层交换机&lt;/strong&gt; 工作在OSI的第二层数据链路层，，由于它们要对帧解码并使用帧信息将数据发送到正确的接收方，所以它们是工作在数据链路层的。
+&lt;strong&gt;三层交换机&lt;/strong&gt; 是工作在OSI的网络层，因为三层交换机有路由功能。&lt;/p&gt;
+
+&lt;h3 id=&#34;路由器工作在osi的哪一层&#34;&gt;路由器工作在OSI的哪一层&lt;/h3&gt;
+
+&lt;p&gt;路由器工作在OSI七层模型的第3层，网络层。由于网络层处理，并智能指导数据传送，路由器连接网络各段，所以路由器属于网络层。在网络中，“路由”是基于编址方案、使用模式以及可达性来指引数据的发送。 网络层负责在源机器和目标机器之间建立它们所使用的路由。&lt;/p&gt;
+
+&lt;h3 id=&#34;ping命令使用osi哪一层协议&#34;&gt;PING命令使用OSI哪一层协议&lt;/h3&gt;
+
+&lt;p&gt;ping命令使用的是ICMP协议，位于OSI七层网络模型中的第三层，网络层。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>插入排序</title>
