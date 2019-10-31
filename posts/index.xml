@@ -24,7 +24,7 @@
 
 &lt;p&gt;TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。&lt;/p&gt;
 
-&lt;p&gt;TCP工作在网络OSI的七层模型中的第四层（Transport层），IP在第三层（Network层），ARP在第二层（Data Link层）；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。&lt;/p&gt;
+&lt;p&gt;TCP工作在网络 OSI 的七层模型中的第四层（Transport层），IP在第三层（Network层），ARP在第二层（Data Link层）；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;一种&lt;strong&gt;面向连接的、可靠的、基于字节流的&lt;/strong&gt;传输层通信协议&lt;/li&gt;
