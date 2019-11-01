@@ -44,7 +44,7 @@
     "articleSection" : "posts",
     "name" : "TCP三次握手",
     "headline" : "TCP三次握手",
-    "description" : "TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第四",
+    "description" : "1. TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
     "creator" : "HalKlein",
@@ -55,7 +55,7 @@
     "datePublished": "2019-10-31 09:14:18 \x2b0800 CST",
     "dateModified" : "2019-10-31 09:14:18 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/06\/",
-    "wordCount" : "3885",
+    "wordCount" : "3899",
     "keywords" : [ "计算机网络", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 3885 words</span>
+                <span class="post-word-count">, 3899 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -175,7 +175,7 @@
 
           
 
-<h2 id="tcp-transmission-control-protocol-传输控制协议">TCP(Transmission Control Protocol)　传输控制协议</h2>
+<h2 id="1-tcp-transmission-control-protocol-传输控制协议">1. TCP(Transmission Control Protocol)　传输控制协议</h2>
 
 <p>TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。</p>
 
@@ -193,7 +193,7 @@
 
 <p>在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址</p>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/tcphead.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+<h2 id="2-tcp头部结构-https-halklein-github-io-images-tcphead-jpg">2. TCP头部结构 <figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/tcphead.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></h2>
 
 <ol>
 <li><p><code>Source port</code>源端口、<code>Destination port</code>目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.</p></li>
@@ -231,7 +231,7 @@
 <li><p><code>TCP Options</code> 可选项，其长度可变，定义一些其它的可选参数。</p></li>
 </ol>
 
-<h3 id="tcp三次握手">TCP三次握手</h3>
+<h2 id="3-tcp三次握手">3. TCP三次握手</h2>
 
 <p>“握手”是为了<strong>建立连接</strong>，TCP三次握手的流程图如下：</p>
 
@@ -258,7 +258,7 @@
 <li>确认方ack=发起方seq+1，两端配对。</li>
 </ul>
 
-<h3 id="三次握手抓包分析">三次握手抓包分析</h3>
+<h2 id="4-三次握手抓包分析">4. 三次握手抓包分析</h2>
 
 <p>筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。</p>
 
@@ -337,6 +337,8 @@ http.content_length == 279
 http.content_length_header == &quot;279&quot;	//根据content_length的数值过滤
 http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，包括请求和响应
 </code></pre>
+
+<h2 id="5-问题">5. 问题</h2>
 
 <h3 id="为什么需要三次握手才能建立起连接">为什么需要三次握手才能建立起连接</h3>
 
@@ -460,7 +462,7 @@ http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，
     <div class="copyright">
         &copy;
         
-        <span itemprop="copyrightYear">2019 - 2019</span>
+        <span itemprop="copyrightYear">2018 - 2019</span>
         
         <span class="with-love">
     	 <i class="iconfont icon-love"></i> 

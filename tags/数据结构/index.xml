@@ -19,7 +19,7 @@
       <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/04/</guid>
-      <description>1.直接插入排序 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要</description>
+      <description>1. 直接插入排序 思想 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果</description>
     </item>
     
   </channel>

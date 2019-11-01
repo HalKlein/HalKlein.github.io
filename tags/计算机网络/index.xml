@@ -28,7 +28,7 @@
       <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/06/</guid>
-      <description>TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第四</description>
+      <description>1. TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第</description>
     </item>
     
     <item>
