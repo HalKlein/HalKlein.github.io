@@ -7,8 +7,173 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 31 Oct 2019 13:56:16 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 12:54:54 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TCP滑动窗口</title>
+      <link>https://halklein.github.io/2019/09/</link>
+      <pubDate>Fri, 01 Nov 2019 12:54:54 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/09/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-rtt-和-rto&#34;&gt;1. RTT 和 RTO&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。&lt;/li&gt;
+&lt;li&gt;RTO（retransamission timeout） ：重传时间间隔，由RTT计算得出，不是写死的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由TCP的重传机制，我们知道Timeout的设置对重置非常重要，设置长了会影响重发效率，设置短了可能导致还没丢失就又重传了。 而网络状况更是复杂，所以我们没有办法设置一个死的Timeout值 。为了动态地设置，TCP引入了RTT， 这样发送端就大约知道需要多少的时间，从而可以方便地设置Timeout——RTO（ Retransmission TimeOut ） ， 以让重传机制更高效。  &lt;a href=&#34;http://tools.ietf.org/html/rfc793&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;RFC793&lt;/a&gt; 中有对算法详细的定义。&lt;/p&gt;
+
+&lt;h2 id=&#34;2-tcp的滑动窗口&#34;&gt;2. TCP的滑动窗口&lt;/h2&gt;
+
+&lt;p&gt;我们都知道，TCP必需要解决的可靠传输以及包乱序（reordering）的问题，所以，TCP必需要知道网络实际的数据处理带宽或是数据处理速度，这样才不会引起网络拥塞，导致丢包。  所以，TCP引入了一些技术和设计来做网络流控，Sliding Window是其中一个技术。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。&lt;/p&gt;
+
+&lt;h3 id=&#34;下面-模拟tcp缓冲区&#34;&gt;&lt;strong&gt;下面，模拟TCP缓冲区：&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image561646.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;发送端的LastByteAcked指向了被接收端Ack过的位置（表示成功发送确认），LastByteSent表示发出去了，但还没有收到成功确认的Ack，LastByteWritten指向的是上层应用正在写的地方。&lt;/li&gt;
+&lt;li&gt;接收端LastByteRead指向了TCP缓冲区中读到的位置，NextByteExpected指向的地方是收到的连续包的最后一个位置，LastByteRcved指向的是收到的包的最后一个位置，我们可以看到中间有些数据还没有到达，所以有数据空白区。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;窗口数据计算过程&#34;&gt;&lt;strong&gt;窗口数据计算过程：&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;接收端在给发送端回ACK中，会汇报自己的 &lt;strong&gt;AdvertisedWindow&lt;/strong&gt; = MaxRcvBuffer – （LastByteRcvd – Last Byte Read），（LastByteRcvd – LastByteRead）表示接收到的数据已占用缓存的大小;&lt;/li&gt;
+&lt;li&gt;发送方根据Advertised Window的值，要保证已发送未确认的数据&amp;lt;= Advertised Window的大小，待发送数据大小**EffectiveWindow **= AdvertisedWindow – (LastByteSent – LastByteAcked)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;滑动窗口的基本原理&#34;&gt;滑动窗口的基本原理&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP会话的发送方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191101222743084.png&#34; alt=&#34;发送方滑动窗口示意图&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP会话的接收方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191101223300449.png&#34; alt=&#34;接收方滑动窗口示意图&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>TCP和UDP的区别</title>
+      <link>https://halklein.github.io/2019/08/</link>
+      <pubDate>Fri, 01 Nov 2019 07:54:54 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/08/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-udp协议&#34;&gt;1. UDP协议&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;用户数据报协议&lt;/strong&gt;（英语：&lt;strong&gt;U&lt;/strong&gt;ser &lt;strong&gt;D&lt;/strong&gt;atagram &lt;strong&gt;P&lt;/strong&gt;rotocol，缩写：&lt;strong&gt;UDP&lt;/strong&gt;；又称&lt;strong&gt;用户数据包协议&lt;/strong&gt;）是一个简单的面向数据报的通信协议，位于OSI模型的传输层。该协议由 &lt;a href=&#34;https://zh.wikipedia.org/w/index.php?title=David_P._Reed&amp;amp;action=edit&amp;amp;redlink=1&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;David P. Reed&lt;/a&gt; 在1980年设计且在&lt;a href=&#34;https://tools.ietf.org/html/rfc768&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;RFC 768&lt;/a&gt;中被规范。典型网络上的众多使用UDP协议的关键应用在一定程度上是相似的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/2019-03-21-03.png&#34; alt=&#34;UDP头部结构&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UDP头部包含了以下几个数据：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;两个16位的端口号，分别为源端口（可选）和目标端口&lt;/li&gt;
+&lt;li&gt;数据报的长度&lt;/li&gt;
+&lt;li&gt;数据报的检验和（IPv4 可选字段），该字段用于发现头部信息和数据中的错误&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;UDP相比于TCP明显要简单很多，因此UDP头部开销小，只有8个字节，在传输数据报文时是很高效的。当然也就不支持错误重传，滑动窗口等精细的控制。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UDP的特点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;面向非连接，传输数据之前不需要先建立连接。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;不维护连接状态，支持同时向多个客户端传输相同的消息， 支持一对一、一对多、多对多、多对一的传输方式，也就是说 UDP 提供了单播，多播，广播的功能。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;数据包报头只有8个字节，额外开销较小&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;吞吐量只受限于数据生成速率、传输速率以及机器性能&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;不可靠：尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;面向报文，不对应用程序提交的报文信息进行拆分或者合并&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-tcp和udp的区别&#34;&gt;2. TCP和UDP的区别&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;TCP&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;UDP&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;是否连接&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;面向连接&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;无连接&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;可靠性&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;可靠传输，使用流量控制和拥塞控制&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;不可靠传输，不使用流量控制和拥塞控制&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;有序性&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;有序&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;无序&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;速率&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;慢&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;快&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;量级&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;重量级&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;轻量级&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;连接对象个数&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;只支持一对一通信&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;支持一对一，一对多，多对一、多对多通信&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;传输方式&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;面向字节流&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;面向报文&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;首部开销&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;首部最小20字节，最大60字节&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;首部开销小，仅8字节&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;适用场景&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;要求可靠传输的应用，例如文件传输&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;实时应用（IP电话、视频会议、直播等）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>TCP四次挥手</title>

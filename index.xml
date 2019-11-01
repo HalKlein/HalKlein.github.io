@@ -8,10 +8,28 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 31 Oct 2019 13:56:16 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 12:54:54 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TCP滑动窗口</title>
+      <link>https://halklein.github.io/2019/09/</link>
+      <pubDate>Fri, 01 Nov 2019 12:54:54 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/09/</guid>
+      <description>1. RTT 和 RTO RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。 RTO（retransamission tim</description>
+    </item>
+    
+    <item>
+      <title>TCP和UDP的区别</title>
+      <link>https://halklein.github.io/2019/08/</link>
+      <pubDate>Fri, 01 Nov 2019 07:54:54 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/08/</guid>
+      <description>1. UDP协议 用户数据报协议（英语：User Datagram Protocol，缩写：UDP；又称用户数据包协议）是一个简单的面向数据报的通信协议，位于OSI</description>
+    </item>
     
     <item>
       <title>TCP四次挥手</title>
