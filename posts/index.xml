@@ -7,8 +7,366 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Fri, 01 Nov 2019 12:54:54 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 07:37:52 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>HTTP 及 HTTPS</title>
+      <link>https://halklein.github.io/2019/10/</link>
+      <pubDate>Sun, 03 Nov 2019 07:37:52 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/10/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-http协议&#34;&gt;1. HTTP协议&lt;/h2&gt;
+
+&lt;p&gt;超文本传输协议（英语：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP是万维网的数据通信的基础。 通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接 。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTTP 协议构建于 TCP/IP 协议之上，是一个应用层协议，默认端口号是 80&lt;/li&gt;
+&lt;li&gt;HTTP 是&lt;strong&gt;无连接无状态&lt;/strong&gt;的&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;2-版本&#34;&gt;2. 版本&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP/0.9&lt;/strong&gt;
+已过时。只接受GET一种请求方法，没有在通讯中指定版本号，且不支持请求头。由于该版本不支持POST方法，因此客户端无法向服务器传递太多信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP/1.0&lt;/strong&gt;
+这是第一个在通讯中指定版本号的HTTP协议版本，至今仍被广泛采用，特别是在代理服务器中。[来源请求]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP/1.1&lt;/strong&gt;
+持久连接被默认采用，并能很好地配合代理服务器工作。还支持以管道方式在同时发送多个请求，以便降低线路负载，提高传输速度。HTTP/1.1相较于HTTP/1.0协议的区别主要体现在：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;缓存处理&lt;/li&gt;
+&lt;li&gt;带宽优化及网络连接的使用&lt;/li&gt;
+&lt;li&gt;错误通知的管理&lt;/li&gt;
+&lt;li&gt;消息在网络中的发送&lt;/li&gt;
+&lt;li&gt;互联网地址的维护&lt;/li&gt;
+&lt;li&gt;安全性及完整性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP/2&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;当前版本，于2015年5月作为互联网标准正式发布。&lt;/p&gt;
+
+&lt;p&gt;HTTP目前处于多个版本共存的情况，包括仍被广泛采用的HTTP１.0，主流是1.1（ 1.1 版的最大变化，就是引入 Keep-Alive， 简单说就是保持当前的TCP连接，避免了重新建立连接。   ）， HTTP/2 目前应用较少（主要是因为1.1基本能满足需求，还有升级成本问题）&lt;/p&gt;
+
+&lt;h2 id=&#34;2-超文本传输协议http主要特点&#34;&gt;2. 超文本传输协议HTTP主要特点&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;支持B/S及C/S模式&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简单快速&lt;/strong&gt; ：客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有GET、HEAD、POST。每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;灵活：&lt;/strong&gt;HTTP允许传输任意类型的数据对象。正在传输的类型由Content-Type加以标记。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无连接：&lt;/strong&gt;无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无状态：&lt;/strong&gt;HTTP协议是无状态协议。无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;3-http请求结构&#34;&gt;3. HTTP请求结构&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133143922.png&#34; alt=&#34;HTTP请求结构&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;HTTP1.0 定义了三种请求方法： GET, POST 和 HEAD方法。HTTP1.1 新增了六种请求方法：OPTIONS、PUT、PATCH、DELETE、TRACE 和 CONNECT 方法。&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;序号&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;方法&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;GET&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;请求指定的页面信息，并返回实体主体。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;2&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;HEAD&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;POST&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST 请求可能会导致新的资源的建立和/或已有资源的修改。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;PUT&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;从客户端向服务器传送的数据取代指定的文档的内容。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;5&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;DELETE&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;请求服务器删除指定的页面。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;6&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;CONNECT&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;7&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;OPTIONS&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;允许客户端查看服务器的性能。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;8&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;TRACE&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;回显服务器收到的请求，主要用于测试或诊断。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;9&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;PATCH&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;是对 PUT 方法的补充，用来对已知资源进行局部更新 。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;请求头部用来设置HTTP请求的一些参数，如Host、User-Agen&lt;/p&gt;
+
+&lt;p&gt;请求数据，表示要上传的数据，其和头部之间是是有空行的，且请求头部后面的空行是必须的（即使请求数据为空）。&lt;/p&gt;
+
+&lt;h2 id=&#34;4-http响应结构&#34;&gt;4. HTTP响应结构&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133027691.png&#34; alt=&#34;HTTP响应结构&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;状态码类别&#34;&gt;状态码类别&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;分类&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;分类描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;1**&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;指示信息，表示服务器收到请求，需要请求者继续执行操作&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;2**&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;成功，操作被成功接收并处理&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;3**&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;重定向，需要进一步的操作以完成请求&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;4**&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;客户端错误，请求包含语法错误或无法完成请求&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;5**&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;服务器错误，服务器在处理请求的过程中发生了错误&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;常见状态码&#34;&gt;&lt;strong&gt;常见状态码&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;200 OK&lt;/code&gt; 客户端请求成功&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;301 Moved Permanently&lt;/code&gt; 请求永久重定向&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;302 Moved Temporarily&lt;/code&gt; 请求临时重定向&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;304 Not Modified&lt;/code&gt; 文件未修改，可以直接使用缓存的文件。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;400 Bad Request&lt;/code&gt; 由于客户端请求有语法错误，不能被服务器所理解。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;401 Unauthorized&lt;/code&gt; 请求未经授权。这个状态代码必须和WWW-Authenticate报头域一起使用。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;403 Forbidden&lt;/code&gt; 服务器收到请求，但是拒绝提供服务。服务器通常会在响应正文中给出不提供服务的原因。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;404 Not Found&lt;/code&gt; 请求的资源不存在，例如，输入了错误的URL。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;500 Internal Server Error&lt;/code&gt; 服务器发生不可预期的错误，导致无法完成客户端的请求。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;503 Service Unavailable&lt;/code&gt; 服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;详细的状态码，可以 &lt;a href=&#34;https://www.runoob.com/http/http-status-codes.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;在这里查看&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;5-http抓包分析&#34;&gt;5. HTTP抓包分析&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102131710940.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;双击第一条&lt;strong&gt;HTTP请求&lt;/strong&gt;，查看详细请求报文：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102131922136.png&#34; alt=&#34;HTTP请求&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;双击第二条&lt;strong&gt;HTTP响应&lt;/strong&gt;，查看详细响应报文：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133316895.png&#34; alt=&#34;HTTP响应&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;6-http请求-响应的步骤&#34;&gt;6. HTTP请求/响应的步骤&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;客户端连接到Web服务器，客户端（通常是浏览器）与Web服务器的端口（默认80）建立TCP套接字（ socket ）连接&lt;/li&gt;
+&lt;li&gt;客户端发送HTTP请求&lt;/li&gt;
+&lt;li&gt;服务器接受请求并返回HTTP响应&lt;/li&gt;
+&lt;li&gt;释放连接TCP连接。若连接模式为close则服务器主动关闭TCP连接；若连接模式为Keep-Alive则该连接会保持一段时间，在该时间内可以继续接收请求。&lt;/li&gt;
+&lt;li&gt;客户端浏览器解析HTML内容&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;7-一些问题&#34;&gt;7. 一些问题&lt;/h2&gt;
+
+&lt;h3 id=&#34;7-1-在浏览器地址栏键入带有http请求的url-按下回车之后经历的流程&#34;&gt;7.1 在浏览器地址栏键入带有HTTP请求的URL，按下回车之后经历的流程？&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;NDS解析。浏览器会根据URL逐层（浏览器缓存 &amp;ndash; 系统缓存 &amp;ndash; 路由器缓存 &amp;ndash; IPS服务器缓存 &amp;ndash; 域名服务器缓存 &amp;ndash; 顶级域名服务器缓存，找到即可返回不再需要查询后面的缓存）查询DNS缓存，解析URL中的域名对应的IP地址。&lt;/li&gt;
+&lt;li&gt;TCP连接。根据IP地址和端口与服务器建立TCP连接（三次握手）。&lt;/li&gt;
+&lt;li&gt;发送HTTP请求。建立连接后浏览器向服务器发出读取文件的HTTP请求。&lt;/li&gt;
+&lt;li&gt;服务器处理请求并返回HTTP报文。&lt;/li&gt;
+&lt;li&gt;浏览器解析渲染页面。&lt;/li&gt;
+&lt;li&gt;连接结束。浏览器释放TCP连接。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;7-2-get请求和post请求的区别&#34;&gt;7.2 GET请求和POST请求的区别？&lt;/h3&gt;
+
+&lt;p&gt;从三个层面来解答&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;1. Http报文层面：&lt;/strong&gt;GET将请求信息放在URL，POST放在报文体中（想获得请求详细必须请求报文，所以安全性较GET方式高一些，事实上要获得报文体中的请求信息也是很容易的‘Wireshark就可以查看’，因此安全性上两者并没有太多的区别，具体解决安全性的问题需要HTTPS）&lt;img src=&#34;https://halklein.github.io/images/image-20191102164918550.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;2. 数据库层面：&lt;/strong&gt;CET符合幂等性（多次操作获得结果一样）和安全性（不会改变数据库数据，GET做查询操作），POST都不符合。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;3. 其他层面：&lt;/strong&gt;GET可以被缓存、被存储，而POST不行。所以GET现在依然规范使用。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;7-3-cookie和session的区别&#34;&gt;7.3 Cookie和Session的区别？&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Cookie简介&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;是由服务器发给客户端的特殊信息，以文本的形式存放在客户端
+客户端再次请求的时候，会把Cookie回发
+服务器接收到后，会解析Cookie生成与客户端相对应的内容&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Cookie的设置以及发送过程&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102165937469.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;客户端发送一个http请求到服务器端&lt;/li&gt;
+&lt;li&gt;服务器端发送一个http响应到客户端，其中包含Set-Cookie头部&lt;/li&gt;
+&lt;li&gt;客户端发送一个http请求到服务器端，其中包含Cookie头部&lt;/li&gt;
+&lt;li&gt;服务器端发送一个http响应到客户端&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Session简介&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;服务器端的机制，在服务器上保存的信息
+解析客户端请求并操作session id，按需保存状态信息&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Session的实现方式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;使用Cookie来实现&lt;img src=&#34;https://halklein.github.io/images/image-20191102170521616.png&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;使用URL回写来实现。服务器在发送给浏览器的所有连接中都携带JSESSIONID的参数，这样客户端点击任何一个路径都会带回JSESSIONID。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;二者的区别：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Cookie数据存放在客户的浏览器上，Session数据放在服务器上&lt;/li&gt;
+&lt;li&gt;Session相对于Cookie更安全&lt;/li&gt;
+&lt;li&gt;若考虑减轻服务器负担，应当使用Cookie&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;7-4-http和https的区别&#34;&gt;7.4 HTTP和HTTPS的区别？&lt;/h2&gt;
+
+&lt;h3 id=&#34;https简介&#34;&gt;HTTPS简介&lt;/h3&gt;
+
+&lt;p&gt;超文本传输安全协议（英语：HyperText Transfer Protocol Secure，缩写：HTTPS；常称为HTTP over TLS、HTTP over SSL或HTTP Secure）是一种通过计算机网络进行安全通信的传输协议。是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。&lt;/p&gt;
+
+&lt;h3 id=&#34;ssl&#34;&gt;SSL&lt;/h3&gt;
+
+&lt;p&gt;SSL（Security Sockets Layer，安全套接层）&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;为网络通信提供安全及数据完整性的一种安全协议&lt;/li&gt;
+&lt;li&gt;是操作系统对外的API，SSL3.0后更名为TLS&lt;/li&gt;
+&lt;li&gt;采用身份验证和数据加密保证网络通信的安全和数据的完整性&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;加密的方式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;对称加密：也叫私钥加密，指加密和解密使用相同密钥的加密算法。有时又叫传统密码算法，就是加密密钥能够从解密密钥中推算出来，同时解密密钥也可以从加密密钥中推算出来。而在大多数的对称算法中，加密密钥和解密密钥是相同的，所以也称这种加密算法为秘密密钥算法或单密钥算法。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;常见的对称加密有：DES（Data Encryption Standard）、AES（Advanced Encryption Standard）、RC4、IDEA。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;非对称加密：与对称加密算法不同，非对称加密算法需要两个密钥：公开密钥（publickey）和私有密钥（privatekey）；并且加密密钥和解密密钥是成对出现的。非对称加密算法在加密和解密过程使用了不同的密钥，非对称加密也称为公钥加密，在密钥对中，其中一个密钥是对外公开的，所有人都可以获取到，称为公钥，其中一个密钥是不公开的称为私钥。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;非对称加密算法对加密内容的长度有限制，不能超过公钥长度。比如现在常用的公钥长度是 2048 位，意味着待加密内容不能超过 256 个字节。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;摘要算法：采用单项Hash函数将需要加密的明文“摘要”成一串固定长度的密文，这一串密文又称为数字指纹，它有固定的长度，而且不同的明文摘要成密文，其结果总是不同的，而同样的明文其摘要必定一致。“数字摘要“是https能确保数据完整性和防篡改的根本原因，算法不可逆。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;数字签名：数字签名技术就是对“非对称密钥加解密”和“数字摘要“两项技术的应用，它将摘要信息用发送者的私钥加密，与原文一起传送给接收者。接收者只有用发送者的公钥才能解密被加密的摘要信息，然后用HASH函数对收到的原文产生一个摘要信息，与解密的摘要信息对比。如果相同，则说明收到的信息是完整的，在传输过程中没有被修改，否则说明信息被修改过，因此数字签名能够验证信息的完整性。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;数字签名的&lt;strong&gt;过程&lt;/strong&gt;如下：&lt;/p&gt;
+
+&lt;p&gt;明文 &amp;ndash;&amp;gt; hash运算 &amp;ndash;&amp;gt; 摘要 &amp;ndash;&amp;gt; 私钥加密 &amp;ndash;&amp;gt; 数字签名&lt;/p&gt;
+
+&lt;p&gt;数字签名有两种&lt;strong&gt;作用&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;一、能确定消息确实是由发送方签名并发出来的，因为别人假冒不了发送方的签名。&lt;/p&gt;
+
+&lt;p&gt;二、数字签名能确定消息的完整性。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;https数据传输流程&#34;&gt;HTTPS数据传输流程&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;浏览器将支持的加密算法信息发送给服务器&lt;/li&gt;
+&lt;li&gt;服务器选择一套浏览器支持的加密算法，以证书的形式回发浏览器&lt;/li&gt;
+&lt;li&gt;浏览器验证证书合法性，并结合证书公钥加密信息发送给服务器&lt;/li&gt;
+&lt;li&gt;服务器使用私钥解密信息，验证哈希，加密响应消息回发浏览器&lt;/li&gt;
+&lt;li&gt;浏览器解密响应消息，并对消息进行验真，之后进行加密交互数据&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;http和https的区别&#34;&gt;HTTP和HTTPS的区别?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTTPS需要到CA申请证书，HTTP不需要&lt;/li&gt;
+&lt;li&gt;HTTPS密文传输，HTTP明文传输&lt;/li&gt;
+&lt;li&gt;连接方式不同，HTTPS默认使用443端口，HTTP使用80端口&lt;/li&gt;
+&lt;li&gt;HTTPS=HTTP+加密+认证+完整性保护，较HTTP安全&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;https真的很安全吗&#34;&gt;HTTPS真的很安全吗?&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;那倒未必&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;浏览器默认填充http://，请求需要进行跳转，有被劫持的风险.&lt;/li&gt;
+&lt;li&gt;可以使用HSTS（HTTP Strict Transport Security）优化.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>TCP滑动窗口</title>
