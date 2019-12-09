@@ -8,7 +8,7 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Sun, 03 Nov 2019 13:37:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 05 Nov 2019 09:31:12 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,16 +16,16 @@
     <item>
       <title>Socket 入门</title>
       <link>https://halklein.github.io/2019/11/</link>
-      <pubDate>Sun, 03 Nov 2019 13:37:52 +0800</pubDate>
+      <pubDate>Tue, 05 Nov 2019 09:31:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/11/</guid>
       <description>进程间通信 网络中进程进行通信的前提是每个进程都要有唯一的标识，在本地计算机中我们可以用PID来唯一标识一个进程，可以多个计算机处在网络中时，</description>
     </item>
     
     <item>
-      <title>HTTP 及 HTTPS</title>
+      <title>HTTP 与 HTTPS</title>
       <link>https://halklein.github.io/2019/10/</link>
-      <pubDate>Sun, 03 Nov 2019 07:37:52 +0800</pubDate>
+      <pubDate>Sun, 03 Nov 2019 15:52:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/10/</guid>
       <description>1. HTTP协议 超文本传输协议（英语：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协</description>
@@ -34,7 +34,7 @@
     <item>
       <title>TCP滑动窗口</title>
       <link>https://halklein.github.io/2019/09/</link>
-      <pubDate>Fri, 01 Nov 2019 12:54:54 +0800</pubDate>
+      <pubDate>Sat, 02 Nov 2019 19:45:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/09/</guid>
       <description>1. RTT 和 RTO RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。 RTO（retransamission tim</description>
@@ -43,7 +43,7 @@
     <item>
       <title>TCP和UDP的区别</title>
       <link>https://halklein.github.io/2019/08/</link>
-      <pubDate>Fri, 01 Nov 2019 07:54:54 +0800</pubDate>
+      <pubDate>Fri, 01 Nov 2019 14:26:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/08/</guid>
       <description>1. UDP协议 用户数据报协议（英语：User Datagram Protocol，缩写：UDP；又称用户数据包协议）是一个简单的面向数据报的通信协议，位于OSI</description>

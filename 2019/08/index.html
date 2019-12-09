@@ -52,8 +52,8 @@
     "accountablePerson" : "HalKlein",
     "copyrightHolder" : "HalKlein",
     "copyrightYear" : "2019",
-    "datePublished": "2019-11-01 07:54:54 \x2b0800 CST",
-    "dateModified" : "2019-11-01 07:54:54 \x2b0800 CST",
+    "datePublished": "2019-11-01 14:26:16 \x2b0800 CST",
+    "dateModified" : "2019-11-01 14:26:16 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/08\/",
     "wordCount" : "687",
     "keywords" : [ "计算机网络", "HalKlein`s Blog"]
@@ -194,17 +194,12 @@
 <p><strong>UDP的特点：</strong></p>
 
 <ul>
-<li><p>面向非连接，传输数据之前不需要先建立连接。</p></li>
-
-<li><p>不维护连接状态，支持同时向多个客户端传输相同的消息， 支持一对一、一对多、多对多、多对一的传输方式，也就是说 UDP 提供了单播，多播，广播的功能。</p></li>
-
-<li><p>数据包报头只有8个字节，额外开销较小</p></li>
-
-<li><p>吞吐量只受限于数据生成速率、传输速率以及机器性能</p></li>
-
-<li><p>不可靠：尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表</p></li>
-
-<li><p>面向报文，不对应用程序提交的报文信息进行拆分或者合并</p></li>
+<li>面向非连接，传输数据之前不需要先建立连接。</li>
+<li>不维护连接状态，支持同时向多个客户端传输相同的消息， 支持一对一、一对多、多对多、多对一的传输方式，也就是说 UDP 提供了单播，多播，广播的功能。</li>
+<li>数据包报头只有8个字节，额外开销较小</li>
+<li>吞吐量只受限于数据生成速率、传输速率以及机器性能</li>
+<li>不可靠：尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表</li>
+<li>面向报文，不对应用程序提交的报文信息进行拆分或者合并</li>
 </ul>
 
 <h2 id="2-tcp和udp的区别">2. TCP和UDP的区别</h2>
@@ -212,65 +207,65 @@
 <table>
 <thead>
 <tr>
-<th align="left"></th>
-<th align="left">TCP</th>
-<th align="left">UDP</th>
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td align="left">是否连接</td>
-<td align="left">面向连接</td>
-<td align="left">无连接</td>
+<td>是否连接</td>
+<td>面向连接</td>
+<td>无连接</td>
 </tr>
 
 <tr>
-<td align="left">可靠性</td>
-<td align="left">可靠传输，使用流量控制和拥塞控制</td>
-<td align="left">不可靠传输，不使用流量控制和拥塞控制</td>
+<td>可靠性</td>
+<td>可靠传输，使用流量控制和拥塞控制</td>
+<td>不可靠传输，不使用流量控制和拥塞控制</td>
 </tr>
 
 <tr>
-<td align="left">有序性</td>
-<td align="left">有序</td>
-<td align="left">无序</td>
+<td>有序性</td>
+<td>有序</td>
+<td>无序</td>
 </tr>
 
 <tr>
-<td align="left">速率</td>
-<td align="left">慢</td>
-<td align="left">快</td>
+<td>速率</td>
+<td>慢</td>
+<td>快</td>
 </tr>
 
 <tr>
-<td align="left">量级</td>
-<td align="left">重量级</td>
-<td align="left">轻量级</td>
+<td>量级</td>
+<td>重量级</td>
+<td>轻量级</td>
 </tr>
 
 <tr>
-<td align="left">连接对象个数</td>
-<td align="left">只支持一对一通信</td>
-<td align="left">支持一对一，一对多，多对一、多对多通信</td>
+<td>连接对象个数</td>
+<td>只支持一对一通信</td>
+<td>支持一对一，一对多，多对一、多对多通信</td>
 </tr>
 
 <tr>
-<td align="left">传输方式</td>
-<td align="left">面向字节流</td>
-<td align="left">面向报文</td>
+<td>传输方式</td>
+<td>面向字节流</td>
+<td>面向报文</td>
 </tr>
 
 <tr>
-<td align="left">首部开销</td>
-<td align="left">首部最小20字节，最大60字节</td>
-<td align="left">首部开销小，仅8字节</td>
+<td>首部开销</td>
+<td>首部最小20字节，最大60字节</td>
+<td>首部开销小，仅8字节</td>
 </tr>
 
 <tr>
-<td align="left">适用场景</td>
-<td align="left">要求可靠传输的应用，例如文件传输</td>
-<td align="left">实时应用（IP电话、视频会议、直播等）</td>
+<td>适用场景</td>
+<td>要求可靠传输的应用，例如文件传输</td>
+<td>实时应用（IP电话、视频会议、直播等）</td>
 </tr>
 </tbody>
 </table>
