@@ -190,7 +190,7 @@
 
 <h3 id="下面-模拟tcp缓冲区"><strong>下面，模拟TCP缓冲区：</strong></h3>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/image561646.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/JUC5zmwxbLkyvFq.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure></p>
 
 <ul>
 <li>发送端的LastByteAcked指向了被接收端Ack过的位置（表示成功发送确认），LastByteSent表示发出去了，但还没有收到成功确认的Ack，LastByteWritten指向的是上层应用正在写的地方。</li>
@@ -208,11 +208,11 @@
 
 <p><strong>TCP会话的发送方，滑动窗口示意图</strong></p>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/image-20191101222743084.png" alt="发送方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">发送方滑动窗口示意图</figcaption></figure>发送方滑动窗口示意图</p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/cnU7JxGLl1hySEe.png" alt="发送方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">发送方滑动窗口示意图</figcaption></figure>发送方滑动窗口示意图</p>
 
 <p><strong>TCP会话的接收方，滑动窗口示意图</strong></p>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://halklein.github.io/images/image-20191101223300449.png" alt="接收方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">接收方滑动窗口示意图</figcaption></figure>接收方滑动窗口示意图</p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/rFw3h7ES8Ze2VAb.png" alt="接收方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">接收方滑动窗口示意图</figcaption></figure>接收方滑动窗口示意图</p>
 
 <p>需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。</p>
 

@@ -30,7 +30,7 @@
 
 &lt;p&gt;socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&amp;gt; 读写write/read –&amp;gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/shhyjoh.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/tl96CpP3Qv4fMEV.jpg&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Socket与TCP/IP协议并没有必然的联系，Socket编程接口在设计的时候就希望能适应其它的网络协议，所以Socket的出现是为了我们更好地使用TCP/IP协议栈，是对TCP/IP协议的抽象，是操作系统对外开放的接口。&lt;/p&gt;
 
@@ -38,7 +38,7 @@
 
 &lt;p&gt;以使用TCP协议通讯的socket为例，其交互流程大概是这样子的&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/awjonmv.png&#34; alt=&#34;Socket通信流程&#34; /&gt;Socket通信流程&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/aJRALE8cFmZonkg.png&#34; alt=&#34;Socket通信流程&#34; /&gt;Socket通信流程&lt;/p&gt;
 
 &lt;h2 id=&#34;实列&#34;&gt;实列&lt;/h2&gt;
 
@@ -127,9 +127,9 @@
 
 &lt;p&gt;运行&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191103135737193.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/Rg5GzaCweFlMtjL.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191103135757686.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/iITvbCjR18d2HMY.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;UDP方式：&lt;/strong&gt;&lt;/p&gt;
 
@@ -188,7 +188,7 @@
 
 &lt;p&gt;运行&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191103140415113.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/RuBrkvAVp5aFTx3.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
@@ -246,7 +246,7 @@
 
 &lt;h2 id=&#34;3-http请求结构&#34;&gt;3. HTTP请求结构&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133143922.png&#34; alt=&#34;HTTP请求结构&#34; /&gt;HTTP请求结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/G4fT2BQZSq7U6jn.png&#34; alt=&#34;HTTP请求结构&#34; /&gt;HTTP请求结构&lt;/p&gt;
 
 &lt;p&gt;HTTP1.0 定义了三种请求方法： GET, POST 和 HEAD方法。HTTP1.1 新增了六种请求方法：OPTIONS、PUT、PATCH、DELETE、TRACE 和 CONNECT 方法。&lt;/p&gt;
 
@@ -322,7 +322,7 @@
 
 &lt;h2 id=&#34;4-http响应结构&#34;&gt;4. HTTP响应结构&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133027691.png&#34; alt=&#34;HTTP响应结构&#34; /&gt;HTTP响应结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/RoUCGZ16VKHb4hk.png&#34; alt=&#34;HTTP响应结构&#34; /&gt;HTTP响应结构&lt;/p&gt;
 
 &lt;h3 id=&#34;状态码类别&#34;&gt;状态码类别&lt;/h3&gt;
 
@@ -381,15 +381,15 @@
 
 &lt;h2 id=&#34;5-http抓包分析&#34;&gt;5. HTTP抓包分析&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102131710940.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/azHYDUIAb4yJw6Q.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;双击第一条&lt;strong&gt;HTTP请求&lt;/strong&gt;，查看详细请求报文：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102131922136.png&#34; alt=&#34;HTTP请求&#34; /&gt;HTTP请求&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/JryvnTqcubGUMDS.png&#34; alt=&#34;HTTP请求&#34; /&gt;HTTP请求&lt;/p&gt;
 
 &lt;p&gt;双击第二条&lt;strong&gt;HTTP响应&lt;/strong&gt;，查看详细响应报文：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102133316895.png&#34; alt=&#34;HTTP响应&#34; /&gt;HTTP响应&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/fjxp98r1Nign46K.png&#34; alt=&#34;HTTP响应&#34; /&gt;HTTP响应&lt;/p&gt;
 
 &lt;h2 id=&#34;6-http请求-响应的步骤&#34;&gt;6. HTTP请求/响应的步骤&lt;/h2&gt;
 
@@ -422,7 +422,7 @@
 &lt;li&gt;&lt;strong&gt;1. Http报文层面：&lt;/strong&gt;GET将请求信息放在URL，POST放在报文体中（想获得请求详细必须请求报文，所以安全性较GET方式高一些，事实上要获得报文体中的请求信息也是很容易的‘Wireshark就可以查看’，因此安全性上两者并没有太多的区别，具体解决安全性的问题需要HTTPS）&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102164918550.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/DQaeRE6JoPSrfYn.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;2. 数据库层面：&lt;/strong&gt;CET符合幂等性（多次操作获得结果一样）和安全性（不会改变数据库数据，GET做查询操作），POST都不符合。&lt;/p&gt;&lt;/li&gt;
@@ -440,7 +440,7 @@
 
 &lt;p&gt;&lt;strong&gt;Cookie的设置以及发送过程&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102165937469.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/2hP1culNRmJwZej.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;客户端发送一个http请求到服务器端&lt;/li&gt;
@@ -461,7 +461,7 @@
 &lt;li&gt;使用Cookie来实现&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191102170521616.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/nGwOtgZTQxP8lCU.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;使用URL回写来实现。服务器在发送给浏览器的所有连接中都携带JSESSIONID的参数，这样客户端点击任何一个路径都会带回JSESSIONID。&lt;/li&gt;
@@ -577,7 +577,7 @@
 
 &lt;h3 id=&#34;下面-模拟tcp缓冲区&#34;&gt;&lt;strong&gt;下面，模拟TCP缓冲区：&lt;/strong&gt;&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image561646.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/JUC5zmwxbLkyvFq.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;发送端的LastByteAcked指向了被接收端Ack过的位置（表示成功发送确认），LastByteSent表示发出去了，但还没有收到成功确认的Ack，LastByteWritten指向的是上层应用正在写的地方。&lt;/li&gt;
@@ -595,11 +595,11 @@
 
 &lt;p&gt;&lt;strong&gt;TCP会话的发送方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191101222743084.png&#34; alt=&#34;发送方滑动窗口示意图&#34; /&gt;发送方滑动窗口示意图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/cnU7JxGLl1hySEe.png&#34; alt=&#34;发送方滑动窗口示意图&#34; /&gt;发送方滑动窗口示意图&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;TCP会话的接收方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/image-20191101223300449.png&#34; alt=&#34;接收方滑动窗口示意图&#34; /&gt;接收方滑动窗口示意图&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/rFw3h7ES8Ze2VAb.png&#34; alt=&#34;接收方滑动窗口示意图&#34; /&gt;接收方滑动窗口示意图&lt;/p&gt;
 
 &lt;p&gt;需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。&lt;/p&gt;
 
@@ -619,7 +619,7 @@
 
 &lt;p&gt;&lt;strong&gt;用户数据报协议&lt;/strong&gt;（英语：&lt;strong&gt;U&lt;/strong&gt;ser &lt;strong&gt;D&lt;/strong&gt;atagram &lt;strong&gt;P&lt;/strong&gt;rotocol，缩写：&lt;strong&gt;UDP&lt;/strong&gt;；又称&lt;strong&gt;用户数据包协议&lt;/strong&gt;）是一个简单的面向数据报的通信协议，位于OSI模型的传输层。该协议由 &lt;a href=&#34;https://zh.wikipedia.org/w/index.php?title=David_P._Reed&amp;amp;action=edit&amp;amp;redlink=1&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;David P. Reed&lt;/a&gt; 在1980年设计且在&lt;a href=&#34;https://tools.ietf.org/html/rfc768&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;RFC 768&lt;/a&gt;中被规范。典型网络上的众多使用UDP协议的关键应用在一定程度上是相似的。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://halklein.github.io/images/2019-03-21-03.png&#34; alt=&#34;UDP头部结构&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/tk53hsSwfUxFKAE.png&#34; alt=&#34;UDP头部结构&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;UDP头部包含了以下几个数据：&lt;/strong&gt;&lt;/p&gt;
 
