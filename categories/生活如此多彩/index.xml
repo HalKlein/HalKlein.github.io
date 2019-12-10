@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>生活如此多彩 on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/categories/%E7%94%9F%E6%B4%BB%E5%A6%82%E6%AD%A4%E5%A4%9A%E5%BD%A9/</link>
+    <description>Recent content in 生活如此多彩 on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Wed, 29 Aug 2018 19:39:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/categories/%E7%94%9F%E6%B4%BB%E5%A6%82%E6%AD%A4%E5%A4%9A%E5%BD%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>八月长沙行</title>
+      <link>https://halklein.github.io/2018/15/</link>
+      <pubDate>Wed, 29 Aug 2018 19:39:09 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2018/15/</guid>
+      <description>18年暑假大部分时间是在湖南度过的，由于气温一直不比重庆凉快，所以就没出门去，最后还是决定去长沙玩几天。 已经不是第一次来长沙，上一次来是去年</description>
+    </item>
+    
+  </channel>
+</rss>
