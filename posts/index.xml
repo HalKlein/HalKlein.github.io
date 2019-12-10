@@ -1207,7 +1207,7 @@ int main()
 
 &lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -1218,7 +1218,7 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 
 &lt;h2 id=&#34;3-常用git命令&#34;&gt;3. 常用Git命令&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;//初始化git仓库
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//初始化git仓库
 git init
 //连接到Github
 git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
@@ -1230,7 +1230,7 @@ git commit -m &amp;quot;提交说明&amp;quot;
 git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;//拉去整个项目
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//拉去整个项目
 git clone [url]
 //拉取远程仓库里面master分支到本地
 git pull origin master
@@ -1249,7 +1249,7 @@ $ git status
 
 &lt;h2 id=&#34;4-一些hugo命令&#34;&gt;4. 一些Hugo命令&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code&gt;//创建网站
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//创建网站
 hugo new site myBlog
 //创建页面
 hugo new about.md

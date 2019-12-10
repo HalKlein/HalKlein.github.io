@@ -179,7 +179,7 @@
 
 <p>最后找到原因：git 的代理要单独配置，命令如下：</p>
 
-<pre><code class="language-c">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+<pre><code class="language-c++">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 </code></pre>
 
@@ -190,7 +190,7 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 
 <h2 id="3-常用git命令">3. 常用Git命令</h2>
 
-<pre><code>//初始化git仓库
+<pre><code class="language-c++">//初始化git仓库
 git init
 //连接到Github
 git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
@@ -202,7 +202,7 @@ git commit -m &quot;提交说明&quot;
 git push -u origin master
 </code></pre>
 
-<pre><code>//拉去整个项目
+<pre><code class="language-c++">//拉去整个项目
 git clone [url]
 //拉取远程仓库里面master分支到本地
 git pull origin master
@@ -221,7 +221,7 @@ $ git status
 
 <h2 id="4-一些hugo命令">4. 一些Hugo命令</h2>
 
-<pre><code>//创建网站
+<pre><code class="language-c++">//创建网站
 hugo new site myBlog
 //创建页面
 hugo new about.md
