@@ -121,5 +121,14 @@
       <description>工具类 线性筛素数 #include &amp;lt;iostream&amp;gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i &amp;lt; SIZE; i++ ) { /* 是素数 */ if ( !check[i] ) prime[pos++] = i; for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i</description>
     </item>
     
+    <item>
+      <title>汉明码（海明码）计算与纠错</title>
+      <link>https://halklein.github.io/2018/13/</link>
+      <pubDate>Wed, 12 Sep 2018 20:36:39 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2018/13/</guid>
+      <description>海明码在网络、通信和操作系统中都有着广泛的运用，同时也是软考的必考内容，所以写这篇笔记以备忘 关于海明码 海明码是一种线性纠错码，由理查德 · 卫斯</description>
+    </item>
+    
   </channel>
 </rss>
