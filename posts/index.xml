@@ -1194,7 +1194,7 @@ int main()
     </item>
     
     <item>
-      <title>采坑小记</title>
+      <title>迁移小记</title>
       <link>https://halklein.github.io/2019/02/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
@@ -1211,16 +1211,60 @@ int main()
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;socks5代理端口在这里查看：&lt;/p&gt;
+&lt;h2 id=&#34;2-macos-启用未知来源&#34;&gt;2. MacOS 启用未知来源&lt;/h2&gt;
 
-&lt;p&gt;MacOS 未知来源：sudo spctl &amp;ndash;master-disable&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;sudo spctl --master-disable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;3-常用git命令&#34;&gt;3. 常用Git命令&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;//初始化git仓库
+git init
+//连接到Github
+git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
+//提交所有的更改
+git add -A
+//提交并添加说明
+git commit -m &amp;quot;提交说明&amp;quot;
+//推到master主分支
+git push -u origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;//拉去整个项目
+git clone [url]
+//拉取远程仓库里面master分支到本地
+git pull origin master
+//查看有哪些文件夹
+dir
+//查看当前git配置
+git config --list
+//编辑git配置文件
+git config --user.name
+//设置git用户信息
+git config [--global] user.name &amp;quot;[name]&amp;quot;
+git config [--global] user.email &amp;quot;[email address]&amp;quot;
+//查看仓库当前的状态
+$ git status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;4-一些hugo命令&#34;&gt;4. 一些Hugo命令&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;//创建网站
+hugo new site myBlog
+//创建页面
+hugo new about.md
+//本地运行测试
+hugo server -D
+//生成
+hugo
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>第一篇文章</title>
+      <title>博客迁移 Hugo</title>
       <link>https://halklein.github.io/2019/01/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
@@ -1234,6 +1278,260 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;p&gt;​       &lt;strong&gt;也懂这世界悲欢，&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;​       &lt;strong&gt;陪你走千帆，仍方寸不乱。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>算法比赛模板（一）</title>
+      <link>https://halklein.github.io/2019/12/</link>
+      <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/12/</guid>
+      <description>
+
+&lt;h2 id=&#34;工具类&#34;&gt;工具类&lt;/h2&gt;
+
+&lt;h3 id=&#34;线性筛素数&#34;&gt;线性筛素数&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+using namespace std;
+#define SIZE 1000
+int main()
+{
+	int	check[SIZE]	= { 0 };
+	int	prime[SIZE]	= { 0 };
+	int	pos		= 0;
+	for ( int i = 2; i &amp;lt; SIZE; i++ )
+	{
+		/* 是素数 */
+		if ( !check[i] )
+			prime[pos++] = i;
+		for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i * prime[j] &amp;lt; SIZE; j++ )
+		{
+			/* 筛掉 */
+			check[i * prime[j]] = 1;
+			if ( i % prime[j] == 0 )
+				break;
+		}
+	}
+	for ( int i = 0; prime[i] != 0; i++ )
+		printf( &amp;quot;%d &amp;quot;, prime[i] );
+	return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;以文本作为c-的数据输入&#34;&gt;以文本作为C++的数据输入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;freopen( &amp;quot;DATA.in&amp;quot;, &amp;quot;r&amp;quot;, stdin );
+freopen( &amp;quot;DATA.out&amp;quot;, &amp;quot;w&amp;quot;, stdout );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;星期计算公式&#34;&gt;星期计算公式&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+using namespace std;
+
+
+/*
+ * 基姆拉尔森：w=(d+2*m+3*(m+1)/5+y+y/4-y/100+y/400)%7
+ * w：0:星期一...依此类推
+ */
+int cal1( int y, int m, int d )
+{
+	if ( m == 1 || m == 2 )
+		m += 12, y--;
+	int w = (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7;
+	/* 结果加 1，返回 星期一：1 ——到星期日：7 */
+	return(++w);
+}
+
+
+int main()
+{
+	int y, m, d;
+	scanf( &amp;quot;%d %d %d&amp;quot;, &amp;amp;y, &amp;amp;m, &amp;amp;d );
+	int x = cal1( y, m, d );
+	printf( &amp;quot;%dn&amp;quot;, x );
+	return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;大数阶乘-java&#34;&gt;大数阶乘（Java）&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;import java.io.*;
+import java.util.*;
+import java.math.BigInteger;
+public class Main {
+	public static void main( String[] args )
+	{
+		Scanner		cin	= new Scanner( System.in );
+		int		n	= cin.nextint();
+		BigInteger	ans	= BigInteger.ONE;
+		for ( int i = 1; i &amp;lt;= n; i++ )
+			ans = ans.multiply( BigInteger.valueOf( i ) );
+		System.out.println( ans );
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;全排列-函数&#34;&gt;全排列 函数&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+
+int main()
+{
+    int num[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    do
+    {
+        cout    &amp;lt;&amp;lt; num[0] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[1] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[2] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[3] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[4] &amp;lt;&amp;lt; &amp;quot; &amp;quot;
+            &amp;lt;&amp;lt; num[5] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[6] &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; num[7] &amp;lt;&amp;lt; endl;
+    }
+    while ( next_permutation( num, num + 8 ) ); /* 全排列函数 */
+
+    return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;经典例题&#34;&gt;经典例题&lt;/h2&gt;
+
+&lt;h3 id=&#34;说反话&#34;&gt;说反话&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;stack&amp;gt;
+using namespace std;
+int main()
+{
+	stack&amp;lt;string&amp;gt;	v;
+	string		s;
+	while ( cin &amp;gt;&amp;gt; s )
+		v.push( s );
+	/* 入站 */
+	cout &amp;lt;&amp;lt; v.top();
+	/* 站顶 */
+	v.pop();
+	/* 弹出站顶 */
+	while ( !v.empty() )
+	{
+		cout &amp;lt;&amp;lt; &amp;quot; &amp;quot; &amp;lt;&amp;lt; v.top();
+		v.pop();
+	}
+	return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;悄悄关注&#34;&gt;悄悄关注&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/**
+ * 新浪微博上有个“悄悄关注”，一个用户悄悄关注的人，不出现在这个用户的关注列表上，但系统会推送其悄悄关注的人发表的微博给该用户。现在我们来做一回网络侦探，根据某人的关注列表和其对其他用户的点赞情况，扒出有可能被其悄悄关注的人。
+ * 输入格式：
+ * 输入首先在第一行给出某用户的关注列表，格式如下：
+ * 人数N 用户1 用户2 …… 用户N
+ * 其中N是不超过5000的正整数，每个“用户i”（i=1, ..., N）是被其关注的用户的ID，是长度为4位的由数字和英文字母组成的字符串，各项间以空格分隔。
+ * 之后给出该用户点赞的信息：首先给出一个不超过10000的正整数M，随后M行，每行给出一个被其点赞的用户ID和对该用户的点赞次数（不超过1000），以空格分隔。注意：用户ID是一个用户的唯一身份标识。题目保证在关注列表中没有重复用户，在点赞信息中也没有重复用户。
+ * 输出格式：
+ * 我们认为被该用户点赞次数大于其点赞平均数、且不在其关注列表上的人，很可能是其悄悄关注的人。根据这个假设，请你按用户ID字母序的升序输出可能是其悄悄关注的人，每行1个ID。如果其实并没有这样的人，则输出“Bing Mei You”。
+ */
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;map&amp;gt;
+using namespace std;
+
+/* 结构体数组 */
+struct pepole
+{
+    char    name[20];
+    int    num;
+}
+peoples[10001];
+
+/* 结构体排序 */
+bool cmp( pepole x, pepole y )
+{
+    return(x.name &amp;gt; y.name); /*按姓名排序 */
+}
+
+
+int main()
+{
+    int            n, num;
+    double            sum = 0;
+    char            a[20];
+    map&amp;lt;string, int&amp;gt;    m;
+
+    cin &amp;gt;&amp;gt; n;
+    for ( int i = 0; i &amp;lt; n; i++ )
+    {
+        cin &amp;gt;&amp;gt; a;
+        m[a] = 1; /* map键值对赋值 */
+    }
+
+    cin &amp;gt;&amp;gt; num;
+    for ( int i = 0; i &amp;lt; num; i++ )
+    {
+        scanf( &amp;quot;%s %d&amp;quot;, &amp;amp;peoples[i].name, &amp;amp;peoples[i].num );
+        sum += peoples[i].num;
+    }
+    sort( peoples, peoples + num, cmp ); /* 自定义排序 */
+    sum /= num;
+
+    int flag = 1;
+    for ( int i = 0; i &amp;lt; num; i++ )
+    {
+        /* 大于平均值 且 不在关注列表中 */
+        if ( peoples[i].num &amp;gt; sum &amp;amp;&amp;amp; m[peoples[i].name] == 0 )
+            printf( &amp;quot;%sn&amp;quot;, peoples[i].name ), flag = 0;
+    }
+    if ( flag )
+        printf( &amp;quot;Bing Mei Youn&amp;quot; );
+
+    return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;括号配对&#34;&gt;括号配对&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stack&amp;gt;
+using namespace std;
+int main()
+{
+	int t, len;
+	scanf( &amp;quot;%d&amp;quot;, &amp;amp;t );
+	getchar();
+	while ( t-- )
+	{
+		char		s[10010];
+		stack&amp;lt;char&amp;gt;	m;
+		gets( s );
+		len = strlen( s );
+		m.push( s[0] );
+		for ( int i = 1; i &amp;lt; len; i++ )
+		{
+			if ( m.size() == 0 )
+				m.push( s[i] );
+			else{
+				if ( m.top() == &#39;(&#39; &amp;amp;&amp;amp; s[i] == &#39;)&#39; )
+					m.pop();
+				else if ( m.top() == &#39;[&#39; &amp;amp;&amp;amp; s[i] == &#39;]&#39; )
+					m.pop();
+				else
+					m.push( s[i] );
+			}
+		}
+		if ( m.empty() )
+			printf( &amp;quot;Yes\n&amp;quot; );
+		else
+			printf( &amp;quot;No\n&amp;quot; );
+	}
+	return(0);
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

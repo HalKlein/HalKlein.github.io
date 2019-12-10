@@ -76,5 +76,14 @@
       <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型，由国际标准化组织</description>
     </item>
     
+    <item>
+      <title>算法比赛模板（一）</title>
+      <link>https://halklein.github.io/2019/12/</link>
+      <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/12/</guid>
+      <description>工具类 线性筛素数 #include &amp;lt;iostream&amp;gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i &amp;lt; SIZE; i++ ) { /* 是素数 */ if ( !check[i] ) prime[pos++] = i; for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i</description>
+    </item>
+    
   </channel>
 </rss>

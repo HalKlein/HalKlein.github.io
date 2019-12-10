@@ -86,7 +86,7 @@
     </item>
     
     <item>
-      <title>采坑小记</title>
+      <title>迁移小记</title>
       <link>https://halklein.github.io/2019/02/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
@@ -95,7 +95,7 @@
     </item>
     
     <item>
-      <title>第一篇文章</title>
+      <title>博客迁移 Hugo</title>
       <link>https://halklein.github.io/2019/01/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
@@ -110,6 +110,15 @@
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/about/</guid>
       <description>关于我 大四，软件工程在读。 My Github chart:</description>
+    </item>
+    
+    <item>
+      <title>算法比赛模板（一）</title>
+      <link>https://halklein.github.io/2019/12/</link>
+      <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/12/</guid>
+      <description>工具类 线性筛素数 #include &amp;lt;iostream&amp;gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i &amp;lt; SIZE; i++ ) { /* 是素数 */ if ( !check[i] ) prime[pos++] = i; for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i</description>
     </item>
     
   </channel>
