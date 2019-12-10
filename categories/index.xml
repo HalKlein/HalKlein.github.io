@@ -40,5 +40,14 @@
       <description></description>
     </item>
     
+    <item>
+      <title>随笔录</title>
+      <link>https://halklein.github.io/categories/%E9%9A%8F%E7%AC%94%E5%BD%95/</link>
+      <pubDate>Wed, 26 Sep 2018 20:00:35 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/categories/%E9%9A%8F%E7%AC%94%E5%BD%95/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
