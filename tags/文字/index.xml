@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>文字 on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/tags/%E6%96%87%E5%AD%97/</link>
+    <description>Recent content in 文字 on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Sat, 15 Sep 2018 19:55:11 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/%E6%96%87%E5%AD%97/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>给我未来的孩子</title>
+      <link>https://halklein.github.io/2018/17/</link>
+      <pubDate>Sat, 15 Sep 2018 19:55:11 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2018/17/</guid>
+      <description>文/张梅 孩子，我首先希望你自始至终都是一个理想主义者。你可以是农民，可以是工程师，可以是演员，可以是流浪汉，但你必须是个理想主义者。 当你童年</description>
+    </item>
+    
+  </channel>
+</rss>
