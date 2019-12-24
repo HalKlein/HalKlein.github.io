@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Tue, 24 Dec 2019 21:22:50 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于数据库索引的一些问题</title>
+      <link>https://halklein.github.io/2019/021/</link>
+      <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/021/</guid>
+      <description>密集索引和稀疏索引 一、密集索引和稀疏索引 密集索引文件中的每个搜索码值都对应一个索引值 稀疏索引文件只为索引码的某些值建立索引项 MySQL常见的</description>
+    </item>
+    
+    <item>
+      <title>数据库索引之 B&#43; Tree、Hash、BitMap</title>
+      <link>https://halklein.github.io/2019/020/</link>
+      <pubDate>Tue, 24 Dec 2019 19:54:38 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/020/</guid>
+      <description>B+ Tree 由于，二叉查看树在插入修改过程中，很可能出现只有左右子树的情况，虽然可以用平衡调整二叉树，但是每次IO依然很费时间，每访问一层就要对磁盘</description>
+    </item>
+    
+  </channel>
+</rss>

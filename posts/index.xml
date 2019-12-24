@@ -7,8 +7,113 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 05 Nov 2019 09:31:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Dec 2019 21:22:50 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>关于数据库索引的一些问题</title>
+      <link>https://halklein.github.io/2019/021/</link>
+      <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/021/</guid>
+      <description>
+
+&lt;h2 id=&#34;密集索引和稀疏索引&#34;&gt;密集索引和稀疏索引&lt;/h2&gt;
+
+&lt;h2 id=&#34;一-密集索引和稀疏索引&#34;&gt;一、密集索引和稀疏索引&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;密集索引文件中的每个搜索码值都对应一个索引值&lt;/li&gt;
+&lt;li&gt;稀疏索引文件只为索引码的某些值建立索引项&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/qtGm8r27hMxLDwV.png&#34; alt=&#34;密集索引和稀疏索引&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MySQL常见的数据库引擎：MyISAM只使用稀疏索引，InnoDB有且仅有以后密集索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;若一个主键被定义，该主键则作为密集索引&lt;/li&gt;
+&lt;li&gt;若没有主键被定义，该表的第一个唯一非空索引则作为密集索引&lt;/li&gt;
+&lt;li&gt;若不满足以上条件，innodb内部会生成一个隐藏主键（密集索引）&lt;/li&gt;
+&lt;li&gt;非主键索引存储相关键位和其对应的主键值，包含两次查找&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;二-如何定位并优化慢查询sql&#34;&gt;二、如何定位并优化慢查询Sql&lt;/h2&gt;
+
+&lt;p&gt;具体场景要具体分析，大致思路如下：
+- 根据慢日志定位慢查询sql
+- 使用explain等工具分析sql
+- 修改sql或者尽量让sql走索引&lt;/p&gt;
+
+&lt;h3 id=&#34;2-1-根据慢日志定位慢查询sql&#34;&gt;2.1 根据慢日志定位慢查询sql&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 查看数据库慢日志配置
+show variables like &amp;quot;%quer%&amp;quot;;
+
+# 查看慢日志数量
+show status like &amp;quot;%slow_queries%&amp;quot;;
+
+# 打开慢日志开关
+set global slow_query_log = on;
+
+# 设置慢日志记录阈值为1s，10s可以说是很慢很慢了，不具有参考价值
+# 修改后可能需要重新连接数据库才能看到效果
+# 另外，这样的设置在重启MySQL服务之后将会失效！如果要永久生效,需修改my.ini配置文件（Mac OS是my.cnf）
+set global long_query_time = 1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/NFSpx65OUvuqQhD.png&#34; alt=&#34;查看数据库慢日志配置&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>数据库索引之 B&#43; Tree、Hash、BitMap</title>
+      <link>https://halklein.github.io/2019/020/</link>
+      <pubDate>Tue, 24 Dec 2019 19:54:38 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/020/</guid>
+      <description>
+
+&lt;h2 id=&#34;b-tree&#34;&gt;B+ Tree&lt;/h2&gt;
+
+&lt;p&gt;由于，二叉查看树在插入修改过程中，很可能出现只有左右子树的情况，虽然可以用平衡调整二叉树，但是每次IO依然很费时间，每访问一层就要对磁盘进行IO，总体来说二叉树还不够优。由此找到了更好的替代方法-B树，又由于B+ Tree具有更好的特性，所以B+ Tree就成了常见的索引结构之一。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/xkZWtEguQIAoRXK.png&#34; alt=&#34;B+ Tree&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;B+ Tree相对于B树，具有的新特点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;非叶子节点的子树指针与关键字个数相同&lt;/li&gt;
+&lt;li&gt;非叶子节点的子树指针P[]，指向关键字值（[Ki]，K[i+1]）的子树&lt;/li&gt;
+&lt;li&gt;非叶子节点仅用来索引，数据都保存在叶子节点中&lt;/li&gt;
+&lt;li&gt;所有叶子节点均有一个链指针指向下一个叶子结点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;hash&#34;&gt;Hash&lt;/h2&gt;
+
+&lt;p&gt;通过Hash索引，能够通过Hash函数快速定位到索引目标，理论上比B+ Tree更快。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/hci2ueoaKS4klxf.png&#34; alt=&#34;Hash索引&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;但是Hash索引也有也有严重的缺陷：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;仅仅能满足“=&amp;ldquo;，“IN&amp;rdquo;，不能使用范围查询&lt;/li&gt;
+&lt;li&gt;无法被用来避免数据的排序操作&lt;/li&gt;
+&lt;li&gt;不能利用部分索引键查询&lt;/li&gt;
+&lt;li&gt;不能避免表扫描&lt;/li&gt;
+&lt;li&gt;遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以，索引没有最优，只有更适合某种情况的索引结构，他们常常组合使用。&lt;/p&gt;
+
+&lt;h2 id=&#34;bitmap&#34;&gt;BitMap&lt;/h2&gt;
+
+&lt;p&gt;位图索引，适用于某个字段的值只有固定的几种为了实现高效的统计的情况，如性别（男、女）。不过支持位图索引的数据库比较少，典型的有Oracle数据库。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/4uxK3ZdCTknmj9w.png&#34; alt=&#34;BitMap&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Socket 入门</title>
@@ -1132,80 +1237,6 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
     </item>
     
     <item>
-      <title>迁移小记</title>
-      <link>https://halklein.github.io/2019/002/</link>
-      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/002/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-提高-git-clone-的速度&#34;&gt;1. 提高 git clone 的速度&lt;/h2&gt;
-
-&lt;p&gt;之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己是有小飞机的，开了全局代理，居然还是很慢&lt;/p&gt;
-
-&lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 配置代理
-git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
-git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
-# 取消代理
-git config --global --unset http.https://github.com.proxy
-git config --global --unset https.https://github.com.proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;2-macos-启用未知来源&#34;&gt;2. MacOS 启用未知来源&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;sudo spctl --master-disable
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;3-常用git命令&#34;&gt;3. 常用Git命令&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 初始化git仓库
-git init
-# 连接到Github
-git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
-# 提交所有的更改
-git add -A
-# 提交并添加说明
-git commit -m &amp;quot;提交说明&amp;quot;
-# 推到master主分支
-git push -u origin master
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 拉取整个项目
-git clone [url]
-# 拉取远程仓库里面master分支到本地
-git pull origin master
-# 查看有哪些文件夹
-dir
-# 查看当前git配置
-git config --list
-# 编辑git配置文件
-git config --user.name
-# 设置git用户信息
-git config [--global] user.name &amp;quot;[name]&amp;quot;
-git config [--global] user.email &amp;quot;[email address]&amp;quot;
-# 查看仓库当前的状态
-$ git status
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;4-一些hugo命令&#34;&gt;4. 一些Hugo命令&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 创建网站
-hugo new site myBlog
-# 创建页面
-hugo new about.md
-# 本地运行测试
-hugo server -D
-# 生成
-hugo
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>博客迁移 Hugo</title>
       <link>https://halklein.github.io/2019/001/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
@@ -1951,106 +1982,6 @@ int main()
 &lt;p&gt;​   如果要纠出 d 位错误，需要一个海明距为 2d+1 的编码方案；&lt;/p&gt;
 
 &lt;p&gt;​   海明码的纠错能力恒小于等于检错能力。&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>八月长沙行</title>
-      <link>https://halklein.github.io/2018/015/</link>
-      <pubDate>Wed, 29 Aug 2018 19:39:09 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/015/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/eOPspgf7MBX8bcq.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;18年暑假大部分时间是在湖南度过的，由于气温一直不比重庆凉快，所以就没出门去，最后还是决定去长沙玩几天。&lt;/p&gt;
-
-&lt;p&gt;已经不是第一次来长沙，上一次来是去年国庆的时候，当时还有幸看了一场橘子洲的焰火表演，场面甚是壮观，是我见过最壮美的烟花表演了&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;史料记载，“湖南生产鞭炮始于唐代，发达于宋末及清乾隆年间……湘东之平江、浏阳、醴陵……均为爆竹制造中心地”。至今已有1300多年的历史。在2010年，长沙市政府为提升城市竞争力，发展长沙旅游业，决定以“浏阳花炮”为品牌，以橘子洲为载体，把山、水、洲、城这一独特的城市景观展示给国内外游客，开始了烟花表演。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;由于燃放规模十分的大，它所带来的环境污染问题也同样不容小觑，中央环保督察组巡视长沙环保工作情况时，就提出长沙要整改在橘子洲燃放大型焰火的问题，据传，今后很可能取消橘子洲的焰火表演，真的是看一次少一次了！可惜没能找到去年拍的照片了。&lt;/p&gt;
-
-&lt;p&gt;长沙，最出名应该是美食了，比如长沙臭豆腐、糖油粑粑等，大街小巷都有。&lt;/p&gt;
-
-&lt;p&gt;其实，对我而言长沙有一个好喝的奶茶 — 茶颜悦色&lt;/p&gt;
-
-&lt;p&gt;茶颜悦色是长沙本土奶茶品牌，主打新中式鲜茶；这个店只在长沙开，记得17年来长沙的时候应该也就十来个门店吧，可是这次去发现时长拐角都能看见，其实我不太想看到这样的结果，我更希望它只是那几个一直精美的奶茶店。不过还是想喝，去买了两杯，没错还是熟悉的味道，每种口味都那么好喝，都是每次来必喝的茶颜啊！&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/izgfLFvBaCJZQYX.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;然后是这次长沙行的第一站：&lt;strong&gt;岳麓山&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/JyUCSQR1g9fVApb.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;选择的是索道上山，这也是我第一次坐索道（嗯，下一次要去试试重庆长江索道），一开始还是有点怕的，高的地方大概有二三十米吧，而且我觉得索道那个装置怎么看起来这么不靠谱（哈哈），不过还是上了，主要是懒得爬山&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/o8W2HaXjPIzKMeE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;上去之后发现其实岳麓山也没想象中好玩，只是在索道和山上能俯瞰长沙的风景，还是挺不错；难道这就是《沁园春 雪》里“橘子洲头，看万山红遍”，里说的山吗？&lt;/p&gt;
-
-&lt;p&gt;之后，沿着路走，一直到了&lt;strong&gt;爱晚亭&lt;/strong&gt;，杜牧的《山行》就写的这儿，爱晚亭也是中国四大名亭之一。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;远上寒山石径斜，白云生处有人家。&lt;/strong&gt;
-&lt;strong&gt;停车坐爱枫林晚，霜叶红于二月花。&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/5QZm3tyxEIcj2L7.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在离爱晚亭不远处，就是岳麓书院了，又是一个中国四大之一….&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/SCy6Q7iqOtRvKFu.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;第二天，去了 &lt;strong&gt;长沙IFS&lt;/strong&gt; （长沙国际金融中心），是长沙第一高楼，集大型精品商场、高端写字楼及国际白金五星级酒店等设施于一体的超高层大型城市综合体。总建筑面积101万平方米，主塔楼设计高度452米，副塔楼设计高度315米。上一次来的时候是阴天，有薄薄的雾，整个IFS大楼直插云霄&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/1S5LwKAfEXZgpVB.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;然后是去了IFS里号称米其林一星级餐厅的 – &lt;strong&gt;鹅夫人&lt;/strong&gt; 餐厅品尝一番，感觉有点贵呀，5片鹅肝59元， 感觉有点腻，不是很喜欢吃…&lt;/p&gt;
-
-&lt;p&gt;还是这道天鹅叉烧酥比较好看&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/fBgaMY8eP5KscLT.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最后一天，去了被誉为“&lt;strong&gt;星城之眼&lt;/strong&gt;”的亚洲第一巨型摩天轮&lt;/p&gt;
-
-&lt;p&gt;坐落在长沙贺龙体育广场．这个巨型摩天轮高120m，直径99m，最令人称奇的是它建立在巨型屋顶上；摩天轮还有一个特点，就是每到夜间，由电脑控制的它能散发50多种不同组合的光芒。
-&lt;img src=&#34;https://i.loli.net/2019/12/10/zvPnT1rdCgsiGjx.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;一开始以为120m不高，可是当转到半空后，开始感觉到有点恐高，第一次坐摩天轮，还是比较好玩。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;传说摩天轮的每个盒子里都装满了幸福&lt;/p&gt;
-
-&lt;p&gt;当我们仰望摩天轮的时候&lt;/p&gt;
-
-&lt;p&gt;就是在仰望幸福&lt;/p&gt;
-
-&lt;p&gt;幸福有多高&lt;/p&gt;
-
-&lt;p&gt;摩天轮就有多高&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;最后的最后当然是离开长沙了，有点不舍…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/ohARFik2eaGUpwO.jpg&#34; alt=&#34;长沙南站&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;ps&#34;&gt;PS&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;自从上了大学后，感觉万年没有写文章了，&lt;/p&gt;
-
-&lt;p&gt;所以，疯狂放图…留个纪念&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;拍摄设备：&lt;strong&gt;Meizu 16 th&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;压缩工具：&lt;strong&gt;Antelope&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

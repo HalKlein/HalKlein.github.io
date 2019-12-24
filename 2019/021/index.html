@@ -9,9 +9,9 @@
   
   
   
-  <link rel="prev" href="https://halklein.github.io/2019/012/" />
-  <link rel="next" href="https://halklein.github.io/2019/005/" />
-  <link rel="canonical" href="https://halklein.github.io/2019/001/" />
+  <link rel="prev" href="https://halklein.github.io/2019/020/" />
+  
+  <link rel="canonical" href="https://halklein.github.io/2019/021/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -22,10 +22,10 @@
   <title>
        
        
-           博客迁移 Hugo | HalKlein`s Blog
+           关于数据库索引的一些问题 | HalKlein`s Blog
        
   </title>
-  <meta name="title" content="博客迁移 Hugo | HalKlein`s Blog">
+  <meta name="title" content="关于数据库索引的一些问题 | HalKlein`s Blog">
     
   <link rel="stylesheet" href="/css/main.min.css">
 
@@ -42,9 +42,9 @@
          "@id": "https:\/\/halklein.github.io"
     },
     "articleSection" : "posts",
-    "name" : "博客迁移 Hugo",
-    "headline" : "博客迁移 Hugo",
-    "description" : "​ 你眼中有春与秋， ​ 胜过我见过爱过的一切山川与河流； ​ 有一天我会懂你， ​ 也懂这世界悲欢， ​ 陪你走千帆，仍方寸不乱。 ·End·",
+    "name" : "关于数据库索引的一些问题",
+    "headline" : "关于数据库索引的一些问题",
+    "description" : "密集索引和稀疏索引 一、密集索引和稀疏索引 密集索引文件中的每个搜索码值都对应一个索引值 稀疏索引文件只为索引码的某些值建立索引项 MySQL常见的",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
     "creator" : "HalKlein",
@@ -52,11 +52,11 @@
     "accountablePerson" : "HalKlein",
     "copyrightHolder" : "HalKlein",
     "copyrightYear" : "2019",
-    "datePublished": "2019-10-10 14:56:35 \x2b0800 CST",
-    "dateModified" : "2019-10-10 14:56:35 \x2b0800 CST",
-    "url" : "https:\/\/halklein.github.io\/2019\/001\/",
-    "wordCount" : "62",
-    "keywords" : [ "博客", "HalKlein`s Blog"]
+    "datePublished": "2019-12-24 21:22:50 \x2b0800 CST",
+    "dateModified" : "2019-12-24 21:22:50 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/021\/",
+    "wordCount" : "467",
+    "keywords" : [ "数据库", "HalKlein`s Blog"]
 }
 </script>
 
@@ -140,24 +140,26 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">博客迁移 Hugo</h1>
+        <h1 class="post-title" itemprop="name headline">关于数据库索引的一些问题</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
                 <span class="post-time">
-                on <time datetime=2019-10-10 itemprop="datePublished">October 10, 2019</time>
+                on <time datetime=2019-12-24 itemprop="datePublished">December 24, 2019</time>
                 </span>
                 in
                 <i class="iconfont icon-folder"></i>
                 <span class="post-category">
-                        <a href="https://halklein.github.io/categories/%E5%8D%9A%E5%AE%A2/"> 博客 </a>
+                        <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 62 words</span>
+                <span class="post-word-count">, 467 words</span>
         </div>
     </header>
     <div class="post-content">
         
 
+        
+            
         
 
         
@@ -171,17 +173,53 @@
           
           
 
-          <p>​       <strong>你眼中有春与秋，</strong></p>
+          
 
-<p>​       <strong>胜过我见过爱过的一切山川与河流；</strong></p>
+<h2 id="密集索引和稀疏索引">密集索引和稀疏索引</h2>
 
-<p>​       <strong>有一天我会懂你，</strong></p>
+<h2 id="一-密集索引和稀疏索引">一、密集索引和稀疏索引</h2>
 
-<p>​       <strong>也懂这世界悲欢，</strong></p>
+<ul>
+<li>密集索引文件中的每个搜索码值都对应一个索引值</li>
+<li>稀疏索引文件只为索引码的某些值建立索引项</li>
+</ul>
 
-<p>​       <strong>陪你走千帆，仍方寸不乱。</strong></p>
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/24/qtGm8r27hMxLDwV.png" alt="密集索引和稀疏索引" class="lazyload"><figcaption class="image-caption">密集索引和稀疏索引</figcaption></figure></p>
 
-<p><center> ·End· </center></p>
+<p><strong>MySQL常见的数据库引擎：MyISAM只使用稀疏索引，InnoDB有且仅有以后密集索引</strong></p>
+
+<ul>
+<li>若一个主键被定义，该主键则作为密集索引</li>
+<li>若没有主键被定义，该表的第一个唯一非空索引则作为密集索引</li>
+<li>若不满足以上条件，innodb内部会生成一个隐藏主键（密集索引）</li>
+<li>非主键索引存储相关键位和其对应的主键值，包含两次查找</li>
+</ul>
+
+<h2 id="二-如何定位并优化慢查询sql">二、如何定位并优化慢查询Sql</h2>
+
+<p>具体场景要具体分析，大致思路如下：
+- 根据慢日志定位慢查询sql
+- 使用explain等工具分析sql
+- 修改sql或者尽量让sql走索引</p>
+
+<h3 id="2-1-根据慢日志定位慢查询sql">2.1 根据慢日志定位慢查询sql</h3>
+
+<pre><code class="language-c++"># 查看数据库慢日志配置
+show variables like &quot;%quer%&quot;;
+
+# 查看慢日志数量
+show status like &quot;%slow_queries%&quot;;
+
+# 打开慢日志开关
+set global slow_query_log = on;
+
+# 设置慢日志记录阈值为1s，10s可以说是很慢很慢了，不具有参考价值
+# 修改后可能需要重新连接数据库才能看到效果
+# 另外，这样的设置在重启MySQL服务之后将会失效！如果要永久生效,需修改my.ini配置文件（Mac OS是my.cnf）
+set global long_query_time = 1;
+</code></pre>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/24/NFSpx65OUvuqQhD.png" alt="查看数据库慢日志配置" class="lazyload"><figcaption class="image-caption">查看数据库慢日志配置</figcaption></figure></p>
 
     </div>
 
@@ -196,7 +234,7 @@
              
             <p class="copyright-item">
                     <span>Link:</span>
-                    <a href=https://halklein.github.io/2019/001/>https://halklein.github.io/2019/001/</span>
+                    <a href=https://halklein.github.io/2019/021/>https://halklein.github.io/2019/021/</span>
             </p>
             
              
@@ -212,8 +250,8 @@
             <section>
             <i class="iconfont icon-tag"></i>Tag(s): 
             
-            <span class="tag"><a href="https://halklein.github.io/tags/%E5%8D%9A%E5%AE%A2/">
-                    #博客</a></span>
+            <span class="tag"><a href="https://halklein.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                    #数据库</a></span>
             
             </section>
         
@@ -225,10 +263,8 @@
 
     <div class="post-nav">
         
-        <a href="https://halklein.github.io/2019/012/" class="prev" rel="prev" title="算法比赛模板（一）"><i class="iconfont icon-left"></i>&nbsp;算法比赛模板（一）</a>
+        <a href="https://halklein.github.io/2019/020/" class="prev" rel="prev" title="数据库索引之 B&#43; Tree、Hash、BitMap"><i class="iconfont icon-left"></i>&nbsp;数据库索引之 B&#43; Tree、Hash、BitMap</a>
          
-        
-        <a href="https://halklein.github.io/2019/005/" class="next" rel="next" title="OSI模型和TCP/IP模型">OSI模型和TCP/IP模型&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 
@@ -298,8 +334,9 @@
 
 
     
-    
-    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
     
   
 

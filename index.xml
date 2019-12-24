@@ -8,10 +8,28 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 05 Nov 2019 09:31:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Dec 2019 21:22:50 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>关于数据库索引的一些问题</title>
+      <link>https://halklein.github.io/2019/021/</link>
+      <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/021/</guid>
+      <description>密集索引和稀疏索引 一、密集索引和稀疏索引 密集索引文件中的每个搜索码值都对应一个索引值 稀疏索引文件只为索引码的某些值建立索引项 MySQL常见的</description>
+    </item>
+    
+    <item>
+      <title>数据库索引之 B&#43; Tree、Hash、BitMap</title>
+      <link>https://halklein.github.io/2019/020/</link>
+      <pubDate>Tue, 24 Dec 2019 19:54:38 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/020/</guid>
+      <description>B+ Tree 由于，二叉查看树在插入修改过程中，很可能出现只有左右子树的情况，虽然可以用平衡调整二叉树，但是每次IO依然很费时间，每访问一层就要对磁盘</description>
+    </item>
     
     <item>
       <title>Socket 入门</title>
@@ -74,15 +92,6 @@
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/005/</guid>
       <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型，由国际标准化组织</description>
-    </item>
-    
-    <item>
-      <title>迁移小记</title>
-      <link>https://halklein.github.io/2019/002/</link>
-      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/002/</guid>
-      <description>1. 提高 git clone 的速度 之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己</description>
     </item>
     
     <item>

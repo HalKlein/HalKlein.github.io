@@ -8,19 +8,10 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 15 Oct 2019 12:46:35 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 10 Oct 2019 14:56:35 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>迁移小记</title>
-      <link>https://halklein.github.io/2019/002/</link>
-      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/002/</guid>
-      <description>1. 提高 git clone 的速度 之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己</description>
-    </item>
     
     <item>
       <title>博客迁移 Hugo</title>
