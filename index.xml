@@ -15,91 +15,82 @@
     
     <item>
       <title>Socket 入门</title>
-      <link>https://halklein.github.io/2019/11/</link>
+      <link>https://halklein.github.io/2019/011/</link>
       <pubDate>Tue, 05 Nov 2019 09:31:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/11/</guid>
+      <guid>https://halklein.github.io/2019/011/</guid>
       <description>进程间通信 网络中进程进行通信的前提是每个进程都要有唯一的标识，在本地计算机中我们可以用PID来唯一标识一个进程，可以多个计算机处在网络中时，</description>
     </item>
     
     <item>
       <title>HTTP 与 HTTPS</title>
-      <link>https://halklein.github.io/2019/10/</link>
+      <link>https://halklein.github.io/2019/010/</link>
       <pubDate>Sun, 03 Nov 2019 15:52:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/10/</guid>
+      <guid>https://halklein.github.io/2019/010/</guid>
       <description>1. HTTP协议 超文本传输协议（英语：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协</description>
     </item>
     
     <item>
       <title>TCP滑动窗口</title>
-      <link>https://halklein.github.io/2019/09/</link>
+      <link>https://halklein.github.io/2019/009/</link>
       <pubDate>Sat, 02 Nov 2019 19:45:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/09/</guid>
+      <guid>https://halklein.github.io/2019/009/</guid>
       <description>1. RTT 和 RTO RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。 RTO（retransamission tim</description>
     </item>
     
     <item>
       <title>TCP和UDP的区别</title>
-      <link>https://halklein.github.io/2019/08/</link>
+      <link>https://halklein.github.io/2019/008/</link>
       <pubDate>Fri, 01 Nov 2019 14:26:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/08/</guid>
+      <guid>https://halklein.github.io/2019/008/</guid>
       <description>1. UDP协议 用户数据报协议（英语：User Datagram Protocol，缩写：UDP；又称用户数据包协议）是一个简单的面向数据报的通信协议，位于OSI</description>
     </item>
     
     <item>
       <title>TCP四次挥手</title>
-      <link>https://halklein.github.io/2019/07/</link>
+      <link>https://halklein.github.io/2019/007/</link>
       <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/07/</guid>
+      <guid>https://halklein.github.io/2019/007/</guid>
       <description>1. 四次挥手，关闭连接 由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成</description>
     </item>
     
     <item>
       <title>TCP三次握手</title>
-      <link>https://halklein.github.io/2019/06/</link>
+      <link>https://halklein.github.io/2019/006/</link>
       <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/06/</guid>
+      <guid>https://halklein.github.io/2019/006/</guid>
       <description>1. TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第</description>
     </item>
     
     <item>
       <title>OSI模型和TCP/IP模型</title>
-      <link>https://halklein.github.io/2019/05/</link>
+      <link>https://halklein.github.io/2019/005/</link>
       <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/05/</guid>
+      <guid>https://halklein.github.io/2019/005/</guid>
       <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型，由国际标准化组织</description>
     </item>
     
     <item>
-      <title>插入排序</title>
-      <link>https://halklein.github.io/2019/04/</link>
-      <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/04/</guid>
-      <description>1. 直接插入排序 思想 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果</description>
-    </item>
-    
-    <item>
       <title>迁移小记</title>
-      <link>https://halklein.github.io/2019/02/</link>
+      <link>https://halklein.github.io/2019/002/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/02/</guid>
+      <guid>https://halklein.github.io/2019/002/</guid>
       <description>1. 提高 git clone 的速度 之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己</description>
     </item>
     
     <item>
       <title>博客迁移 Hugo</title>
-      <link>https://halklein.github.io/2019/01/</link>
+      <link>https://halklein.github.io/2019/001/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/01/</guid>
+      <guid>https://halklein.github.io/2019/001/</guid>
       <description>​ 你眼中有春与秋， ​ 胜过我见过爱过的一切山川与河流； ​ 有一天我会懂你， ​ 也懂这世界悲欢， ​ 陪你走千帆，仍方寸不乱。 ·End·</description>
     </item>
     
@@ -114,73 +105,73 @@
     
     <item>
       <title>算法比赛模板（一）</title>
-      <link>https://halklein.github.io/2019/12/</link>
+      <link>https://halklein.github.io/2019/012/</link>
       <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/12/</guid>
+      <guid>https://halklein.github.io/2019/012/</guid>
       <description>工具类 线性筛素数 #include &amp;lt;iostream&amp;gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i &amp;lt; SIZE; i++ ) { /* 是素数 */ if ( !check[i] ) prime[pos++] = i; for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i</description>
     </item>
     
     <item>
       <title>为何要探索宇宙？</title>
-      <link>https://halklein.github.io/2018/19/</link>
+      <link>https://halklein.github.io/2018/019/</link>
       <pubDate>Mon, 05 Nov 2018 19:22:46 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/19/</guid>
+      <guid>https://halklein.github.io/2018/019/</guid>
       <description>星际穿越 看过多遍《星际穿越》，对我个人而言这是这是最喜欢的电影之一。 每次看完都会有无限的遐想，想着人类的博大，仰望星辰却又发现是如此渺小，不</description>
     </item>
     
     <item>
       <title>纪念姚贝儿诞辰37周年</title>
-      <link>https://halklein.github.io/2018/14/</link>
+      <link>https://halklein.github.io/2018/014/</link>
       <pubDate>Wed, 26 Sep 2018 20:00:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/14/</guid>
+      <guid>https://halklein.github.io/2018/014/</guid>
       <description>今天是2018年9月26日，一转眼，你离开我们已经三年半了 我大概不是一个合格的粉丝，因为知道你的时候实在是太晚了。我一向是不爱看选秀娱乐节目</description>
     </item>
     
     <item>
       <title>给我未来的孩子 -- 文/张梅</title>
-      <link>https://halklein.github.io/2018/17/</link>
+      <link>https://halklein.github.io/2018/017/</link>
       <pubDate>Sat, 15 Sep 2018 19:55:11 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/17/</guid>
+      <guid>https://halklein.github.io/2018/017/</guid>
       <description>文/张梅 孩子，我首先希望你自始至终都是一个理想主义者。你可以是农民，可以是工程师，可以是演员，可以是流浪汉，但你必须是个理想主义者。 当你童年</description>
     </item>
     
     <item>
       <title>汉明码（海明码）计算与纠错</title>
-      <link>https://halklein.github.io/2018/13/</link>
+      <link>https://halklein.github.io/2018/013/</link>
       <pubDate>Wed, 12 Sep 2018 20:36:39 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/13/</guid>
+      <guid>https://halklein.github.io/2018/013/</guid>
       <description>海明码在网络、通信和操作系统中都有着广泛的运用，同时也是软考的必考内容，所以写这篇笔记以备忘 关于海明码 海明码是一种线性纠错码，由理查德 · 卫斯</description>
     </item>
     
     <item>
       <title>八月长沙行</title>
-      <link>https://halklein.github.io/2018/15/</link>
+      <link>https://halklein.github.io/2018/015/</link>
       <pubDate>Wed, 29 Aug 2018 19:39:09 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/15/</guid>
+      <guid>https://halklein.github.io/2018/015/</guid>
       <description>18年暑假大部分时间是在湖南度过的，由于气温一直不比重庆凉快，所以就没出门去，最后还是决定去长沙玩几天。 已经不是第一次来长沙，上一次来是去年</description>
     </item>
     
     <item>
       <title>一个月过软件设计师考试-–指南</title>
-      <link>https://halklein.github.io/2018/16/</link>
+      <link>https://halklein.github.io/2018/016/</link>
       <pubDate>Thu, 02 Aug 2018 10:39:32 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/16/</guid>
+      <guid>https://halklein.github.io/2018/016/</guid>
       <description>我是2018年上半年通过的软件设计师考试，准备了近一个月（内容还是有点多），成绩就不贴出来献丑了. 为什么考？ 这个问题我也想过很久，感觉这个证</description>
     </item>
     
     <item>
       <title>风</title>
-      <link>https://halklein.github.io/2018/18/</link>
+      <link>https://halklein.github.io/2018/018/</link>
       <pubDate>Tue, 23 Jan 2018 13:07:27 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/18/</guid>
+      <guid>https://halklein.github.io/2018/018/</guid>
       <description>文/张曼娟 走过芦荻丛生的草原, 我总觉得听见了悠扬的笛声。 是风笛。你说。 风是有声音的, 只是我们没有留心细听。 于是,你教我听, 风借着山岳、草叶或</description>
     </item>
     

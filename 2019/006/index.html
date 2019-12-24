@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="HalKlein">
+  
+  
+  
+  <link rel="prev" href="https://halklein.github.io/2019/005/" />
+  <link rel="next" href="https://halklein.github.io/2019/007/" />
+  <link rel="canonical" href="https://halklein.github.io/2019/006/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           TCP三次握手 | HalKlein`s Blog
+       
+  </title>
+  <meta name="title" content="TCP三次握手 | HalKlein`s Blog">
+    
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/halklein.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "TCP三次握手",
+    "headline" : "TCP三次握手",
+    "description" : "1. TCP(Transmission Control Protocol) 传输控制协议 TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。 TCP工作在网络 OSI 的七层模型中的第",
+    "inLanguage" : "zh-cn",
+    "author" : "HalKlein",
+    "creator" : "HalKlein",
+    "publisher": "HalKlein",
+    "accountablePerson" : "HalKlein",
+    "copyrightHolder" : "HalKlein",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-31 09:14:18 \x2b0800 CST",
+    "dateModified" : "2019-10-31 09:14:18 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/006\/",
+    "wordCount" : "3899",
+    "keywords" : [ "计算机网络", "HalKlein`s Blog"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    
+        <div class="top-scroll-bar"></div>
+    
+    <div class="container">
+        <div class="navbar-header header-logo">
+            
+            <span class="logo_mark" >></span>
+            <a href="https://halklein.github.io">
+                <span class="logo_text" >$ cd /home/ </span>
+                <span class="logo_cursor" ></span>
+            </a>
+            
+        </div>
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                </span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     
+         <div class="top-scroll-bar"></div>
+     
+     <div class="container">
+        <div class="navbar-header">
+            <div class="header-logo">
+                
+                    <span class="logo_mark">></span>
+                    <a href="https://halklein.github.io">
+                        <span class="logo_text">$ cd /home/ </span>
+                        <span class="logo_cursor"></span>
+                </a>
+                
+            </div>
+            <div class="navbar-right">
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">TCP三次握手</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-10-31 itemprop="datePublished">October 31, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
+                        
+                </span>
+                <span class="post-word-count">, 3899 words</span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="1-tcp-transmission-control-protocol-传输控制协议">1. TCP(Transmission Control Protocol)　传输控制协议</h2>
+
+<p>TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。</p>
+
+<p>TCP工作在网络 OSI 的七层模型中的第四层（Transport层），IP在第三层（Network层），ARP在第二层（Data Link层）；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。</p>
+
+<ul>
+<li>一种<strong>面向连接的、可靠的、基于字节流的</strong>传输层通信协议</li>
+<li>将应用层的数据流分割成报文段并发送给目标节点的TCP层</li>
+<li>数据包都有序号，对方收到则发送ACK确认，未收到则重传</li>
+<li>使用校验和来检验数据在传输过程中是否有误</li>
+<li>在一个 TCP 连接中，仅有两方进行彼此通信。广播和多播不能用于 TCP</li>
+<li>TCP 给数据分节进行排序，并使用累积确认保证数据的顺序不变和非重复</li>
+<li>TCP 使用<strong>滑动窗口机制</strong>来实现流量控制，通过动态改变窗口的大小进行拥塞控制</li>
+</ul>
+
+<p>在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址</p>
+
+<h2 id="2-tcp头部结构">2. TCP头部结构</h2>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/dLhNgTlbYtBA3FW.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<ol>
+<li><p><code>Source port</code>源端口、<code>Destination port</code>目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.</p></li>
+
+<li><p><code>Sequence Number</code>序号：Seq序号，占4个字节，用来标识从TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记。是包的序号，用来解决网络包乱序（reordering）问题。</p></li>
+
+<li><p><code>Acknowledgement Number</code>确认序号：Ack序号，占4个字节，只有ACK标志位为1时，确认序号字段才有效，Ack=Seq+1。</p></li>
+
+<li><p><code>Data offset</code>数据偏移：由于头部有可选字段长度不固定，因此它指出TCP报文的数据离TCP报文起始有多远。</p></li>
+
+<li><p><code>Reserved</code>保留域：保留以后使用的。</p></li>
+
+<li><p><code>TCP Flags</code> 标志位：常见的有6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如下：</p></li>
+</ol>
+
+<p><code>URG</code> 紧急指针标志：为1时有效，为0则忽略。</p>
+
+<p><code>ACK</code> <strong>确认序号标志</strong>：为1时确认号有效，为0标识报文中不含确认信息。 TCP 规定在连接建立后传送的所有报文段都必须把 ACK 置为一。</p>
+
+<p><code>PSH</code> push标志：为1时，指示接收方接收到报文后应该尽快将这个报文交给应用层程序，而不是在缓冲区排队。</p>
+
+<p><code>RST</code> 重置连接标志：重置连接，重置由于主机崩溃或其它原因而出现的异常连接，或者用于拒绝非法的报文段和拒绝连接请求。</p>
+
+<p><code>SYN</code> <strong>同步序号</strong>：用于建立连接过程。 当SYN=1，ACK=0时，表示当前报文段是一个连接请求报文。当SYN=1，ACK=1时，表示当前报文段是一个同意建立连接的应答报文。</p>
+
+<p><code>FIN</code> <strong>finish标志</strong>：用于释放连接。为1时， 该字段为一表示此报文段是一个释放连接的请求报文</p>
+
+<ol>
+<li><p><code>Window Size</code>窗口大小，指滑动窗口的大小，用于告知发送端接受方的缓存大小，以此控制发送端发送数据的速率从而进行流量控制 。</p></li>
+
+<li><p><code>Checksum</code>校验和，指奇偶校验，对整个TCP报文以16位进行计算所得，由发送端计算和存储并由接收端验证。</p></li>
+
+<li><p><code>Urgent Pointer</code> 紧急指针，当TCP Flags中的<code>URG</code>为1时才有效，指出本TCP报文中紧急数据的字节数。</p></li>
+
+<li><p><code>TCP Options</code> 可选项，其长度可变，定义一些其它的可选参数。</p></li>
+</ol>
+
+<h2 id="3-tcp三次握手">3. TCP三次握手</h2>
+
+<p>“握手”是为了<strong>建立连接</strong>，TCP三次握手的流程图如下：</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tbrGiOqwZ6Jpe3K.jpg" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。</p>
+
+<p><strong>第一次握手</strong></p>
+
+<p>建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；</p>
+
+<p><strong>第二次握手</strong></p>
+
+<p>Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+
+<p><strong>第三次握手</strong></p>
+
+<p>Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+
+<p><strong>注意</strong></p>
+
+<ul>
+<li>不要将确认序号ack与标志位中的ACK搞混了。</li>
+<li>确认方ack=发起方seq+1，两端配对。</li>
+</ul>
+
+<h2 id="4-三次握手抓包分析">4. 三次握手抓包分析</h2>
+
+<p>筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。</p>
+
+<pre><code class="language-c">ip.dst==61.128.252.10 or ip.src==61.128.252.10
+</code></pre>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/pbmqrR3fvd2xls4.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>顺便查阅归纳下，<strong>Wireshark的过滤规则</strong>：</p>
+
+<p><strong>1. 过滤IP</strong></p>
+
+<pre><code class="language-c">ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
+或者ip.addr eq 192.168.1.107
+</code></pre>
+
+<p><strong>2. 过滤端口</strong></p>
+
+<pre><code class="language-c">tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
+tcp.port eq 80 or udp.port eq 80
+tcp.dstport == 80 //只显tcp协议的目标端口80
+tcp.srcport == 80 //只显tcp协议的源端口80
+tcp.port &gt;= 1 and tcp.port &lt;= 80 //端口范围过滤
+</code></pre>
+
+<p><strong>3. 过滤协议</strong></p>
+
+<pre><code class="language-c">直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
+排除协议过滤：如 !arp 或者 not arp
+</code></pre>
+
+<p><strong>4. 过滤MAC</strong></p>
+
+<pre><code class="language-c">eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
+eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
+</code></pre>
+
+<p>小于 less than（lt）</p>
+
+<p>等于 eq</p>
+
+<p>大于等于 ge</p>
+
+<p>不等 ne</p>
+
+<p><strong>5. 包长度过滤</strong></p>
+
+<pre><code class="language-c">udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
+tcp.len &gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
+ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
+frame.len == 119 //整个数据包长度,从eth开始到最后
+</code></pre>
+
+<p><strong>6. http模式过滤</strong></p>
+
+<pre><code class="language-c">例子:
+http.request.method == “GET”
+http.request.method == “POST”
+http.request.uri == “/img/logo.png”
+http contains “GET”
+http contains “HTTP/1.”
+http.request.method == “GET” &amp;&amp; http contains “Host: “
+
+http.host == xxx.com	// 过滤 host
+http.response == 1	// 过滤所有的 http 响应包
+http.response.code == 302	// 过滤状态码 202
+http.request.method==POST 	// 过滤 POST 请求包
+http.cookie contains xxx	// cookie 包含 xxx
+http.request.uri==&quot;/robots.txt&quot;	//过滤请求的uri，取值是域名后的部分
+http.request.full_uri==&quot;http://1.com&quot;	// 过滤含域名的整个url
+http.server contains &quot;nginx&quot;	//过滤http头中server字段含有nginx字符的数据包
+http.content_type == &quot;text/html&quot;	//过滤content_type是text/html
+http.content_encoding == &quot;gzip&quot;	//过滤content_encoding是gzip的http包
+http.transfer_encoding == &quot;chunked&quot;	//根据transfer_encoding过滤
+http.content_length == 279
+http.content_length_header == &quot;279&quot;	//根据content_length的数值过滤
+http.request.version == &quot;HTTP/1.1&quot;	//过滤HTTP/1.1版本的http包，包括请求和响应
+</code></pre>
+
+<h2 id="5-问题">5. 问题</h2>
+
+<h3 id="为什么需要三次握手才能建立起连接">为什么需要三次握手才能建立起连接</h3>
+
+<p>为了初始化Sequence Number的初始值，通信双方要互相通知对方自己的Sequence Number，作为以后数据通信的序号，以保证接收到的数据不会因为网络上的问题而乱序，即TCP会用这个序号来拼接数据， 确保数据能够完整传输。</p>
+
+<h3 id="首次握手的隐患-syn超时">首次握手的隐患&ndash;SYN超时</h3>
+
+<p><strong>原因</strong></p>
+
+<p>三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（<code>half-open connect</code>），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。</p>
+
+<p><strong>SYN攻击</strong></p>
+
+<p>Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。</p>
+
+<p><strong>检测</strong></p>
+
+<p>SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看<code>SYN_RECV</code>状态：</p>
+
+<pre><code class="language-c"># netstat -nap | grep SYN_RECV
+</code></pre>
+
+<p><strong>针对SYN Flood的防护措施</strong></p>
+
+<p>Linux下给了一个叫<code>tcp_syncookies</code>的参数来应对这个事——当SYN队列满了后，TCP会通过源地址端口、目标地址端口和时间戳打造出一个特别的<code>Sequence Number</code>发回去（又叫SYN Cookie），如果是攻击者则不会有响应，如果是正常连接，则会把这个 <code>SYN Cookie</code>发回来，然后服务端可以通过cookie建连接（即使你不在SYN队列中）。请注意，慎用<code>tcp_syncookies</code>来处理正常的大负载的连接的情况。因为，<code>synccookies</code>是妥协版的TCP协议，并不严谨。 对于正常的请求，可以调整以下三个参数：</p>
+
+<ul>
+<li><code>tcp_synack_retries</code> ，用于减少重试次数；</li>
+<li><code>tcp_max_syn_backlog</code>，用于增大SYN连接数；</li>
+<li><code>tcp_abort_on_overflow</code> ，处理不过来，直接拒绝连接了。</li>
+</ul>
+
+<p><strong>保活机制</strong></p>
+
+<p>如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接</p>
+
+<p><center> ·End· </center></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>HalKlein </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://halklein.github.io/2019/006/>https://halklein.github.io/2019/006/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    #计算机网络</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://halklein.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://halklein.github.io/2019/005/" class="prev" rel="prev" title="OSI模型和TCP/IP模型"><i class="iconfont icon-left"></i>&nbsp;OSI模型和TCP/IP模型</a>
+         
+        
+        <a href="https://halklein.github.io/2019/007/" class="next" rel="next" title="TCP四次挥手">TCP四次挥手&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+        
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+
+        clientID: '6ad465847cf3517c6285',
+        clientSecret: 'c6d4fc96d68815b1cfa32ea1ff4b8cd249f26650',
+        repo: 'halklein.github.io',
+        owner: 'HalKlein',
+        admin: ['HalKlein'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function () {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder">
+                <a href="https://halklein.github.io">HalKlein</a>
+                <a href="https://halklein.github.io/index.xml">订阅</a>
+                 | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="HalKlein">
+  
+  
+  
+  <link rel="prev" href="https://halklein.github.io/2018/019/" />
+  <link rel="next" href="https://halklein.github.io/2019/001/" />
+  <link rel="canonical" href="https://halklein.github.io/2019/012/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           算法比赛模板（一） | HalKlein`s Blog
+       
+  </title>
+  <meta name="title" content="算法比赛模板（一） | HalKlein`s Blog">
+    
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/halklein.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "算法比赛模板（一）",
+    "headline" : "算法比赛模板（一）",
+    "description" : "工具类 线性筛素数 #include \x26lt;iostream\x26gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i \x26lt; SIZE; i\x2b\x2b ) { \/* 是素数 *\/ if ( !check[i] ) prime[pos\x2b\x2b] = i; for ( int j = 0; j \x26lt; pos \x26amp;\x26amp; i",
+    "inLanguage" : "zh-cn",
+    "author" : "HalKlein",
+    "creator" : "HalKlein",
+    "publisher": "HalKlein",
+    "accountablePerson" : "HalKlein",
+    "copyrightHolder" : "HalKlein",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-03-23 21:47:12 \x2b0800 CST",
+    "dateModified" : "2019-03-23 21:47:12 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/012\/",
+    "wordCount" : "1345",
+    "keywords" : [ "算法", "HalKlein`s Blog"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    
+        <div class="top-scroll-bar"></div>
+    
+    <div class="container">
+        <div class="navbar-header header-logo">
+            
+            <span class="logo_mark" >></span>
+            <a href="https://halklein.github.io">
+                <span class="logo_text" >$ cd /home/ </span>
+                <span class="logo_cursor" ></span>
+            </a>
+            
+        </div>
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                </span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     
+         <div class="top-scroll-bar"></div>
+     
+     <div class="container">
+        <div class="navbar-header">
+            <div class="header-logo">
+                
+                    <span class="logo_mark">></span>
+                    <a href="https://halklein.github.io">
+                        <span class="logo_text">$ cd /home/ </span>
+                        <span class="logo_cursor"></span>
+                </a>
+                
+            </div>
+            <div class="navbar-right">
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">算法比赛模板（一）</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-03-23 itemprop="datePublished">March 23, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
+                        
+                </span>
+                <span class="post-word-count">, 1345 words</span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="工具类">工具类</h2>
+
+<h3 id="线性筛素数">线性筛素数</h3>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+#define SIZE 1000
+int main()
+{
+	int	check[SIZE]	= { 0 };
+	int	prime[SIZE]	= { 0 };
+	int	pos		= 0;
+	for ( int i = 2; i &lt; SIZE; i++ )
+	{
+		/* 是素数 */
+		if ( !check[i] )
+			prime[pos++] = i;
+		for ( int j = 0; j &lt; pos &amp;&amp; i * prime[j] &lt; SIZE; j++ )
+		{
+			/* 筛掉 */
+			check[i * prime[j]] = 1;
+			if ( i % prime[j] == 0 )
+				break;
+		}
+	}
+	for ( int i = 0; prime[i] != 0; i++ )
+		printf( &quot;%d &quot;, prime[i] );
+	return(0);
+}
+</code></pre>
+
+<h3 id="以文本作为c-的数据输入">以文本作为C++的数据输入</h3>
+
+<pre><code class="language-c++">freopen( &quot;DATA.in&quot;, &quot;r&quot;, stdin );
+freopen( &quot;DATA.out&quot;, &quot;w&quot;, stdout );
+</code></pre>
+
+<h3 id="星期计算公式">星期计算公式</h3>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+using namespace std;
+
+
+/*
+ * 基姆拉尔森：w=(d+2*m+3*(m+1)/5+y+y/4-y/100+y/400)%7
+ * w：0:星期一...依此类推
+ */
+int cal1( int y, int m, int d )
+{
+	if ( m == 1 || m == 2 )
+		m += 12, y--;
+	int w = (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7;
+	/* 结果加 1，返回 星期一：1 ——到星期日：7 */
+	return(++w);
+}
+
+
+int main()
+{
+	int y, m, d;
+	scanf( &quot;%d %d %d&quot;, &amp;y, &amp;m, &amp;d );
+	int x = cal1( y, m, d );
+	printf( &quot;%dn&quot;, x );
+	return(0);
+}
+</code></pre>
+
+<h3 id="大数阶乘-java">大数阶乘（Java）</h3>
+
+<pre><code class="language-c++">import java.io.*;
+import java.util.*;
+import java.math.BigInteger;
+public class Main {
+	public static void main( String[] args )
+	{
+		Scanner		cin	= new Scanner( System.in );
+		int		n	= cin.nextint();
+		BigInteger	ans	= BigInteger.ONE;
+		for ( int i = 1; i &lt;= n; i++ )
+			ans = ans.multiply( BigInteger.valueOf( i ) );
+		System.out.println( ans );
+	}
+}
+</code></pre>
+
+<h3 id="全排列-函数">全排列 函数</h3>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main()
+{
+    int num[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    do
+    {
+        cout    &lt;&lt; num[0] &lt;&lt; &quot; &quot; &lt;&lt; num[1] &lt;&lt; &quot; &quot; &lt;&lt; num[2] &lt;&lt; &quot; &quot; &lt;&lt; num[3] &lt;&lt; &quot; &quot; &lt;&lt; num[4] &lt;&lt; &quot; &quot;
+            &lt;&lt; num[5] &lt;&lt; &quot; &quot; &lt;&lt; num[6] &lt;&lt; &quot; &quot; &lt;&lt; num[7] &lt;&lt; endl;
+    }
+    while ( next_permutation( num, num + 8 ) ); /* 全排列函数 */
+
+    return(0);
+}
+</code></pre>
+
+<h2 id="经典例题">经典例题</h2>
+
+<h3 id="说反话">说反话</h3>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+using namespace std;
+int main()
+{
+	stack&lt;string&gt;	v;
+	string		s;
+	while ( cin &gt;&gt; s )
+		v.push( s );
+	/* 入站 */
+	cout &lt;&lt; v.top();
+	/* 站顶 */
+	v.pop();
+	/* 弹出站顶 */
+	while ( !v.empty() )
+	{
+		cout &lt;&lt; &quot; &quot; &lt;&lt; v.top();
+		v.pop();
+	}
+	return(0);
+}
+</code></pre>
+
+<h3 id="悄悄关注">悄悄关注</h3>
+
+<pre><code class="language-c++">/**
+ * 新浪微博上有个“悄悄关注”，一个用户悄悄关注的人，不出现在这个用户的关注列表上，但系统会推送其悄悄关注的人发表的微博给该用户。现在我们来做一回网络侦探，根据某人的关注列表和其对其他用户的点赞情况，扒出有可能被其悄悄关注的人。
+ * 输入格式：
+ * 输入首先在第一行给出某用户的关注列表，格式如下：
+ * 人数N 用户1 用户2 …… 用户N
+ * 其中N是不超过5000的正整数，每个“用户i”（i=1, ..., N）是被其关注的用户的ID，是长度为4位的由数字和英文字母组成的字符串，各项间以空格分隔。
+ * 之后给出该用户点赞的信息：首先给出一个不超过10000的正整数M，随后M行，每行给出一个被其点赞的用户ID和对该用户的点赞次数（不超过1000），以空格分隔。注意：用户ID是一个用户的唯一身份标识。题目保证在关注列表中没有重复用户，在点赞信息中也没有重复用户。
+ * 输出格式：
+ * 我们认为被该用户点赞次数大于其点赞平均数、且不在其关注列表上的人，很可能是其悄悄关注的人。根据这个假设，请你按用户ID字母序的升序输出可能是其悄悄关注的人，每行1个ID。如果其实并没有这样的人，则输出“Bing Mei You”。
+ */
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+using namespace std;
+
+/* 结构体数组 */
+struct pepole
+{
+    char    name[20];
+    int    num;
+}
+peoples[10001];
+
+/* 结构体排序 */
+bool cmp( pepole x, pepole y )
+{
+    return(x.name &gt; y.name); /*按姓名排序 */
+}
+
+
+int main()
+{
+    int            n, num;
+    double            sum = 0;
+    char            a[20];
+    map&lt;string, int&gt;    m;
+
+    cin &gt;&gt; n;
+    for ( int i = 0; i &lt; n; i++ )
+    {
+        cin &gt;&gt; a;
+        m[a] = 1; /* map键值对赋值 */
+    }
+
+    cin &gt;&gt; num;
+    for ( int i = 0; i &lt; num; i++ )
+    {
+        scanf( &quot;%s %d&quot;, &amp;peoples[i].name, &amp;peoples[i].num );
+        sum += peoples[i].num;
+    }
+    sort( peoples, peoples + num, cmp ); /* 自定义排序 */
+    sum /= num;
+
+    int flag = 1;
+    for ( int i = 0; i &lt; num; i++ )
+    {
+        /* 大于平均值 且 不在关注列表中 */
+        if ( peoples[i].num &gt; sum &amp;&amp; m[peoples[i].name] == 0 )
+            printf( &quot;%sn&quot;, peoples[i].name ), flag = 0;
+    }
+    if ( flag )
+        printf( &quot;Bing Mei Youn&quot; );
+
+    return(0);
+}
+</code></pre>
+
+<h3 id="括号配对">括号配对</h3>
+
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stack&gt;
+using namespace std;
+int main()
+{
+	int t, len;
+	scanf( &quot;%d&quot;, &amp;t );
+	getchar();
+	while ( t-- )
+	{
+		char		s[10010];
+		stack&lt;char&gt;	m;
+		gets( s );
+		len = strlen( s );
+		m.push( s[0] );
+		for ( int i = 1; i &lt; len; i++ )
+		{
+			if ( m.size() == 0 )
+				m.push( s[i] );
+			else{
+				if ( m.top() == '(' &amp;&amp; s[i] == ')' )
+					m.pop();
+				else if ( m.top() == '[' &amp;&amp; s[i] == ']' )
+					m.pop();
+				else
+					m.push( s[i] );
+			}
+		}
+		if ( m.empty() )
+			printf( &quot;Yes\n&quot; );
+		else
+			printf( &quot;No\n&quot; );
+	}
+	return(0);
+}
+</code></pre>
+
+<p><center> ·End· </center></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>HalKlein </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://halklein.github.io/2019/012/>https://halklein.github.io/2019/012/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://halklein.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://halklein.github.io/2018/019/" class="prev" rel="prev" title="为何要探索宇宙？"><i class="iconfont icon-left"></i>&nbsp;为何要探索宇宙？</a>
+         
+        
+        <a href="https://halklein.github.io/2019/001/" class="next" rel="next" title="博客迁移 Hugo">博客迁移 Hugo&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+        
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+
+        clientID: '6ad465847cf3517c6285',
+        clientSecret: 'c6d4fc96d68815b1cfa32ea1ff4b8cd249f26650',
+        repo: 'halklein.github.io',
+        owner: 'HalKlein',
+        admin: ['HalKlein'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function () {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder">
+                <a href="https://halklein.github.io">HalKlein</a>
+                <a href="https://halklein.github.io/index.xml">订阅</a>
+                 | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

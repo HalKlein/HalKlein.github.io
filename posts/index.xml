@@ -12,10 +12,10 @@
     
     <item>
       <title>Socket 入门</title>
-      <link>https://halklein.github.io/2019/11/</link>
+      <link>https://halklein.github.io/2019/011/</link>
       <pubDate>Tue, 05 Nov 2019 09:31:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/11/</guid>
+      <guid>https://halklein.github.io/2019/011/</guid>
       <description>
 
 &lt;h2 id=&#34;进程间通信&#34;&gt;进程间通信&lt;/h2&gt;
@@ -196,10 +196,10 @@
     
     <item>
       <title>HTTP 与 HTTPS</title>
-      <link>https://halklein.github.io/2019/10/</link>
+      <link>https://halklein.github.io/2019/010/</link>
       <pubDate>Sun, 03 Nov 2019 15:52:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/10/</guid>
+      <guid>https://halklein.github.io/2019/010/</guid>
       <description>
 
 &lt;h2 id=&#34;1-http协议&#34;&gt;1. HTTP协议&lt;/h2&gt;
@@ -556,10 +556,10 @@
     
     <item>
       <title>TCP滑动窗口</title>
-      <link>https://halklein.github.io/2019/09/</link>
+      <link>https://halklein.github.io/2019/009/</link>
       <pubDate>Sat, 02 Nov 2019 19:45:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/09/</guid>
+      <guid>https://halklein.github.io/2019/009/</guid>
       <description>
 
 &lt;h2 id=&#34;1-rtt-和-rto&#34;&gt;1. RTT 和 RTO&lt;/h2&gt;
@@ -609,10 +609,10 @@
     
     <item>
       <title>TCP和UDP的区别</title>
-      <link>https://halklein.github.io/2019/08/</link>
+      <link>https://halklein.github.io/2019/008/</link>
       <pubDate>Fri, 01 Nov 2019 14:26:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/08/</guid>
+      <guid>https://halklein.github.io/2019/008/</guid>
       <description>
 
 &lt;h2 id=&#34;1-udp协议&#34;&gt;1. UDP协议&lt;/h2&gt;
@@ -716,10 +716,10 @@
     
     <item>
       <title>TCP四次挥手</title>
-      <link>https://halklein.github.io/2019/07/</link>
+      <link>https://halklein.github.io/2019/007/</link>
       <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/07/</guid>
+      <guid>https://halklein.github.io/2019/007/</guid>
       <description>
 
 &lt;h2 id=&#34;1-四次挥手-关闭连接&#34;&gt;1. 四次挥手，关闭连接&lt;/h2&gt;
@@ -804,10 +804,10 @@
     
     <item>
       <title>TCP三次握手</title>
-      <link>https://halklein.github.io/2019/06/</link>
+      <link>https://halklein.github.io/2019/006/</link>
       <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/06/</guid>
+      <guid>https://halklein.github.io/2019/006/</guid>
       <description>
 
 &lt;h2 id=&#34;1-tcp-transmission-control-protocol-传输控制协议&#34;&gt;1. TCP(Transmission Control Protocol)　传输控制协议&lt;/h2&gt;
@@ -1018,10 +1018,10 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
     
     <item>
       <title>OSI模型和TCP/IP模型</title>
-      <link>https://halklein.github.io/2019/05/</link>
+      <link>https://halklein.github.io/2019/005/</link>
       <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/05/</guid>
+      <guid>https://halklein.github.io/2019/005/</guid>
       <description>
 
 &lt;h2 id=&#34;1-osi-开放式系统互联参考模型&#34;&gt;1. OSI 开放式系统互联参考模型&lt;/h2&gt;
@@ -1132,73 +1132,11 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
     </item>
     
     <item>
-      <title>插入排序</title>
-      <link>https://halklein.github.io/2019/04/</link>
-      <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/04/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-直接插入排序&#34;&gt;1. 直接插入排序&lt;/h2&gt;
-
-&lt;h3 id=&#34;思想&#34;&gt;思想&lt;/h3&gt;
-
-&lt;p&gt;通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果要小我们就抽出插入到第1张前面，否则我们就不动；继续看第3张牌，和之前的两张进行比较并放到合适的位置；依次类推即可。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/H6oOmeQatGKr9Tw.png&#34; alt=&#34;过程演示&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;c语言代码实现&#34;&gt;C语言代码实现：&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;stdio.h&amp;gt;
-/* 直接插入排序 */
-void InsertSort( int A[], int n )
-{
-	int i, j;
-	for ( i = 2; i &amp;lt;= n; i++ )
-	{
-		if ( A[i] &amp;lt; A[i - 1] )
-		{
-			A[0] = A[i]; /* 第一个位置 A[0] 作为哨兵 */
-			for ( j = i - 1; A[0] &amp;lt; A[j]; j-- )
-				A[j + 1] = A[j];
-			A[j + 1] = A[0];
-		}
-	}
-}
-
-int main()
-{
-	int e, n, i;
-	printf( &amp;quot;序列元素个数：&amp;quot; );
-	scanf( &amp;quot;%d&amp;quot;, &amp;amp;n );
-	int A[n + 1];
-	printf( &amp;quot;请依次输入：\n&amp;quot; );
-	for ( i = 1; i &amp;lt;= n; i++ )
-	{
-		scanf( &amp;quot;%d&amp;quot;, &amp;amp;e );
-		A[i] = e;
-	}
-	InsertSort( A, n );
-	printf( &amp;quot;直接插入排序结果：&amp;quot; );
-	for ( i = 1; i &amp;lt;= n; i++ )
-		printf( &amp;quot;%4d&amp;quot;, A[i] );
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;测试效果&#34;&gt;测试效果：&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/X8sVS957BqgcwLf.png&#34; alt=&#34;测试效果&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>迁移小记</title>
-      <link>https://halklein.github.io/2019/02/</link>
+      <link>https://halklein.github.io/2019/002/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/02/</guid>
+      <guid>https://halklein.github.io/2019/002/</guid>
       <description>
 
 &lt;h2 id=&#34;1-提高-git-clone-的速度&#34;&gt;1. 提高 git clone 的速度&lt;/h2&gt;
@@ -1265,10 +1203,10 @@ hugo
     
     <item>
       <title>博客迁移 Hugo</title>
-      <link>https://halklein.github.io/2019/01/</link>
+      <link>https://halklein.github.io/2019/001/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/01/</guid>
+      <guid>https://halklein.github.io/2019/001/</guid>
       <description>&lt;p&gt;​       &lt;strong&gt;你眼中有春与秋，&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;​       &lt;strong&gt;胜过我见过爱过的一切山川与河流；&lt;/strong&gt;&lt;/p&gt;
@@ -1285,10 +1223,10 @@ hugo
     
     <item>
       <title>算法比赛模板（一）</title>
-      <link>https://halklein.github.io/2019/12/</link>
+      <link>https://halklein.github.io/2019/012/</link>
       <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/12/</guid>
+      <guid>https://halklein.github.io/2019/012/</guid>
       <description>
 
 &lt;h2 id=&#34;工具类&#34;&gt;工具类&lt;/h2&gt;
@@ -1539,10 +1477,10 @@ int main()
     
     <item>
       <title>为何要探索宇宙？</title>
-      <link>https://halklein.github.io/2018/19/</link>
+      <link>https://halklein.github.io/2018/019/</link>
       <pubDate>Mon, 05 Nov 2018 19:22:46 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/19/</guid>
+      <guid>https://halklein.github.io/2018/019/</guid>
       <description>
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/12/9d3HBgXPO5yWfDK.jpg&#34; alt=&#34;From NASA&#34; /&gt;&lt;/p&gt;
@@ -1763,10 +1701,10 @@ int main()
     
     <item>
       <title>纪念姚贝儿诞辰37周年</title>
-      <link>https://halklein.github.io/2018/14/</link>
+      <link>https://halklein.github.io/2018/014/</link>
       <pubDate>Wed, 26 Sep 2018 20:00:35 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/14/</guid>
+      <guid>https://halklein.github.io/2018/014/</guid>
       <description>&lt;p&gt;今天是2018年9月26日，一转眼，你离开我们已经三年半了&lt;/p&gt;
 
 &lt;p&gt;我大概不是一个合格的粉丝，因为知道你的时候实在是太晚了。我一向是不爱看选秀娱乐节目的，2018年3月在家闲得无聊就回放了中国好声音；当听到你声音的时候我震惊了，好久没有听过这么纯粹干净而有力的声音了，每个字都清晰可见。当看到那个穿着牛仔裤、体恤衫、平底鞋，面上露出灿烂笑容的你时，感觉特别的自然亲切，一首 也许明天 ，那是我认识你的歌，惊叹于娇小身躯里蕴含的强大爆发力。
@@ -1805,10 +1743,10 @@ int main()
     
     <item>
       <title>给我未来的孩子 -- 文/张梅</title>
-      <link>https://halklein.github.io/2018/17/</link>
+      <link>https://halklein.github.io/2018/017/</link>
       <pubDate>Sat, 15 Sep 2018 19:55:11 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/17/</guid>
+      <guid>https://halklein.github.io/2018/017/</guid>
       <description>&lt;p&gt;文/张梅&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -1885,10 +1823,10 @@ int main()
     
     <item>
       <title>汉明码（海明码）计算与纠错</title>
-      <link>https://halklein.github.io/2018/13/</link>
+      <link>https://halklein.github.io/2018/013/</link>
       <pubDate>Wed, 12 Sep 2018 20:36:39 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/13/</guid>
+      <guid>https://halklein.github.io/2018/013/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -2009,6 +1947,106 @@ int main()
 &lt;p&gt;​   如果要纠出 d 位错误，需要一个海明距为 2d+1 的编码方案；&lt;/p&gt;
 
 &lt;p&gt;​   海明码的纠错能力恒小于等于检错能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>八月长沙行</title>
+      <link>https://halklein.github.io/2018/015/</link>
+      <pubDate>Wed, 29 Aug 2018 19:39:09 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2018/015/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/eOPspgf7MBX8bcq.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;18年暑假大部分时间是在湖南度过的，由于气温一直不比重庆凉快，所以就没出门去，最后还是决定去长沙玩几天。&lt;/p&gt;
+
+&lt;p&gt;已经不是第一次来长沙，上一次来是去年国庆的时候，当时还有幸看了一场橘子洲的焰火表演，场面甚是壮观，是我见过最壮美的烟花表演了&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;史料记载，“湖南生产鞭炮始于唐代，发达于宋末及清乾隆年间……湘东之平江、浏阳、醴陵……均为爆竹制造中心地”。至今已有1300多年的历史。在2010年，长沙市政府为提升城市竞争力，发展长沙旅游业，决定以“浏阳花炮”为品牌，以橘子洲为载体，把山、水、洲、城这一独特的城市景观展示给国内外游客，开始了烟花表演。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;由于燃放规模十分的大，它所带来的环境污染问题也同样不容小觑，中央环保督察组巡视长沙环保工作情况时，就提出长沙要整改在橘子洲燃放大型焰火的问题，据传，今后很可能取消橘子洲的焰火表演，真的是看一次少一次了！可惜没能找到去年拍的照片了。&lt;/p&gt;
+
+&lt;p&gt;长沙，最出名应该是美食了，比如长沙臭豆腐、糖油粑粑等，大街小巷都有。&lt;/p&gt;
+
+&lt;p&gt;其实，对我而言长沙有一个好喝的奶茶 — 茶颜悦色&lt;/p&gt;
+
+&lt;p&gt;茶颜悦色是长沙本土奶茶品牌，主打新中式鲜茶；这个店只在长沙开，记得17年来长沙的时候应该也就十来个门店吧，可是这次去发现时长拐角都能看见，其实我不太想看到这样的结果，我更希望它只是那几个一直精美的奶茶店。不过还是想喝，去买了两杯，没错还是熟悉的味道，每种口味都那么好喝，都是每次来必喝的茶颜啊！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/izgfLFvBaCJZQYX.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后是这次长沙行的第一站：&lt;strong&gt;岳麓山&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/JyUCSQR1g9fVApb.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;选择的是索道上山，这也是我第一次坐索道（嗯，下一次要去试试重庆长江索道），一开始还是有点怕的，高的地方大概有二三十米吧，而且我觉得索道那个装置怎么看起来这么不靠谱（哈哈），不过还是上了，主要是懒得爬山&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/o8W2HaXjPIzKMeE.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上去之后发现其实岳麓山也没想象中好玩，只是在索道和山上能俯瞰长沙的风景，还是挺不错；难道这就是《沁园春 雪》里“橘子洲头，看万山红遍”，里说的山吗？&lt;/p&gt;
+
+&lt;p&gt;之后，沿着路走，一直到了&lt;strong&gt;爱晚亭&lt;/strong&gt;，杜牧的《山行》就写的这儿，爱晚亭也是中国四大名亭之一。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;远上寒山石径斜，白云生处有人家。&lt;/strong&gt;
+&lt;strong&gt;停车坐爱枫林晚，霜叶红于二月花。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/5QZm3tyxEIcj2L7.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在离爱晚亭不远处，就是岳麓书院了，又是一个中国四大之一….&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/SCy6Q7iqOtRvKFu.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第二天，去了 &lt;strong&gt;长沙IFS&lt;/strong&gt; （长沙国际金融中心），是长沙第一高楼，集大型精品商场、高端写字楼及国际白金五星级酒店等设施于一体的超高层大型城市综合体。总建筑面积101万平方米，主塔楼设计高度452米，副塔楼设计高度315米。上一次来的时候是阴天，有薄薄的雾，整个IFS大楼直插云霄&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/1S5LwKAfEXZgpVB.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后是去了IFS里号称米其林一星级餐厅的 – &lt;strong&gt;鹅夫人&lt;/strong&gt; 餐厅品尝一番，感觉有点贵呀，5片鹅肝59元， 感觉有点腻，不是很喜欢吃…&lt;/p&gt;
+
+&lt;p&gt;还是这道天鹅叉烧酥比较好看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/fBgaMY8eP5KscLT.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最后一天，去了被誉为“&lt;strong&gt;星城之眼&lt;/strong&gt;”的亚洲第一巨型摩天轮&lt;/p&gt;
+
+&lt;p&gt;坐落在长沙贺龙体育广场．这个巨型摩天轮高120m，直径99m，最令人称奇的是它建立在巨型屋顶上；摩天轮还有一个特点，就是每到夜间，由电脑控制的它能散发50多种不同组合的光芒。
+&lt;img src=&#34;https://i.loli.net/2019/12/10/zvPnT1rdCgsiGjx.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一开始以为120m不高，可是当转到半空后，开始感觉到有点恐高，第一次坐摩天轮，还是比较好玩。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;传说摩天轮的每个盒子里都装满了幸福&lt;/p&gt;
+
+&lt;p&gt;当我们仰望摩天轮的时候&lt;/p&gt;
+
+&lt;p&gt;就是在仰望幸福&lt;/p&gt;
+
+&lt;p&gt;幸福有多高&lt;/p&gt;
+
+&lt;p&gt;摩天轮就有多高&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;最后的最后当然是离开长沙了，有点不舍…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/10/ohARFik2eaGUpwO.jpg&#34; alt=&#34;长沙南站&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ps&#34;&gt;PS&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;自从上了大学后，感觉万年没有写文章了，&lt;/p&gt;
+
+&lt;p&gt;所以，疯狂放图…留个纪念&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;拍摄设备：&lt;strong&gt;Meizu 16 th&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;压缩工具：&lt;strong&gt;Antelope&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

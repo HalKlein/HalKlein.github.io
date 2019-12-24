@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="HalKlein">
+  
+  
+  
+  <link rel="prev" href="https://halklein.github.io/2019/002/" />
+  <link rel="next" href="https://halklein.github.io/2019/006/" />
+  <link rel="canonical" href="https://halklein.github.io/2019/005/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           OSI模型和TCP/IP模型 | HalKlein`s Blog
+       
+  </title>
+  <meta name="title" content="OSI模型和TCP/IP模型 | HalKlein`s Blog">
+    
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/halklein.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "OSI模型和TCP\/IP模型",
+    "headline" : "OSI模型和TCP\/IP模型",
+    "description" : "1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型，由国际标准化组织",
+    "inLanguage" : "zh-cn",
+    "author" : "HalKlein",
+    "creator" : "HalKlein",
+    "publisher": "HalKlein",
+    "accountablePerson" : "HalKlein",
+    "copyrightHolder" : "HalKlein",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-31 09:06:36 \x2b0800 CST",
+    "dateModified" : "2019-10-31 09:06:36 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/005\/",
+    "wordCount" : "2570",
+    "keywords" : [ "计算机网络", "HalKlein`s Blog"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    
+        <div class="top-scroll-bar"></div>
+    
+    <div class="container">
+        <div class="navbar-header header-logo">
+            
+            <span class="logo_mark" >></span>
+            <a href="https://halklein.github.io">
+                <span class="logo_text" >$ cd /home/ </span>
+                <span class="logo_cursor" ></span>
+            </a>
+            
+        </div>
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                </span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     
+         <div class="top-scroll-bar"></div>
+     
+     <div class="container">
+        <div class="navbar-header">
+            <div class="header-logo">
+                
+                    <span class="logo_mark">></span>
+                    <a href="https://halklein.github.io">
+                        <span class="logo_text">$ cd /home/ </span>
+                        <span class="logo_cursor"></span>
+                </a>
+                
+            </div>
+            <div class="navbar-right">
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">OSI模型和TCP/IP模型</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-10-31 itemprop="datePublished">October 31, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
+                        
+                </span>
+                <span class="post-word-count">, 2570 words</span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="1-osi-开放式系统互联参考模型">1. OSI 开放式系统互联参考模型</h2>
+
+<p><strong>开放式系统互联模型</strong>（英语：<strong>O</strong>pen <strong>S</strong>ystem <strong>I</strong>nterconnection Model，缩写：OSI；简称为<strong>OSI模型</strong>）是一种<a href="https://zh.wikipedia.org/wiki/概念模型" rel="nofollow noreferrer" target="_blank">概念模型</a>，由<a href="https://zh.wikipedia.org/wiki/国际标准化组织" rel="nofollow noreferrer" target="_blank">国际标准化组织</a>提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/TLr5NUxWHKmJszP.gif" alt="OSI 开放式系统互联参考模型" class="lazyload"><figcaption class="image-caption">OSI 开放式系统互联参考模型</figcaption></figure></p>
+
+<h3 id="物理层-physical-layer">物理层（Physical Layer）</h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/N2o1gwMl95GfFsD.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>在局部局域网上传送<a href="https://zh.wikipedia.org/wiki/数据帧" rel="nofollow noreferrer" target="_blank">数据帧</a>（data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis</p>
+
+<h3 id="数据链路层-datalink-layer">数据链路层<strong>（Datalink Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/oSpjkPZy9ftYGVa.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： <code>HDLC</code> 、<code>PPP</code>、<code>STP</code>等。</p>
+
+<h3 id="网络层-network-layer">网络层 <strong>（Network Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/wexCdOuZ2QH54B3.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：<code>IP</code>、<code>ICMP</code>（互联网控制报文协议）、<code>ARP</code>（地址转换协议）、<code>RARP</code>（反向地址转换协议）</p>
+
+<h3 id="传输层-transport-layer"><strong>传输层（Transport Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/YQgGIThdiAEn23f.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：<code>TCP</code>（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），<code>UDP</code>（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。</p>
+
+<h3 id="会话层-session-layer"><strong>会话层（Session Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/4hayBOXImwVbAct.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。</p>
+
+<p>通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。</p>
+
+<p>常见的协议有 <code>ADSP</code>、<code>RPC</code> 等。</p>
+
+<h3 id="表示层-presentation-layer"><strong>表示层（Presentation Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/PRd9vurV1UCfqTw.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有<code>ASCII</code>、<code>SSL/TLS</code> 等。</p>
+
+<h3 id="应用层-application-layer"><strong>应用层（Application Layer）</strong></h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/qTcn6Y3klSOetdN.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<p>是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 <code>HTTP</code>，<code>FTP</code>，<code>TELNET</code>、<code>SMTP</code> 等。</p>
+
+<h3 id="osi模型-数据传输流程概览">OSI模型 数据传输流程概览</h3>
+
+<p><img src="https://i.loli.net/2019/12/09/peH8BVr75dWE34c.png" alt="" style="zoom:67%;" /></p>
+
+<h2 id="2-tcp-ip四层网络模型">2. TCP/IP四层网络模型</h2>
+
+<h3 id="提出">提出</h3>
+
+<p>OSI模型是一个定义良好的协议规范集，定义了开放系统的层次结构和之间的关系，但并没有提供一个可实现的方法，其并非一个标准，而是一个慨念型框架。TCP/IP是被广泛使用的OSI模型的实现。</p>
+
+<h3 id="简介">简介</h3>
+
+<p>TCP/IP协议栈是美国国防部高级研究计划局计算机网（Advanced Research Projects Agency Network，ARPANET）和其后继因特网使用的参考模型。ARPANET是由美国国防部（U.S．Department of Defense，DoD）赞助的研究网络。最初，它只连接了美国境内的四所大学。随后的几年中，它通过租用的电话线连接了数百所大学和政府部门。最终ARPANET发展成为全球规模最大的互连网络-因特网。最初的ARPANET于1990年永久性地关闭。</p>
+
+<p>TCP/IP是一组协议的代名词，它<strong>还包括许多协议，组成了TCP/IP协议簇</strong>。TCP/IP协议簇分为四层，IP位于协议簇的第二层(对应OSI的第三层)，TCP位于协议簇的第三层(对应OSI的第四层)。</p>
+
+<h3 id="层次">层次</h3>
+
+<p>TCP/IP协议采用了4层的层级结构，每一层都呼叫它的下一层所提供的网络来完成自己的需求。分别为：</p>
+
+<p><strong>应用层</strong>：应用程序间沟通的层，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等。</p>
+
+<p><strong>传输层</strong>：在此层中，它提供了节点间的数据传送服务，如传输控制协议（TCP）、用户数据报协议（UDP）等，TCP和UDP给数据包加入传输数据并把它传输到下一层中，这一层负责传送数据，并且确定数据已被送达并接收。</p>
+
+<p><strong>网络层</strong>：负责提供基本的数据封包传送功能，让每一块数据包都能够到达目的主机（但不检查是否被正确接收），如网际协议（IP）。</p>
+
+<p><strong>网络接口层</strong>：对实际的网络媒体的管理，定义如何使用实际网络（如Ethernet、Serial Line等）来传送数据。</p>
+
+<h3 id="对应关系及协议整理">对应关系及协议整理</h3>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/Ip71j6NFub3Ugr5.png" alt="" class="lazyload"><figcaption class="image-caption"></figcaption></figure></p>
+
+<h3 id="tcp-ip模型-数据传输流程概览">TCP/IP模型 数据传输流程概览</h3>
+
+<p><img src="https://i.loli.net/2019/12/09/NWbI9otOVEwkJaL.png" alt="" style="zoom:50%;" /></p>
+
+<h2 id="3-问题">3. 问题</h2>
+
+<h3 id="交换机工作在osi的哪一层">交换机工作在OSI的哪一层？</h3>
+
+<p><strong>二层交换机</strong> 工作在OSI的第二层数据链路层，，由于它们要对帧解码并使用帧信息将数据发送到正确的接收方，所以它们是工作在数据链路层的。
+<strong>三层交换机</strong> 是工作在OSI的网络层，因为三层交换机有路由功能。</p>
+
+<h3 id="路由器工作在osi的哪一层">路由器工作在OSI的哪一层？</h3>
+
+<p>路由器工作在OSI七层模型的第3层，网络层。由于网络层处理，并智能指导数据传送，路由器连接网络各段，所以路由器属于网络层。在网络中，“路由”是基于编址方案、使用模式以及可达性来指引数据的发送。 网络层负责在源机器和目标机器之间建立它们所使用的路由。</p>
+
+<h3 id="ping命令使用osi哪一层协议">PING命令使用OSI哪一层协议？</h3>
+
+<p>ping命令使用的是ICMP协议，位于OSI七层网络模型中的第三层，网络层。</p>
+
+<p><center> ·End· </center></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>HalKlein </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://halklein.github.io/2019/005/>https://halklein.github.io/2019/005/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    #计算机网络</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://halklein.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://halklein.github.io/2019/002/" class="prev" rel="prev" title="迁移小记"><i class="iconfont icon-left"></i>&nbsp;迁移小记</a>
+         
+        
+        <a href="https://halklein.github.io/2019/006/" class="next" rel="next" title="TCP三次握手">TCP三次握手&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+        
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+
+        clientID: '6ad465847cf3517c6285',
+        clientSecret: 'c6d4fc96d68815b1cfa32ea1ff4b8cd249f26650',
+        repo: 'halklein.github.io',
+        owner: 'HalKlein',
+        admin: ['HalKlein'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function () {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder">
+                <a href="https://halklein.github.io">HalKlein</a>
+                <a href="https://halklein.github.io/index.xml">订阅</a>
+                 | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

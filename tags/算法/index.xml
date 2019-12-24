@@ -8,26 +8,17 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 29 Oct 2019 22:56:37 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 23 Mar 2019 21:47:12 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>插入排序</title>
-      <link>https://halklein.github.io/2019/04/</link>
-      <pubDate>Tue, 29 Oct 2019 22:56:37 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/04/</guid>
-      <description>1. 直接插入排序 思想 通俗的来说，直接插入排序 类似于给扑克牌排序的方法。我们假设先看到了左边第1张牌；然后看第2张牌并与之前的第1张牌比较，如果</description>
-    </item>
-    
-    <item>
       <title>算法比赛模板（一）</title>
-      <link>https://halklein.github.io/2019/12/</link>
+      <link>https://halklein.github.io/2019/012/</link>
       <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/12/</guid>
+      <guid>https://halklein.github.io/2019/012/</guid>
       <description>工具类 线性筛素数 #include &amp;lt;iostream&amp;gt; using namespace std; #define SIZE 1000 int main() { int check[SIZE] = { 0 }; int prime[SIZE] = { 0 }; int pos = 0; for ( int i = 2; i &amp;lt; SIZE; i++ ) { /* 是素数 */ if ( !check[i] ) prime[pos++] = i; for ( int j = 0; j &amp;lt; pos &amp;amp;&amp;amp; i</description>
     </item>
     
