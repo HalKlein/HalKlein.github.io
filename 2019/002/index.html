@@ -55,7 +55,7 @@
     "datePublished": "2019-10-15 12:46:35 \x2b0800 CST",
     "dateModified" : "2019-10-15 12:46:35 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/002\/",
-    "wordCount" : "421",
+    "wordCount" : "425",
     "keywords" : [ "博客", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E5%8D%9A%E5%AE%A2/"> 博客 </a>
                         
                 </span>
-                <span class="post-word-count">, 421 words</span>
+                <span class="post-word-count">, 425 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -179,8 +179,12 @@
 
 <p>最后找到原因：git 的代理要单独配置，命令如下：</p>
 
-<pre><code class="language-c++">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+<pre><code class="language-c++"># 配置代理
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
+# 取消代理
+git config --global --unset http.https://github.com.proxy
+git config --global --unset https.https://github.com.proxy
 </code></pre>
 
 <h2 id="2-macos-启用未知来源">2. MacOS 启用未知来源</h2>
@@ -190,44 +194,44 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 
 <h2 id="3-常用git命令">3. 常用Git命令</h2>
 
-<pre><code class="language-c++">//初始化git仓库
+<pre><code class="language-c++"># 初始化git仓库
 git init
-//连接到Github
+# 连接到Github
 git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
-//提交所有的更改
+# 提交所有的更改
 git add -A
-//提交并添加说明
+# 提交并添加说明
 git commit -m &quot;提交说明&quot;
-//推到master主分支
+# 推到master主分支
 git push -u origin master
 </code></pre>
 
-<pre><code class="language-c++">//拉去整个项目
+<pre><code class="language-c++"># 拉取整个项目
 git clone [url]
-//拉取远程仓库里面master分支到本地
+# 拉取远程仓库里面master分支到本地
 git pull origin master
-//查看有哪些文件夹
+# 查看有哪些文件夹
 dir
-//查看当前git配置
+# 查看当前git配置
 git config --list
-//编辑git配置文件
+# 编辑git配置文件
 git config --user.name
-//设置git用户信息
+# 设置git用户信息
 git config [--global] user.name &quot;[name]&quot;
 git config [--global] user.email &quot;[email address]&quot;
-//查看仓库当前的状态
+# 查看仓库当前的状态
 $ git status
 </code></pre>
 
 <h2 id="4-一些hugo命令">4. 一些Hugo命令</h2>
 
-<pre><code class="language-c++">//创建网站
+<pre><code class="language-c++"># 创建网站
 hugo new site myBlog
-//创建页面
+# 创建页面
 hugo new about.md
-//本地运行测试
+# 本地运行测试
 hugo server -D
-//生成
+# 生成
 hugo
 </code></pre>
 

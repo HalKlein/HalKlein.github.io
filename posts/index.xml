@@ -1145,8 +1145,12 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 
 &lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 配置代理
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
+# 取消代理
+git config --global --unset http.https://github.com.proxy
+git config --global --unset https.https://github.com.proxy
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;2-macos-启用未知来源&#34;&gt;2. MacOS 启用未知来源&lt;/h2&gt;
@@ -1156,44 +1160,44 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 
 &lt;h2 id=&#34;3-常用git命令&#34;&gt;3. 常用Git命令&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//初始化git仓库
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 初始化git仓库
 git init
-//连接到Github
+# 连接到Github
 git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
-//提交所有的更改
+# 提交所有的更改
 git add -A
-//提交并添加说明
+# 提交并添加说明
 git commit -m &amp;quot;提交说明&amp;quot;
-//推到master主分支
+# 推到master主分支
 git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//拉去整个项目
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 拉取整个项目
 git clone [url]
-//拉取远程仓库里面master分支到本地
+# 拉取远程仓库里面master分支到本地
 git pull origin master
-//查看有哪些文件夹
+# 查看有哪些文件夹
 dir
-//查看当前git配置
+# 查看当前git配置
 git config --list
-//编辑git配置文件
+# 编辑git配置文件
 git config --user.name
-//设置git用户信息
+# 设置git用户信息
 git config [--global] user.name &amp;quot;[name]&amp;quot;
 git config [--global] user.email &amp;quot;[email address]&amp;quot;
-//查看仓库当前的状态
+# 查看仓库当前的状态
 $ git status
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;4-一些hugo命令&#34;&gt;4. 一些Hugo命令&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;//创建网站
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 创建网站
 hugo new site myBlog
-//创建页面
+# 创建页面
 hugo new about.md
-//本地运行测试
+# 本地运行测试
 hugo server -D
-//生成
+# 生成
 hugo
 &lt;/code&gt;&lt;/pre&gt;
 
