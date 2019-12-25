@@ -7,8 +7,157 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 24 Dec 2019 21:22:50 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Dec 2019 11:38:03 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>用 iTerm2 美化你的 Mac终端</title>
+      <link>https://halklein.github.io/2019/022/</link>
+      <pubDate>Wed, 25 Dec 2019 11:38:03 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/022/</guid>
+      <description>
+
+&lt;h2 id=&#34;先看看效果图&#34;&gt;先看看效果图&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/pSFXu5gpvdoH5ko7.png!thumbnail&#34; alt=&#34;效果图&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;安装-iterm2&#34;&gt;安装 iTerm2&lt;/h2&gt;
+
+&lt;p&gt;下载安装 &lt;a href=&#34;https://www.iterm2.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;iterm2&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://iterm2.com/downloads/stable/latest&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://iterm2.com/downloads/stable/latest&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;安装 &lt;a href=&#34;https://ohmyz.sh/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;oh-my-zsh&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;sh -c &amp;quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;p&gt;sh -c &amp;ldquo;$(wget &lt;a href=&#34;https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;/a&gt; -O -)&amp;rdquo;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若需要Homebrew，执行下面命令安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;wget的安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;brew install wget
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如需科学上网：&lt;a href=&#34;https://www.noxxxx.com/mac-下终端走-ss-代理.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;在终端中直接运行命令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;export http_proxy=http://proxyAddress:port
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个办法的好处是简单直接，并且影响面很小（只对当前终端有效，退出就不行了）。&lt;/p&gt;
+
+&lt;p&gt;如果你用的是ss代理，在当前终端运行以下命令，那么&lt;code&gt;wget&lt;/code&gt; &lt;code&gt;curl&lt;/code&gt; 这类网络命令都会经过ss代理&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;export ALL_PROXY=socks5://127.0.0.1:1080
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;下载配色方案&#34;&gt;下载配色方案&lt;/h2&gt;
+
+&lt;p&gt;你可以在 &lt;a href=&#34;https://iterm2colorschemes.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;这里&lt;/a&gt; 查看配色方案。（这里我选择 &lt;strong&gt;Tomorrow Night Eighties&lt;/strong&gt;）&lt;/p&gt;
+
+&lt;p&gt;然后到 &lt;a href=&#34;https://github.com/mbadolato/iTerm2-Color-Schemes&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;这里&lt;/a&gt; 下载 iterm2 的配色方案&lt;/p&gt;
+
+&lt;p&gt;下载好之后，在iTerm2首选项中导入配色方案：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/U4ppzLVJcnMPiYlz.png!thumbnail&#34; alt=&#34;首选项&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/53DZaigXiFYqQ39a.png!thumbnail&#34; alt=&#34;选择配色文件&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;更换-zsh-默认的主题&#34;&gt;更换 zsh 默认的主题&lt;/h2&gt;
+
+&lt;p&gt;我使用的主题是&lt;a href=&#34;https://github.com/Powerlevel9k/powerlevel9k/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;powerlevel9k&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编辑配置文件 &lt;code&gt;vi ~/.zshrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;ZSH_THEME=&amp;quot;powerlevel9k/powerlevel9k&amp;quot;
+# 命令左侧显示内容（当前目录 git 版本信息）
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+# 命令右侧显示内容（命令运行状态，剩余内存，时间，cpu负载，剩余电量）
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram time load battery)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后运行 &lt;code&gt;source ~/.zshrc&lt;/code&gt; 命令，让其生效。&lt;/p&gt;
+
+&lt;h2 id=&#34;更换字体&#34;&gt;更换字体&lt;/h2&gt;
+
+&lt;p&gt;直接使用 &lt;code&gt;powerlevel9k&lt;/code&gt; 主题的话，因为默认字体不支持 icon，会出现一些乱码。&lt;/p&gt;
+
+&lt;p&gt;因为 &lt;code&gt;powerlevel9k&lt;/code&gt; 中用到了大量的 icon，但是只有部分的字体支持 icon。目前对 icon 的支持得比较好的字体是 &lt;a href=&#34;https://www.nerdfonts.com/#home&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Nerd Font&lt;/a&gt;。brew 提供了 nerd 字体的安装。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;$ brew tap homebrew/cask-fonts
+$ brew search nerd
+==&amp;gt; Formulae
+container-diff
+==&amp;gt; Casks
+font-3270-nerd-font
+...
+# 选择Nerd Font字体进行安装
+$ brew cask install font-sourcecodepro-nerd-font
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装字体成功后，就可以在 iterm2 中设置了：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/nHVUPpxmopcN0z8E.png!thumbnail&#34; alt=&#34;更改字体&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;插件&#34;&gt;插件&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;oh-my-zsh&lt;/code&gt; 有很多好用的插件，安装好的插件需要在 &lt;code&gt;~/.zshrc&lt;/code&gt; 中的 &lt;code&gt;plugins=(git autojump cp extract sudo z zsh-syntax-highlighting zsh-autosuggestions)&lt;/code&gt; 依次写入配置，用空格分开。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;autojump&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;记忆我们之前去过的目录，不需要多次 &lt;code&gt;cd&lt;/code&gt; ，直接 &lt;code&gt;j 目录名&lt;/code&gt; 就可以直接进入。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#安装
+brew install autojump
+
+#在 ~/.zshrc 中加入如下配置
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] &amp;amp;&amp;amp; . $(brew --prefix)/etc/profile.d/autojump.sh
+source $ZSH/oh-my-zsh.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zsh-autosuggestion&#34;&gt;&lt;strong&gt;zsh-autosuggestion&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;输入命令提示自动补全，然后按键盘 &lt;code&gt;→&lt;/code&gt; 即可补全&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#安装
+$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;zsh-syntax-highlighting&#34;&gt;&lt;strong&gt;zsh-syntax-highlighting&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;命令高亮显示，错误显示红色&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 安装
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;colorls&#34;&gt;&lt;strong&gt;colorls&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;显示文件图标&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 安装
+sudo gem install colorls 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>关于数据库索引的一些问题</title>
@@ -1799,86 +1948,6 @@ int main()
 
 &lt;p&gt;在此，怀着深深的不舍和敬意向你祝福：愿天堂没有病痛，愿你能在天堂继续快乐的歌唱，姚贝儿37岁生日快乐！
 &lt;img src=&#34;https://i.loli.net/2019/12/09/6EyqfbwBzjoOeA4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>给我未来的孩子 -- 文/张梅</title>
-      <link>https://halklein.github.io/2018/017/</link>
-      <pubDate>Sat, 15 Sep 2018 19:55:11 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/017/</guid>
-      <description>&lt;p&gt;文/张梅&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/qRMeCtU9QsbB48j.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;孩子，我首先希望你自始至终都是一个理想主义者。你可以是农民，可以是工程师，可以是演员，可以是流浪汉，但你必须是个理想主义者。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;当你童年，我们讲英雄的故事给你听，并不是要你一定成为英雄，而是希望具有纯正的品格；当你少年，我们让你接触诗歌、绘画、音乐，是为了让你的心灵填满高尚的情趣。这些高尚的情趣会支撑你的一生，使你在最严酷的冬天也不会忘记玫瑰的芳香。理想会使人出众。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;孩子，不要为自己的外形担忧。理想纯洁你的气质，而最美貌的女人也会因为庸俗而令人生厌。通向理想的道路往往不尽人意，而你亦会为此受尽磨难。但是，孩子，你尽管去争取，理想主义者的结局悲壮而决不可怜。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;在那貌似坎坷的人生中，你会结识到许多智者和君子，你会见到许多旁人无法遇到的风景和奇迹。选择平庸虽稳妥，但绝无色彩。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;不要为蝇头小利放弃自己的理想，不要为某种潮流而放弃自己的信念。物质世界的外表太过复杂，你要懂得如何去拒绝虚荣的诱惑。理想不是实惠的东西，它往往无法带给你尘世的享受。因此你必须习惯无人欣赏你，学会精神享受，学会与他人不同。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;其次，孩子，我希望你是一个踏实的人。人生太过短促，而虚的东西又太多，你很容易眼花缭乱，最终一事无成。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;如果你是一个美貌的女孩子，年轻的时候会有许多男性宠你，你得到的东西过于容易，这会使你流于浅薄和虚浮；如果你是一个极聪明的男孩，又会以为自己能够成就许多大事而流于轻佻。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;记住，每个人的能力有限，我们活在世上做好一件事足矣。写好一本书，做好一个主妇。不要轻视平凡的人，不要投机取巧，不要攻击自己做不到的事。你长大后会知道，做好一件事太难，但绝不要放弃。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;你要懂得和珍惜感情。不管男人女人，不管墙内墙外，相交一场实在不容易。交友的过程会有误会和摩擦，但你想一想，偌大世界，能有缘结伴而行的又有几人？你要明白朋友终会离去，生活中能有人伴你在身边，听你倾谈，倾谈给你听，你就应该感激。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;要爱自己和爱他人，要懂自己和懂他人。你的心要如溪水般柔软，你的眼波要象春天般妩媚。你要会流泪，会孤身一人坐在黑暗中听伤感的音乐。你要懂得欣赏悲剧，悲剧能丰富你的心灵。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;希望你不要媚俗。你是个独立的人，无人能抹杀你的独立性，除非你向世俗妥协。要学会欣赏真，要在重重面具之下看到真。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;世上圆滑标准的人很多，但出类拔萃的人极少。而往往出类拔萃又隐藏在卑琐狂荡之下。在形式上，我们无法与既定的世俗争斗，而在内心，我们都是自己的国王。如果你的脸上出现谄媚的笑容，我将羞愧的掩脸而去。世俗许多东西虽耀眼却无价值，不要把自己置于大众的天平上，你会因此无所适从，人云亦云。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;在具体的做人上，我希望你不要打断别人的谈话，不要娇气十足。你每天至少拿出两小时来读书，不要想着别人为你做些什么，而要想着怎么去帮助他人。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;借他人的东西要还，不要随便接受别人的恩惠，要记住，别人的东西，再好也是别人的，自己的东西，再差也是自己的。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;还有一件事，虽然做起来很难，但相当重要，这就是要有勇气正视自己的缺点。你会一年年的长大，你渐渐会遇到比你强，比你优秀的人，你会发现自己身上有许多你所厌恶的缺点。这会使你沮丧和自卑。你一定要正视它，不要躲避，要一点一点的加以改正。战胜自己比征服他人还要艰巨和有意义。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;p&gt;不管世界潮流如何变化，但人的优秀品质却是永恒的：正直，勇敢，独立。我希望你是一个优秀的人。&lt;/p&gt;
-
-&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="HalKlein">
+  
+  
+  
+  <link rel="prev" href="https://halklein.github.io/2019/021/" />
+  
+  <link rel="canonical" href="https://halklein.github.io/2019/022/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           用 iTerm2 美化你的 Mac终端 | HalKlein`s Blog
+       
+  </title>
+  <meta name="title" content="用 iTerm2 美化你的 Mac终端 | HalKlein`s Blog">
+    
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/halklein.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "用 iTerm2 美化你的 Mac终端",
+    "headline" : "用 iTerm2 美化你的 Mac终端",
+    "description" : "先看看效果图 安装 iTerm2 下载安装 iterm2 https:\/\/iterm2.com\/downloads\/stable\/latest 安装 oh-my-zsh sh -c \x26quot;$(curl -fsSL https:\/\/raw.github.com\/ohmyzsh\/ohmyzsh\/master\/tools\/install.sh)\x26quot; 或者 sh -c \x26ldquo;$(wget https:\/\/raw.github.com\/ohmyzsh\/ohmyzsh\/master\/tools\/install.sh -O -)\x26rdquo; 若需要Homebrew，执行下面命令安装 \/usr\/bin\/ruby -e \x26quot;$(curl -fsSL https:\/\/raw.githubusercontent.com\/Homebrew\/install\/master\/install)\x26quot; wget的安装 brew install wget 如需科学",
+    "inLanguage" : "zh-cn",
+    "author" : "HalKlein",
+    "creator" : "HalKlein",
+    "publisher": "HalKlein",
+    "accountablePerson" : "HalKlein",
+    "copyrightHolder" : "HalKlein",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-12-25 11:38:03 \x2b0800 CST",
+    "dateModified" : "2019-12-25 11:38:03 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2019\/022\/",
+    "wordCount" : "696",
+    "keywords" : [ "美化","MacOS", "HalKlein`s Blog"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    
+        <div class="top-scroll-bar"></div>
+    
+    <div class="container">
+        <div class="navbar-header header-logo">
+            
+            <span class="logo_mark" >></span>
+            <a href="https://halklein.github.io">
+                <span class="logo_text" >$ cd /home/ </span>
+                <span class="logo_cursor" ></span>
+            </a>
+            
+        </div>
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                </span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     
+         <div class="top-scroll-bar"></div>
+     
+     <div class="container">
+        <div class="navbar-header">
+            <div class="header-logo">
+                
+                    <span class="logo_mark">></span>
+                    <a href="https://halklein.github.io">
+                        <span class="logo_text">$ cd /home/ </span>
+                        <span class="logo_cursor"></span>
+                </a>
+                
+            </div>
+            <div class="navbar-right">
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">用 iTerm2 美化你的 Mac终端</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-12-25 itemprop="datePublished">December 25, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/"> 生命不息折腾不止 </a>
+                        
+                </span>
+                <span class="post-word-count">, 696 words</span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="先看看效果图">先看看效果图</h2>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://uploader.shimo.im/f/pSFXu5gpvdoH5ko7.png!thumbnail" alt="效果图" class="lazyload"><figcaption class="image-caption">效果图</figcaption></figure></p>
+
+<h2 id="安装-iterm2">安装 iTerm2</h2>
+
+<p>下载安装 <a href="https://www.iterm2.com/" rel="nofollow noreferrer" target="_blank">iterm2</a></p>
+
+<p><a href="https://iterm2.com/downloads/stable/latest" rel="nofollow noreferrer" target="_blank">https://iterm2.com/downloads/stable/latest</a></p>
+
+<p>安装 <a href="https://ohmyz.sh/" rel="nofollow noreferrer" target="_blank">oh-my-zsh</a></p>
+
+<pre><code class="language-c++">sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+</code></pre>
+
+<p>或者</p>
+
+<p>sh -c &ldquo;$(wget <a href="https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh" rel="nofollow noreferrer" target="_blank">https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh</a> -O -)&rdquo;</p>
+
+<pre><code class="language-c++">
+</code></pre>
+
+<p>若需要Homebrew，执行下面命令安装</p>
+
+<pre><code class="language-c++">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre>
+
+<p>wget的安装</p>
+
+<pre><code class="language-c++">brew install wget
+</code></pre>
+
+<p>如需科学上网：<a href="https://www.noxxxx.com/mac-下终端走-ss-代理.html" rel="nofollow noreferrer" target="_blank">参考</a></p>
+
+<p>在终端中直接运行命令</p>
+
+<pre><code class="language-c++">export http_proxy=http://proxyAddress:port
+</code></pre>
+
+<p>这个办法的好处是简单直接，并且影响面很小（只对当前终端有效，退出就不行了）。</p>
+
+<p>如果你用的是ss代理，在当前终端运行以下命令，那么<code>wget</code> <code>curl</code> 这类网络命令都会经过ss代理</p>
+
+<pre><code class="language-c++">export ALL_PROXY=socks5://127.0.0.1:1080
+</code></pre>
+
+<h2 id="下载配色方案">下载配色方案</h2>
+
+<p>你可以在 <a href="https://iterm2colorschemes.com/" rel="nofollow noreferrer" target="_blank">这里</a> 查看配色方案。（这里我选择 <strong>Tomorrow Night Eighties</strong>）</p>
+
+<p>然后到 <a href="https://github.com/mbadolato/iTerm2-Color-Schemes" rel="nofollow noreferrer" target="_blank">这里</a> 下载 iterm2 的配色方案</p>
+
+<p>下载好之后，在iTerm2首选项中导入配色方案：</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://uploader.shimo.im/f/U4ppzLVJcnMPiYlz.png!thumbnail" alt="首选项" class="lazyload"><figcaption class="image-caption">首选项</figcaption></figure></p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://uploader.shimo.im/f/53DZaigXiFYqQ39a.png!thumbnail" alt="选择配色文件" class="lazyload"><figcaption class="image-caption">选择配色文件</figcaption></figure></p>
+
+<h2 id="更换-zsh-默认的主题">更换 zsh 默认的主题</h2>
+
+<p>我使用的主题是<a href="https://github.com/Powerlevel9k/powerlevel9k/" rel="nofollow noreferrer" target="_blank">powerlevel9k</a></p>
+
+<pre><code class="language-c++">git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+</code></pre>
+
+<p>编辑配置文件 <code>vi ~/.zshrc</code></p>
+
+<pre><code class="language-c++">ZSH_THEME=&quot;powerlevel9k/powerlevel9k&quot;
+# 命令左侧显示内容（当前目录 git 版本信息）
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+# 命令右侧显示内容（命令运行状态，剩余内存，时间，cpu负载，剩余电量）
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram time load battery)
+</code></pre>
+
+<p>之后运行 <code>source ~/.zshrc</code> 命令，让其生效。</p>
+
+<h2 id="更换字体">更换字体</h2>
+
+<p>直接使用 <code>powerlevel9k</code> 主题的话，因为默认字体不支持 icon，会出现一些乱码。</p>
+
+<p>因为 <code>powerlevel9k</code> 中用到了大量的 icon，但是只有部分的字体支持 icon。目前对 icon 的支持得比较好的字体是 <a href="https://www.nerdfonts.com/#home" rel="nofollow noreferrer" target="_blank">Nerd Font</a>。brew 提供了 nerd 字体的安装。</p>
+
+<pre><code class="language-c++">$ brew tap homebrew/cask-fonts
+$ brew search nerd
+==&gt; Formulae
+container-diff
+==&gt; Casks
+font-3270-nerd-font
+...
+# 选择Nerd Font字体进行安装
+$ brew cask install font-sourcecodepro-nerd-font
+</code></pre>
+
+<p>安装字体成功后，就可以在 iterm2 中设置了：</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://uploader.shimo.im/f/nHVUPpxmopcN0z8E.png!thumbnail" alt="更改字体" class="lazyload"><figcaption class="image-caption">更改字体</figcaption></figure></p>
+
+<h2 id="插件">插件</h2>
+
+<p><code>oh-my-zsh</code> 有很多好用的插件，安装好的插件需要在 <code>~/.zshrc</code> 中的 <code>plugins=(git autojump cp extract sudo z zsh-syntax-highlighting zsh-autosuggestions)</code> 依次写入配置，用空格分开。</p>
+
+<p><strong>autojump</strong></p>
+
+<p>记忆我们之前去过的目录，不需要多次 <code>cd</code> ，直接 <code>j 目录名</code> 就可以直接进入。</p>
+
+<pre><code class="language-c++">#安装
+brew install autojump
+
+#在 ~/.zshrc 中加入如下配置
+[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew --prefix)/etc/profile.d/autojump.sh
+source $ZSH/oh-my-zsh.sh
+</code></pre>
+
+<h3 id="zsh-autosuggestion"><strong>zsh-autosuggestion</strong></h3>
+
+<p>输入命令提示自动补全，然后按键盘 <code>→</code> 即可补全</p>
+
+<pre><code class="language-c++">#安装
+$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+</code></pre>
+
+<h3 id="zsh-syntax-highlighting"><strong>zsh-syntax-highlighting</strong></h3>
+
+<p>命令高亮显示，错误显示红色</p>
+
+<pre><code class="language-c++"># 安装
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+</code></pre>
+
+<h3 id="colorls"><strong>colorls</strong></h3>
+
+<p>显示文件图标</p>
+
+<pre><code class="language-c++"># 安装
+sudo gem install colorls 
+</code></pre>
+
+<p><center> ·End· </center></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>HalKlein </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://halklein.github.io/2019/022/>https://halklein.github.io/2019/022/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/%E7%BE%8E%E5%8C%96/">
+                    #美化</a></span>
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/macos/">
+                    #MacOS</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://halklein.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://halklein.github.io/2019/021/" class="prev" rel="prev" title="关于数据库索引的一些问题"><i class="iconfont icon-left"></i>&nbsp;关于数据库索引的一些问题</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+        
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+
+        clientID: '6ad465847cf3517c6285',
+        clientSecret: 'c6d4fc96d68815b1cfa32ea1ff4b8cd249f26650',
+        repo: 'halklein.github.io',
+        owner: 'HalKlein',
+        admin: ['HalKlein'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function () {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2019</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder">
+                <a href="https://halklein.github.io">HalKlein</a>
+                <a href="https://halklein.github.io/index.xml">订阅</a>
+                 | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

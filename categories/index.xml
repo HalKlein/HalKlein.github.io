@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 24 Dec 2019 21:22:50 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Dec 2019 11:38:03 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>生命不息折腾不止</title>
+      <link>https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/</link>
+      <pubDate>Wed, 25 Dec 2019 11:38:03 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>编程是一门艺术</title>
@@ -19,15 +28,6 @@
       <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>生命不息折腾不止</title>
-      <link>https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/</link>
-      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/</guid>
       <description></description>
     </item>
     
