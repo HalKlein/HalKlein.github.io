@@ -20,7 +20,7 @@
 
 &lt;h2 id=&#34;先看看效果图&#34;&gt;先看看效果图&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/pSFXu5gpvdoH5ko7.png!thumbnail&#34; alt=&#34;效果图&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/bAyehHXWCwkLPSR.png&#34; alt=&#34;效果图&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;安装-iterm2&#34;&gt;安装 iTerm2&lt;/h2&gt;
 
@@ -72,9 +72,9 @@
 
 &lt;p&gt;下载好之后，在iTerm2首选项中导入配色方案：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/U4ppzLVJcnMPiYlz.png!thumbnail&#34; alt=&#34;首选项&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/b73i1KHnfIRov8N.png&#34; alt=&#34;首选项&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/53DZaigXiFYqQ39a.png!thumbnail&#34; alt=&#34;选择配色文件&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/BTOsYSQXWUZhHV3.png&#34; alt=&#34;选择配色文件&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;更换-zsh-默认的主题&#34;&gt;更换 zsh 默认的主题&lt;/h2&gt;
 
@@ -113,7 +113,7 @@ $ brew cask install font-sourcecodepro-nerd-font
 
 &lt;p&gt;安装字体成功后，就可以在 iterm2 中设置了：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://uploader.shimo.im/f/nHVUPpxmopcN0z8E.png!thumbnail&#34; alt=&#34;更改字体&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/LqtHU8Z95oBdiFD.png&#34; alt=&#34;更改字体&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;插件&#34;&gt;插件&lt;/h2&gt;
 
@@ -176,7 +176,7 @@ sudo gem install colorls
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/qtGm8r27hMxLDwV.png&#34; alt=&#34;密集索引和稀疏索引&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;MySQL常见的数据库引擎：MyISAM只使用稀疏索引，InnoDB有且仅有以后密集索引&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MySQL常见的数据库引擎：MyISAM只使用稀疏索引，InnoDB有且仅有一个密集索引&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;若一个主键被定义，该主键则作为密集索引&lt;/li&gt;
