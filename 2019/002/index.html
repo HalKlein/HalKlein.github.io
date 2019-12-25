@@ -22,10 +22,10 @@
   <title>
        
        
-           迁移小记 | HalKlein`s Blog
+           采坑小记 | HalKlein`s Blog
        
   </title>
-  <meta name="title" content="迁移小记 | HalKlein`s Blog">
+  <meta name="title" content="采坑小记 | HalKlein`s Blog">
     
   <link rel="stylesheet" href="/css/main.min.css">
 
@@ -42,8 +42,8 @@
          "@id": "https:\/\/halklein.github.io"
     },
     "articleSection" : "posts",
-    "name" : "迁移小记",
-    "headline" : "迁移小记",
+    "name" : "采坑小记",
+    "headline" : "采坑小记",
     "description" : "1. 提高 git clone 的速度 之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k\/s左右实在是受不了！自己",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
@@ -55,8 +55,8 @@
     "datePublished": "2019-10-15 12:46:35 \x2b0800 CST",
     "dateModified" : "2019-10-15 12:46:35 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/002\/",
-    "wordCount" : "425",
-    "keywords" : [ "博客", "HalKlein`s Blog"]
+    "wordCount" : "159",
+    "keywords" : [ "博客","折腾", "HalKlein`s Blog"]
 }
 </script>
 
@@ -140,7 +140,7 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">迁移小记</h1>
+        <h1 class="post-title" itemprop="name headline">采坑小记</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
                 <span class="post-time">
@@ -149,10 +149,10 @@
                 in
                 <i class="iconfont icon-folder"></i>
                 <span class="post-category">
-                        <a href="https://halklein.github.io/categories/%E5%8D%9A%E5%AE%A2/"> 博客 </a>
+                        <a href="https://halklein.github.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/"> 生命不息折腾不止 </a>
                         
                 </span>
-                <span class="post-word-count">, 425 words</span>
+                <span class="post-word-count">, 159 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -179,61 +179,13 @@
 
 <p>最后找到原因：git 的代理要单独配置，命令如下：</p>
 
-<pre><code class="language-c++"># 配置代理
-git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
+<pre><code class="language-c">git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
 git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
-# 取消代理
-git config --global --unset http.https://github.com.proxy
-git config --global --unset https.https://github.com.proxy
 </code></pre>
 
-<h2 id="2-macos-启用未知来源">2. MacOS 启用未知来源</h2>
+<p>socks5代理端口在这里查看：</p>
 
-<pre><code class="language-c++">sudo spctl --master-disable
-</code></pre>
-
-<h2 id="3-常用git命令">3. 常用Git命令</h2>
-
-<pre><code class="language-c++"># 初始化git仓库
-git init
-# 连接到Github
-git remote add origin https://github.com/[Github 用户名]/[Github 用户名].github.io.git
-# 提交所有的更改
-git add -A
-# 提交并添加说明
-git commit -m &quot;提交说明&quot;
-# 推到master主分支
-git push -u origin master
-</code></pre>
-
-<pre><code class="language-c++"># 拉取整个项目
-git clone [url]
-# 拉取远程仓库里面master分支到本地
-git pull origin master
-# 查看有哪些文件夹
-dir
-# 查看当前git配置
-git config --list
-# 编辑git配置文件
-git config --user.name
-# 设置git用户信息
-git config [--global] user.name &quot;[name]&quot;
-git config [--global] user.email &quot;[email address]&quot;
-# 查看仓库当前的状态
-$ git status
-</code></pre>
-
-<h2 id="4-一些hugo命令">4. 一些Hugo命令</h2>
-
-<pre><code class="language-c++"># 创建网站
-hugo new site myBlog
-# 创建页面
-hugo new about.md
-# 本地运行测试
-hugo server -D
-# 生成
-hugo
-</code></pre>
+<p>MacOS 未知来源：sudo spctl &ndash;master-disable</p>
 
 <p><center> ·No End· </center></p>
 
@@ -268,6 +220,9 @@ hugo
             
             <span class="tag"><a href="https://halklein.github.io/tags/%E5%8D%9A%E5%AE%A2/">
                     #博客</a></span>
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/%E6%8A%98%E8%85%BE/">
+                    #折腾</a></span>
             
             </section>
         
