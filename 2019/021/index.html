@@ -55,7 +55,7 @@
     "datePublished": "2019-12-24 21:22:50 \x2b0800 CST",
     "dateModified" : "2019-12-24 21:22:50 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2019\/021\/",
-    "wordCount" : "463",
+    "wordCount" : "551",
     "keywords" : [ "数据库", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 463 words</span>
+                <span class="post-word-count">, 551 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -202,22 +202,35 @@
 
 <h3 id="2-1-根据慢日志定位慢查询sql">2.1 根据慢日志定位慢查询sql</h3>
 
-<pre><code class="language-c++"># 查看数据库慢日志配置
-show variables like &quot;%quer%&quot;;
+<pre><code class="language-sql"># 查看数据库慢日志配置
+mysql&gt; show variables like &quot;%quer%&quot;;
 
 # 查看慢日志数量
-show status like &quot;%slow_queries%&quot;;
+mysql&gt; show status like &quot;%slow_queries%&quot;;
 
 # 打开慢日志开关
-set global slow_query_log = on;
+mysql&gt; set global slow_query_log = on;
 
 # 设置慢日志记录阈值为1s，10s可以说是很慢很慢了，不具有参考价值
 # 修改后可能需要重新连接数据库才能看到效果
 # 另外，这样的设置在重启MySQL服务之后将会失效！如果要永久生效,需修改my.ini配置文件（Mac OS是my.cnf）
-set global long_query_time = 1;
+mysql&gt; set global long_query_time = 1;
 </code></pre>
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/24/NFSpx65OUvuqQhD.png" alt="查看数据库慢日志配置" class="lazyload"><figcaption class="image-caption">查看数据库慢日志配置</figcaption></figure></p>
+
+<h3 id="2-2-使用explain等工具分析sql">2.2 使用explain等工具分析sql</h3>
+
+<p>只需在查询语句前加上 <code>explain</code> 即可，如：</p>
+
+<pre><code class="language-sql">mysql&gt; explain select ...
+</code></pre>
+
+<h3 id="2-3-修改sql或者尽量让sql走索引">2.3 修改sql或者尽量让sql走索引</h3>
+
+<h2 id="三-联合索引的最左匹配原则的成因">三、联合索引的最左匹配原则的成因</h2>
+
+<h2 id="四-索引是建立得越多越好吗">四、索引是建立得越多越好吗</h2>
 
 <p><center> ·End· </center></p>
 

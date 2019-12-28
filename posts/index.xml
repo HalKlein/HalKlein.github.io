@@ -7,8 +7,192 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Wed, 25 Dec 2019 11:38:03 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 28 Dec 2019 20:14:16 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Web项目的一些调试技巧</title>
+      <link>https://halklein.github.io/2019/023/</link>
+      <pubDate>Sat, 28 Dec 2019 20:14:16 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2019/023/</guid>
+      <description>
+
+&lt;h2 id=&#34;1-响应状态码的含义&#34;&gt;1. 响应状态码的含义&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;200 OK&lt;/code&gt;，表明请求已经成功. 默认情况下状态码为200的响应可以被缓存。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;302 Found&lt;/code&gt;，重定向，服务器发送 &lt;code&gt;302&lt;/code&gt; 状态码和一个新的 &lt;code&gt;url&lt;/code&gt; 让浏览器再发一次新的请求，实现功能的跳转。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;404 Not Found&lt;/code&gt;，往往是路径配置有误。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;500 Internal Server Error&lt;/code&gt;，服务器接受到了请求，但是在处理的过程中发生了问题。&lt;/p&gt;
+
+&lt;p&gt;详细信息请参考：&lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-服务端断点调试技巧&#34;&gt;2. 服务端断点调试技巧&lt;/h2&gt;
+
+&lt;p&gt;在IDEA中，打上断点后，需要以 Debug 方式运行程序。&lt;/p&gt;
+
+&lt;p&gt;按 &lt;code&gt;F8&lt;/code&gt; 可以执行下一行&lt;/p&gt;
+
+&lt;p&gt;按 &lt;code&gt;F7&lt;/code&gt; 可以进入到当前行执行的方法内部，查看更详细的调试信息&lt;/p&gt;
+
+&lt;p&gt;按 &lt;code&gt;F9&lt;/code&gt; 可以一直向下执行直到遇到下一个断点处，注意在调试期间也可以在之后的程序代码中继续打断点，用于跳过一些繁杂的循环或者确定正确的程序段。&lt;/p&gt;
+
+&lt;p&gt;有些信息可能是以Hash值显示，这时可以在下方调试框中展开看信息信息：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/28/ZM548VEUdLiYyaW.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果断点太多，你还可以批量管理断点：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/28/jRGKmuvIPdsegJk.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;3-客户端断点调试技巧&#34;&gt;3. 客户端断点调试技巧&lt;/h2&gt;
+
+&lt;p&gt;这里主要是指对 JS 的调试。以Chrome浏览器为例，调出如下页面，&lt;code&gt;F10&lt;/code&gt;进入下一条语句，&lt;code&gt;F11&lt;/code&gt;进入当前语句，&lt;code&gt;F8&lt;/code&gt;到下一个断点或执行到底。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/28/hBezrIyuPVgJNUb.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;4-设置日志级别-并将日志输出到不同的终端&#34;&gt;4. 设置日志级别，并将日志输出到不同的终端&lt;/h2&gt;
+
+&lt;p&gt;Spring boot内置默认的日志工具 &lt;a href=&#34;https://logback.qos.ch&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Logback&lt;/a&gt; ，&lt;a href=&#34;http://logback.qos.ch/manual/index.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;参考手册&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package org.slf4j; 
+public interface Logger {
+  // 日志级别，从低到高，等于或高于设定级别的日志将会在控制台输出
+  public void trace(String message);
+  public void debug(String message);
+  public void info(String message); 
+  public void warn(String message); 
+  public void error(String message); 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;logger日志级别被Spring Boot整合后，可直接在 application.properties 文件中配置&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 配置logger日志级别，以便查看sql语句带来的错误等，方便查错
+logging.level.me.leihao.community = debug
+# 项目上线后是没有控制台的，我们可以将日志打印到文件里
+logging.file.name = E:/Test/community.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在实际的项目开发中，日志文件是非常重要的，我们的设置会更复杂一些，会将不同级别的日志分成不同的文件，对单个文件如果太大也会进行拆分。&lt;/p&gt;
+
+&lt;p&gt;首先，先注释掉 application.properties 文件中配置的 logger 日志&lt;/p&gt;
+
+&lt;p&gt;然后，在 resources 目录下引入名为 &lt;code&gt;logback-spring.xml&lt;/code&gt; 的配置文件（注意命名是Spring规定的，不要乱改）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;configuration&amp;gt;
+    &amp;lt;!--你的项目名--&amp;gt;
+    &amp;lt;contextName&amp;gt;community&amp;lt;/contextName&amp;gt;
+    &amp;lt;!--日志存储路径--&amp;gt;
+    &amp;lt;property name=&amp;quot;LOG_PATH&amp;quot; value=&amp;quot;E:/Test/log&amp;quot;/&amp;gt;
+    &amp;lt;!--子级目录，以区分不同项目--&amp;gt;
+    &amp;lt;property name=&amp;quot;APPDIR&amp;quot; value=&amp;quot;community&amp;quot;/&amp;gt;
+
+    &amp;lt;!-- error file --&amp;gt;
+    &amp;lt;appender name=&amp;quot;FILE_ERROR&amp;quot; class=&amp;quot;ch.qos.logback.core.rolling.RollingFileAppender&amp;quot;&amp;gt;
+        &amp;lt;!--分块规则--&amp;gt;
+        &amp;lt;file&amp;gt;${LOG_PATH}/${APPDIR}/log_error.log&amp;lt;/file&amp;gt;
+        &amp;lt;rollingPolicy class=&amp;quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&amp;quot;&amp;gt;
+            &amp;lt;fileNamePattern&amp;gt;${LOG_PATH}/${APPDIR}/error/log-error-%d{yyyy-MM-dd}.%i.log&amp;lt;/fileNamePattern&amp;gt;
+            &amp;lt;timeBasedFileNamingAndTriggeringPolicy class=&amp;quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&amp;quot;&amp;gt;
+                &amp;lt;!--单个日志大小--&amp;gt;
+                &amp;lt;maxFileSize&amp;gt;5MB&amp;lt;/maxFileSize&amp;gt;
+            &amp;lt;/timeBasedFileNamingAndTriggeringPolicy&amp;gt;
+            &amp;lt;!--日志最长保留时间--&amp;gt;
+            &amp;lt;maxHistory&amp;gt;30&amp;lt;/maxHistory&amp;gt;
+        &amp;lt;/rollingPolicy&amp;gt;
+        &amp;lt;!--以追加方式存储日志--&amp;gt;
+        &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt;
+        &amp;lt;encoder class=&amp;quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&amp;quot;&amp;gt;
+            &amp;lt;!--日志输出格式：日期、级别、线程、类、文件和行、提示--&amp;gt;
+            &amp;lt;pattern&amp;gt;%d %level [%thread] %logger{10} [%file:%line] %msg%n&amp;lt;/pattern&amp;gt;
+            &amp;lt;!--字符集--&amp;gt;
+            &amp;lt;charset&amp;gt;utf-8&amp;lt;/charset&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.LevelFilter&amp;quot;&amp;gt;
+            &amp;lt;!--日志级别--&amp;gt;
+            &amp;lt;level&amp;gt;error&amp;lt;/level&amp;gt;
+            &amp;lt;onMatch&amp;gt;ACCEPT&amp;lt;/onMatch&amp;gt;
+            &amp;lt;onMismatch&amp;gt;DENY&amp;lt;/onMismatch&amp;gt;
+        &amp;lt;/filter&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;!-- warn file --&amp;gt;
+    &amp;lt;appender name=&amp;quot;FILE_WARN&amp;quot; class=&amp;quot;ch.qos.logback.core.rolling.RollingFileAppender&amp;quot;&amp;gt;
+        &amp;lt;file&amp;gt;${LOG_PATH}/${APPDIR}/log_warn.log&amp;lt;/file&amp;gt;
+        &amp;lt;rollingPolicy class=&amp;quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&amp;quot;&amp;gt;
+            &amp;lt;fileNamePattern&amp;gt;${LOG_PATH}/${APPDIR}/warn/log-warn-%d{yyyy-MM-dd}.%i.log&amp;lt;/fileNamePattern&amp;gt;
+            &amp;lt;timeBasedFileNamingAndTriggeringPolicy class=&amp;quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&amp;quot;&amp;gt;
+                &amp;lt;maxFileSize&amp;gt;5MB&amp;lt;/maxFileSize&amp;gt;
+            &amp;lt;/timeBasedFileNamingAndTriggeringPolicy&amp;gt;
+            &amp;lt;maxHistory&amp;gt;30&amp;lt;/maxHistory&amp;gt;
+        &amp;lt;/rollingPolicy&amp;gt;
+        &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt;
+        &amp;lt;encoder class=&amp;quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&amp;quot;&amp;gt;
+            &amp;lt;pattern&amp;gt;%d %level [%thread] %logger{10} [%file:%line] %msg%n&amp;lt;/pattern&amp;gt;
+            &amp;lt;charset&amp;gt;utf-8&amp;lt;/charset&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.LevelFilter&amp;quot;&amp;gt;
+            &amp;lt;level&amp;gt;warn&amp;lt;/level&amp;gt;
+            &amp;lt;onMatch&amp;gt;ACCEPT&amp;lt;/onMatch&amp;gt;
+            &amp;lt;onMismatch&amp;gt;DENY&amp;lt;/onMismatch&amp;gt;
+        &amp;lt;/filter&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;!-- info file --&amp;gt;
+    &amp;lt;appender name=&amp;quot;FILE_INFO&amp;quot; class=&amp;quot;ch.qos.logback.core.rolling.RollingFileAppender&amp;quot;&amp;gt;
+        &amp;lt;file&amp;gt;${LOG_PATH}/${APPDIR}/log_info.log&amp;lt;/file&amp;gt;
+        &amp;lt;rollingPolicy class=&amp;quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&amp;quot;&amp;gt;
+            &amp;lt;fileNamePattern&amp;gt;${LOG_PATH}/${APPDIR}/info/log-info-%d{yyyy-MM-dd}.%i.log&amp;lt;/fileNamePattern&amp;gt;
+            &amp;lt;timeBasedFileNamingAndTriggeringPolicy class=&amp;quot;ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP&amp;quot;&amp;gt;
+                &amp;lt;maxFileSize&amp;gt;5MB&amp;lt;/maxFileSize&amp;gt;
+            &amp;lt;/timeBasedFileNamingAndTriggeringPolicy&amp;gt;
+            &amp;lt;maxHistory&amp;gt;30&amp;lt;/maxHistory&amp;gt;
+        &amp;lt;/rollingPolicy&amp;gt;
+        &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt;
+        &amp;lt;encoder class=&amp;quot;ch.qos.logback.classic.encoder.PatternLayoutEncoder&amp;quot;&amp;gt;
+            &amp;lt;pattern&amp;gt;%d %level [%thread] %logger{10} [%file:%line] %msg%n&amp;lt;/pattern&amp;gt;
+            &amp;lt;charset&amp;gt;utf-8&amp;lt;/charset&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.LevelFilter&amp;quot;&amp;gt;
+            &amp;lt;level&amp;gt;info&amp;lt;/level&amp;gt;
+            &amp;lt;onMatch&amp;gt;ACCEPT&amp;lt;/onMatch&amp;gt;
+            &amp;lt;onMismatch&amp;gt;DENY&amp;lt;/onMismatch&amp;gt;
+        &amp;lt;/filter&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;!-- console 打印到控制台 --&amp;gt;
+    &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+        &amp;lt;encoder&amp;gt;
+            &amp;lt;pattern&amp;gt;%d %level [%thread] %logger{10} [%file:%line] %msg%n&amp;lt;/pattern&amp;gt;
+            &amp;lt;charset&amp;gt;utf-8&amp;lt;/charset&amp;gt;
+        &amp;lt;/encoder&amp;gt;
+        &amp;lt;filter class=&amp;quot;ch.qos.logback.classic.filter.ThresholdFilter&amp;quot;&amp;gt;
+            &amp;lt;!--控制台日志级别--&amp;gt;
+            &amp;lt;level&amp;gt;debug&amp;lt;/level&amp;gt;
+        &amp;lt;/filter&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+    &amp;lt;!--对某个包日志级别的单独声明--&amp;gt;
+    &amp;lt;logger name=&amp;quot;me.leihao.community&amp;quot; level=&amp;quot;debug&amp;quot;/&amp;gt;
+
+    &amp;lt;root level=&amp;quot;info&amp;quot;&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;FILE_ERROR&amp;quot;/&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;FILE_WARN&amp;quot;/&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;FILE_INFO&amp;quot;/&amp;gt;
+        &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot;/&amp;gt;
+    &amp;lt;/root&amp;gt;
+
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>用 iTerm2 美化你的 Mac终端</title>
@@ -194,22 +378,35 @@ sudo gem install colorls
 
 &lt;h3 id=&#34;2-1-根据慢日志定位慢查询sql&#34;&gt;2.1 根据慢日志定位慢查询sql&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 查看数据库慢日志配置
-show variables like &amp;quot;%quer%&amp;quot;;
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;# 查看数据库慢日志配置
+mysql&amp;gt; show variables like &amp;quot;%quer%&amp;quot;;
 
 # 查看慢日志数量
-show status like &amp;quot;%slow_queries%&amp;quot;;
+mysql&amp;gt; show status like &amp;quot;%slow_queries%&amp;quot;;
 
 # 打开慢日志开关
-set global slow_query_log = on;
+mysql&amp;gt; set global slow_query_log = on;
 
 # 设置慢日志记录阈值为1s，10s可以说是很慢很慢了，不具有参考价值
 # 修改后可能需要重新连接数据库才能看到效果
 # 另外，这样的设置在重启MySQL服务之后将会失效！如果要永久生效,需修改my.ini配置文件（Mac OS是my.cnf）
-set global long_query_time = 1;
+mysql&amp;gt; set global long_query_time = 1;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/NFSpx65OUvuqQhD.png&#34; alt=&#34;查看数据库慢日志配置&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;2-2-使用explain等工具分析sql&#34;&gt;2.2 使用explain等工具分析sql&lt;/h3&gt;
+
+&lt;p&gt;只需在查询语句前加上 &lt;code&gt;explain&lt;/code&gt; 即可，如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;mysql&amp;gt; explain select ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-3-修改sql或者尽量让sql走索引&#34;&gt;2.3 修改sql或者尽量让sql走索引&lt;/h3&gt;
+
+&lt;h2 id=&#34;三-联合索引的最左匹配原则的成因&#34;&gt;三、联合索引的最左匹配原则的成因&lt;/h2&gt;
+
+&lt;h2 id=&#34;四-索引是建立得越多越好吗&#34;&gt;四、索引是建立得越多越好吗&lt;/h2&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
@@ -1906,48 +2103,6 @@ int main()
 &lt;p&gt;原文链接：&lt;a href=&#34;http://www.lettersofnote.com/2012/08/why-explore-space.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;http://www.lettersofnote.com/2012/08/why-explore-space.html&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;翻译：&lt;a href=&#34;https://www.douban.com/note/230189968/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;kelejiabing&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>纪念姚贝儿诞辰37周年</title>
-      <link>https://halklein.github.io/2018/014/</link>
-      <pubDate>Wed, 26 Sep 2018 20:00:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2018/014/</guid>
-      <description>&lt;p&gt;今天是2018年9月26日，一转眼，你离开我们已经三年半了&lt;/p&gt;
-
-&lt;p&gt;我大概不是一个合格的粉丝，因为知道你的时候实在是太晚了。我一向是不爱看选秀娱乐节目的，2018年3月在家闲得无聊就回放了中国好声音；当听到你声音的时候我震惊了，好久没有听过这么纯粹干净而有力的声音了，每个字都清晰可见。当看到那个穿着牛仔裤、体恤衫、平底鞋，面上露出灿烂笑容的你时，感觉特别的自然亲切，一首 也许明天 ，那是我认识你的歌，惊叹于娇小身躯里蕴含的强大爆发力。
-&lt;img src=&#34;https://i.loli.net/2019/12/09/rRJTVKZAuxjNlPq.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2006年青歌赛亚军，2008年青歌赛史上唯一满分冠军的你本就具有常人所不及的实力，不需要选秀来证明自己。一开始我是很不理解的，感觉你在欺负对手，好声音的学员本来大部分就是业余歌手。带着太多的不解，我找了你很多资料，也终于明白了你，你不想待在海政文工团，那不是你梦想的地方；终于得了抑郁症的你在生命的最艰难的时刻，决定从军队中脱离了出来，想唱流行音乐，也想像那些歌手一样，站在舞台上，穿一身休闲装，吼得歇斯底里。而不是穿一身的军装，站的端庄典雅。而选秀节目当然是一个好机会。选秀无论有多少黑幕，那对你来说其实都不重要，你已经成功了，很多人都就此认识了你，如今好声音已经不存在了，而你虽已走，却活在了很多人心里。逐渐认识你之后，我发现自己曾经哼的许多歌，原来是你唱的，曾经惊讶于甄嬛传《红颜劫》的歌声，有时哼唱的《随他吧》、《如果我们没有遇见》还有好听的年欢晚会歌曲《天耀中华》原来都是你演唱的！
-&lt;img src=&#34;https://i.loli.net/2019/12/09/G3e5BVgJDEK4hXL.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;有人说喜欢一个明星就是 &lt;strong&gt;始于颜值，陷于才华，忠于人品&lt;/strong&gt;  ；我觉得说得非常对了。我所理解的明星大都是利益的产物，大多演员都具有美丽的容颜，而歌手一般都比较有才华，但是他们大多源于利益又促进利益，很多人也渐渐追逐利益；真正谈得上人品的实在太少了。这也是我一直不追星的原因。&lt;/p&gt;
-
-&lt;p&gt;喜欢你，始于你的音乐天赋。姚贝儿你应该算是人品好的，2015年1月16日下午16时55分，因乳腺癌复发，于北京大学深圳医院病逝，离世前，决定捐献眼角膜，如今这对眼角膜已经帮助三四名病者重现光明，成为深圳市第九百多例角膜捐献者。获得“广东好人”荣誉称号，并成为第五届全国道德模范广东省候选人。之后，家里拍卖了部分遗物，而所有的都捐到了新疆西藏等贫困地区用于修建爱心图书馆。是怎样的家庭才能培养出如此优秀善良的女儿呢？
-&lt;img src=&#34;https://i.loli.net/2019/12/09/Z8CrSdtFXeG5Vpq.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2015年4月9日，据国际天文学联合会（IAU）出版的小行星公告，将第41981号小行星被命名为“ &lt;strong&gt;姚贝娜星&lt;/strong&gt; ”（Yaobeina）。这也刚好对应了你1981出生日期。美国宇航局网站上这样介绍姚贝娜：姚贝娜（1981-2015），一位才华横溢又充满勇气的中国女歌手，曾因在流行音乐方面的造诣屡获奖项。她有一首歌叫做《心火》，讲述她与癌症抗争的故事。不幸离世后，她捐献出了自己的眼角膜。”，姚贝娜的“教父”、诗人、词作家&lt;strong&gt;唐跃生&lt;/strong&gt;为姚贝娜写了一首词，名为《女儿》：“有个女儿好比拥有许多自己，你代替我去穿越阳光风雨；如果有一天回到我身边，请全世界暂时离开你”。姚峰说，有了这颗姚贝娜星，他想把词中的“阳光风雨”改为“苍穹天宇”，要为它好好地谱个曲，再好好地唱出来。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;爸，我不怕死，&lt;/p&gt;
-
-&lt;p&gt;可是我死了之后，爸爸妈妈怎么办！&lt;/p&gt;
-
-&lt;p&gt;我的粉丝，他们对我太好了，&lt;/p&gt;
-
-&lt;p&gt;如果我死了，他们一定会很伤心的，&lt;/p&gt;
-
-&lt;p&gt;我对不起他们啊……&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;如今你真的不在了，你可知，你走后，那段时间百度搜索你的名字都是灰色的；你走后，一颗小行星以你的名字命名，北京文艺频道三年为你制作纪念特辑，刘家昌老师发布了你的专辑《永存》所有收入都一样捐赠了，以你名义建立的爱心书屋越来越多，李玉刚老师还为你写了歌；做重要的是贝壳们一直想着你念着你，他们经常来石门峰看你，你的墓前一直鲜花不败，写给你的祝福挂满了长廊。贝壳将带你继续看这个美丽的世界。&lt;/p&gt;
-
-&lt;p&gt;在此，怀着深深的不舍和敬意向你祝福：愿天堂没有病痛，愿你能在天堂继续快乐的歌唱，姚贝儿37岁生日快乐！
-&lt;img src=&#34;https://i.loli.net/2019/12/09/6EyqfbwBzjoOeA4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
