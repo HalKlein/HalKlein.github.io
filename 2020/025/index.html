@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="HalKlein">
+  
+  
+  
+  <link rel="prev" href="https://halklein.github.io/2020/024/" />
+  
+  <link rel="canonical" href="https://halklein.github.io/2020/025/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           常用的元注解 | HalKlein`s Blog
+       
+  </title>
+  <meta name="title" content="常用的元注解 | HalKlein`s Blog">
+    
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/halklein.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "常用的元注解",
+    "headline" : "常用的元注解",
+    "description" : "常用的元注解 当我们需要自定义注解时，要用到元注解定义我们自己的注解（所谓元注解，就是注解其它注解的注解），其中常见的元注解有以下四个： @Target 由于",
+    "inLanguage" : "zh-cn",
+    "author" : "HalKlein",
+    "creator" : "HalKlein",
+    "publisher": "HalKlein",
+    "accountablePerson" : "HalKlein",
+    "copyrightHolder" : "HalKlein",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-20 20:35:11 \x2b0800 CST",
+    "dateModified" : "2020-01-20 20:35:11 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2020\/025\/",
+    "wordCount" : "763",
+    "keywords" : [ "Spring全家桶", "HalKlein`s Blog"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    
+        <div class="top-scroll-bar"></div>
+    
+    <div class="container">
+        <div class="navbar-header header-logo">
+            
+            <span class="logo_mark" >></span>
+            <a href="https://halklein.github.io">
+                <span class="logo_text" >$ cd /home/ </span>
+                <span class="logo_cursor" ></span>
+            </a>
+            
+        </div>
+        <div class="navbar-right">
+                
+                <span class="menu">
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+                </span>
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     
+         <div class="top-scroll-bar"></div>
+     
+     <div class="container">
+        <div class="navbar-header">
+            <div class="header-logo">
+                
+                    <span class="logo_mark">></span>
+                    <a href="https://halklein.github.io">
+                        <span class="logo_text">$ cd /home/ </span>
+                        <span class="logo_cursor"></span>
+                </a>
+                
+            </div>
+            <div class="navbar-right">
+                <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-dark-mode"></i></a>
+                <div class="menu-toggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">常用的元注解</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-01-20 itemprop="datePublished">January 20, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
+                        
+                </span>
+                <span class="post-word-count">, 763 words</span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          
+
+<h2 id="常用的元注解">常用的元注解</h2>
+
+<p>当我们需要自定义注解时，要用到元注解定义我们自己的注解（所谓元注解，就是注解其它注解的注解），其中常见的元注解有以下四个：</p>
+
+<p><strong>@Target</strong></p>
+
+<p>由于标识我们自定义注解的使用范围。从源码可以看到可以赋值为ElementType。</p>
+
+<pre><code class="language-java">package java.lang.annotation;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE})
+public @interface Target {
+    ElementType[] value();
+}
+</code></pre>
+
+<p>其中ElementType定义如下</p>
+
+<pre><code class="language-java">public enum ElementType {
+    TYPE,	// 类、接口、枚举类
+    FIELD,	// 成员变量（包括：枚举常量）
+    METHOD,	// 成员方法
+    PARAMETER,	// 方法参数
+    CONSTRUCTOR, 	// 构造方法
+    LOCAL_VARIABLE,	// 局部变量
+    ANNOTATION_TYPE,	// 注解类
+    PACKAGE,	// 包
+    TYPE_PARAMETER,	// 类型参数，JDK 1.8 新增
+    TYPE_USE,	// 使用类型的任何地方，JDK 1.8 新增
+    MODULE;	// 允许在模块上使用注解，JDK 1.9新增
+
+    private ElementType() {
+    }
+}
+</code></pre>
+
+<p><strong>@Retention</strong></p>
+
+<p>用于说明自定义注解的有效时间或者说保留的时间（如：编译时有效、运行时有效等）</p>
+
+<pre><code class="language-java">package java.lang.annotation;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE})
+public @interface Retention {
+    RetentionPolicy value();
+}
+</code></pre>
+
+<pre><code>package java.lang.annotation;
+
+public enum RetentionPolicy {
+    SOURCE,	//源文件
+    CLASS,	//编译时（默认）
+    RUNTIME;	//运行时
+
+    private RetentionPolicy() {
+    }
+}
+</code></pre>
+
+<p><strong>@Document</strong></p>
+
+<p>声明在生成帮助文档的时候要不要把这个自定义注解信息也带上。</p>
+
+<pre><code class="language-java">package java.lang.annotation;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE})
+public @interface Documented {
+}
+</code></pre>
+
+<p><strong>@Inherited</strong></p>
+
+<p>使被它修饰的自定义注解具有继承性。子类继承该自定义注解之后也具有该注解。</p>
+
+<pre><code class="language-java">package java.lang.annotation;
+
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.ANNOTATION_TYPE})
+public @interface Inherited {
+}
+</code></pre>
+
+<p><strong>PS</strong></p>
+
+<p>一般来说，我们自定义注解，@Target和@Retention是都会用到的，用来指定作用的范围和时机</p>
+
+<h2 id="如何读取注解">如何读取注解</h2>
+
+<p>通过AnnotatedElement接口实现对自定义注解的解析</p>
+
+<p>Method.getDeclaredAnnotations（）
+Method.getAnnotation（Class<T> annotationClass）</p>
+
+<p><strong>看个例子：</strong></p>
+
+<pre><code class="language-Java">@Override
+public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    // 如果拦截到的是一个方法 : instanceof HandlerMethod
+    if (handler instanceof HandlerMethod) {
+        // 转型，方便获取内容
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        // 取注解，取含有自定义注解：LoginRequired，的方法
+        LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
+        // 取注解后发现不为空，说明该方法需要登录才能访问，并且检测不到当前用户
+        if (loginRequired != null &amp;&amp; hostHolder.getUser() == null) {
+            // 使用response重定向到登录页
+            response.sendRedirect(request.getContextPath() + &quot;/login&quot;);
+            // 拒绝后续访问
+            return false;
+        }
+    }
+    return true;
+}
+</code></pre>
+
+<p><center> ·End· </center></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>HalKlein </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://halklein.github.io/2020/025/>https://halklein.github.io/2020/025/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/">
+                    #Spring全家桶</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://halklein.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://halklein.github.io/2020/024/" class="prev" rel="prev" title="记第一次住院"><i class="iconfont icon-left"></i>&nbsp;记第一次住院</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+        
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.css">
+<script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+
+        clientID: '6ad465847cf3517c6285',
+        clientSecret: 'c6d4fc96d68815b1cfa32ea1ff4b8cd249f26650',
+        repo: 'halklein.github.io',
+        owner: 'HalKlein',
+        admin: ['HalKlein'],
+        id: location.pathname, 
+        distractionFreeMode: false 
+    });
+    (function () {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+            return;
+        }
+        gitalk.render('gitalk-container');
+    })();
+</script>
+
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder">
+                <a href="https://halklein.github.io">HalKlein</a>
+                <a href="https://halklein.github.io/index.xml">订阅</a>
+                 | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
