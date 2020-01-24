@@ -70,7 +70,7 @@ public @interface Retention {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;package java.lang.annotation;
+&lt;pre&gt;&lt;code class=&#34;language-Java&#34;&gt;package java.lang.annotation;
 
 public enum RetentionPolicy {
     SOURCE,	//源文件
