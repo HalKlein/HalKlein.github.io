@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 27 Jan 2020 12:09:44 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2020 19:11:39 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>IDEA引入fastjson依赖失败的解决办法</title>
+      <link>https://halklein.github.io/2020/027/</link>
+      <pubDate>Mon, 27 Jan 2020 19:11:39 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/027/</guid>
+      <description>问题 今天学习异步消息，用到 FastJson 对 json 进行解析和生成，但是在 pom.xml 中引入下面的依赖描述时，等待许久也无法下载完成。之后尝试进行科学上网，并开启全局代理</description>
+    </item>
     
     <item>
       <title>用前缀树过滤敏感词</title>

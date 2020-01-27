@@ -7,8 +7,54 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 27 Jan 2020 12:09:44 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2020 19:11:39 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>IDEA引入fastjson依赖失败的解决办法</title>
+      <link>https://halklein.github.io/2020/027/</link>
+      <pubDate>Mon, 27 Jan 2020 19:11:39 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/027/</guid>
+      <description>
+
+&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
+
+&lt;p&gt;今天学习异步消息，用到 FastJson 对 json 进行解析和生成，但是在 &lt;code&gt;pom.xml&lt;/code&gt; 中引入下面的依赖描述时，等待许久也无法下载完成。之后尝试进行科学上网，并开启全局代理，依然是下载失败或下载不完全。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+   &amp;lt;groupId&amp;gt;com.alibaba&amp;lt;/groupId&amp;gt;
+   &amp;lt;artifactId&amp;gt;fastjson&amp;lt;/artifactId&amp;gt;
+   &amp;lt;version&amp;gt;1.2.62&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;解决办法&#34;&gt;解决办法&lt;/h2&gt;
+
+&lt;p&gt;1.在 &lt;a href=&#34;https://mvnrepository.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;MVNrepository&lt;/a&gt; 官网直接找到对应的 jar 包链接，&lt;a href=&#34;https://repo1.maven.org/maven2/com/alibaba/fastjson/1.2.62/fastjson-1.2.62.jar&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;点击进行下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/27/gOTSzU6IrYm1WtA.png&#34; alt=&#34;MVNrepository&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.找到下载jar包的所在目录，使用maven命令直接进行安装，例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;mvn install:install-file -Dfile=E:\Download\Chrome\fastjson-1.2.62.jar -DgroupId=com.alibaba -DartifactId=fastjson -Dversion=1.2.62 -Dpackaging=jar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/27/2AB9iKW6RIdGCXT.png&#34; alt=&#34;对应参数&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;安装成功后显示存放路径&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/27/L4Hk3bv5F1CrwaM.png&#34; alt=&#34;安装成功&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后需要IDEA的设置中设置Maven引用的路径为该路径，重启IDEA，重新加载依赖，就可以成功了！&lt;/p&gt;
+
+&lt;p&gt;PS：同理，其它的依赖应该也可以这样操作。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>用前缀树过滤敏感词</title>
@@ -1963,32 +2009,6 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 &lt;p&gt;ping命令使用的是ICMP协议，位于OSI七层网络模型中的第三层，网络层。&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>采坑小记</title>
-      <link>https://halklein.github.io/2019/002/</link>
-      <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/002/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-提高-git-clone-的速度&#34;&gt;1. 提高 git clone 的速度&lt;/h2&gt;
-
-&lt;p&gt;之前建博客的时候 git clone 感觉挺快的，现在找了几个项目练习有几十M大，发现git clone的速度就50k/s左右实在是受不了！自己是有小飞机的，开了全局代理，居然还是很慢&lt;/p&gt;
-
-&lt;p&gt;最后找到原因：git 的代理要单独配置，命令如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;git config --global http.https://github.com.proxy socks5://127.0.0.1:1086
-git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;socks5代理端口在这里查看：&lt;/p&gt;
-
-&lt;p&gt;MacOS 未知来源：sudo spctl &amp;ndash;master-disable&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     
