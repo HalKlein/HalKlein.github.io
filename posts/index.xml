@@ -7,8 +7,233 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 20 Jan 2020 20:35:11 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2020 12:09:44 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>用前缀树过滤敏感词</title>
+      <link>https://halklein.github.io/2020/026/</link>
+      <pubDate>Mon, 27 Jan 2020 12:09:44 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/026/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;前缀树&lt;/strong&gt;
+    &lt;strong&gt;名称：&lt;/strong&gt;Trie、字典树、查找树
+    &lt;strong&gt;特点：&lt;/strong&gt;查找效率高，消耗内存大
+    &lt;strong&gt;应用：&lt;/strong&gt;字符串检索、词频统计、字符串排序等&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;敏感词过滤器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   定义前缀树根据敏感词&lt;/p&gt;
+
+&lt;p&gt;​   初始化前缀树&lt;/p&gt;
+
+&lt;p&gt;​   编写过滤敏感词的方法&lt;/p&gt;
+
+&lt;p&gt;简单的进行查找和replace替换无疑效率是非常低的，我们使用一种叫前缀树（Trie、字典树、查找树）的数据结构来实现高效过滤。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;G:BlogImgimage-20200127105948571.png&#34; alt=&#34;image-20200127105948571&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step1 定义敏感词文件sensitive-words.txt，放在resources目录下&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;VPN
+翻墙
+吸毒
+开票
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Step2 敏感词过滤器&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 敏感词过滤器
+@Component
+public class SensitiveFilter {
+
+    // 记录日志
+    private static final Logger logger = LoggerFactory.getLogger(SensitiveFilter.class);
+
+    // 替换符（检测到敏感词，替换为某符号，定义为常量）
+    private static final String REPLACEMENT = &amp;quot;***&amp;quot;;
+
+    // 初始化前缀树
+    private TrieNode rootNode = new TrieNode();
+
+
+    // @PostConstruct表示这是一个初始化方法，当容器实例化这个Bean以后在调用它的构造器之后这个方法就会被自动调用
+    @PostConstruct
+    public void init() {
+        // 在classes路径下读取敏感词文件（需要先编译），获得字节流
+        try (
+                InputStream is = this.getClass().getClassLoader().getResourceAsStream(&amp;quot;sensitive-words.txt&amp;quot;);
+                // 转为字符流，在转为缓冲流(效率会更高)
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        ) {
+            String keyword;
+            while ((keyword = reader.readLine()) != null) {
+                // 添加到前缀树中，这一步比较复杂，封装为一个方法
+                this.addKeyword(keyword);
+            }
+        } catch (IOException e) {
+            logger.error(&amp;quot;加载敏感词文件失败 : &amp;quot; + e.getMessage());
+        }
+    }
+
+    // 将一个敏感词添加到前缀树中
+    private void addKeyword(String keyword) {
+        // 指针
+        TrieNode tempNode = rootNode;
+        for (int i = 0; i &amp;lt; keyword.length(); i++) {
+            char c = keyword.charAt(i);
+            TrieNode subNode = tempNode.getSubNode(c);
+            if (subNode == null) {
+                // 初始化子节点
+                subNode = new TrieNode();
+                tempNode.addSubNode(c, subNode);
+            }
+
+            // 让指针指向该子节点，进入下一轮循环
+            tempNode = subNode;
+
+            // 设置结束标识(到此为一个敏感词)
+            if (i == keyword.length() - 1) {
+                tempNode.setKeywordEnd(true);
+            }
+        }
+    }
+
+
+    /**
+     * 过滤敏感词
+     *
+     * @param text 待过滤的文本
+     * @return 过滤后的文本
+     */
+    public String filter(String text) {
+        if (StringUtils.isBlank(text)) {
+            return null;
+        }
+
+        // 指针1，指向前缀树
+        TrieNode tempNode = rootNode;
+        // 指针2，字符串指针
+        int begin = 0;
+        // 指针3，字符串指针
+        int position = 0;
+        // 记录生成的新字符串，使用可变长字符串
+        StringBuilder sb = new StringBuilder();
+
+        // 开始过滤
+        while (position &amp;lt; text.length()) {
+            char c = text.charAt(position);
+
+            // 跳过符号，防止有的用户通过在敏感词中穿插各种符号来规避敏感词检测
+            if (isSymbol(c)) {
+                // 若指针1处于根节点，将此符号记入结果，让指针2向下走一步
+                if (tempNode == rootNode) {
+                    sb.append(c);
+                    begin++;
+                }
+                // 无论符号在开头或中间，指针3都向下走一步
+                position++;
+                continue;
+            }
+
+            // 检查下级节点
+            tempNode = tempNode.getSubNode(c);
+            if (tempNode == null) {
+                // 以begin为开头的字符串不是敏感词
+                sb.append(text.charAt(begin));
+                // 进入下一个位置
+                position = ++begin;
+                // 重新指向根节点
+                tempNode = rootNode;
+            } else if (tempNode.isKeywordEnd()) {
+                // 发现了敏感词，将begin到position这段的字符串替换掉
+                sb.append(REPLACEMENT);
+                // 进入下一个位置
+                begin = ++position;
+                // 重新指向根节点
+                tempNode = rootNode;
+            } else {
+                // 检查下一个字符
+                position++;
+            }
+        }
+
+        // 将最后一批字符计入结果
+        sb.append(text.substring(begin));
+
+        // 返回结果
+        return sb.toString();
+    }
+
+    // 判断是否为符号
+    private boolean isSymbol(Character c) {
+        // 不是特殊符号，0x2E80到0x9FFF是东亚的文字范围
+        return !CharUtils.isAsciiAlphanumeric(c) &amp;amp;&amp;amp; (c &amp;lt; 0x2E80 || c &amp;gt; 0x9FFF);
+    }
+
+
+    // 前缀树
+    private class TrieNode {
+
+        // 关键词结束标识
+        private boolean isKeywordEnd = false;
+
+        // 子节点(key是下级字符，value是下级节点)
+        private Map&amp;lt;Character, TrieNode&amp;gt; subNodes = new HashMap&amp;lt;&amp;gt;();
+
+        public boolean isKeywordEnd() {
+            return isKeywordEnd;
+        }
+
+        public void setKeywordEnd(boolean keywordEnd) {
+            isKeywordEnd = keywordEnd;
+        }
+
+        // 添加子节点
+        public void addSubNode(Character c, TrieNode node) {
+            subNodes.put(c, node);
+        }
+
+        //  获取子节点
+        public TrieNode getSubNode(Character c) {
+            return subNodes.get(c);
+        }
+
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Step3 过滤测试&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@SpringBootTest
+@ContextConfiguration(classes = CommunityApplication.class)
+public class SensitiveTests {
+
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
+
+    @Test
+    public void testSensitiveFilter(){
+        String text = &amp;quot;我是敏感词，你来过滤我啊，测试VPN，测试翻墙，测试吸毒，测试开票，哈哈哈！&amp;quot;;
+        System.out.println(sensitiveFilter.filter(text));
+
+        text = &amp;quot;我是敏感词，你来过滤我啊，测试☆V☆P☆☆N☆，测试☆☆翻☆☆☆墙☆☆,☆测试☆吸☆☆毒☆☆☆，测试☆开☆☆票☆，哈哈哈！&amp;quot;;
+        System.out.println(sensitiveFilter.filter(text));
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;输出结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;我是敏感词，你来过滤我啊，测试***，测试***，测试***，测试***，哈哈哈！
+我是敏感词，你来过滤我啊，测试☆***☆，测试☆☆***☆☆,☆测试☆***☆☆☆，测试☆***☆，哈哈哈！
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>常用的元注解</title>
@@ -1755,26 +1980,6 @@ git config --global https.https://github.com.proxy socks5://127.0.0.1:1086
 &lt;p&gt;MacOS 未知来源：sudo spctl &amp;ndash;master-disable&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·No End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>博客迁移 Hugo</title>
-      <link>https://halklein.github.io/2019/001/</link>
-      <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/001/</guid>
-      <description>&lt;p&gt;​       &lt;strong&gt;你眼中有春与秋，&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​       &lt;strong&gt;胜过我见过爱过的一切山川与河流；&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​       &lt;strong&gt;有一天我会懂你，&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​       &lt;strong&gt;也懂这世界悲欢，&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​       &lt;strong&gt;陪你走千帆，仍方寸不乱。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
     </item>
     

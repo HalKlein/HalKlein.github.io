@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 20 Jan 2020 20:35:11 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jan 2020 12:09:44 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>用前缀树过滤敏感词</title>
+      <link>https://halklein.github.io/2020/026/</link>
+      <pubDate>Mon, 27 Jan 2020 12:09:44 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/026/</guid>
+      <description>前缀树 名称：Trie、字典树、查找树 特点：查找效率高，消耗内存大 应用：字符串检索、词频统计、字符串排序等 敏感词过滤器 ​ 定义前缀树根据敏感词 ​</description>
+    </item>
     
     <item>
       <title>常用的元注解</title>
