@@ -44,7 +44,7 @@
     "articleSection" : "posts",
     "name" : "用前缀树过滤敏感词",
     "headline" : "用前缀树过滤敏感词",
-    "description" : "前缀树 名称：Trie、字典树、查找树 特点：查找效率高，消耗内存大 应用：字符串检索、词频统计、字符串排序等 敏感词过滤器 ​ 定义前缀树根据敏感词 ​",
+    "description" : "前缀树 ​ 名称：Trie、字典树、查找树 ​ 特点：查找效率高，消耗内存大 ​ 应用：字符串检索、词频统计、字符串排序等 敏感词过滤器 ​ 定义前缀树根据敏",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
     "creator" : "HalKlein",
@@ -55,7 +55,7 @@
     "datePublished": "2020-01-27 12:09:44 \x2b0800 CST",
     "dateModified" : "2020-01-27 12:09:44 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2020\/026\/",
-    "wordCount" : "1375",
+    "wordCount" : "1393",
     "keywords" : [ "Spring全家桶", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 1375 words</span>
+                <span class="post-word-count">, 1393 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -173,12 +173,17 @@
           
           
 
-          <p><strong>前缀树</strong>
-    <strong>名称：</strong>Trie、字典树、查找树
-    <strong>特点：</strong>查找效率高，消耗内存大
-    <strong>应用：</strong>字符串检索、词频统计、字符串排序等</p>
+          
 
-<p><strong>敏感词过滤器</strong></p>
+<h3 id="前缀树"><strong>前缀树</strong></h3>
+
+<p>​   <strong>名称：</strong>Trie、字典树、查找树</p>
+
+<p>​   <strong>特点：</strong>查找效率高，消耗内存大</p>
+
+<p>​   <strong>应用：</strong>字符串检索、词频统计、字符串排序等</p>
+
+<h3 id="敏感词过滤器"><strong>敏感词过滤器</strong></h3>
 
 <p>​   定义前缀树根据敏感词</p>
 
@@ -186,9 +191,11 @@
 
 <p>​   编写过滤敏感词的方法</p>
 
-<p>简单的进行查找和replace替换无疑效率是非常低的，我们使用一种叫前缀树（Trie、字典树、查找树）的数据结构来实现高效过滤。</p>
+<p></br></p>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="G:BlogImgimage-20200127105948571.png" alt="image-20200127105948571" class="lazyload"><figcaption class="image-caption">image-20200127105948571</figcaption></figure></p>
+<p>简单的进行查找和replace替换无疑效率是非常低的，我们使用一种叫前缀树（Trie、字典树、查找树）的数据结构来实现高效过滤敏感词，数据结构及过滤图示如下：</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/27/W93QTOZsYUSN6IB.png" alt="过滤敏感词" class="lazyload"><figcaption class="image-caption">过滤敏感词</figcaption></figure></p>
 
 <p><strong>Step1 定义敏感词文件sensitive-words.txt，放在resources目录下</strong></p>
 
@@ -387,6 +394,8 @@ public class SensitiveTests {
 <pre><code class="language-properties">我是敏感词，你来过滤我啊，测试***，测试***，测试***，测试***，哈哈哈！
 我是敏感词，你来过滤我啊，测试☆***☆，测试☆☆***☆☆,☆测试☆***☆☆☆，测试☆***☆，哈哈哈！
 </code></pre>
+
+<p></br></p>
 
 <p><center> ·End· </center></p>
 

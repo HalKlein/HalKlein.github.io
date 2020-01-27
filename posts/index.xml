@@ -16,12 +16,17 @@
       <pubDate>Mon, 27 Jan 2020 12:09:44 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2020/026/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;前缀树&lt;/strong&gt;
-    &lt;strong&gt;名称：&lt;/strong&gt;Trie、字典树、查找树
-    &lt;strong&gt;特点：&lt;/strong&gt;查找效率高，消耗内存大
-    &lt;strong&gt;应用：&lt;/strong&gt;字符串检索、词频统计、字符串排序等&lt;/p&gt;
+      <description>
 
-&lt;p&gt;&lt;strong&gt;敏感词过滤器&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;前缀树&#34;&gt;&lt;strong&gt;前缀树&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;​   &lt;strong&gt;名称：&lt;/strong&gt;Trie、字典树、查找树&lt;/p&gt;
+
+&lt;p&gt;​   &lt;strong&gt;特点：&lt;/strong&gt;查找效率高，消耗内存大&lt;/p&gt;
+
+&lt;p&gt;​   &lt;strong&gt;应用：&lt;/strong&gt;字符串检索、词频统计、字符串排序等&lt;/p&gt;
+
+&lt;h3 id=&#34;敏感词过滤器&#34;&gt;&lt;strong&gt;敏感词过滤器&lt;/strong&gt;&lt;/h3&gt;
 
 &lt;p&gt;​   定义前缀树根据敏感词&lt;/p&gt;
 
@@ -29,9 +34,11 @@
 
 &lt;p&gt;​   编写过滤敏感词的方法&lt;/p&gt;
 
-&lt;p&gt;简单的进行查找和replace替换无疑效率是非常低的，我们使用一种叫前缀树（Trie、字典树、查找树）的数据结构来实现高效过滤。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;G:BlogImgimage-20200127105948571.png&#34; alt=&#34;image-20200127105948571&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;简单的进行查找和replace替换无疑效率是非常低的，我们使用一种叫前缀树（Trie、字典树、查找树）的数据结构来实现高效过滤敏感词，数据结构及过滤图示如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/27/W93QTOZsYUSN6IB.png&#34; alt=&#34;过滤敏感词&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Step1 定义敏感词文件sensitive-words.txt，放在resources目录下&lt;/strong&gt;&lt;/p&gt;
 
@@ -230,6 +237,8 @@ public class SensitiveTests {
 &lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;我是敏感词，你来过滤我啊，测试***，测试***，测试***，测试***，哈哈哈！
 我是敏感词，你来过滤我啊，测试☆***☆，测试☆☆***☆☆,☆测试☆***☆☆☆，测试☆***☆，哈哈哈！
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
