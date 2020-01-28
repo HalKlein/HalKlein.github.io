@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 27 Jan 2020 19:11:39 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jan 2020 18:59:06 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spring事务管理</title>
+      <link>https://halklein.github.io/2020/028/</link>
+      <pubDate>Tue, 28 Jan 2020 18:59:06 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/028/</guid>
+      <description>什么是事务 事务是由N步数据库操作序列组成的逻辑执行单元，这系列操作要么全执行，要么全放弃执行。 事务的特性（ACID） 原子性（Atomicit</description>
+    </item>
     
     <item>
       <title>IDEA引入fastjson依赖失败的解决办法</title>

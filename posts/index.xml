@@ -7,8 +7,349 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Mon, 27 Jan 2020 19:11:39 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jan 2020 18:59:06 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spring事务管理</title>
+      <link>https://halklein.github.io/2020/028/</link>
+      <pubDate>Tue, 28 Jan 2020 18:59:06 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/028/</guid>
+      <description>
+
+&lt;h2 id=&#34;什么是事务&#34;&gt;什么是事务&lt;/h2&gt;
+
+&lt;p&gt;事务是由N步数据库操作序列组成的逻辑执行单元，这系列操作要么全执行，要么全放弃执行。&lt;/p&gt;
+
+&lt;h2 id=&#34;事务的特性-acid&#34;&gt;事务的特性（ACID）&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/NesIWh9K742wjdP.png&#34; alt=&#34;事务的特性&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;原子性（Atomicity）：事务是应用中不可再分的最小执行体。&lt;/p&gt;
+
+&lt;p&gt;一致性（Consistency）：事务执行的结果，须使数据从一个一致性状态，变为另一个一致性状态。&lt;/p&gt;
+
+&lt;p&gt;隔离性（Isolation）：各个事务的执行互不干扰，任何事务的内部操作对其他的事务都是隔离的。&lt;/p&gt;
+
+&lt;p&gt;持久性（Durability）：事务一旦提交，对数据所做的任何改变都要记录到永久存储器中。&lt;/p&gt;
+
+&lt;h2 id=&#34;事务的隔离性&#34;&gt;事务的隔离性&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;常见的并发异常&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第一类丢失更新、第二类丢失更新。&lt;/p&gt;
+
+&lt;p&gt;脏读、不可重复读、幻读。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;常见的隔离级别&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Read Uncommitted：读取未提交的数据。&lt;/p&gt;
+
+&lt;p&gt;Read Committed：读取已提交的数据。&lt;/p&gt;
+
+&lt;p&gt;Repeatable Read：可重复读。&lt;/p&gt;
+
+&lt;p&gt;Serializable：串行化 （性能低）。&lt;/p&gt;
+
+&lt;h3 id=&#34;常见的并发异常&#34;&gt;常见的并发异常&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;第一类丢失更新&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;某一个事务的回滚，导致另外一个事务已更新的数据丢失了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/r3B2UXDYupGqRtb.png&#34; alt=&#34;第一类丢失更新&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;第二类丢失更新&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;某一个事务的提交，导致另外一个事务已更新的数据丢失了。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/PHW9FnDOIZ6gRid.png&#34; alt=&#34;第二类丢失更新&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;脏读&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;某一个事务，读取了另外一个事务未提交的数据。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/uDXo7y28nI3ZVBs.png&#34; alt=&#34;脏读&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;不可重复读&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;某一个事务，对同一个数据前后读取的结果不一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/ZdOCKQrPpyBYE36.png&#34; alt=&#34;不可重复读&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;幻读&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;某一个事务，对同一个表前后查询到的行数不一致。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/CoYSLuRg2tQPWMf.png&#34; alt=&#34;幻读&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;常见的隔离级别&#34;&gt;常见的隔离级别&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/28/1lMsQTVYJGynihg.png&#34; alt=&#34;常见的隔离级别&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一般来说，我们选择中间两种。第一中几乎没有改善；第四种由于性能非常低，一般是不选用的，除非是金融类业务，政府部分数据等才考虑。&lt;/p&gt;
+
+&lt;h2 id=&#34;实现机制&#34;&gt;实现机制&lt;/h2&gt;
+
+&lt;h3 id=&#34;悲观锁-数据库&#34;&gt;悲观锁（数据库）&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;共享锁（S锁）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;事务A对某数据加了共享锁后，其他事务只能对该数据加共享锁，但不能加排他锁。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;排他锁（X锁）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;事务A对某数据加了排他锁后，其他事务对该数据既不能加共享锁，也不能加排他锁。&lt;/p&gt;
+
+&lt;h3 id=&#34;乐观锁-自定义&#34;&gt;乐观锁（自定义）&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;版本号、时间戳等&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在更新数据前，检查版本号是否发生变化。若变化则取消本次更新，否则就更新数据（版本号+1）。&lt;/p&gt;
+
+&lt;h2 id=&#34;spring-事务管理-https-docs-spring-io-spring-docs-current-spring-framework-reference-data-access-html-spring-data-tier&#34;&gt;&lt;a href=&#34;https://docs.spring.io/spring/docs/current/spring-framework-reference/data-access.html#spring-data-tier&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Spring 事务管理&lt;/a&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;声明式事务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过XML配置，声明某方法的事务特征。&lt;/p&gt;
+
+&lt;p&gt;通过注解，声明某方法的事务特征。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;编程式事务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过 TransactionTemplate 管理事务，并通过它执行数据库的操作。&lt;/p&gt;
+
+&lt;p&gt;声明式事务基于 AOP，将具体业务逻辑与事务处理解耦。声明式事务管理使业务代码逻辑不受污染，因此在实际使用中声明式事务用的比较多。声明式事务有两种方式，一种是在配置文件（xml）中做相关的事务规则声明，另一种是基于@Transactional 注解的方式，注释配置是目前流行的使用方式。&lt;/p&gt;
+
+&lt;h5 id=&#34;transactional-注解的属性信息&#34;&gt;@Transactional 注解的属性信息&lt;/h5&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;属性名&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;name&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;当在配置文件中有多个 TransactionManager , 可以用该属性指定选择哪个事务管理器。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;propagation&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;事务的传播行为，默认值为 REQUIRED。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;isolation&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;事务的隔离度，默认值采用 DEFAULT。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;timeout&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;事务的超时时间，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;read-only&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;指定事务是否为只读事务，默认值为 false；为了忽略那些不需要事务的方法，比如读取数据，可以设置 read-only 为 true。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;rollback-for&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;用于指定能够触发事务回滚的异常类型，如果有多个异常类型需要指定，各类型之间可以通过逗号分隔。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;no-rollback- for&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;抛出 no-rollback-for 指定的异常类型，不回滚事务。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;声明式事务示例&#34;&gt;声明式事务示例&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;业务方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Service
+/*Spring容器管理的Bean默认是单例的，如果需要每次getBean都新建一个实例，需要加上如下
+@Scope(&amp;quot;singleton&amp;quot;)是默认的（单例的）*/
+@Scope(&amp;quot;prototype&amp;quot;) // 非单例，（极少使用）
+public class AlphaService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+
+    /**
+     * Spring 事务管理测试
+     * Spring 事务管理，加注解：@Transactional，设置事务级别：isolation = Isolation.READ_COMMITTED
+     * propagation 事务的传播机制，解决事务交叉问题。如【 业务方法A 去调用 业务方法B 】他们都加有事务注解，那么B的事务应该以谁为准？的问题
+     *      REQUIRED 支持当前事务（外部事务，上例事务A），如果不存在则创建新事务
+     *      REQUIRES_NEW 创建一个新的事务，并且暂定当前事务（外部事务）
+     *      NESTED 如果存在当前事务（外部事务），则嵌套在该事务中执行（B有独立的提交和回滚），否则就和 REQUIRED 一样
+     *
+     * @return
+     */
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public Object save1() {
+        // 新增用户
+        User user = new User();
+        user.setUsername(&amp;quot;alpha&amp;quot;);
+        user.setSalt(CommunityUtil.generateUUID().substring(0, 5));
+        user.setPassword(CommunityUtil.md5(&amp;quot;123&amp;quot;) + user.getSalt());
+        user.setEmail(&amp;quot;alpha@qq.com&amp;quot;);
+        user.setHeaderUrl(&amp;quot;http://image.nowcoder.com/99t.png&amp;quot;);
+        user.setCreateTime(new Date());
+        userMapper.insertUser(user);
+
+        // 新增帖子
+        DiscussPost post = new DiscussPost();
+        post.setUserId(user.getId());
+        post.setTitle(&amp;quot;Hello&amp;quot;);
+        post.setContent(&amp;quot;新人报道&amp;quot;);
+        post.setCreateTime(new Date());
+        discussPostMapper.insertDiscussPost(post);
+
+        // 人工制造错误，用于测试
+        Integer.valueOf(&amp;quot;abc&amp;quot;);
+
+        return &amp;quot;OK&amp;quot;;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;测试类&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@SpringBootTest
+@ContextConfiguration(classes = CommunityApplication.class)
+public class TransactionTests {
+
+    @Autowired
+    private AlphaService alphaService;
+
+    @Test
+    public void testSave1() {
+        Object obj = alphaService.save1();
+        System.out.println(obj);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;测试结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;没有在数据库中新增用户，也没有新增一条帖子。&lt;/p&gt;
+
+&lt;h3 id=&#34;编程式事务示例&#34;&gt;编程式事务示例&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;业务方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Service
+/*Spring容器管理的Bean默认是单例的，如果需要每次getBean都新建一个实例，需要加上如下
+@Scope(&amp;quot;singleton&amp;quot;)是默认的（单例的）*/
+@Scope(&amp;quot;prototype&amp;quot;) //非单例，（极少使用）
+public class AlphaService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
+
+    
+    /**
+     * 编程式事务示例
+     * 1. 注入 TransactionTemplate ，这个Bean是Spring自动创建并装配到容器中的，所以直接注入即可
+     * @return
+     */
+    public Object save2(){
+        // 设置事务级别
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        // 设置传播机制
+        transactionTemplate.setPropagationBehavior(transactionTemplate.PROPAGATION_REQUIRED);
+
+        return transactionTemplate.execute(new TransactionCallback&amp;lt;Object&amp;gt;() {
+            @Override
+            public Object doInTransaction(TransactionStatus transactionStatus) {
+                // 新增用户
+                User user = new User();
+                user.setUsername(&amp;quot;beta&amp;quot;);
+                user.setSalt(CommunityUtil.generateUUID().substring(0, 5));
+                user.setPassword(CommunityUtil.md5(&amp;quot;123&amp;quot;) + user.getSalt());
+                user.setEmail(&amp;quot;beta@qq.com&amp;quot;);
+                user.setHeaderUrl(&amp;quot;http://image.nowcoder.com/999t.png&amp;quot;);
+                user.setCreateTime(new Date());
+                userMapper.insertUser(user);
+
+                // 新增帖子
+                DiscussPost post = new DiscussPost();
+                post.setUserId(user.getId());
+                post.setTitle(&amp;quot;你好&amp;quot;);
+                post.setContent(&amp;quot;我是新人&amp;quot;);
+                post.setCreateTime(new Date());
+                discussPostMapper.insertDiscussPost(post);
+
+                // 人工制造错误，用于测试
+                Integer.valueOf(&amp;quot;abc&amp;quot;);
+
+                return &amp;quot;OK&amp;quot;;
+            }
+        });
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;测试类&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@SpringBootTest
+@ContextConfiguration(classes = CommunityApplication.class)
+public class TransactionTests {
+
+    @Autowired
+    private AlphaService alphaService;
+
+
+    @Test
+    public void testSave2() {
+        Object obj = alphaService.save2();
+        System.out.println(obj);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;测试结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;同上，没有在数据库中新增用户，也没有新增一条帖子。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;一般情况下我们选用简单的声明式事务，但是如果有些业务方法过于复杂，而我们只希望管理其中一部分事务，则选用编程式事务。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>IDEA引入fastjson依赖失败的解决办法</title>
@@ -1892,121 +2233,6 @@ http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的ht
 &lt;p&gt;&lt;strong&gt;保活机制&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>OSI模型和TCP/IP模型</title>
-      <link>https://halklein.github.io/2019/005/</link>
-      <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/005/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-osi-开放式系统互联参考模型&#34;&gt;1. OSI 开放式系统互联参考模型&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;开放式系统互联模型&lt;/strong&gt;（英语：&lt;strong&gt;O&lt;/strong&gt;pen &lt;strong&gt;S&lt;/strong&gt;ystem &lt;strong&gt;I&lt;/strong&gt;nterconnection Model，缩写：OSI；简称为&lt;strong&gt;OSI模型&lt;/strong&gt;）是一种&lt;a href=&#34;https://zh.wikipedia.org/wiki/概念模型&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;概念模型&lt;/a&gt;，由&lt;a href=&#34;https://zh.wikipedia.org/wiki/国际标准化组织&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;国际标准化组织&lt;/a&gt;提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/TLr5NUxWHKmJszP.gif&#34; alt=&#34;OSI 开放式系统互联参考模型&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;物理层-physical-layer&#34;&gt;物理层（Physical Layer）&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/N2o1gwMl95GfFsD.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在局部局域网上传送&lt;a href=&#34;https://zh.wikipedia.org/wiki/数据帧&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;数据帧&lt;/a&gt;（data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis&lt;/p&gt;
-
-&lt;h3 id=&#34;数据链路层-datalink-layer&#34;&gt;数据链路层&lt;strong&gt;（Datalink Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/oSpjkPZy9ftYGVa.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： &lt;code&gt;HDLC&lt;/code&gt; 、&lt;code&gt;PPP&lt;/code&gt;、&lt;code&gt;STP&lt;/code&gt;等。&lt;/p&gt;
-
-&lt;h3 id=&#34;网络层-network-layer&#34;&gt;网络层 &lt;strong&gt;（Network Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/wexCdOuZ2QH54B3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：&lt;code&gt;IP&lt;/code&gt;、&lt;code&gt;ICMP&lt;/code&gt;（互联网控制报文协议）、&lt;code&gt;ARP&lt;/code&gt;（地址转换协议）、&lt;code&gt;RARP&lt;/code&gt;（反向地址转换协议）&lt;/p&gt;
-
-&lt;h3 id=&#34;传输层-transport-layer&#34;&gt;&lt;strong&gt;传输层（Transport Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/YQgGIThdiAEn23f.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：&lt;code&gt;TCP&lt;/code&gt;（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），&lt;code&gt;UDP&lt;/code&gt;（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。&lt;/p&gt;
-
-&lt;h3 id=&#34;会话层-session-layer&#34;&gt;&lt;strong&gt;会话层（Session Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/4hayBOXImwVbAct.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。&lt;/p&gt;
-
-&lt;p&gt;通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。&lt;/p&gt;
-
-&lt;p&gt;常见的协议有 &lt;code&gt;ADSP&lt;/code&gt;、&lt;code&gt;RPC&lt;/code&gt; 等。&lt;/p&gt;
-
-&lt;h3 id=&#34;表示层-presentation-layer&#34;&gt;&lt;strong&gt;表示层（Presentation Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/PRd9vurV1UCfqTw.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有&lt;code&gt;ASCII&lt;/code&gt;、&lt;code&gt;SSL/TLS&lt;/code&gt; 等。&lt;/p&gt;
-
-&lt;h3 id=&#34;应用层-application-layer&#34;&gt;&lt;strong&gt;应用层（Application Layer）&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/qTcn6Y3klSOetdN.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 &lt;code&gt;HTTP&lt;/code&gt;，&lt;code&gt;FTP&lt;/code&gt;，&lt;code&gt;TELNET&lt;/code&gt;、&lt;code&gt;SMTP&lt;/code&gt; 等。&lt;/p&gt;
-
-&lt;h3 id=&#34;osi模型-数据传输流程概览&#34;&gt;OSI模型 数据传输流程概览&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/peH8BVr75dWE34c.png&#34; alt=&#34;&#34; style=&#34;zoom:67%;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;2-tcp-ip四层网络模型&#34;&gt;2. TCP/IP四层网络模型&lt;/h2&gt;
-
-&lt;h3 id=&#34;提出&#34;&gt;提出&lt;/h3&gt;
-
-&lt;p&gt;OSI模型是一个定义良好的协议规范集，定义了开放系统的层次结构和之间的关系，但并没有提供一个可实现的方法，其并非一个标准，而是一个慨念型框架。TCP/IP是被广泛使用的OSI模型的实现。&lt;/p&gt;
-
-&lt;h3 id=&#34;简介&#34;&gt;简介&lt;/h3&gt;
-
-&lt;p&gt;TCP/IP协议栈是美国国防部高级研究计划局计算机网（Advanced Research Projects Agency Network，ARPANET）和其后继因特网使用的参考模型。ARPANET是由美国国防部（U.S．Department of Defense，DoD）赞助的研究网络。最初，它只连接了美国境内的四所大学。随后的几年中，它通过租用的电话线连接了数百所大学和政府部门。最终ARPANET发展成为全球规模最大的互连网络-因特网。最初的ARPANET于1990年永久性地关闭。&lt;/p&gt;
-
-&lt;p&gt;TCP/IP是一组协议的代名词，它&lt;strong&gt;还包括许多协议，组成了TCP/IP协议簇&lt;/strong&gt;。TCP/IP协议簇分为四层，IP位于协议簇的第二层(对应OSI的第三层)，TCP位于协议簇的第三层(对应OSI的第四层)。&lt;/p&gt;
-
-&lt;h3 id=&#34;层次&#34;&gt;层次&lt;/h3&gt;
-
-&lt;p&gt;TCP/IP协议采用了4层的层级结构，每一层都呼叫它的下一层所提供的网络来完成自己的需求。分别为：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;应用层&lt;/strong&gt;：应用程序间沟通的层，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;传输层&lt;/strong&gt;：在此层中，它提供了节点间的数据传送服务，如传输控制协议（TCP）、用户数据报协议（UDP）等，TCP和UDP给数据包加入传输数据并把它传输到下一层中，这一层负责传送数据，并且确定数据已被送达并接收。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;网络层&lt;/strong&gt;：负责提供基本的数据封包传送功能，让每一块数据包都能够到达目的主机（但不检查是否被正确接收），如网际协议（IP）。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;网络接口层&lt;/strong&gt;：对实际的网络媒体的管理，定义如何使用实际网络（如Ethernet、Serial Line等）来传送数据。&lt;/p&gt;
-
-&lt;h3 id=&#34;对应关系及协议整理&#34;&gt;对应关系及协议整理&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/Ip71j6NFub3Ugr5.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;tcp-ip模型-数据传输流程概览&#34;&gt;TCP/IP模型 数据传输流程概览&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/NWbI9otOVEwkJaL.png&#34; alt=&#34;&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;3-问题&#34;&gt;3. 问题&lt;/h2&gt;
-
-&lt;h3 id=&#34;交换机工作在osi的哪一层&#34;&gt;交换机工作在OSI的哪一层？&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;二层交换机&lt;/strong&gt; 工作在OSI的第二层数据链路层，，由于它们要对帧解码并使用帧信息将数据发送到正确的接收方，所以它们是工作在数据链路层的。
-&lt;strong&gt;三层交换机&lt;/strong&gt; 是工作在OSI的网络层，因为三层交换机有路由功能。&lt;/p&gt;
-
-&lt;h3 id=&#34;路由器工作在osi的哪一层&#34;&gt;路由器工作在OSI的哪一层？&lt;/h3&gt;
-
-&lt;p&gt;路由器工作在OSI七层模型的第3层，网络层。由于网络层处理，并智能指导数据传送，路由器连接网络各段，所以路由器属于网络层。在网络中，“路由”是基于编址方案、使用模式以及可达性来指引数据的发送。 网络层负责在源机器和目标机器之间建立它们所使用的路由。&lt;/p&gt;
-
-&lt;h3 id=&#34;ping命令使用osi哪一层协议&#34;&gt;PING命令使用OSI哪一层协议？&lt;/h3&gt;
-
-&lt;p&gt;ping命令使用的是ICMP协议，位于OSI七层网络模型中的第三层，网络层。&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
