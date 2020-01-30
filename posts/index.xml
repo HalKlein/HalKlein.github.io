@@ -87,7 +87,7 @@ OK
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;哈希-hashes-类型数据-测试&#34;&gt;哈希（hashes）类型数据 测试**&lt;/h3&gt;
+&lt;h3 id=&#34;哈希-hashes-类型数据-测试&#34;&gt;哈希（hashes）类型数据 测试&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# Hash存数据
 127.0.0.1:6379&amp;gt; hset test:user id 1
@@ -106,7 +106,7 @@ OK
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;列表-lists-类型数据-测试&#34;&gt;列表（lists）类型数据 测试**&lt;/h3&gt;
+&lt;h3 id=&#34;列表-lists-类型数据-测试&#34;&gt;列表（lists）类型数据 测试&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/hIRMju15YPQnHFg.png&#34; alt=&#34;Redis列表&#34; /&gt;&lt;/p&gt;
 
