@@ -22,10 +22,10 @@
   <title>
        
        
-           IDEA引入fastjson依赖失败的解决办法 | HalKlein`s Blog
+           IDEA引入依赖失败的解决办法 | HalKlein`s Blog
        
   </title>
-  <meta name="title" content="IDEA引入fastjson依赖失败的解决办法 | HalKlein`s Blog">
+  <meta name="title" content="IDEA引入依赖失败的解决办法 | HalKlein`s Blog">
     
   <link rel="stylesheet" href="/css/main.min.css">
 
@@ -42,8 +42,8 @@
          "@id": "https:\/\/halklein.github.io"
     },
     "articleSection" : "posts",
-    "name" : "IDEA引入fastjson依赖失败的解决办法",
-    "headline" : "IDEA引入fastjson依赖失败的解决办法",
+    "name" : "IDEA引入依赖失败的解决办法",
+    "headline" : "IDEA引入依赖失败的解决办法",
     "description" : "问题 今天学习异步消息，用到 FastJson 对 json 进行解析和生成，但是在 pom.xml 中引入下面的依赖描述时，等待许久也无法下载完成。之后尝试进行科学上网，并开启全局代理",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
@@ -55,7 +55,7 @@
     "datePublished": "2020-01-27 19:11:39 \x2b0800 CST",
     "dateModified" : "2020-01-27 19:11:39 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2020\/027\/",
-    "wordCount" : "247",
+    "wordCount" : "554",
     "keywords" : [ "Spring全家桶","json", "HalKlein`s Blog"]
 }
 </script>
@@ -140,7 +140,7 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">IDEA引入fastjson依赖失败的解决办法</h1>
+        <h1 class="post-title" itemprop="name headline">IDEA引入依赖失败的解决办法</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
                 <span class="post-time">
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 247 words</span>
+                <span class="post-word-count">, 554 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -186,6 +186,8 @@
 &lt;/dependency&gt;
 </code></pre>
 
+<p></br></p>
+
 <h2 id="解决办法">解决办法</h2>
 
 <p>1.在 <a href="https://mvnrepository.com/" rel="nofollow noreferrer" target="_blank">MVNrepository</a> 官网直接找到对应的 jar 包链接，<a href="https://repo1.maven.org/maven2/com/alibaba/fastjson/1.2.62/fastjson-1.2.62.jar" rel="nofollow noreferrer" target="_blank">点击进行下载</a></p>
@@ -203,9 +205,29 @@
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/27/L4Hk3bv5F1CrwaM.png" alt="安装成功" class="lazyload"><figcaption class="image-caption">安装成功</figcaption></figure></p>
 
-<p>然后需要IDEA的设置中设置Maven引用的路径为该路径，重启IDEA，重新加载依赖，就可以成功了！</p>
+<p>重启IDEA，重新加载依赖，就可以成功了！同理，其它的依赖应该也可以这样操作。</p>
 
-<p>PS：同理，其它的依赖应该也可以这样操作。</p>
+<p></br></p>
+
+<h2 id="update-2020-01-30">Update 2020/01/30</h2>
+
+<p>博主最后找到了原因（来自初学者的无奈），是因为Maven的配置路径被修改了，可能是因为我之前对IDEA进行了一次更新，导致部分配置丢失，恢复了默认配置。</p>
+
+<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/goHQhP8tO1C4a7Y.png" alt="修改为本地的Maven，配置文件改为本地Maven的配置文件" class="lazyload"><figcaption class="image-caption">修改为本地的Maven，配置文件改为本地Maven的配置文件</figcaption></figure></p>
+
+<p>其实这很容易发现，当SpringBoot添加依赖的时候，点击下方的进度条查看详细，你就可以看到该包的下载路径，如果不是来自于<a href="maven.aliyun.com" rel="nofollow noreferrer" target="_blank">maven.aliyun.com</a>，是来自apache、maven.org这些的话下载会非常慢甚至失败！</p>
+
+<p>所以你需要在IDEA的setting中配置Maven为用户自己的Maven，但是主要的是Maven的配置文件无论用自带的还是自己的Mavan你都需要添加阿里云的镜像，这样在国内导入依赖的时候会快很多。</p>
+
+<p>在本地Maven配置文件settings.xml中修改（或添加）aliyun镜像：</p>
+
+<pre><code class="language-xml">&lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;https://maven.aliyun.com/repository/central&lt;/url&gt;
+&lt;/mirror&gt;
+</code></pre>
 
 <p></br></p>
 

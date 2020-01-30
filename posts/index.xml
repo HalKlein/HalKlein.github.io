@@ -27,7 +27,7 @@
 字符串（strings）、哈希（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）等。&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Redis将所有的数据都存放在内存中，所以它的读写性能十分惊人。
-同时，Redis还可以将内存中的数据以快照 (适合空闲的时候进行) 或日志 (AOF，可以实时存，但恢复速度慢)  的形式保存到硬盘上，以保证数据的安全性。&lt;/p&gt;&lt;/li&gt;
+同时，Redis还可以将内存中的数据以快照 (RDB，适合空闲的时候进行定时备份) 或日志 (AOF，可以实时存储，但恢复速度慢)  的形式保存到硬盘上，以保证数据的安全性。&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Redis典型的应用场景包括：&lt;strong&gt;缓存&lt;/strong&gt;、&lt;strong&gt;排行榜&lt;/strong&gt;、&lt;strong&gt;计数器&lt;/strong&gt;、&lt;strong&gt;社交网络&lt;/strong&gt;、&lt;strong&gt;消息队列&lt;/strong&gt; (但Redis不是专业的消息队列工具) 等。&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -804,7 +804,7 @@ public class TransactionTests {
     </item>
     
     <item>
-      <title>IDEA引入fastjson依赖失败的解决办法</title>
+      <title>IDEA引入依赖失败的解决办法</title>
       <link>https://halklein.github.io/2020/027/</link>
       <pubDate>Mon, 27 Jan 2020 19:11:39 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
@@ -821,6 +821,8 @@ public class TransactionTests {
    &amp;lt;version&amp;gt;1.2.62&amp;lt;/version&amp;gt;
 &amp;lt;/dependency&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;解决办法&#34;&gt;解决办法&lt;/h2&gt;
 
@@ -839,9 +841,29 @@ public class TransactionTests {
 
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/27/L4Hk3bv5F1CrwaM.png&#34; alt=&#34;安装成功&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;然后需要IDEA的设置中设置Maven引用的路径为该路径，重启IDEA，重新加载依赖，就可以成功了！&lt;/p&gt;
+&lt;p&gt;重启IDEA，重新加载依赖，就可以成功了！同理，其它的依赖应该也可以这样操作。&lt;/p&gt;
 
-&lt;p&gt;PS：同理，其它的依赖应该也可以这样操作。&lt;/p&gt;
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;update-2020-01-30&#34;&gt;Update 2020/01/30&lt;/h2&gt;
+
+&lt;p&gt;博主最后找到了原因（来自初学者的无奈），是因为Maven的配置路径被修改了，可能是因为我之前对IDEA进行了一次更新，导致部分配置丢失，恢复了默认配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/goHQhP8tO1C4a7Y.png&#34; alt=&#34;修改为本地的Maven，配置文件改为本地Maven的配置文件&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其实这很容易发现，当SpringBoot添加依赖的时候，点击下方的进度条查看详细，你就可以看到该包的下载路径，如果不是来自于&lt;a href=&#34;maven.aliyun.com&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;maven.aliyun.com&lt;/a&gt;，是来自apache、maven.org这些的话下载会非常慢甚至失败！&lt;/p&gt;
+
+&lt;p&gt;所以你需要在IDEA的setting中配置Maven为用户自己的Maven，但是主要的是Maven的配置文件无论用自带的还是自己的Mavan你都需要添加阿里云的镜像，这样在国内导入依赖的时候会快很多。&lt;/p&gt;
+
+&lt;p&gt;在本地Maven配置文件settings.xml中修改（或添加）aliyun镜像：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;mirror&amp;gt;
+      &amp;lt;id&amp;gt;alimaven&amp;lt;/id&amp;gt;
+      &amp;lt;mirrorOf&amp;gt;central&amp;lt;/mirrorOf&amp;gt;
+      &amp;lt;name&amp;gt;aliyun maven&amp;lt;/name&amp;gt;
+      &amp;lt;url&amp;gt;https://maven.aliyun.com/repository/central&amp;lt;/url&amp;gt;
+&amp;lt;/mirror&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
 
