@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 30 Jan 2020 12:26:21 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jan 2020 15:31:41 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Redis 高性能存储入门</title>
+      <link>https://halklein.github.io/2020/031/</link>
+      <pubDate>Thu, 30 Jan 2020 15:31:41 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/031/</guid>
+      <description>Redis简介 Redis是一款基于键值对的NoSQL数据库，它的值支持多种数据结构： 字符串（strings）、哈希（hashes）、列表（l</description>
+    </item>
     
     <item>
       <title>使用Spring AOP统一记录日志</title>

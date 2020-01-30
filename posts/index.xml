@@ -7,8 +7,254 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 30 Jan 2020 12:26:21 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jan 2020 15:31:41 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Redis 高性能存储入门</title>
+      <link>https://halklein.github.io/2020/031/</link>
+      <pubDate>Thu, 30 Jan 2020 15:31:41 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/031/</guid>
+      <description>
+
+&lt;h2 id=&#34;redis简介&#34;&gt;Redis简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://redis.io/images/redis-white.png&#34; alt=&#34;Redis&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Redis是一款基于键值对的&lt;strong&gt;NoSQL&lt;/strong&gt;数据库，它的值支持多种数据结构：
+字符串（strings）、哈希（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）等。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Redis将所有的数据都存放在内存中，所以它的读写性能十分惊人。
+同时，Redis还可以将内存中的数据以快照 (适合空闲的时候进行) 或日志 (AOF，可以实时存，但恢复速度慢)  的形式保存到硬盘上，以保证数据的安全性。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Redis典型的应用场景包括：&lt;strong&gt;缓存&lt;/strong&gt;、&lt;strong&gt;排行榜&lt;/strong&gt;、&lt;strong&gt;计数器&lt;/strong&gt;、&lt;strong&gt;社交网络&lt;/strong&gt;、&lt;strong&gt;消息队列&lt;/strong&gt; (但Redis不是专业的消息队列工具) 等。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;官网：&lt;a href=&#34;https://redis.io&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://redis.io&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Windows平台：&lt;a href=&#34;https://github.com/microsoftarchive/redis&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/microsoftarchive/redis&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;安装-for-windows&#34;&gt;安装 for Windows&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;下载地址&lt;/strong&gt;：&lt;a href=&#34;https://github.com/microsoftarchive/redis/releases&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://github.com/microsoftarchive/redis/releases&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;默认端口&lt;/strong&gt;：&lt;code&gt;6379&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Redis默认内置了16个库 ，可以通过 select 0-15 进行切换，默认进入0&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ redis-cli
+127.0.0.1:6379&amp;gt; select 1
+OK
+127.0.0.1:6379[1]&amp;gt; select 0
+OK
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;刷除库内的数据&lt;/strong&gt;：flushdb&lt;/p&gt;
+
+&lt;p&gt;注意Redis中key的命名提倡使用 &lt;code&gt;:&lt;/code&gt; 连接而不是 &lt;code&gt;_&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;redis常用数据类型的使用&#34;&gt;Redis常用数据类型的使用&lt;/h2&gt;
+
+&lt;h3 id=&#34;字符串-string-类型数据-测试&#34;&gt;&lt;strong&gt;字符串 （String）类型数据 测试&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 存String测试
+127.0.0.1:6379&amp;gt; set author HalKlein
+OK
+# 查询String数据
+127.0.0.1:6379&amp;gt; get author
+&amp;quot;HalKlein&amp;quot;
+127.0.0.1:6379&amp;gt;
+127.0.0.1:6379&amp;gt; set count 1
+OK
+127.0.0.1:6379&amp;gt; get count
+&amp;quot;1&amp;quot;
+# 加1
+127.0.0.1:6379&amp;gt; incr count
+(integer) 2
+# 减1
+127.0.0.1:6379&amp;gt; decr count
+(integer) 1
+127.0.0.1:6379&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;哈希-hashes-类型数据-测试&#34;&gt;哈希（hashes）类型数据 测试**&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# Hash存数据
+127.0.0.1:6379&amp;gt; hset test:user id 1
+(integer) 1
+# Hash存数据
+127.0.0.1:6379&amp;gt; hset test:user username HalKlein
+(integer) 1
+# Hash取数据
+127.0.0.1:6379&amp;gt; hget test:user username
+&amp;quot;HalKlein&amp;quot;
+# Hash取数据
+127.0.0.1:6379&amp;gt; hget test:user id
+&amp;quot;1&amp;quot;
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;列表-lists-类型数据-测试&#34;&gt;列表（lists）类型数据 测试**&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/hIRMju15YPQnHFg.png&#34; alt=&#34;Redis列表&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Redis的列表可以看作一个横向的容器，&lt;/p&gt;
+
+&lt;p&gt;我们往里面存数据时，支持从左边往里“装”，也支持从右边往里“装”，&lt;/p&gt;
+
+&lt;p&gt;取数据时，支持从左边取数据，也支持从右边取数据，&lt;/p&gt;
+
+&lt;p&gt;根据这样的设计，如果我们的数据从一端进，从另一端出，就可以看作是一个&lt;strong&gt;队列&lt;/strong&gt;；&lt;/p&gt;
+
+&lt;p&gt;如果我们的数据从一端进，也从该端出，就可以看作是一个&lt;strong&gt;栈&lt;/strong&gt;；&lt;/p&gt;
+
+&lt;h4 id=&#34;list左进右出演示&#34;&gt;&lt;strong&gt;List左进右出演示&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# List左端进数据
+127.0.0.1:6379&amp;gt; lpush test:ids 101 102 103
+(integer) 3
+# List长度查询
+127.0.0.1:6379&amp;gt; llen test:ids
+(integer) 3
+# 根据List下标查数据
+127.0.0.1:6379&amp;gt; lindex test:ids 0
+&amp;quot;103&amp;quot;
+# 查询List某范围之间的数据
+127.0.0.1:6379&amp;gt; lrange test:ids 0 2
+1) &amp;quot;103&amp;quot;
+2) &amp;quot;102&amp;quot;
+3) &amp;quot;101&amp;quot;
+# 从右端弹出数据
+127.0.0.1:6379&amp;gt; rpop test:ids
+&amp;quot;101&amp;quot;
+# 从右端弹出数据
+127.0.0.1:6379&amp;gt; rpop test:ids
+&amp;quot;102&amp;quot;
+# List长度查询
+127.0.0.1:6379&amp;gt; llen test:ids
+(integer) 1
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;集合-sets-类型数据-测试&#34;&gt;集合（sets）类型数据 测试&lt;/h3&gt;
+
+&lt;p&gt;集合是无序的，且内容是不能重复的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 集合中添加数据
+127.0.0.1:6379&amp;gt; sadd test:student aaa bbb ccc ddd eee
+(integer) 5
+# 统计集合中元素个数
+127.0.0.1:6379&amp;gt; scard test:student
+(integer) 5
+# 从集合中随机弹出一个元素
+127.0.0.1:6379&amp;gt; spop test:student
+&amp;quot;aaa&amp;quot;
+# 从集合中随机弹出一个元素
+127.0.0.1:6379&amp;gt; spop test:student
+&amp;quot;eee&amp;quot;
+# 查看集合中的元素
+127.0.0.1:6379&amp;gt; smembers test:student
+1) &amp;quot;bbb&amp;quot;
+2) &amp;quot;ccc&amp;quot;
+3) &amp;quot;ddd&amp;quot;
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;有序集合-sorted-sets-类型数据-测试&#34;&gt;有序集合（sorted sets）类型数据 测试&lt;/h3&gt;
+
+&lt;p&gt;顾名思义，该集合是有序的，它会根据元素的score进行排序（默认由小到大）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 有序集合添加数据
+127.0.0.1:6379&amp;gt; zadd test:teachers 20 aaa 10 bbb 50 ccc 30 ddd 40 eee
+(integer) 5
+# 统计有序集合中元素数量
+127.0.0.1:6379&amp;gt; zcard test:teachers
+(integer) 5
+# 查询有序集合中的元素的score
+127.0.0.1:6379&amp;gt; zscore test:teachers eee
+&amp;quot;40&amp;quot;
+# 查询有序集合中元素的位置排名
+127.0.0.1:6379&amp;gt; zrank test:teachers eee
+(integer) 3
+# 查询某个范围间的所有元素
+127.0.0.1:6379&amp;gt; zrange test:teachers 0 3
+1) &amp;quot;bbb&amp;quot;
+2) &amp;quot;aaa&amp;quot;
+3) &amp;quot;ddd&amp;quot;
+4) &amp;quot;eee&amp;quot;
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;其它的一些常用命令&#34;&gt;其它的一些常用命令&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 查询所有的key
+127.0.0.1:6379&amp;gt; keys *
+1) &amp;quot;author&amp;quot;
+2) &amp;quot;test:user&amp;quot;
+3) &amp;quot;count&amp;quot;
+4) &amp;quot;test:ids&amp;quot;
+5) &amp;quot;test:student&amp;quot;
+6) &amp;quot;test:teachers&amp;quot;
+# 查询以 ‘test’开头的key
+127.0.0.1:6379&amp;gt; keys test*
+1) &amp;quot;test:user&amp;quot;
+2) &amp;quot;test:ids&amp;quot;
+3) &amp;quot;test:student&amp;quot;
+4) &amp;quot;test:teachers&amp;quot;
+# 查询某个key对应的value的值的类型
+127.0.0.1:6379&amp;gt; type test:user
+hash
+# 查询某个key是否存在
+127.0.0.1:6379&amp;gt; exists test:user
+(integer) 1
+# 删除某个key，会连带value一起删除
+127.0.0.1:6379&amp;gt; del test:user
+(integer) 1
+# 再次查询某个key是否存在
+127.0.0.1:6379&amp;gt; exists test:user
+(integer) 0
+# 指定某个key的有效时间
+127.0.0.1:6379&amp;gt; expire test:student 10
+(integer) 1
+# 查询所有的key
+127.0.0.1:6379&amp;gt; keys *
+1) &amp;quot;author&amp;quot;
+2) &amp;quot;count&amp;quot;
+3) &amp;quot;test:ids&amp;quot;
+4) &amp;quot;test:student&amp;quot;
+5) &amp;quot;test:teachers&amp;quot;
+# 10多秒后，再次查询所有的key
+127.0.0.1:6379&amp;gt; keys *
+1) &amp;quot;author&amp;quot;
+2) &amp;quot;count&amp;quot;
+3) &amp;quot;test:ids&amp;quot;
+4) &amp;quot;test:teachers&amp;quot;
+127.0.0.1:6379&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>使用Spring AOP统一记录日志</title>
@@ -2030,113 +2276,6 @@ mysql&amp;gt; set global long_query_time = 1;
 &lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/rFw3h7ES8Ze2VAb.png&#34; alt=&#34;接收方滑动窗口示意图&#34; /&gt;接收方滑动窗口示意图&lt;/p&gt;
 
 &lt;p&gt;需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>TCP和UDP的区别</title>
-      <link>https://halklein.github.io/2019/008/</link>
-      <pubDate>Fri, 01 Nov 2019 14:26:16 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/008/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-udp协议&#34;&gt;1. UDP协议&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;用户数据报协议&lt;/strong&gt;（英语：&lt;strong&gt;U&lt;/strong&gt;ser &lt;strong&gt;D&lt;/strong&gt;atagram &lt;strong&gt;P&lt;/strong&gt;rotocol，缩写：&lt;strong&gt;UDP&lt;/strong&gt;；又称&lt;strong&gt;用户数据包协议&lt;/strong&gt;）是一个简单的面向数据报的通信协议，位于OSI模型的传输层。该协议由 &lt;a href=&#34;https://zh.wikipedia.org/w/index.php?title=David_P._Reed&amp;amp;action=edit&amp;amp;redlink=1&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;David P. Reed&lt;/a&gt; 在1980年设计且在&lt;a href=&#34;https://tools.ietf.org/html/rfc768&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;RFC 768&lt;/a&gt;中被规范。典型网络上的众多使用UDP协议的关键应用在一定程度上是相似的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/tk53hsSwfUxFKAE.png&#34; alt=&#34;UDP头部结构&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UDP头部包含了以下几个数据：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;两个16位的端口号，分别为源端口（可选）和目标端口&lt;/li&gt;
-&lt;li&gt;数据报的长度&lt;/li&gt;
-&lt;li&gt;数据报的检验和（IPv4 可选字段），该字段用于发现头部信息和数据中的错误&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;UDP相比于TCP明显要简单很多，因此UDP头部开销小，只有8个字节，在传输数据报文时是很高效的。当然也就不支持错误重传，滑动窗口等精细的控制。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UDP的特点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;面向非连接，传输数据之前不需要先建立连接。&lt;/li&gt;
-&lt;li&gt;不维护连接状态，支持同时向多个客户端传输相同的消息， 支持一对一、一对多、多对多、多对一的传输方式，也就是说 UDP 提供了单播，多播，广播的功能。&lt;/li&gt;
-&lt;li&gt;数据包报头只有8个字节，额外开销较小&lt;/li&gt;
-&lt;li&gt;吞吐量只受限于数据生成速率、传输速率以及机器性能&lt;/li&gt;
-&lt;li&gt;不可靠：尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表&lt;/li&gt;
-&lt;li&gt;面向报文，不对应用程序提交的报文信息进行拆分或者合并&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;2-tcp和udp的区别&#34;&gt;2. TCP和UDP的区别&lt;/h2&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;TCP&lt;/th&gt;
-&lt;th&gt;UDP&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;是否连接&lt;/td&gt;
-&lt;td&gt;面向连接&lt;/td&gt;
-&lt;td&gt;无连接&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;可靠性&lt;/td&gt;
-&lt;td&gt;可靠传输，使用流量控制和拥塞控制&lt;/td&gt;
-&lt;td&gt;不可靠传输，不使用流量控制和拥塞控制&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;有序性&lt;/td&gt;
-&lt;td&gt;有序&lt;/td&gt;
-&lt;td&gt;无序&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;速率&lt;/td&gt;
-&lt;td&gt;慢&lt;/td&gt;
-&lt;td&gt;快&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;量级&lt;/td&gt;
-&lt;td&gt;重量级&lt;/td&gt;
-&lt;td&gt;轻量级&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;连接对象个数&lt;/td&gt;
-&lt;td&gt;只支持一对一通信&lt;/td&gt;
-&lt;td&gt;支持一对一，一对多，多对一、多对多通信&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;传输方式&lt;/td&gt;
-&lt;td&gt;面向字节流&lt;/td&gt;
-&lt;td&gt;面向报文&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;首部开销&lt;/td&gt;
-&lt;td&gt;首部最小20字节，最大60字节&lt;/td&gt;
-&lt;td&gt;首部开销小，仅8字节&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;适用场景&lt;/td&gt;
-&lt;td&gt;要求可靠传输的应用，例如文件传输&lt;/td&gt;
-&lt;td&gt;实时应用（IP电话、视频会议、直播等）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
