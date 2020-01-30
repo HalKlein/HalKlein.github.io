@@ -7,8 +7,214 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Tue, 28 Jan 2020 18:59:06 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jan 2020 12:26:21 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用Spring AOP统一记录日志</title>
+      <link>https://halklein.github.io/2020/030/</link>
+      <pubDate>Thu, 30 Jan 2020 12:26:21 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/030/</guid>
+      <description>
+
+&lt;h2 id=&#34;需求&#34;&gt;需求&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/vaD453kgpyC9nI1.png&#34; alt=&#34;需求&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果我们每次都在业务组件中记录日志，但是记录日志并不是业务需求，它属于系统需求。&lt;/p&gt;
+
+&lt;h2 id=&#34;aop的概念&#34;&gt;AOP的概念&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Aspect Oriented Programing&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   即面向方面（切面）编程。
+​   AOP是一种编程思想，是对OOP的补充，可以进一步提高编程的效率。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/hZgODSCvFdHEliQ.png&#34; alt=&#34;AOP的概念&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;aop的术语&#34;&gt;&lt;strong&gt;AOP的术语&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/FbLUmHqE5BWy7Nx.png&#34; alt=&#34;AOP的术语&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Target&lt;/strong&gt;：目标对象，程序中的每一个要处理的Bean我们称之为Target&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Joinpoint&lt;/strong&gt;：连接点，目标对象有很多地方能够被织入代码，其可以织入代码的地方，我们称之为连接点&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Aspect&lt;/strong&gt;：切面组件，AOP解决统一处理这些系统需求的方式是将代码定义到一个额外的Bean中，Pointcut声明代码到底要织入到哪些对象的哪些位置，Advice通知方法说明这个切面组件要处理怎样的逻辑。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Weaving&lt;/strong&gt;：切面组件在程序运行之前或之后，通过框架织入到某些连接点之上，在编译时织入效率会很高，但是系统未运行时，可能有些条件我们并不能得到，就需要在运行时织入，运行时织入很方便灵活，但是效率不高。&lt;/p&gt;
+
+&lt;h2 id=&#34;aop的实现&#34;&gt;AOP的实现&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;AspectJ&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   AspectJ是&lt;strong&gt;语言级&lt;/strong&gt;的实现（新的语言），它扩展了Java语言，定义了AOP语法。&lt;/p&gt;
+
+&lt;p&gt;​   AspectJ在&lt;strong&gt;编译期&lt;/strong&gt;织入代码，支持各种类型的连接点，它有一个专门的编译器，用来生成遵守Java字节码规范的class文件。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Spring AOP&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   Spring AOP使用纯 &lt;strong&gt;Java实现&lt;/strong&gt;，它&lt;strong&gt;不需要专门的编译过程&lt;/strong&gt;，也&lt;strong&gt;不需要特殊的类装载器&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;​   Spring AOP在 &lt;strong&gt;运行时&lt;/strong&gt; 通过代理的方式织入代码，&lt;strong&gt;只支持方法类型的连接点&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;​   Spring&lt;strong&gt;支持&lt;/strong&gt;对&lt;strong&gt;AspectJ&lt;/strong&gt;的集成。&lt;/p&gt;
+
+&lt;h2 id=&#34;spring-aop-代理&#34;&gt;Spring AOP 代理&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;JDK 动态代理&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   Java提供的动态代理技术，可以在运行时创建&lt;strong&gt;接口&lt;/strong&gt;的代理实例。&lt;/p&gt;
+
+&lt;p&gt;​   Spring AOP&lt;strong&gt;默认&lt;/strong&gt;采用此种方式，在接口的代理实例中织入代码。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CGLib 动态代理&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   采用底层的&lt;strong&gt;字节码技术&lt;/strong&gt;，在运行时创建&lt;strong&gt;子类&lt;/strong&gt;代理实例。&lt;/p&gt;
+
+&lt;p&gt;​   当目标对象不存在接口时，Spring AOP会采用此种方式，在子类实例中织入代码。&lt;/p&gt;
+
+&lt;h2 id=&#34;示例-记录用户访问方法的信息&#34;&gt;示例 记录用户访问方法的信息&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Component
+// 切面组件
+@Aspect
+public class ServiceLogAspect {
+
+    // 记录日志
+    private static final Logger logger = LoggerFactory.getLogger(ServiceLogAspect.class);
+
+    /**
+     * 定义切点@Pointcut，其中筛选目标，
+     * 第1个*表示返回值任意，
+     * 第2个*表示所有组件，
+     * 第3个*表示所有的方法，
+     * (..)表示所有的参数
+     */
+    @Pointcut(&amp;quot;execution(* me.halklein.community.service.*.*(..))&amp;quot;)
+    public void pointcut() {
+
+    }
+
+    // 在连接点开始@Before，pointcut()表示切点是什么
+    @Before(&amp;quot;pointcut()&amp;quot;)
+    public void before(JoinPoint joinPoint) {
+        // 记录格式：用户[IP地址]，在[xxx]，访问了[me.halklein.community.service.xxx()]
+        // 获取Request对象
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        // 获取访问者IP
+        String ip = request.getRemoteHost();
+        String now = new SimpleDateFormat(&amp;quot;yyyy-MM-dd HH:mm:ss&amp;quot;).format(new Date());
+        // 获取类名，方法名
+        String target = joinPoint.getSignature().getDeclaringTypeName() + &amp;quot;.&amp;quot; + joinPoint.getSignature().getName();
+        logger.info(String.format(&amp;quot;用户[%s]，在[%s]，访问了[%s].&amp;quot;, ip, now, target));
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;查看日志&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/aCo5ALIVRyr6l9U.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spring统一处理异常</title>
+      <link>https://halklein.github.io/2020/029/</link>
+      <pubDate>Thu, 30 Jan 2020 11:57:56 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/029/</guid>
+      <description>
+
+&lt;p&gt;在系统出现错误时，我们希望系统给用户图形化的反馈，而不是一些状态错误信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/30/WfvGOd1js3tcQMe.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;各个层次都会出现错误，但其实最终都会抛出异常给表现层。所以我们只用在表现层中捕获异常，处理异常，就能处理系统中所有的异常。&lt;/p&gt;
+
+&lt;h2 id=&#34;springboot自动化处理异常&#34;&gt;&lt;strong&gt;SpringBoot自动化处理异常&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;SpringBoot统一处理异常，我们需要在templates目录下新建&lt;code&gt;error&lt;/code&gt;目录，然后在里面新建错误页面文件，且文件的名字一定要对应错误状态码。就可以简单实现对异常的统一处理。&lt;/p&gt;
+
+&lt;h2 id=&#34;spring处理异常&#34;&gt;&lt;strong&gt;Spring处理异常&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;但是SpringBoot统一处理异常，并不是很详细，有时候并不能满足我们的需要，我们可能需要进行更加详细和复杂的操作，这时可以使用Spring进行更详细的配置。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@ControllerAdvice&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   用于修饰类，表示该类是Controller的全局配置类。&lt;/p&gt;
+
+&lt;p&gt;​   在此类中，可以对Controller进行如下三种全局配置：&lt;strong&gt;异常处理方案、绑定数据方案、绑定参数方案&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@ExceptionHandler&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   用于修饰方法，该方法会在Controller出现异常&lt;strong&gt;后&lt;/strong&gt;被调用，用于&lt;strong&gt;处理捕获到的异常&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@ModelAttribute&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   用于修饰方法，该方法会在Controller方法执行&lt;strong&gt;前&lt;/strong&gt;被调用，用于为Model对象&lt;strong&gt;绑定参数&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;@DataBinder&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​   用于修饰方法，该方法会在Controller方法执行&lt;strong&gt;前&lt;/strong&gt;被调用，用于&lt;strong&gt;绑定参数&lt;/strong&gt;的转换器。&lt;/p&gt;
+
+&lt;p&gt;在controller包下advice包，里面新建ExceptionAdvice类，用于处理全局异常&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;/**
+ * Controller异常全局配置类
+ * annotations = Controller.class 只扫描Controller组件
+ */
+@ControllerAdvice(annotations = Controller.class)
+public class ExceptionAdvice {
+
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
+
+    /**
+     * @ExceptionHandler 声明该方法用于处理异常
+     * Exception.class 处理所有异常
+     */
+    @ExceptionHandler({Exception.class})
+    public void handleException(Exception e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        logger.error(&amp;quot;服务器发生异常: &amp;quot;, e.getMessage());
+        // 遍历详细的异常栈信息
+        for (StackTraceElement element : e.getStackTrace()) {
+            logger.error(element.toString());
+        }
+
+        // 重定向
+        // 判断是普通请求还是异步请求
+        String xRequestWith = request.getHeader(&amp;quot;x-requested-with&amp;quot;);
+
+        if (&amp;quot;XMLHttpRequest&amp;quot;.equals(xRequestWith)) {
+            // XMLHttpRequest 异步请求
+
+            // application/json 返回字符串后，浏览器会自动转换为json对象
+            // application/plain 返回一个普通字符串，可以是json格式，浏览器需要认为转换为js对象
+            response.setContentType(&amp;quot;application/plain;charset=utf-8&amp;quot;);
+            // 输出
+            PrintWriter writer = response.getWriter();
+            writer.write(CommunityUtil.getJsonString(1, &amp;quot;服务器异常！&amp;quot;));
+        } else {
+            // 是一个普通请求，发生错误，我们进行重定向
+            response.sendRedirect(request.getContextPath() + &amp;quot;/error&amp;quot;);
+        }
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Spring事务管理</title>
@@ -1931,308 +2137,6 @@ mysql&amp;gt; set global long_query_time = 1;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>TCP四次挥手</title>
-      <link>https://halklein.github.io/2019/007/</link>
-      <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/007/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-四次挥手-关闭连接&#34;&gt;1. 四次挥手，关闭连接&lt;/h2&gt;
-
-&lt;p&gt;由于TCP连接是全双工的，即连接双方可以在一条TCP连接上互相传输数据，每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个&lt;code&gt;FIN&lt;/code&gt;来终止这个方向的连接。收到一个&lt;code&gt;FIN&lt;/code&gt;只意味着这一方向上没有数据流动，一个 TCP 连接在收到一个&lt;code&gt;FIN&lt;/code&gt;后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭，因此在断开时存在一个半关闭状态，即有有一方失去发送数据的能力，却还能接收数据。所以，断开连接需要分为四次 ，称为&lt;strong&gt;四次挥手&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行&lt;code&gt;close()&lt;/code&gt;操作即可产生挥手操作。&lt;/p&gt;
-
-&lt;p&gt;以下，我们假设由客户端主动触发close()。&lt;/p&gt;
-
-&lt;h2 id=&#34;2-四次挥手流程图&#34;&gt;2. 四次挥手流程图&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/5pbistqQF7XTxBV.png&#34; alt=&#34;四次挥手流程图&#34; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;第一次挥手(FIN=1，seq=u)&lt;/strong&gt;
-假设假客户端主动触发close()，客户端发送一个FIN标志位为 1 的包，表示自己已经没有数据可以发送了，但是仍然可以接受数据。因为有可能服务器还要发送数据，所以发送自己的序列号seq=u，等待服务器确认。发送完毕后，客户端进入FIN_WAIT_1状态。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;第二次挥手(ACK=1，seq=v，ack=u+1)&lt;/strong&gt;
-服务器端确认客户端的FIN包，发送一个确认包【ACK=1(确认)、seq=v(自己的序列号)、ack=u+1(确认收到序列号)】，表明自己接受到了客户端关闭连接的请求，但还没有准备好关闭连接(可能有数据发送)。
-发送完毕后，服务器端进入CLOSE_WAIT状态，客户端接收到这个确认包之后，进入FIN_WAIT_2状态，等待服务器端关闭连接。
-在这过程中 TCP 服务器进程会通知高层应用进程。然后从客户端到服务器这个方向的连接就释放了，TCP 连接处于半关闭状态。但是服务器若发送数据，客户端仍要接收。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;第三次挥手(FIN=1，ACK=1，seq=w，ack=u+1)&lt;/strong&gt;
-若服务器已经没有要向客户端发送的数据，其应用进程就通知 TCP 释放连接。
-服务器端准备好关闭连接时，向客户端发送结束连接请求FIN置为 1，ACK=1，seq=w(有数据发送过)，ack=u+1。
-发送完毕后，服务器端进入LAST_ACK状态，等待来自客户端的最后一个ACK。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;第四次挥手(ACK=1，seq=u+1，ack=w+1)&lt;/strong&gt;
-客户端接收到来自服务器端的关闭请求，发送一个确认包(在确认报文段中ACK=1，确认号ack=w+1，自己的序号seq=u+1)，并进入TIME_WAIT状态，等待可能出现的要求重传的ACK包。(这个确认包是内核进行发送的，上面不能发数据的是客户端的send函数)
-服务器端接收到这个确认包之后，关闭连接，进入CLOSED状态。
-客户端等待了某个固定时间（两个最大段生命周期，&lt;code&gt;2MSL&lt;/code&gt;（2 Maximum Segment Lifetime），即2个最长报文段寿命， &lt;code&gt;RFC 793&lt;/code&gt;中规定MSL为2分钟，而Linux中设置为30秒 ）之后，没有收到服务器端的ACK，认为服务器端已经正常关闭连接，于是自己也关闭连接，进入CLOSED状态。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;3-四次挥手抓包分析&#34;&gt;3. 四次挥手抓包分析&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/4ZnKhodQpuNfmiE.png&#34; alt=&#34;四次挥手抓包分析&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;4-问题&#34;&gt;4. 问题&lt;/h2&gt;
-
-&lt;h3 id=&#34;为什么会有time-wait状态&#34;&gt;为什么会有TIME_WAIT状态？&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;网络可能不可靠，需要确保有足够的时间让对方收到ACK包。被动关闭方处于&lt;code&gt;LAST_ACK&lt;/code&gt;状态下的&lt;code&gt;SOCKET&lt;/code&gt;可能会因为超时未收到ACK报文，而重发FIN报文（这一来一去正好是2SML）。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;避免新旧连接混淆。有的路由器会缓存IP数据包，如果连接被重用了，那么这些延迟收到的包就有可能会跟新连接混在一起。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;time-wait状态会带来的影响&#34;&gt;TIME_WAIT状态会带来的影响 ?&lt;/h3&gt;
-
-&lt;p&gt;当某个连接的一端处于TIME_WAIT状态时，该连接将不能再被使用。事实上，对于我们比较有现实意义的是，这个端口将不能再被使用。&lt;/p&gt;
-
-&lt;p&gt;某个端口处于TIME_WAIT状态(其实应该是这个连接)时，这意味着这个 TCP 连接并没有断开(完全断开)，那么，如果你bind这个端口，就会失败。对于服务器而言，如果服务器突然坏掉了，那么它将无法再2MSL内重新启动，因为bind会失败。&lt;/p&gt;
-
-&lt;p&gt;解决这个问题的一个方法就是设置 socket 的&lt;code&gt;SO_REUSEADDR&lt;/code&gt;选项。这个选项意味着你可以重用一个地址。&lt;/p&gt;
-
-&lt;h3 id=&#34;服务器出现大量close-wait状态的原因&#34;&gt;服务器出现大量CLOSE_WAIT状态的原因？&lt;/h3&gt;
-
-&lt;p&gt;对方关闭socket连接，我方忙于读或写，没有及时关闭连接。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;检查代码，特别是释放资源的代码&lt;/li&gt;
-&lt;li&gt;检查配置，特别是处理请求的线程配置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;可以使用以下命令查看服务器是否有大量CLOSE_WAIT&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;netstat -n | awk &#39;/^tcp/{++S[$NF]}END{for(a in S) print a,S[a]}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/5XsPjp2oZCmOngW.jpg&#34; alt=&#34;MacOS下的测试&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;为什么需要四次握手才能断开连接&#34;&gt;为什么需要四次握手才能断开连接？&lt;/h3&gt;
-
-&lt;p&gt;因为全双工，发送方和接收方都需要FIN报文和ACK报文，当被动方收到主动方的FIN报文通知时，它仅仅表示主动方没有数据再发送给被动方了。但未必被动方所有的数据都完整的发送给了主动方，所以被动方不会马上关闭SOCKET，它可能还需要发送一些数据给主动方后，再发送FIN报文给主动方，告诉主动方同意关闭连接，所以这里的ACK报文和FIN报文多数情况下都是分开发送的。&lt;/p&gt;
-
-&lt;p&gt;由于网络服务的不可靠性，必须考虑到在释放连接时，可能由于数据包的失序而使释放连接请求的数据包会比其他数据包先到达目的端。此时，如果目的端由于收到了释放连接请求的数据包而立即释放该连接，则会造成那些先发而后至的数据包丢失。&lt;/p&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>TCP三次握手</title>
-      <link>https://halklein.github.io/2019/006/</link>
-      <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/006/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-tcp-transmission-control-protocol-传输控制协议&#34;&gt;1. TCP(Transmission Control Protocol)　传输控制协议&lt;/h2&gt;
-
-&lt;p&gt;TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接。&lt;/p&gt;
-
-&lt;p&gt;TCP工作在网络 OSI 的七层模型中的第四层（Transport层），IP在第三层（Network层），ARP在第二层（Data Link层）；在第二层上的数据，我们把它叫Frame，在第三层上的数据叫Packet，第四层的数据叫Segment。 数据从应用层发下来，会在每一层都会加上头部信息，进行封装，然后再发送到数据接收端。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;一种&lt;strong&gt;面向连接的、可靠的、基于字节流的&lt;/strong&gt;传输层通信协议&lt;/li&gt;
-&lt;li&gt;将应用层的数据流分割成报文段并发送给目标节点的TCP层&lt;/li&gt;
-&lt;li&gt;数据包都有序号，对方收到则发送ACK确认，未收到则重传&lt;/li&gt;
-&lt;li&gt;使用校验和来检验数据在传输过程中是否有误&lt;/li&gt;
-&lt;li&gt;在一个 TCP 连接中，仅有两方进行彼此通信。广播和多播不能用于 TCP&lt;/li&gt;
-&lt;li&gt;TCP 给数据分节进行排序，并使用累积确认保证数据的顺序不变和非重复&lt;/li&gt;
-&lt;li&gt;TCP 使用&lt;strong&gt;滑动窗口机制&lt;/strong&gt;来实现流量控制，通过动态改变窗口的大小进行拥塞控制&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址&lt;/p&gt;
-
-&lt;h2 id=&#34;2-tcp头部结构&#34;&gt;2. TCP头部结构&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/dLhNgTlbYtBA3FW.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Source port&lt;/code&gt;源端口、&lt;code&gt;Destination port&lt;/code&gt;目的端口，他们各占用2个字节。TCP和UDP的数据包都是不包含IP地址信息的，因为那是IP层要处理的，但是TCP和UDP都会有源端口和目的端口。在计算机本地我们可以用PID唯一标识一个进程，但是在网络中不同计算机的进程可能会有相同的PID，可以通过在传输层中使用协议端口号来解决，这样我们就可以用 IP+协议+端口号来唯一标识网络中的一个进程.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Sequence Number&lt;/code&gt;序号：Seq序号，占4个字节，用来标识从TCP源端向目的端发送的字节流，发起方发送数据时对此进行标记。是包的序号，用来解决网络包乱序（reordering）问题。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Acknowledgement Number&lt;/code&gt;确认序号：Ack序号，占4个字节，只有ACK标志位为1时，确认序号字段才有效，Ack=Seq+1。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Data offset&lt;/code&gt;数据偏移：由于头部有可选字段长度不固定，因此它指出TCP报文的数据离TCP报文起始有多远。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Reserved&lt;/code&gt;保留域：保留以后使用的。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP Flags&lt;/code&gt; 标志位：常见的有6个，即URG、ACK、PSH、RST、SYN、FIN等，具体含义如下：&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;URG&lt;/code&gt; 紧急指针标志：为1时有效，为0则忽略。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;ACK&lt;/code&gt; &lt;strong&gt;确认序号标志&lt;/strong&gt;：为1时确认号有效，为0标识报文中不含确认信息。 TCP 规定在连接建立后传送的所有报文段都必须把 ACK 置为一。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;PSH&lt;/code&gt; push标志：为1时，指示接收方接收到报文后应该尽快将这个报文交给应用层程序，而不是在缓冲区排队。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;RST&lt;/code&gt; 重置连接标志：重置连接，重置由于主机崩溃或其它原因而出现的异常连接，或者用于拒绝非法的报文段和拒绝连接请求。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;SYN&lt;/code&gt; &lt;strong&gt;同步序号&lt;/strong&gt;：用于建立连接过程。 当SYN=1，ACK=0时，表示当前报文段是一个连接请求报文。当SYN=1，ACK=1时，表示当前报文段是一个同意建立连接的应答报文。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;FIN&lt;/code&gt; &lt;strong&gt;finish标志&lt;/strong&gt;：用于释放连接。为1时， 该字段为一表示此报文段是一个释放连接的请求报文&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Window Size&lt;/code&gt;窗口大小，指滑动窗口的大小，用于告知发送端接受方的缓存大小，以此控制发送端发送数据的速率从而进行流量控制 。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Checksum&lt;/code&gt;校验和，指奇偶校验，对整个TCP报文以16位进行计算所得，由发送端计算和存储并由接收端验证。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;Urgent Pointer&lt;/code&gt; 紧急指针，当TCP Flags中的&lt;code&gt;URG&lt;/code&gt;为1时才有效，指出本TCP报文中紧急数据的字节数。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;TCP Options&lt;/code&gt; 可选项，其长度可变，定义一些其它的可选参数。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;3-tcp三次握手&#34;&gt;3. TCP三次握手&lt;/h2&gt;
-
-&lt;p&gt;“握手”是为了&lt;strong&gt;建立连接&lt;/strong&gt;，TCP三次握手的流程图如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/tbrGiOqwZ6Jpe3K.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第一次握手&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;建立连接时， Client将标志位SYN置为1，随机产生一个值seq=x ， 并将该数据包发送给Server ，Client进入SYN_SEND状态，等待Server 确认；&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第二次握手&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Server 收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1  ， ack=x+1 ，同时随机产生一个值seq=y ， 并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第三次握手&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Client收到Server的SYN+ACK包， 检查ack是否为y+1，标志位ACK是否为1，如果正确则将标志位ACK置为1，ack=y+1，seq=x+1， 并将该数据包发送给Server ;  Server检查ack是否为y+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;不要将确认序号ack与标志位中的ACK搞混了。&lt;/li&gt;
-&lt;li&gt;确认方ack=发起方seq+1，两端配对。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;4-三次握手抓包分析&#34;&gt;4. 三次握手抓包分析&lt;/h2&gt;
-
-&lt;p&gt;筛选过滤，将我们访问的地址作为筛选的 目标地址 和 源地址，筛选出 源地址 是因为三次握手中，访问的地址也会作为源地址向我们的计算机发送请求。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;ip.dst==61.128.252.10 or ip.src==61.128.252.10
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/pbmqrR3fvd2xls4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;顺便查阅归纳下，&lt;strong&gt;Wireshark的过滤规则&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. 过滤IP&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;ip.src eq 192.168.1.108 or ip.dst eq 192.168.1.108
-或者ip.addr eq 192.168.1.107
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;2. 过滤端口&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;tcp.port eq 80 //不管端口是源端口的还是目标端口都显示
-tcp.port eq 80 or udp.port eq 80
-tcp.dstport == 80 //只显tcp协议的目标端口80
-tcp.srcport == 80 //只显tcp协议的源端口80
-tcp.port &amp;gt;= 1 and tcp.port &amp;lt;= 80 //端口范围过滤
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;3. 过滤协议&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;直接输入协议名：tcp、udp、arp、icmp、http、smtp、ftp、dns、msnms、ip、ssl、oicq、bootp等
-排除协议过滤：如 !arp 或者 not arp
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;4. 过滤MAC&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;eth.dst == 48:7d:2e:98:61:d1 或 eth.dst==48-7d-2e-98-61-d1 //过滤目标mac
-eth.src eq 48:7d:2e:98:61:d1 //过滤来源mac
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;小于 less than（lt）&lt;/p&gt;
-
-&lt;p&gt;等于 eq&lt;/p&gt;
-
-&lt;p&gt;大于等于 ge&lt;/p&gt;
-
-&lt;p&gt;不等 ne&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5. 包长度过滤&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;udp.length == 26 //这个长度是指udp本身固定长度8加上udp下面那块数据包之和
-tcp.len &amp;gt;= 7   //指的是ip数据包(tcp下面那块数据),不包括tcp本身
-ip.len == 94 //除了以太网头固定长度14,其它都算是ip.len,即从ip本身到最后
-frame.len == 119 //整个数据包长度,从eth开始到最后
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;6. http模式过滤&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;例子:
-http.request.method == “GET”
-http.request.method == “POST”
-http.request.uri == “/img/logo.png”
-http contains “GET”
-http contains “HTTP/1.”
-http.request.method == “GET” &amp;amp;&amp;amp; http contains “Host: “
-
-http.host == xxx.com	// 过滤 host
-http.response == 1	// 过滤所有的 http 响应包
-http.response.code == 302	// 过滤状态码 202
-http.request.method==POST 	// 过滤 POST 请求包
-http.cookie contains xxx	// cookie 包含 xxx
-http.request.uri==&amp;quot;/robots.txt&amp;quot;	//过滤请求的uri，取值是域名后的部分
-http.request.full_uri==&amp;quot;http://1.com&amp;quot;	// 过滤含域名的整个url
-http.server contains &amp;quot;nginx&amp;quot;	//过滤http头中server字段含有nginx字符的数据包
-http.content_type == &amp;quot;text/html&amp;quot;	//过滤content_type是text/html
-http.content_encoding == &amp;quot;gzip&amp;quot;	//过滤content_encoding是gzip的http包
-http.transfer_encoding == &amp;quot;chunked&amp;quot;	//根据transfer_encoding过滤
-http.content_length == 279
-http.content_length_header == &amp;quot;279&amp;quot;	//根据content_length的数值过滤
-http.request.version == &amp;quot;HTTP/1.1&amp;quot;	//过滤HTTP/1.1版本的http包，包括请求和响应
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;5-问题&#34;&gt;5. 问题&lt;/h2&gt;
-
-&lt;h3 id=&#34;为什么需要三次握手才能建立起连接&#34;&gt;为什么需要三次握手才能建立起连接&lt;/h3&gt;
-
-&lt;p&gt;为了初始化Sequence Number的初始值，通信双方要互相通知对方自己的Sequence Number，作为以后数据通信的序号，以保证接收到的数据不会因为网络上的问题而乱序，即TCP会用这个序号来拼接数据， 确保数据能够完整传输。&lt;/p&gt;
-
-&lt;h3 id=&#34;首次握手的隐患-syn超时&#34;&gt;首次握手的隐患&amp;ndash;SYN超时&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;三次握手过程中，Server收到Client的SYN，回复SYN-ACK后（ Server收到Client的ACK之前的TCP连接称为半连接（&lt;code&gt;half-open connect&lt;/code&gt;），此时Server处于SYN_RCVD状态 ）， Cient就掉线了，Server端没有收到Client的ACK确认。 于是 Server会不断重试直到超时，在Linux系统中会默认进行5次重试（每次重试隔时间从1s开始每次都翻售 ，即1+2+4+6+8+16+32=63秒）TCP才断开连接。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SYN攻击&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server回复确认包，并等待Client的确认，由于源地址是不存在的，因此，Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，把Server的syn连接的队列耗尽 ，导致正常的SYN请求因为队列满而被丢弃，从而引起网络堵塞甚至系统瘫痪。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;检测&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;SYN攻击时一种典型的DDOS攻击，检测SYN攻击的方式非常简单，即当Server上有大量半连接状态且源IP地址是随机的，则可以断定遭到SYN攻击了，使用如下命令可以可以查看&lt;code&gt;SYN_RECV&lt;/code&gt;状态：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;# netstat -nap | grep SYN_RECV
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;针对SYN Flood的防护措施&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Linux下给了一个叫&lt;code&gt;tcp_syncookies&lt;/code&gt;的参数来应对这个事——当SYN队列满了后，TCP会通过源地址端口、目标地址端口和时间戳打造出一个特别的&lt;code&gt;Sequence Number&lt;/code&gt;发回去（又叫SYN Cookie），如果是攻击者则不会有响应，如果是正常连接，则会把这个 &lt;code&gt;SYN Cookie&lt;/code&gt;发回来，然后服务端可以通过cookie建连接（即使你不在SYN队列中）。请注意，慎用&lt;code&gt;tcp_syncookies&lt;/code&gt;来处理正常的大负载的连接的情况。因为，&lt;code&gt;synccookies&lt;/code&gt;是妥协版的TCP协议，并不严谨。 对于正常的请求，可以调整以下三个参数：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;tcp_synack_retries&lt;/code&gt; ，用于减少重试次数；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;tcp_max_syn_backlog&lt;/code&gt;，用于增大SYN连接数；&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;tcp_abort_on_overflow&lt;/code&gt; ，处理不过来，直接拒绝连接了。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;保活机制&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;如果建立连接后，Client出现故障，向对方发送保活探测报文，如果未收到响应则继续发送，尝试次数达到保活探测数仍未收到响应则中断连接&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
