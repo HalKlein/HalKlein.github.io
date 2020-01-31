@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 30 Jan 2020 12:26:21 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jan 2020 11:54:23 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spring 整合 Redis</title>
+      <link>https://halklein.github.io/2020/032/</link>
+      <pubDate>Fri, 31 Jan 2020 11:54:23 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/032/</guid>
+      <description>引入依赖 spring-boot-starter-data-redis &amp;lt;!-- SpringBoot整合Redis，这里可以不要写version，因为在spring-boot-starter-parent中默</description>
+    </item>
     
     <item>
       <title>使用Spring AOP统一记录日志</title>

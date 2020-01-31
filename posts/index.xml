@@ -7,8 +7,330 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Thu, 30 Jan 2020 15:31:41 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jan 2020 11:54:23 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spring 整合 Redis</title>
+      <link>https://halklein.github.io/2020/032/</link>
+      <pubDate>Fri, 31 Jan 2020 11:54:23 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/032/</guid>
+      <description>
+
+&lt;h2 id=&#34;引入依赖&#34;&gt;引入依赖&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;spring-boot-starter-data-redis&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- SpringBoot整合Redis，这里可以不要写version，因为在spring-boot-starter-parent中默认已经指定，
+并且Spring自己测试过与当前兼容的Redis版本，这样不容易出错 --&amp;gt;
+&amp;lt;dependency&amp;gt;
+   &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+   &amp;lt;artifactId&amp;gt;spring-boot-starter-data-redis&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置redis数据库参数&#34;&gt;配置Redis数据库参数&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 配置 Redis
+# 使用的库（0-15）
+spring.redis.database=11
+# 主机地址
+spring.redis.host=localhost
+# 端口号，默认（6379）
+spring.redis.port=6379
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;编写redis配置类-构造redistemplate&#34;&gt;编写Redis配置类，构造RedisTemplate&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+
+// Redis 配置类
+@Configuration
+public class RedisConfig {
+
+    /**
+     * RedisAutoConfiguration中默认是RedisTemplate&amp;lt;Object, Object&amp;gt;，但Redis中的key都是String类型的
+     * 虽然说Object具有通用性，但是多数时候不便于我们使用，这里直接就改为String类型的key好了
+     *
+     * @factory redisTemplate要想访问数据库，我们就需要将Redis数据库的连接工厂注入进来
+     * @return
+     */
+    @Bean
+    public RedisTemplate&amp;lt;String, Object&amp;gt; redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate&amp;lt;String, Object&amp;gt; template = new RedisTemplate&amp;lt;&amp;gt;();
+        template.setConnectionFactory(factory);
+
+        // 指定key的序列化方式为String
+        template.setKeySerializer(RedisSerializer.string());
+        // 指定普通的value的序列化方式为JSON
+        template.setValueSerializer(RedisSerializer.json());
+        // Hash比较特殊单独设置
+        // 指定Hash的key的序列化方式
+        template.setHashKeySerializer(RedisSerializer.string());
+        // 指定Hash的value的序列化方式
+        template.setHashValueSerializer(RedisSerializer.json());
+
+        // 使参数生效
+        template.afterPropertiesSet();
+        return template;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;访问redis&#34;&gt;访问Redis&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.test.context.ContextConfiguration;
+
+import java.util.concurrent.TimeUnit;
+
+@SpringBootTest
+//使用正式环境里面的配置类
+@ContextConfiguration(classes = CommunityApplication.class)
+public class RedisTests {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    /**
+     * Redis 字符串测试
+     */
+    @Test
+    public void testStrings() {
+        String redisKey = &amp;quot;test:count&amp;quot;;
+
+        // 存数据
+        redisTemplate.opsForValue().set(redisKey, 1);
+        // 获取数据
+        System.out.println(redisTemplate.opsForValue().get(redisKey));
+        System.out.println(redisTemplate.opsForValue().increment(redisKey));
+        System.out.println(redisTemplate.opsForValue().decrement(redisKey));
+    }
+
+
+    /**
+     * Redis Hash测试
+     */
+    @Test
+    public void testHash() {
+        String redisKey = &amp;quot;test:user&amp;quot;;
+
+        // 存数据
+        redisTemplate.opsForHash().put(redisKey, &amp;quot;id&amp;quot;, 1);
+        redisTemplate.opsForHash().put(redisKey, &amp;quot;username&amp;quot;, &amp;quot;HalKlein&amp;quot;);
+
+        // 取数据
+        System.out.println(redisTemplate.opsForHash().get(redisKey, &amp;quot;id&amp;quot;));
+        System.out.println(redisTemplate.opsForHash().get(redisKey, &amp;quot;username&amp;quot;));
+
+    }
+
+
+    /**
+     * Redis List测试
+     */
+    @Test
+    public void testLists() {
+        String redisKey = &amp;quot;test:ids&amp;quot;;
+
+        // 存数据
+        redisTemplate.opsForList().leftPush(redisKey, 101);
+        redisTemplate.opsForList().leftPush(redisKey, 102);
+        redisTemplate.opsForList().leftPush(redisKey, 103);
+
+        // 统计数据量
+        System.out.println(redisTemplate.opsForList().size(redisKey));
+        // 取数据
+        System.out.println(redisTemplate.opsForList().index(redisKey, 0));
+        System.out.println(redisTemplate.opsForList().range(redisKey, 0, 2));
+
+        // 弹出数据
+        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
+        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
+        System.out.println(redisTemplate.opsForList().leftPop(redisKey));
+    }
+
+
+    /**
+     * Redis set集合测试
+     */
+    @Test
+    public void testSets() {
+        String redisKey = &amp;quot;test:teachers&amp;quot;;
+
+        // 存数据
+        redisTemplate.opsForSet().add(redisKey, &amp;quot;小明&amp;quot;, &amp;quot;小李&amp;quot;, &amp;quot;张三&amp;quot;, &amp;quot;小王&amp;quot;);
+
+        // 统计数据量
+        System.out.println(redisTemplate.opsForSet().size(redisKey));
+        // 弹出数据
+        System.out.println(redisTemplate.opsForSet().pop(redisKey));
+        // 显示数据
+        System.out.println(redisTemplate.opsForSet().members(redisKey));
+    }
+
+
+    /**
+     * Redis SortedSets有序集合测试
+     */
+    @Test
+    public void testSortedSets() {
+        String redisKey = &amp;quot;test:students&amp;quot;;
+
+        // 存数据
+        redisTemplate.opsForZSet().add(redisKey, &amp;quot;悟空&amp;quot;, 100);
+        redisTemplate.opsForZSet().add(redisKey, &amp;quot;八戒&amp;quot;, 80);
+        redisTemplate.opsForZSet().add(redisKey, &amp;quot;沙僧&amp;quot;, 70);
+
+        // 取数据
+        System.out.println(redisTemplate.opsForZSet().zCard(redisKey));
+        System.out.println(redisTemplate.opsForZSet().score(redisKey, &amp;quot;八戒&amp;quot;));
+        System.out.println(redisTemplate.opsForZSet().reverseRank(redisKey, &amp;quot;悟空&amp;quot;));
+        System.out.println(redisTemplate.opsForZSet().range(redisKey, 0, 1));
+    }
+
+
+    /**
+     * Redis Key相关命令测试
+     */
+    @Test
+    public void testKeys() {
+        // 删除Key
+        redisTemplate.delete(&amp;quot;test:user&amp;quot;);
+
+        // 某个Key存在吗？
+        System.out.println(redisTemplate.hasKey(&amp;quot;test:user&amp;quot;));
+
+        // Key的有效时间
+        redisTemplate.expire(&amp;quot;test:students&amp;quot;, 10, TimeUnit.SECONDS);
+    }
+
+
+    // 绑定Key，便于多次重复访问同一个key
+    @Test
+    public void testBoundOperations() {
+        String redisKey = &amp;quot;test:count&amp;quot;;
+
+        // 绑定Key
+        BoundValueOperations operations = redisTemplate.boundValueOps(redisKey);
+
+        System.out.println(operations.increment());
+        System.out.println(operations.increment());
+        System.out.println(operations.increment());
+        System.out.println(operations.decrement());
+
+        System.out.println(operations.get());
+    }
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;redis事务管理&#34;&gt;Redis事务管理&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/01/31/SpVmEIsaOig7Cj6.png&#34; alt=&#34;Redis事务&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Redis的事务，是将事务中产生的命令都添加到事务队列中，待整个事务提交后再统一出队按序进行执行。所以事务中的命令不会立即执行，比如 你在事务中做了一个查询，这个查询不会立即返回结果。由于这样的机制，通常对于Redis的事务管理，我们不会使用声明式事务，更多的使用编程式事务。&lt;/p&gt;
+
+&lt;p&gt;另外，需要注意的是，Redis中的事务是&lt;strong&gt;不会回滚&lt;/strong&gt;（roll back）的，有一条命令出现错误，之前的命令不会回滚，会面的命令也将继续执行，因为Redis认为这些错误是由程序员自身的错误引起的并且回滚也不能实质性的解决问题，Redis选择了这样更加简单高效的事务处理方式。&lt;/p&gt;
+
+&lt;h3 id=&#34;redis事务相关的命令&#34;&gt;&lt;strong&gt;Redis事务相关的命令&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令原型&lt;/th&gt;
+&lt;th&gt;命令描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;MULTI&lt;/td&gt;
+&lt;td&gt;用于标记事务的开始，其后执行的命令都将被存入命令队列，直到执行EXEC时，这些命令才会被原子的执行。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;EXEC&lt;/td&gt;
+&lt;td&gt;执行在一个事务内命令队列中的所有命令，同时将当前连接的状态恢复为正常状态，即非事务状态。如果在事务中执行了WATCH命令，那么只有当WATCH所监控的Keys没有被修改的前提下，EXEC命令才能执行事务队列中的所有命令，否则EXEC将放弃当前事务中的所有命令。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;DISCARD&lt;/td&gt;
+&lt;td&gt;回滚事务队列中的所有命令，同时再将当前连接的状态恢复为正常状态，即非事务状态。如果WATCH命令被使用，该命令将UNWATCH所有的Keys。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;WATCH &lt;em&gt;key [key &amp;hellip;]&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;在MULTI命令执行之前，可以指定待监控的Keys，然而在执行EXEC之前，如果被监控的Keys发生修改，EXEC将放弃执行该事务队列中的所有命令。&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;UNWATCH&lt;/td&gt;
+&lt;td&gt;取消当前事务中指定监控的Keys，如果执行了EXEC或DISCARD命令，则无需再手工执行该命令了，因为在此之后，事务中所有被监控的Keys都将自动取消。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;示例&#34;&gt;示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;/**
+ * Redis编程式事务测试
+ */
+@Test
+public void testTransactional() {
+    Object obj = redisTemplate.execute(new SessionCallback() {
+        @Override
+        public Object execute(RedisOperations redisOperations) throws DataAccessException {
+            String redisKey = &amp;quot;test:tx&amp;quot;;
+            // 启用事务
+            redisOperations.multi();
+
+            // 事务逻辑
+            redisOperations.opsForSet().add(redisKey,&amp;quot;张三&amp;quot;);
+            redisOperations.opsForSet().add(redisKey,&amp;quot;李四&amp;quot;);
+            redisOperations.opsForSet().add(redisKey,&amp;quot;王五&amp;quot;);
+			// 该查询在事务内，不会有效
+            System.out.println(redisOperations.opsForSet().members(redisKey));
+
+            // 提交事务并返回
+            return redisOperations.exec();
+        }
+    });
+
+    System.out.println(obj);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;输出&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;[]
+[1, 1, 1, [王五, 李四, 张三]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Redis 高性能存储入门</title>
@@ -2245,59 +2567,6 @@ mysql&amp;gt; set global long_query_time = 1;
 &lt;li&gt;浏览器默认填充http://，请求需要进行跳转，有被劫持的风险.&lt;/li&gt;
 &lt;li&gt;可以使用HSTS（HTTP Strict Transport Security）优化.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>TCP滑动窗口</title>
-      <link>https://halklein.github.io/2019/009/</link>
-      <pubDate>Sat, 02 Nov 2019 19:45:16 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/009/</guid>
-      <description>
-
-&lt;h2 id=&#34;1-rtt-和-rto&#34;&gt;1. RTT 和 RTO&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。&lt;/li&gt;
-&lt;li&gt;RTO（retransamission timeout） ：重传时间间隔，由RTT计算得出，不是写死的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;由TCP的重传机制，我们知道Timeout的设置对重置非常重要，设置长了会影响重发效率，设置短了可能导致还没丢失就又重传了。 而网络状况更是复杂，所以我们没有办法设置一个死的Timeout值 。为了动态地设置，TCP引入了RTT， 这样发送端就大约知道需要多少的时间，从而可以方便地设置Timeout——RTO（ Retransmission TimeOut ） ， 以让重传机制更高效。 &lt;a href=&#34;http://tools.ietf.org/html/rfc793&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;RFC793&lt;/a&gt; 中有对算法详细的定义。&lt;/p&gt;
-
-&lt;h2 id=&#34;2-tcp的滑动窗口&#34;&gt;2. TCP的滑动窗口&lt;/h2&gt;
-
-&lt;p&gt;我们都知道，TCP必需要解决的可靠传输以及包乱序（reordering）的问题，所以，TCP必需要知道网络实际的数据处理带宽或是数据处理速度，这样才不会引起网络拥塞，导致丢包。 所以，TCP引入了一些技术和设计来做网络流控，Sliding Window是其中一个技术。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。&lt;/p&gt;
-
-&lt;h3 id=&#34;下面-模拟tcp缓冲区&#34;&gt;&lt;strong&gt;下面，模拟TCP缓冲区：&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/JUC5zmwxbLkyvFq.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;发送端的LastByteAcked指向了被接收端Ack过的位置（表示成功发送确认），LastByteSent表示发出去了，但还没有收到成功确认的Ack，LastByteWritten指向的是上层应用正在写的地方。&lt;/li&gt;
-&lt;li&gt;接收端LastByteRead指向了TCP缓冲区中读到的位置，NextByteExpected指向的地方是收到的连续包的最后一个位置，LastByteRcved指向的是收到的包的最后一个位置，我们可以看到中间有些数据还没有到达，所以有数据空白区。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;窗口数据计算过程&#34;&gt;&lt;strong&gt;窗口数据计算过程：&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;接收端在给发送端回ACK中，会汇报自己的 &lt;strong&gt;AdvertisedWindow&lt;/strong&gt; = MaxRcvBuffer – （LastByteRcvd – Last Byte Read），（LastByteRcvd – LastByteRead）表示接收到的数据已占用缓存的大小;&lt;/li&gt;
-&lt;li&gt;发送方根据Advertised Window的值，要保证已发送未确认的数据&amp;lt;= Advertised Window的大小，待发送数据大小**EffectiveWindow **= AdvertisedWindow – (LastByteSent – LastByteAcked)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;滑动窗口的基本原理&#34;&gt;滑动窗口的基本原理&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;TCP会话的发送方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/cnU7JxGLl1hySEe.png&#34; alt=&#34;发送方滑动窗口示意图&#34; /&gt;发送方滑动窗口示意图&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;TCP会话的接收方，滑动窗口示意图&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/09/rFw3h7ES8Ze2VAb.png&#34; alt=&#34;接收方滑动窗口示意图&#34; /&gt;接收方滑动窗口示意图&lt;/p&gt;
-
-&lt;p&gt;需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>
