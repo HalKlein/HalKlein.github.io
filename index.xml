@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Fri, 31 Jan 2020 11:54:23 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2020 19:23:29 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>阻塞队列 BlockingQueue</title>
+      <link>https://halklein.github.io/2020/033/</link>
+      <pubDate>Sat, 01 Feb 2020 19:23:29 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/033/</guid>
+      <description>BlockingQueue 阻塞队列是Java自带的核心API，具体来说就是一个BlockingQueue接口，主要用来解决线程通信的问题。当然我们有很多解决线程通信</description>
+    </item>
     
     <item>
       <title>Spring 整合 Redis</title>
