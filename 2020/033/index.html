@@ -55,7 +55,7 @@
     "datePublished": "2020-02-01 19:23:29 \x2b0800 CST",
     "dateModified" : "2020-02-01 19:23:29 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2020\/033\/",
-    "wordCount" : "1038",
+    "wordCount" : "1033",
     "keywords" : [ "阻塞队列","并发", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 1038 words</span>
+                <span class="post-word-count">, 1033 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -179,7 +179,7 @@
 
 <p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/01/YD12so6nTyWihrx.png" alt="BlockingQueue" class="lazyload"><figcaption class="image-caption">BlockingQueue</figcaption></figure></p>
 
-<p>阻塞队列是Java自带的核心API，具体来说就是一个BlockingQueue接口，主要用来解决线程通信的问题。当然我们有很多解决线程通信问题的方法，只不过BlockingQueue更简单易用些，其主要有两个方法put、take来解决问题，用于存队列中存和取一个数据。比如上图，线程1与线程2通信，线程1调用put方法将数据放入阻塞队列中，然后线程2调用take方法从阻塞队列中取值，这样处理问题的方式满足<strong>生产者消费者模式</strong>，线程1是生产者，线程2是消费者，BlockingQueue其实就是在生产者和消费者之间构建了一个缓冲区，避免了两个线程之间直接打交道，带来速率不同步的问题（生产的一直生产，等待的一直等待，造成CPU资源的浪费）。</p>
+<p>阻塞队列是Java自带的核心API，具体来说就是一个BlockingQueue接口，主要用来解决线程通信的问题。当然我们有很多解决线程通信问题的方法，只不过BlockingQueue更简单易用些，其主要有两个方法put、take来解决问题，用于存队列中存和取一个数据。比如上图，线程1与线程2通信，线程1调用put方法将数据放入阻塞队列中，然后线程2调用take方法从阻塞队列中取值，这样处理问题的方式满足<strong>生产者消费者模式</strong>，线程1是生产者，线程2是消费者，BlockingQueue其实就是在生产者和消费者之间构建了一个缓冲区，避免了两个线程之间直接打交道，带来的问题（生产的一直生产，等待的一直等待，造成CPU资源的浪费）。</p>
 
 <p></br></p>
 
