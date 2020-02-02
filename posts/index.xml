@@ -7,8 +7,132 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Sun, 02 Feb 2020 09:38:38 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Feb 2020 09:41:30 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spring 整合 Kafka</title>
+      <link>https://halklein.github.io/2020/035/</link>
+      <pubDate>Sun, 02 Feb 2020 09:41:30 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/035/</guid>
+      <description>
+
+&lt;h2 id=&#34;引入依赖&#34;&gt;引入依赖&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;为更好的兼容性，使用父pom中声明的版本即可，不要单独声明版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.springframework.kafka&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-kafka&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置kafka&#34;&gt;配置Kafka&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 配置 Kafka
+# 服务器地址及端口
+spring.kafka.bootstrap-servers=localhost:9092
+# 消费者分组ID，对应consumer.properties文件中的配置
+spring.kafka.consumer.group-id=community-consumer-group
+# 是否自动提交消费者的偏移量
+spring.kafka.consumer.enable-auto-commit=true
+# 自动提交的频率（单位：ms）
+spring.kafka.consumer.auto-commit-interval=3000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;访问kafka&#34;&gt;访问Kafka&lt;/h2&gt;
+
+&lt;h3 id=&#34;先启用服务&#34;&gt;先启用服务&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;1.先启动Zookeeper&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;打开一个cmd窗口，cd到Kafka安装目录，执行（使用指定配置文件，启动Zookeeper）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;2.启动Kafka&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;另外打开一个cmd窗口，cd到Kafka安装目录，执行（使用指定配置文件，启动Kafka）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ bin\windows\kafka-server-start.bat config\server.properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果你修改过配置文件，记得重启服务才能生效。&lt;/p&gt;
+
+&lt;h3 id=&#34;开发测试类&#34;&gt;开发测试类&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@SpringBootTest
+@ContextConfiguration(classes = CommunityApplication.class)
+public class KafkaTests {
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
+    @Test
+    public void testKafka() {
+
+        // 生产者发信息
+        kafkaProducer.sendMessage(&amp;quot;test&amp;quot;, &amp;quot;你好！&amp;quot;);
+        kafkaProducer.sendMessage(&amp;quot;test&amp;quot;, &amp;quot;在吗？&amp;quot;);
+
+        // 阻塞，等待
+        try {
+            Thread.sleep(1000 * 10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}
+
+// 生产者
+@Component
+class KafkaProducer {
+
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
+
+    // 发消息
+    public void sendMessage(String topic, String content) {
+        kafkaTemplate.send(topic, content);
+    }
+
+}
+
+// 消费者
+@Component
+class KafkaConsumer {
+
+    // 收消息
+    @KafkaListener(topics = {&amp;quot;test&amp;quot;})
+    // 收到消息会封装到ConsumerRecord
+    public void handleMessage(ConsumerRecord record) {
+        System.out.println(record.value());
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;运行测试类主方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;你好！
+在吗？
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Kafka入门</title>
@@ -2254,57 +2378,6 @@ mysql&amp;gt; set global long_query_time = 1;
 &lt;h2 id=&#34;三-联合索引的最左匹配原则的成因&#34;&gt;三、联合索引的最左匹配原则的成因&lt;/h2&gt;
 
 &lt;h2 id=&#34;四-索引是建立得越多越好吗&#34;&gt;四、索引是建立得越多越好吗&lt;/h2&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>数据库索引之 B&#43; Tree、Hash、BitMap</title>
-      <link>https://halklein.github.io/2019/020/</link>
-      <pubDate>Tue, 24 Dec 2019 19:54:38 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/020/</guid>
-      <description>
-
-&lt;h2 id=&#34;b-tree&#34;&gt;B+ Tree&lt;/h2&gt;
-
-&lt;p&gt;由于，二叉查看树在插入修改过程中，很可能出现只有左右子树的情况，虽然可以用平衡调整二叉树，但是每次IO依然很费时间，每访问一层就要对磁盘进行IO，总体来说二叉树还不够优。由此找到了更好的替代方法-B树，又由于B+ Tree具有更好的特性，所以B+ Tree就成了常见的索引结构之一。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/xkZWtEguQIAoRXK.png&#34; alt=&#34;B+ Tree&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;B+ Tree相对于B树，具有的新特点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;非叶子节点的子树指针与关键字个数相同&lt;/li&gt;
-&lt;li&gt;非叶子节点的子树指针P[]，指向关键字值（[Ki]，K[i+1]）的子树&lt;/li&gt;
-&lt;li&gt;非叶子节点仅用来索引，数据都保存在叶子节点中&lt;/li&gt;
-&lt;li&gt;所有叶子节点均有一个链指针指向下一个叶子结点&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;hash&#34;&gt;Hash&lt;/h2&gt;
-
-&lt;p&gt;通过Hash索引，能够通过Hash函数快速定位到索引目标，理论上比B+ Tree更快。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/hci2ueoaKS4klxf.png&#34; alt=&#34;Hash索引&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;但是Hash索引也有也有严重的缺陷：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;仅仅能满足“=&amp;ldquo;，“IN&amp;rdquo;，不能使用范围查询&lt;/li&gt;
-&lt;li&gt;无法被用来避免数据的排序操作&lt;/li&gt;
-&lt;li&gt;不能利用部分索引键查询&lt;/li&gt;
-&lt;li&gt;不能避免表扫描&lt;/li&gt;
-&lt;li&gt;遇到大量Hash值相等的情况后性能并不一定就会比B-Tree索引高&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以，索引没有最优，只有更适合某种情况的索引结构，他们常常组合使用。&lt;/p&gt;
-
-&lt;h2 id=&#34;bitmap&#34;&gt;BitMap&lt;/h2&gt;
-
-&lt;p&gt;位图索引，适用于某个字段的值只有固定的几种为了实现高效的统计的情况，如性别（男、女）。不过支持位图索引的数据库比较少，典型的有Oracle数据库。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/4uxK3ZdCTknmj9w.png&#34; alt=&#34;BitMap&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

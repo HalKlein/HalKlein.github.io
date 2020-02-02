@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Fri, 31 Jan 2020 11:54:23 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Feb 2020 09:41:30 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Spring 整合 Kafka</title>
+      <link>https://halklein.github.io/2020/035/</link>
+      <pubDate>Sun, 02 Feb 2020 09:41:30 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/035/</guid>
+      <description>引入依赖 https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka 为更好的兼容性，使用父pom中声明的版本即可，不要单独声明版本 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework.kafka&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-kafka&amp;lt;/artifactId&amp;gt; &amp;lt;/dependency&amp;gt; 配置Kafka # 配置 Kafka # 服务器地址及端口 spring.kafka.bootstrap-servers=localhost:9092 # 消费者分组ID，</description>
+    </item>
     
     <item>
       <title>Spring 整合 Redis</title>
