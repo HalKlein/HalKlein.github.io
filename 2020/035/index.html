@@ -55,7 +55,7 @@
     "datePublished": "2020-02-02 09:41:30 \x2b0800 CST",
     "dateModified" : "2020-02-02 09:41:30 \x2b0800 CST",
     "url" : "https:\/\/halklein.github.io\/2020\/035\/",
-    "wordCount" : "461",
+    "wordCount" : "553",
     "keywords" : [ "Spring全家桶","Kafka\x22", "HalKlein`s Blog"]
 }
 </script>
@@ -152,7 +152,7 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 461 words</span>
+                <span class="post-word-count">, 553 words</span>
         </div>
     </header>
     <div class="post-content">
@@ -198,6 +198,9 @@ spring.kafka.consumer.group-id=community-consumer-group
 spring.kafka.consumer.enable-auto-commit=true
 # 自动提交的频率（单位：ms）
 spring.kafka.consumer.auto-commit-interval=3000
+# 当消费者找不到指定Topic时忽略该异常，Kafka 2.3之后新增，
+# 否则可能启动不起项目，报错：java.lang.IllegalStateException: Topic(s) [xxx] is/are not present and missingTopicsFatal is true
+spring.kafka.listener.missing-topics-fatal=false
 </code></pre>
 
 <p></br></p>

@@ -43,6 +43,9 @@ spring.kafka.consumer.group-id=community-consumer-group
 spring.kafka.consumer.enable-auto-commit=true
 # 自动提交的频率（单位：ms）
 spring.kafka.consumer.auto-commit-interval=3000
+# 当消费者找不到指定Topic时忽略该异常，Kafka 2.3之后新增，
+# 否则可能启动不起项目，报错：java.lang.IllegalStateException: Topic(s) [xxx] is/are not present and missingTopicsFatal is true
+spring.kafka.listener.missing-topics-fatal=false
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;/br&gt;&lt;/p&gt;
