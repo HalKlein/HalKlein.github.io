@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kafka on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/tags/kafka/</link>
+    <description>Recent content in Kafka on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Sun, 02 Feb 2020 09:38:38 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kafka入门</title>
+      <link>https://halklein.github.io/2020/034/</link>
+      <pubDate>Sun, 02 Feb 2020 09:38:38 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/034/</guid>
+      <description>Kafka简介 早先的时候Kafka只是一个消息队列，只是用来发消息，后来经过不断的完善，扩充自己的功能，慢慢的其功能就不再仅仅局限于消息队列</description>
+    </item>
+    
+  </channel>
+</rss>

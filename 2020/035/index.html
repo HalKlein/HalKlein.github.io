@@ -9,9 +9,9 @@
   
   
   
-  <link rel="prev" href="https://halklein.github.io/2020/032/" />
-  <link rel="next" href="https://halklein.github.io/2020/034/" />
-  <link rel="canonical" href="https://halklein.github.io/2020/033/" />
+  <link rel="prev" href="https://halklein.github.io/2020/034/" />
+  
+  <link rel="canonical" href="https://halklein.github.io/2020/035/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -22,10 +22,10 @@
   <title>
        
        
-           阻塞队列 BlockingQueue | HalKlein`s Blog
+           Spring 整合 Kafka | HalKlein`s Blog
        
   </title>
-  <meta name="title" content="阻塞队列 BlockingQueue | HalKlein`s Blog">
+  <meta name="title" content="Spring 整合 Kafka | HalKlein`s Blog">
     
   <link rel="stylesheet" href="/css/main.min.css">
 
@@ -42,9 +42,9 @@
          "@id": "https:\/\/halklein.github.io"
     },
     "articleSection" : "posts",
-    "name" : "阻塞队列 BlockingQueue",
-    "headline" : "阻塞队列 BlockingQueue",
-    "description" : "BlockingQueue 阻塞队列是Java自带的核心API，具体来说就是一个BlockingQueue接口，主要用来解决线程通信的问题。当然我们有很多解决线程通信",
+    "name" : "Spring 整合 Kafka",
+    "headline" : "Spring 整合 Kafka",
+    "description" : "引入依赖 https:\/\/mvnrepository.com\/artifact\/org.springframework.kafka\/spring-kafka 为更好的兼容性，使用父pom中声明的版本即可，不要单独声明版本 \x26lt;dependency\x26gt; \x26lt;groupId\x26gt;org.springframework.kafka\x26lt;\/groupId\x26gt; \x26lt;artifactId\x26gt;spring-kafka\x26lt;\/artifactId\x26gt; \x26lt;\/dependency\x26gt; 配置Kafka # 配置 Kafka # 服务器地址及端口 spring.kafka.bootstrap-servers=localhost:9092 # 消费者分组ID，",
     "inLanguage" : "zh-cn",
     "author" : "HalKlein",
     "creator" : "HalKlein",
@@ -52,11 +52,11 @@
     "accountablePerson" : "HalKlein",
     "copyrightHolder" : "HalKlein",
     "copyrightYear" : "2020",
-    "datePublished": "2020-02-01 19:23:29 \x2b0800 CST",
-    "dateModified" : "2020-02-01 19:23:29 \x2b0800 CST",
-    "url" : "https:\/\/halklein.github.io\/2020\/033\/",
-    "wordCount" : "1033",
-    "keywords" : [ "阻塞队列","并发", "HalKlein`s Blog"]
+    "datePublished": "2020-02-02 09:41:30 \x2b0800 CST",
+    "dateModified" : "2020-02-02 09:41:30 \x2b0800 CST",
+    "url" : "https:\/\/halklein.github.io\/2020\/035\/",
+    "wordCount" : "461",
+    "keywords" : [ "Spring全家桶","Kafka\x22", "HalKlein`s Blog"]
 }
 </script>
 
@@ -140,11 +140,11 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">阻塞队列 BlockingQueue</h1>
+        <h1 class="post-title" itemprop="name headline">Spring 整合 Kafka</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://halklein.github.io" rel="author">HalKlein</a> with ♥ 
                 <span class="post-time">
-                on <time datetime=2020-02-01 itemprop="datePublished">February 1, 2020</time>
+                on <time datetime=2020-02-02 itemprop="datePublished">February 2, 2020</time>
                 </span>
                 in
                 <i class="iconfont icon-folder"></i>
@@ -152,14 +152,12 @@
                         <a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/"> 编程是一门艺术 </a>
                         
                 </span>
-                <span class="post-word-count">, 1033 words</span>
+                <span class="post-word-count">, 461 words</span>
         </div>
     </header>
     <div class="post-content">
         
 
-        
-            
         
 
         
@@ -175,136 +173,115 @@
 
           
 
-<h2 id="blockingqueue">BlockingQueue</h2>
+<h2 id="引入依赖">引入依赖</h2>
 
-<p><figure><img src="/images/ring.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/01/YD12so6nTyWihrx.png" alt="BlockingQueue" class="lazyload"><figcaption class="image-caption">BlockingQueue</figcaption></figure></p>
+<p><a href="https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka" rel="nofollow noreferrer" target="_blank">https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka</a></p>
 
-<p>阻塞队列是Java自带的核心API，具体来说就是一个BlockingQueue接口，主要用来解决线程通信的问题。当然我们有很多解决线程通信问题的方法，只不过BlockingQueue更简单易用些，其主要有两个方法put、take来解决问题，用于存队列中存和取一个数据。比如上图，线程1与线程2通信，线程1调用put方法将数据放入阻塞队列中，然后线程2调用take方法从阻塞队列中取值，这样处理问题的方式满足<strong>生产者消费者模式</strong>，线程1是生产者，线程2是消费者，BlockingQueue其实就是在生产者和消费者之间构建了一个缓冲区，避免了两个线程之间直接打交道，带来的问题（生产的一直生产，等待的一直等待，造成CPU资源的浪费）。</p>
+<p>为更好的兼容性，使用父pom中声明的版本即可，不要单独声明版本</p>
+
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 <p></br></p>
 
-<h2 id="blockingqueue的实现类">BlockingQueue的实现类</h2>
+<h2 id="配置kafka">配置Kafka</h2>
 
-<p>BlockingQueue是一个接口，不能直接使用，JDK中带了很多它的实现类，它们各有特点和优势。</p>
-
-<ul>
-<li>​ ArrayBlockingQueue，数组实现</li>
-<li>​ LinkedBlockingQueue，链表实现</li>
-<li>​ PriorityBlockingQueue、SynchronousQueue、DelayQueue等。</li>
-</ul>
-
-<p>更多查阅 Java API ：<a href="https://docs.oracle.com/javase/8/docs/api/" rel="nofollow noreferrer" target="_blank">https://docs.oracle.com/javase/8/docs/api/</a></p>
+<pre><code class="language-properties"># 配置 Kafka
+# 服务器地址及端口
+spring.kafka.bootstrap-servers=localhost:9092
+# 消费者分组ID，对应consumer.properties文件中的配置
+spring.kafka.consumer.group-id=community-consumer-group
+# 是否自动提交消费者的偏移量
+spring.kafka.consumer.enable-auto-commit=true
+# 自动提交的频率（单位：ms）
+spring.kafka.consumer.auto-commit-interval=3000
+</code></pre>
 
 <p></br></p>
 
-<h3 id="arrayblockingqueue阻塞队列测试">ArrayBlockingQueue阻塞队列测试</h3>
+<h2 id="访问kafka">访问Kafka</h2>
 
-<pre><code class="language-java">import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+<h3 id="先启用服务">先启用服务</h3>
 
-public class BlockingQueueTests {
+<p><strong>1.先启动Zookeeper</strong></p>
 
-    public static void main(String[] args) {
-        // 使用ArrayBlockingQueue进行测试，长度：10
-        BlockingQueue queue = new ArrayBlockingQueue(10);
+<p>打开一个cmd窗口，cd到Kafka安装目录，执行（使用指定配置文件，启动Zookeeper）</p>
 
-        new Thread(new Producer(queue)).start();
+<pre><code class="language-properties">$ bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+</code></pre>
 
-        new Thread(new Consumer(queue)).start();
-        new Thread(new Consumer(queue)).start();
-        new Thread(new Consumer(queue)).start();
+<p><strong>2.启动Kafka</strong></p>
+
+<p>另外打开一个cmd窗口，cd到Kafka安装目录，执行（使用指定配置文件，启动Kafka）</p>
+
+<pre><code class="language-properties">$ bin\windows\kafka-server-start.bat config\server.properties
+</code></pre>
+
+<p>如果你修改过配置文件，记得重启服务才能生效。</p>
+
+<h3 id="开发测试类">开发测试类</h3>
+
+<pre><code class="language-java">@SpringBootTest
+@ContextConfiguration(classes = CommunityApplication.class)
+public class KafkaTests {
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
+    @Test
+    public void testKafka() {
+
+        // 生产者发信息
+        kafkaProducer.sendMessage(&quot;test&quot;, &quot;你好！&quot;);
+        kafkaProducer.sendMessage(&quot;test&quot;, &quot;在吗？&quot;);
+
+        // 阻塞，等待
+        try {
+            Thread.sleep(1000 * 10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
 
-// 生产者线程
-class Producer implements Runnable {
+// 生产者
+@Component
+class KafkaProducer {
 
-    private BlockingQueue&lt;Integer&gt; queue;
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
 
-    public Producer(BlockingQueue&lt;Integer&gt; queue) {
-        this.queue = queue;
+    // 发消息
+    public void sendMessage(String topic, String content) {
+        kafkaTemplate.send(topic, content);
     }
 
-    @Override
-    public void run() {
-        try {
-            for (int i = 0; i &lt; 100; i++) {
-                // 设置间隔
-                Thread.sleep(20);
-                queue.put(i);
-                System.out.println(Thread.currentThread().getName() + &quot; 生产: &quot; + queue.size());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
-// 消费者线程
-class Consumer implements Runnable {
+// 消费者
+@Component
+class KafkaConsumer {
 
-    private BlockingQueue&lt;Integer&gt; queue;
-
-    public Consumer(BlockingQueue&lt;Integer&gt; queue) {
-        this.queue = queue;
+    // 收消息
+    @KafkaListener(topics = {&quot;test&quot;})
+    // 收到消息会封装到ConsumerRecord
+    public void handleMessage(ConsumerRecord record) {
+        System.out.println(record.value());
     }
 
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                // 设置间隔
-                Thread.sleep(new Random().nextInt(1000));
-                queue.take();
-                System.out.println(Thread.currentThread().getName() + &quot; 消费: &quot; + queue.size());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 </code></pre>
 
-<p><strong>运行结果</strong></p>
+<p><strong>运行测试类主方法</strong></p>
 
-<pre><code class="language-properties">Thread-0 生产: 1
-Thread-0 生产: 2
-Thread-1 消费: 1
-Thread-0 生产: 2
-Thread-0 生产: 3
-Thread-0 生产: 4
-Thread-0 生产: 5
-Thread-0 生产: 6
-Thread-0 生产: 7
-Thread-0 生产: 8
-Thread-0 生产: 9
-Thread-0 生产: 10
-Thread-1 消费: 9
-Thread-0 生产: 10
-Thread-3 消费: 9
-Thread-0 生产: 10
-...
-...
-...
-Thread-3 消费: 9
-Thread-0 生产: 10
-Thread-1 消费: 9
-Thread-0 生产: 10
-Thread-3 消费: 9
-Thread-3 消费: 8
-Thread-2 消费: 7
-Thread-1 消费: 6
-Thread-2 消费: 5
-Thread-2 消费: 4
-Thread-1 消费: 3
-Thread-2 消费: 2
-Thread-2 消费: 1
-Thread-2 消费: 0
+<pre><code class="language-properties">你好！
+在吗？
 </code></pre>
-
-<p>可以看到，生产者线程一直在生产数据，但是达到10个时停止生产，3个消费者线程，错杂消费着数据，直到最后生产者停止生产，消费者最终将数据消费完，此时程序并没有结束，消费者线程还在等待着数据。ArrayBlockingQueue实现了这个过程中数据的缓冲。</p>
 
 <p></br></p>
 
@@ -323,7 +300,7 @@ Thread-2 消费: 0
              
             <p class="copyright-item">
                     <span>Link:</span>
-                    <a href=https://halklein.github.io/2020/033/>https://halklein.github.io/2020/033/</span>
+                    <a href=https://halklein.github.io/2020/035/>https://halklein.github.io/2020/035/</span>
             </p>
             
              
@@ -339,11 +316,11 @@ Thread-2 消费: 0
             <section>
             <i class="iconfont icon-tag"></i>Tag(s): 
             
-            <span class="tag"><a href="https://halklein.github.io/tags/%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97/">
-                    #阻塞队列</a></span>
+            <span class="tag"><a href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/">
+                    #Spring全家桶</a></span>
             
-            <span class="tag"><a href="https://halklein.github.io/tags/%E5%B9%B6%E5%8F%91/">
-                    #并发</a></span>
+            <span class="tag"><a href="https://halklein.github.io/tags/kafka/">
+                    #Kafka&#34;</a></span>
             
             </section>
         
@@ -355,10 +332,8 @@ Thread-2 消费: 0
 
     <div class="post-nav">
         
-        <a href="https://halklein.github.io/2020/032/" class="prev" rel="prev" title="Spring 整合 Redis"><i class="iconfont icon-left"></i>&nbsp;Spring 整合 Redis</a>
+        <a href="https://halklein.github.io/2020/034/" class="prev" rel="prev" title="Kafka入门"><i class="iconfont icon-left"></i>&nbsp;Kafka入门</a>
          
-        
-        <a href="https://halklein.github.io/2020/034/" class="next" rel="next" title="Kafka入门">Kafka入门&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 
@@ -428,9 +403,8 @@ Thread-2 消费: 0
 
 
     
-     <link href="https://cdn.bootcss.com/lightgallery/1.6.11/css/lg-fb-comment-box.min.css" rel="stylesheet">  
-      
-     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
     
   
 
