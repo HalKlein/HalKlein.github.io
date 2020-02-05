@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elasticsearch on HalKlein`s Blog</title>
+    <link>https://halklein.github.io/tags/elasticsearch/</link>
+    <description>Recent content in Elasticsearch on HalKlein`s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
+    <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
+    <lastBuildDate>Wed, 05 Feb 2020 11:50:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Elasticsearch 入门</title>
+      <link>https://halklein.github.io/2020/036/</link>
+      <pubDate>Wed, 05 Feb 2020 11:50:19 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/036/</guid>
+      <description>Elasticsearch简介 Elasticsearch，分布式搜索引擎，简称ES，是目前最流行性能最好的搜索引擎之一，像Facebook、</description>
+    </item>
+    
+  </channel>
+</rss>

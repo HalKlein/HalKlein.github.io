@@ -7,8 +7,219 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Sun, 02 Feb 2020 09:41:30 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Feb 2020 11:50:19 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Elasticsearch 入门</title>
+      <link>https://halklein.github.io/2020/036/</link>
+      <pubDate>Wed, 05 Feb 2020 11:50:19 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/036/</guid>
+      <description>
+
+&lt;h2 id=&#34;elasticsearch简介&#34;&gt;Elasticsearch简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/AOeK6Jn94HfgrqQ.png&#34; alt=&#34;Elasticsearch&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Elasticsearch，分布式搜索引擎，简称ES，是目前最流行性能最好的搜索引擎之一，像Facebook、Github、Wikipedia、Baidu等很多公司都使用ES进行搜索。&lt;/p&gt;
+
+&lt;p&gt;一个分布式的、Restful风格的搜索引擎。&lt;/p&gt;
+
+&lt;p&gt;支持对各种类型的数据的检索。&lt;/p&gt;
+
+&lt;p&gt;搜索速度快，可以提供 &lt;strong&gt;实时&lt;/strong&gt; 的搜索服务。&lt;/p&gt;
+
+&lt;p&gt;便于水平扩展，每秒可以处理PB级海量数据。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;elasticsearch相关术语&#34;&gt;Elasticsearch相关术语&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;索引：&lt;/strong&gt;类似于MySQL中的数据库（Database）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;类型：&lt;/strong&gt;类似于MySQL中的表（Table）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;文档：&lt;/strong&gt;类似于MySQL中的一条记录，常用Json格式。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;字段：&lt;/strong&gt;Json中的每一个属性，我们叫做字段。&lt;/p&gt;
+
+&lt;p&gt;注：在Elasticsearch 6.0之后，“类型” 的概念逐渐被废弃，取而代之，“索引” 对应了一张表。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;集群：&lt;/strong&gt;分布式部署，多台Elasticsearch服务器组合使用就是一个集群。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;节点：&lt;/strong&gt;集群中的每一台服务器我们就叫做一个节点。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;分片：&lt;/strong&gt;将一个索引拆分为多个分片来存，提高并发能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;副本：&lt;/strong&gt;副本是分片的备份。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;elasticsearch-的安装&#34;&gt;Elasticsearch 的安装&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.elastic.co&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://www.elastic.co&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这里我使用我当前Springboot版本中父pom推荐的6.8.5版本，注意7.0开始的版本和之前的版本区别较大，所以请根据自己的实际情况慎重选择。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;配置config/elasticsearch.yml文件&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;cluster.name: community
+path.data: e:\Test\data\elasticsearch-6.8.5\data
+path.logs: e:\Test\data\elasticsearch-6.8.5\logs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;配置环境变量&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;将bin目录添加到系统的Path环境变量中。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;elasticsearch-analysis-ik-中文分词插件&#34;&gt;Elasticsearch-analysis-ik 中文分词插件&lt;/h2&gt;
+
+&lt;p&gt;英文的分词，ES默认是支持的（只有空格就能分隔），但是中文的分词较为复杂，需要安装插件。&lt;/p&gt;
+
+&lt;p&gt;Github地址：&lt;a href=&#34;https://github.com/medcl/elasticsearch-analysis-ik&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;elasticsearch-analysis-ik&lt;/a&gt;，请安装与你的ES适配的版本。&lt;/p&gt;
+
+&lt;p&gt;解压的时候，请注意！你&lt;strong&gt;必须&lt;/strong&gt;在ES安装目录的plugins文件夹下新建一个名为“ik”的文件夹，将其解压到该目录下。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/2CfLWpzrRxtvB7b.png&#34; alt=&#34;目录示例&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;其中，config目录下有一个 &lt;code&gt;extra_main.dic&lt;/code&gt; 文件，它是常用的中文分词字典库。&lt;/p&gt;
+
+&lt;p&gt;如果有新的词出现，或者你希望添加一些自定义的分词，需要在 IKAnalyzer.cfg.xml 中配置，其中有中文说明 ，这里不再赘述。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;postman工具的安装&#34;&gt;Postman工具的安装&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.getpostman.com&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://www.getpostman.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Postman能够模拟客户端发送HTTP请求，我们如果使用命令来往ES中存数据，这个命令会比较复杂，而ES支持HTTP访问，所以我们使用Postman工具会比使用命令更方便的操作ES。&lt;/p&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;命令测试elasticsearch&#34;&gt;命令测试Elasticsearch&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;启动Elasticsearch&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;双击或命令行启动，bin目录下的 elasticsearch.bat 批处理文件以启动ES，启动成功后，能看到绑定的地址和端口，默认是9200端口。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看ES集群的健康状况&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;E:\ProgramFile\kafka_2.12-2.4.0
+$ curl -X GET &amp;quot;localhost:9200/_cat/health?v&amp;quot;
+epoch      timestamp cluster   status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
+1580812558 10:35:58  community green           1         1      0   0    0    0        0             0
+ -                100.0%
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;第一行表示标题，第二行是具体数据。 cluster对应集群；status对应健康状态，green表示健康，red表示有问题；后面是一些节点和分片信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看集群中的节点&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ curl -X GET &amp;quot;localhost:9200/_cat/nodes?v&amp;quot;
+ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+127.0.0.1           11          49   4                          mdi       *      sGjUs63
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;创建索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ curl -X PUT &amp;quot;localhost:9200/test&amp;quot;
+{&amp;quot;acknowledged&amp;quot;:true,&amp;quot;shards_acknowledged&amp;quot;:true,&amp;quot;index&amp;quot;:&amp;quot;test&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到创建的索引的格式是JSON格式的&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看集群中的索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ curl -X GET &amp;quot;localhost:9200/_cat/indices?v&amp;quot;
+health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   test  ca0IN3o6QLSLjQuDNJqBqg   5   1          0            0      1.1kb          1.1kb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;删除索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;$ curl -X DELETE &amp;quot;localhost:9200/test&amp;quot;
+{&amp;quot;acknowledged&amp;quot;:true}$ curl -X DELETE &amp;quot;localhost:9200/test&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;使用postman访问elasticsearch&#34;&gt;使用Postman访问Elasticsearch&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;创建索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/F4XaHSMkLr2lfTg.png&#34; alt=&#34;创建索引&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看集群中的索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/qeS42Jxb8dZMNzi.png&#34; alt=&#34;查看集群中的索引&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;删除索引&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/TLhZPCBVS1OHfAD.png&#34; alt=&#34;删除索引&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;存入JSON格式的数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;选择PUT请求，填入索引名称和id，其中_doc是占位用的。在Body中，选择raw，再选择数据格式为JSON，填写完毕之后点击发送。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/wDjQym8R5HsSzUc.png&#34; alt=&#34;存入JSON格式的数据&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查询存入的数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/T3oDpzCXyGiqEQP.png&#34; alt=&#34;查询存入的数据&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;删除存入的数据&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/9vbh4Vu8AjS6WQt.png&#34; alt=&#34;删除存入的数据&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;搜索数据测试&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;PUT请求，存如多条数据&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;# localhost:9200/test/_doc/1
+{
+	&amp;quot;title&amp;quot;:&amp;quot;校园招聘求职&amp;quot;,
+	&amp;quot;content&amp;quot;:&amp;quot;求一份Java后端开发岗位&amp;quot;
+}
+# localhost:9200/test/_doc/2
+{
+	&amp;quot;title&amp;quot;:&amp;quot;招聘信息&amp;quot;,
+	&amp;quot;content&amp;quot;:&amp;quot;我公司急需招聘一名资深程序员&amp;quot;
+}
+# localhost:9200/test/_doc/3
+{
+	&amp;quot;title&amp;quot;:&amp;quot;公司内推&amp;quot;,
+	&amp;quot;content&amp;quot;:&amp;quot;本人在某为任职，可推荐Java开发实习生。&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;简单GET查询&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/2wEmJVtP9ho8i4p.png&#34; alt=&#34;GET查询&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/fw5A89LnYPDb7dm.png&#34; alt=&#34;GET查询&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到在查询content的时候ES对关键词进行了拆分，再查询，得到了两条数据，匹配度高的在前面。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;复合的多条件查询&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+	&amp;quot;query&amp;quot;:{
+		&amp;quot;multi_match&amp;quot;:{
+			&amp;quot;query&amp;quot;:&amp;quot;公司&amp;quot;,
+			&amp;quot;fields&amp;quot;:[&amp;quot;title&amp;quot;,&amp;quot;content&amp;quot;]
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/02/05/JHIUBVFkOnAbv7w.png&#34; alt=&#34;复合的多条件查询&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Spring 整合 Kafka</title>
@@ -2312,75 +2523,6 @@ $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTO
 &lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 安装
 sudo gem install colorls 
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>关于数据库索引的一些问题</title>
-      <link>https://halklein.github.io/2019/021/</link>
-      <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/021/</guid>
-      <description>
-
-&lt;h2 id=&#34;一-密集索引和稀疏索引&#34;&gt;一、密集索引和稀疏索引&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;密集索引文件中的每个搜索码值都对应一个索引值&lt;/li&gt;
-&lt;li&gt;稀疏索引文件只为索引码的某些值建立索引项&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/qtGm8r27hMxLDwV.png&#34; alt=&#34;密集索引和稀疏索引&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;MySQL常见的数据库引擎：MyISAM只使用稀疏索引，InnoDB有且仅有一个密集索引&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;若一个主键被定义，该主键则作为密集索引&lt;/li&gt;
-&lt;li&gt;若没有主键被定义，该表的第一个唯一非空索引则作为密集索引&lt;/li&gt;
-&lt;li&gt;若不满足以上条件，innodb内部会生成一个隐藏主键（密集索引）&lt;/li&gt;
-&lt;li&gt;非主键索引存储相关键位和其对应的主键值，包含两次查找&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;二-如何定位并优化慢查询sql&#34;&gt;二、如何定位并优化慢查询Sql&lt;/h2&gt;
-
-&lt;p&gt;具体场景要具体分析，大致思路如下：
-- 根据慢日志定位慢查询sql
-- 使用explain等工具分析sql
-- 修改sql或者尽量让sql走索引&lt;/p&gt;
-
-&lt;h3 id=&#34;2-1-根据慢日志定位慢查询sql&#34;&gt;2.1 根据慢日志定位慢查询sql&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;# 查看数据库慢日志配置
-mysql&amp;gt; show variables like &amp;quot;%quer%&amp;quot;;
-
-# 查看慢日志数量
-mysql&amp;gt; show status like &amp;quot;%slow_queries%&amp;quot;;
-
-# 打开慢日志开关
-mysql&amp;gt; set global slow_query_log = on;
-
-# 设置慢日志记录阈值为1s，10s可以说是很慢很慢了，不具有参考价值
-# 修改后可能需要重新连接数据库才能看到效果
-# 另外，这样的设置在重启MySQL服务之后将会失效！如果要永久生效,需修改my.ini配置文件（Mac OS是my.cnf）
-mysql&amp;gt; set global long_query_time = 1;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/24/NFSpx65OUvuqQhD.png&#34; alt=&#34;查看数据库慢日志配置&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;2-2-使用explain等工具分析sql&#34;&gt;2.2 使用explain等工具分析sql&lt;/h3&gt;
-
-&lt;p&gt;只需在查询语句前加上 &lt;code&gt;explain&lt;/code&gt; 即可，如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;mysql&amp;gt; explain select ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-3-修改sql或者尽量让sql走索引&#34;&gt;2.3 修改sql或者尽量让sql走索引&lt;/h3&gt;
-
-&lt;h2 id=&#34;三-联合索引的最左匹配原则的成因&#34;&gt;三、联合索引的最左匹配原则的成因&lt;/h2&gt;
-
-&lt;h2 id=&#34;四-索引是建立得越多越好吗&#34;&gt;四、索引是建立得越多越好吗&lt;/h2&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
 </description>

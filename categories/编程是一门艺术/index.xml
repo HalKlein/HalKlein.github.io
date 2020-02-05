@@ -8,10 +8,19 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Sun, 02 Feb 2020 09:41:30 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 05 Feb 2020 11:50:19 +0800</lastBuildDate>
     
 	<atom:link href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Elasticsearch 入门</title>
+      <link>https://halklein.github.io/2020/036/</link>
+      <pubDate>Wed, 05 Feb 2020 11:50:19 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/036/</guid>
+      <description>Elasticsearch简介 Elasticsearch，分布式搜索引擎，简称ES，是目前最流行性能最好的搜索引擎之一，像Facebook、</description>
+    </item>
     
     <item>
       <title>Spring 整合 Kafka</title>
