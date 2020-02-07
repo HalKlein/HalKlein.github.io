@@ -7,8 +7,357 @@
     <language>zh-cn</language>
     <managingEditor>dev.HalKlein@gmail.com (HalKlein)</managingEditor>
     <webMaster>dev.HalKlein@gmail.com (HalKlein)</webMaster>
-    <lastBuildDate>Wed, 05 Feb 2020 11:50:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Feb 2020 16:56:03 +0800</lastBuildDate>
     <atom:link href="https://halklein.github.io/posts/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Spring整合Elasticsearch</title>
+      <link>https://halklein.github.io/2020/037/</link>
+      <pubDate>Fri, 07 Feb 2020 16:56:03 +0800</pubDate>
+      <author>dev.HalKlein@gmail.com (HalKlein)</author>
+      <guid>https://halklein.github.io/2020/037/</guid>
+      <description>
+
+&lt;h2 id=&#34;引入依赖&#34;&gt;引入依赖&lt;/h2&gt;
+
+&lt;p&gt;spring-boot-starter-data-elasticsearch&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;!-- Spring整合Elasticsearch --&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-boot-starter-data-elasticsearch&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;配置elasticsearch&#34;&gt;配置Elasticsearch&lt;/h2&gt;
+
+&lt;p&gt;cluster-name、cluster-nodes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;# 配置 Elasticsearch
+spring.data.elasticsearch.cluster-name=community
+spring.data.elasticsearch.cluster-nodes=localhost:9300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;spring-data-elasticsearch&#34;&gt;Spring Data Elasticsearch&lt;/h2&gt;
+
+&lt;h3 id=&#34;解决elasticsearch和redis的冲突&#34;&gt;解决Elasticsearch和Redis的冲突&lt;/h3&gt;
+
+&lt;p&gt;因为Elasticsearch和Redis底层都是基于Netty的，导致它们在使用Netty的时候会出现冲突&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查看NettyRuntime类&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;synchronized void setAvailableProcessors(final int availableProcessors) {
+    ObjectUtil.checkPositive(availableProcessors, &amp;quot;availableProcessors&amp;quot;);
+    if (this.availableProcessors != 0) {
+        final String message = String.format(
+                Locale.ROOT,
+                &amp;quot;availableProcessors is already set to [%d], rejecting [%d]&amp;quot;,
+                this.availableProcessors,
+                availableProcessors);
+        throw new IllegalStateException(message);
+    }
+    this.availableProcessors = availableProcessors;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;查看Netty4Utils类&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public static void setAvailableProcessors(final int availableProcessors) {
+    // we set this to false in tests to avoid tests that randomly set processors from stepping on each other
+    final boolean set = Booleans.parseBoolean(System.getProperty(&amp;quot;es.set.netty.runtime.available.processors&amp;quot;, &amp;quot;true&amp;quot;));
+    if (!set) {
+        return;
+    }
+
+    /*
+     * This can be invoked twice, once from Netty4Transport and another time from Netty4HttpServerTransport; however,
+     * Netty4Runtime#availableProcessors forbids settings the number of processors twice so we prevent double invocation here.
+     */
+    if (isAvailableProcessorsSet.compareAndSet(false, true)) {
+        NettyRuntime.setAvailableProcessors(availableProcessors);
+    } else if (availableProcessors != NettyRuntime.availableProcessors()) {
+        /*
+         * We have previously set the available processors yet either we are trying to set it to a different value now or there is a bug
+         * in Netty and our previous value did not take, bail.
+         */
+        final String message = String.format(
+                Locale.ROOT,
+                &amp;quot;available processors value [%d] did not match current value [%d]&amp;quot;,
+                availableProcessors,
+                NettyRuntime.availableProcessors());
+        throw new IllegalStateException(message);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到Netty4Utils中调用了NettyRuntime.setAvailableProcessors，其中的参数availableProcessors只要不等于0就会报错，但是Redis调用Netty后该参数已经不为0。为了使程序不执行到这一段，我们看到之前有一段类似“开关”一样的代码&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;if (!set) {
+	return;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要在这里程序返回了，之后的代码就不会执行，所以我们可以将set的值设置为false，但是此操作必须要在服务启动之初就进行，基于此我们可以在Application中进行设置。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
+
+@SpringBootApplication
+public class CommunityApplication {
+
+   // 该注解用于管理Bean的生命周期，主要是管理Bean的初始化方法，由该注解所修饰的方法会在构造器调用完以后被执行
+   @PostConstruct
+   public void init(){
+      // 解决Netty启动冲突的问题
+      // 设置为“false”，底层在用的时候会进行转型
+      // see Netty4Utils.setAvailableProcessors
+      System.setProperty(&amp;quot;es.set.netty.runtime.available.processors&amp;quot;,&amp;quot;false&amp;quot;);
+   }
+
+
+   public static void main(String[] args) {
+      SpringApplication.run(CommunityApplication.class, args);
+   }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;访问elasticsearch&#34;&gt;访问Elasticsearch&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;实体类&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这里不象Mybatis要写xml配置文件，直接在实体类上写注解就行。&lt;/p&gt;
+
+&lt;p&gt;Spring整合ES提供的这项技术，其底层在访问ES服务器的时候，它自动的将实体数据和ES服务器中的索引进行映射。所以我们需要在实体类上加上注解，并且在属性上也要加上必要的注解对应ES中的字段。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// indexName：索引名，type：旧版的ES就直接写_doc好了，shards：分片数量，replicas：副本数量
+@Document(indexName = &amp;quot;discusspost&amp;quot;, type = &amp;quot;_doc&amp;quot;, shards = 6, replicas = 3)
+public class DiscussPost {
+
+    @Id
+    private int id;
+
+    @Field(type = FieldType.Integer)
+    private int userId;
+
+    // 搜索的主要数据，analyzer存储时的解析器，searchAnalyzer搜索时的解析器，这里使用中文分词插件ik作为解析器
+    @Field(type = FieldType.Text, analyzer = &amp;quot;ik_max_mord&amp;quot;, searchAnalyzer = &amp;quot;ik_smart&amp;quot;)
+    private String title;
+
+    @Field(type = FieldType.Text, analyzer = &amp;quot;ik_max_mord&amp;quot;, searchAnalyzer = &amp;quot;ik_smart&amp;quot;)
+    private String content;
+
+    @Field(type = FieldType.Integer)
+    private int type;
+
+    @Field(type = FieldType.Integer)
+    private int status;
+
+    @Field(type = FieldType.Date)
+    private Date createTime;
+
+    @Field(type = FieldType.Integer)
+    private int commentCount;
+
+    @Field(type = FieldType.Double)
+    private Double score;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Repository接口&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Repository
+// 需要继承ElasticsearchRepository，加上泛型，声明该接口要处理的实体类是谁，以及ID是什么类型
+public interface DiscussPostRepository extends ElasticsearchRepository&amp;lt;DiscussPost, Integer&amp;gt; {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;存入数据的测试方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@SpringBootTest
+//使用正式环境里面的配置类
+@ContextConfiguration(classes = CommunityApplication.class)
+public class ElasticsearchTests {
+
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private DiscussPostRepository discussPostRepository;
+
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
+	// 插入一条数据
+    @Test
+    public void testInsert(){
+        discussPostRepository.save(discussPostMapper.selectDiscussPostById(289));
+    }
+    
+    // 插入多条数据
+    @Test
+    public void testInsertList() {
+        discussPostRepository.saveAll(discussPostMapper.selectDiscussPosts(155, 0, 100));
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;修改数据的测试方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Test
+public void testUpdate() {
+    // 其实就是修改数据之后，进行覆盖插入，不演示了
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;删除数据的测试方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 删除数据
+@Test
+public void testDelete() {
+    // 删除单条数据
+    discussPostRepository.deleteById(289);
+    // 删除所有数据
+    discussPostRepository.deleteAll();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;查询数据 ByRepository&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 查询数据 ByRepository
+@Test
+public void testSearchByRepository() {
+    SearchQuery searchQuery = new NativeSearchQueryBuilder()
+            // 搜索关键字和范围
+            .withQuery(QueryBuilders.multiMatchQuery(&amp;quot;Client例子&amp;quot;, &amp;quot;title&amp;quot;, &amp;quot;content&amp;quot;))
+            // 排序方式
+            .withSort(SortBuilders.fieldSort(&amp;quot;type&amp;quot;).order(SortOrder.DESC))
+            .withSort(SortBuilders.fieldSort(&amp;quot;score&amp;quot;).order(SortOrder.DESC))
+            .withSort(SortBuilders.fieldSort(&amp;quot;createTime&amp;quot;).order(SortOrder.DESC))
+            // 分页
+            .withPageable(PageRequest.of(0, 10))
+            // 高亮部分，添加标签
+            .withHighlightFields(
+                    new HighlightBuilder.Field(&amp;quot;title&amp;quot;).preTags(&amp;quot;&amp;lt;em&amp;gt;&amp;quot;).postTags(&amp;quot;&amp;lt;/em&amp;gt;&amp;quot;),
+                    new HighlightBuilder.Field(&amp;quot;content&amp;quot;).preTags(&amp;quot;&amp;lt;em&amp;gt;&amp;quot;).postTags(&amp;quot;&amp;lt;/em&amp;gt;&amp;quot;)
+            ).build();
+
+    // elasticremplate.queryForPage（searchQuery，class，SearchResultMapper）
+    // 底层获取得到了高亮显示的值，但是进行进一步的处理。
+
+    Page&amp;lt;DiscussPost&amp;gt; page = discussPostRepository.search(searchQuery);
+
+    System.out.println(page.getTotalElements());
+    System.out.println(page.getTotalPages());
+    System.out.println(page.getNumber());
+    System.out.println(page.getSize());
+
+    for (DiscussPost post : page) {
+        System.out.println(post);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;查询数据 ByTemplate&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 查询数据 ByTemplate
+@Test
+public void testSearchByTemplate() {
+    SearchQuery searchQuery = new NativeSearchQueryBuilder()
+            // 搜索关键字和范围
+            .withQuery(QueryBuilders.multiMatchQuery(&amp;quot;Client例子&amp;quot;, &amp;quot;title&amp;quot;, &amp;quot;content&amp;quot;))
+            // 排序方式
+            .withSort(SortBuilders.fieldSort(&amp;quot;type&amp;quot;).order(SortOrder.DESC))
+            .withSort(SortBuilders.fieldSort(&amp;quot;score&amp;quot;).order(SortOrder.DESC))
+            .withSort(SortBuilders.fieldSort(&amp;quot;createTime&amp;quot;).order(SortOrder.DESC))
+            // 分页
+            .withPageable(PageRequest.of(0, 10))
+            // 高亮部分，添加标签
+            .withHighlightFields(
+                    new HighlightBuilder.Field(&amp;quot;title&amp;quot;).preTags(&amp;quot;&amp;lt;em&amp;gt;&amp;quot;).postTags(&amp;quot;&amp;lt;/em&amp;gt;&amp;quot;),
+                    new HighlightBuilder.Field(&amp;quot;content&amp;quot;).preTags(&amp;quot;&amp;lt;em&amp;gt;&amp;quot;).postTags(&amp;quot;&amp;lt;/em&amp;gt;&amp;quot;)
+            ).build();
+
+    Page&amp;lt;DiscussPost&amp;gt; page = elasticsearchTemplate.queryForPage(searchQuery, DiscussPost.class, new SearchResultMapper() {
+        @Override
+        public &amp;lt;T&amp;gt; AggregatedPage&amp;lt;T&amp;gt; mapResults(SearchResponse searchResponse, Class&amp;lt;T&amp;gt; aClass, Pageable pageable) {
+            SearchHits hits = searchResponse.getHits();
+            if (hits.getTotalHits() &amp;lt;= 0) {
+                return null;
+            }
+
+            List&amp;lt;DiscussPost&amp;gt; list = new ArrayList&amp;lt;&amp;gt;();
+            for (SearchHit hit : hits) {
+                DiscussPost post = new DiscussPost();
+                String id = hit.getSourceAsMap().get(&amp;quot;id&amp;quot;).toString();
+                post.setId(Integer.valueOf(id));
+
+                String userId = hit.getSourceAsMap().get(&amp;quot;userId&amp;quot;).toString();
+                post.setUserId(Integer.valueOf(userId));
+
+                String title = hit.getSourceAsMap().get(&amp;quot;title&amp;quot;).toString();
+                post.setTitle(title);
+
+                String content = hit.getSourceAsMap().get(&amp;quot;content&amp;quot;).toString();
+                post.setContent(content);
+
+                String status = hit.getSourceAsMap().get(&amp;quot;status&amp;quot;).toString();
+                post.setStatus(Integer.valueOf(status));
+
+                String createTime = hit.getSourceAsMap().get(&amp;quot;createTime&amp;quot;).toString();
+                post.setCreateTime(new Date(Long.valueOf(createTime)));
+
+                String commentCount = hit.getSourceAsMap().get(&amp;quot;commentCount&amp;quot;).toString();
+                post.setCommentCount(Integer.valueOf(commentCount));
+
+                // 处理高亮显示的结果
+                HighlightField titleField = hit.getHighlightFields().get(&amp;quot;title&amp;quot;);
+                if (titleField != null) {
+                    // 用带有标签的覆盖
+                    post.setTitle(titleField.getFragments()[0].toString());
+                }
+
+                HighlightField contentField = hit.getHighlightFields().get(&amp;quot;content&amp;quot;);
+                if (contentField != null) {
+                    post.setContent(contentField.getFragments()[0].toString());
+                }
+
+                list.add(post);
+            }
+
+            return new AggregatedPageImpl(list, pageable,
+                    hits.getTotalHits(), searchResponse.getAggregations(), searchResponse.getScrollId(), hits.getMaxScore());
+        }
+
+        @Override
+        public &amp;lt;T&amp;gt; T mapSearchHit(SearchHit searchHit, Class&amp;lt;T&amp;gt; aClass) {
+            return null;
+        }
+    });
+
+    System.out.println(page.getTotalElements());
+    System.out.println(page.getTotalPages());
+    System.out.println(page.getNumber());
+    System.out.println(page.getSize());
+
+    for (DiscussPost post : page) {
+        System.out.println(post);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Elasticsearch 入门</title>
@@ -2373,155 +2722,6 @@ logging.file.name = E:/Test/community.log
     &amp;lt;/root&amp;gt;
 
 &amp;lt;/configuration&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>用 iTerm2 美化你的 Mac终端</title>
-      <link>https://halklein.github.io/2019/022/</link>
-      <pubDate>Wed, 25 Dec 2019 11:38:03 +0800</pubDate>
-      <author>dev.HalKlein@gmail.com (HalKlein)</author>
-      <guid>https://halklein.github.io/2019/022/</guid>
-      <description>
-
-&lt;h2 id=&#34;先看看效果图&#34;&gt;先看看效果图&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/bAyehHXWCwkLPSR.png&#34; alt=&#34;效果图&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;安装-iterm2&#34;&gt;安装 iTerm2&lt;/h2&gt;
-
-&lt;p&gt;下载安装 &lt;a href=&#34;https://www.iterm2.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;iterm2&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://iterm2.com/downloads/stable/latest&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://iterm2.com/downloads/stable/latest&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;安装 &lt;a href=&#34;https://ohmyz.sh/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;oh-my-zsh&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;sh -c &amp;quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;或者&lt;/p&gt;
-
-&lt;p&gt;sh -c &amp;ldquo;$(wget &lt;a href=&#34;https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh&lt;/a&gt; -O -)&amp;rdquo;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;若需要Homebrew，执行下面命令安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;wget的安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;brew install wget
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如需科学上网：&lt;a href=&#34;https://www.noxxxx.com/mac-下终端走-ss-代理.html&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;在终端中直接运行命令&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;export http_proxy=http://proxyAddress:port
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个办法的好处是简单直接，并且影响面很小（只对当前终端有效，退出就不行了）。&lt;/p&gt;
-
-&lt;p&gt;如果你用的是ss代理，在当前终端运行以下命令，那么&lt;code&gt;wget&lt;/code&gt; &lt;code&gt;curl&lt;/code&gt; 这类网络命令都会经过ss代理&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;export ALL_PROXY=socks5://127.0.0.1:1080
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;下载配色方案&#34;&gt;下载配色方案&lt;/h2&gt;
-
-&lt;p&gt;你可以在 &lt;a href=&#34;https://iterm2colorschemes.com/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;这里&lt;/a&gt; 查看配色方案。（这里我选择 &lt;strong&gt;Tomorrow Night Eighties&lt;/strong&gt;）&lt;/p&gt;
-
-&lt;p&gt;然后到 &lt;a href=&#34;https://github.com/mbadolato/iTerm2-Color-Schemes&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;这里&lt;/a&gt; 下载 iterm2 的配色方案&lt;/p&gt;
-
-&lt;p&gt;下载好之后，在iTerm2首选项中导入配色方案：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/b73i1KHnfIRov8N.png&#34; alt=&#34;首选项&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/BTOsYSQXWUZhHV3.png&#34; alt=&#34;选择配色文件&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;更换-zsh-默认的主题&#34;&gt;更换 zsh 默认的主题&lt;/h2&gt;
-
-&lt;p&gt;我使用的主题是&lt;a href=&#34;https://github.com/Powerlevel9k/powerlevel9k/&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;powerlevel9k&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;编辑配置文件 &lt;code&gt;vi ~/.zshrc&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;ZSH_THEME=&amp;quot;powerlevel9k/powerlevel9k&amp;quot;
-# 命令左侧显示内容（当前目录 git 版本信息）
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-# 命令右侧显示内容（命令运行状态，剩余内存，时间，cpu负载，剩余电量）
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status ram time load battery)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;之后运行 &lt;code&gt;source ~/.zshrc&lt;/code&gt; 命令，让其生效。&lt;/p&gt;
-
-&lt;h2 id=&#34;更换字体&#34;&gt;更换字体&lt;/h2&gt;
-
-&lt;p&gt;直接使用 &lt;code&gt;powerlevel9k&lt;/code&gt; 主题的话，因为默认字体不支持 icon，会出现一些乱码。&lt;/p&gt;
-
-&lt;p&gt;因为 &lt;code&gt;powerlevel9k&lt;/code&gt; 中用到了大量的 icon，但是只有部分的字体支持 icon。目前对 icon 的支持得比较好的字体是 &lt;a href=&#34;https://www.nerdfonts.com/#home&#34; rel=&#34;nofollow noreferrer&#34; target=&#34;_blank&#34;&gt;Nerd Font&lt;/a&gt;。brew 提供了 nerd 字体的安装。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;$ brew tap homebrew/cask-fonts
-$ brew search nerd
-==&amp;gt; Formulae
-container-diff
-==&amp;gt; Casks
-font-3270-nerd-font
-...
-# 选择Nerd Font字体进行安装
-$ brew cask install font-sourcecodepro-nerd-font
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装字体成功后，就可以在 iterm2 中设置了：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/12/25/LqtHU8Z95oBdiFD.png&#34; alt=&#34;更改字体&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;插件&#34;&gt;插件&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;oh-my-zsh&lt;/code&gt; 有很多好用的插件，安装好的插件需要在 &lt;code&gt;~/.zshrc&lt;/code&gt; 中的 &lt;code&gt;plugins=(git autojump cp extract sudo z zsh-syntax-highlighting zsh-autosuggestions)&lt;/code&gt; 依次写入配置，用空格分开。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;autojump&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;记忆我们之前去过的目录，不需要多次 &lt;code&gt;cd&lt;/code&gt; ，直接 &lt;code&gt;j 目录名&lt;/code&gt; 就可以直接进入。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#安装
-brew install autojump
-
-#在 ~/.zshrc 中加入如下配置
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] &amp;amp;&amp;amp; . $(brew --prefix)/etc/profile.d/autojump.sh
-source $ZSH/oh-my-zsh.sh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;zsh-autosuggestion&#34;&gt;&lt;strong&gt;zsh-autosuggestion&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;输入命令提示自动补全，然后按键盘 &lt;code&gt;→&lt;/code&gt; 即可补全&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;#安装
-$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;zsh-syntax-highlighting&#34;&gt;&lt;strong&gt;zsh-syntax-highlighting&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;命令高亮显示，错误显示红色&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 安装
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;colorls&#34;&gt;&lt;strong&gt;colorls&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;显示文件图标&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c++&#34;&gt;# 安装
-sudo gem install colorls 
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;center&gt; ·End· &lt;/center&gt;&lt;/p&gt;
