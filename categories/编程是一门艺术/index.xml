@@ -145,7 +145,7 @@
       <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
       <author>dev.HalKlein@gmail.com (HalKlein)</author>
       <guid>https://halklein.github.io/2019/021/</guid>
-      <description>一、密集索引和稀疏索引 密集索引文件中的每个搜索码值都对应一个索引值 稀疏索引文件只为索引码的某些值建立索引项 MySQL常见的数据库引擎：MyI</description>
+      <description>一、密集索引和稀疏索引 密集索引文件中的每个搜索码值都对应一个索引值 稀疏索引文件只为索引码的某些值建立索引项 MySQL 常见的数据库引擎：MyISAM 只</description>
     </item>
     
     <item>
