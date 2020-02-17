@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>汉明码（海明码）计算与纠错 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="汉明码（海明码）计算与纠错" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://halklein.github.io/2018/09/013/" />
+<meta property="article:published_time" content="2018-09-12T20:36:39+08:00" />
+<meta property="article:modified_time" content="2018-09-12T20:36:39+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="汉明码（海明码）计算与纠错"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://halklein.github.io/2018/09/013/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2018/08/015/" /><link rel="next" href="https://halklein.github.io/2018/09/017/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "汉明码（海明码）计算与纠错",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/halklein.github.io\/2018\/09\/013\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "操作系统","wordcount":  1616 ,
+        "url": "https:\/\/halklein.github.io\/2018\/09\/013\/","datePublished": "2018-09-12T20:36:39\x2b08:00","dateModified": "2018-09-12T20:36:39\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title animated bounceIn">
+            <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title animated bounceIn">
+                <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">汉明码（海明码）计算与纠错</h1><div class="meta">
+            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
+            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-09-12>2018-09-12</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 1616 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 4 分钟&nbsp;</div>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-求海明码">1. 求海明码</a>
+      <ul>
+        <li><a href="#11-确定校验码的位数-k">1.1 确定校验码的位数 k</a></li>
+        <li><a href="#12-确定校验码的位置">1.2 确定校验码的位置</a></li>
+        <li><a href="#13-求出校验位的值">1.3 求出校验位的值</a></li>
+        <li><a href="#14-得到海明码">1.4 得到海明码</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-海明码纠错">2. 海明码纠错</a></li>
+    <li><a href="#3-ps">3. PS</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#1-求海明码">1. 求海明码</a>
+      <ul>
+        <li><a href="#11-确定校验码的位数-k">1.1 确定校验码的位数 k</a></li>
+        <li><a href="#12-确定校验码的位置">1.2 确定校验码的位置</a></li>
+        <li><a href="#13-求出校验位的值">1.3 求出校验位的值</a></li>
+        <li><a href="#14-得到海明码">1.4 得到海明码</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-海明码纠错">2. 海明码纠错</a></li>
+    <li><a href="#3-ps">3. PS</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content"><blockquote>
+<p>海明码在网络、通信和操作系统中都有着广泛的运用，同时也是软考的必考内容，所以写这篇笔记以备忘
+关于海明码
+海明码是一种线性纠错码，由理查德 · 卫斯里 · 汉明于 1950 年发明；汉明码是完备码，它在于它分组长度相同、最小距离为 3 的码中能达到最高的码率。</p>
+</blockquote>
+<h2 id="1-求海明码">1. 求海明码</h2>
+<h3 id="11-确定校验码的位数-k">1.1 确定校验码的位数 k</h3>
+<p>假设校验位有 r 位，信息位有 k 位，整个码字的长度就是 k+r；每一位的数据只有两种状态，不是 1 就是 0，有 a 位数据就应该能表示出 2^a 种状态，每一种状态非 0 即 1，代表一个码元发生了错误，有 k+r 位码元，就要有 k+r 种状态来表示，另外还要有一种状态来表示数据正确的情况，所以 2^r≥k+r+1 才能检查一位错误，即：2^r-1≥k+r</p>
+<p>假设信息位为 01101110，共 8 位（k=8）, 所以至少要 4 个校验位来检测一位错误（r=4）</p>
+<h3 id="12-确定校验码的位置">1.2 确定校验码的位置</h3>
+<p>校验码 Pi（i 取 1,2,4,8…）在编码中的位置为 2^(i-1)</p>
+<p>假设上面的例子数据从左到右为 D1、D2、……、D8</p>
+<p>校验码为 P1、P2、P4、P8，即校验位在 1，2，4，8，16… 等位置上</p>
+<p>M1,M2….Mn 表示海明码</p>
+<p>得到如下表格：
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/P6ziJxdayuYjLXA.jpg" alt="" class="lazyload"></figure>
+</p>
+<p>填入数据后：</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/knwhHtyFxSBeuNm.jpg" alt="" class="lazyload"></figure>
+</p>
+<p>即，得到了 M3、M5、M6、M7、M9、M10、M11、M12 的值，现在只要求得校验位 P1、P2、P4、P8 的值也就求出了海明码。</p>
+<h3 id="13-求出校验位的值">1.3 求出校验位的值</h3>
+<p>Pi 校验的位是从 Mi 开始连续 i 位，然后间隔 i 位，再校验连续 i 位，再间隔…….
+<figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://img2018.cnblogs.com/blog/1177175/201904/1177175-20190413223732922-861465090.jpg" alt="" class="lazyload"></figure>
+</p>
+<p>即 ：</p>
+<ul>
+<li>
+<p>P1 校验数据位 1，3，5，7，9，11，…</p>
+</li>
+<li>
+<p>P2 校验数据位 2，3，6，7，10，11，…</p>
+</li>
+<li>
+<p>P4 校验数据位 4，5，6，7，12，…</p>
+</li>
+<li>
+<p>P8 校验数据位 8，9，10，11，12，…</p>
+</li>
+</ul>
+<p>然后根据公式进行异或运算：</p>
+<ul>
+<li>P1=M1⊕M3⊕M5⊕M7⊕M9⊕M11</li>
+<li>P2=M2⊕M3⊕M6⊕M7⊕M10⊕M11</li>
+<li>P4=M4⊕M5⊕M6⊕M7⊕M12</li>
+<li>P8=M8⊕M9⊕M10⊕M11⊕M12</li>
+</ul>
+<p>与校验位数据和信息位数据对应后得到：</p>
+<ul>
+<li>P1=P1⊕D1⊕D2⊕D4⊕D5⊕D7</li>
+<li>P2=P2⊕D1⊕D3⊕D4⊕D6⊕D7</li>
+<li>P4=P4⊕D2⊕D3⊕D4⊕D8</li>
+<li>P8=P8⊕D5⊕D6⊕D7⊕D8</li>
+</ul>
+<p>如果海明码没有错误信息，那 P1 、P2 、P4 、P4… 应该都为 0。等式右边的值也得为 0，由于是异或运算，所以 Pi（i 取 1,2,4…）的值跟后边的式子必须同为 0 或 1，才能使整个式子的值为零，故：</p>
+<ul>
+<li>P1=D1⊕D2⊕D4⊕D5⊕D7</li>
+<li>P2=D1⊕D3⊕D4⊕D6⊕D7</li>
+<li>P4=D2⊕D3⊕D4⊕D8</li>
+<li>P8=D5⊕D6⊕D7⊕D8</li>
+</ul>
+<p>带入数据位对应的值</p>
+<ul>
+<li>P1=0⊕1⊕1⊕0⊕1 = 1</li>
+<li>P2=0⊕1⊕1⊕1⊕1 = 0</li>
+<li>P4=1⊕1⊕1⊕0 = 1</li>
+<li>P8=0⊕1⊕1⊕0 = 0</li>
+</ul>
+<h3 id="14-得到海明码">1.4 得到海明码</h3>
+<p>​	就校验位和信息位合起来就得到海明码，即上面例子所求海明码为：(0110 0111 1001)
+​	由于上面的式子中，出现 Pi 的次数不同，其中 D4 和 D7 出现了 3 次，而 D1，D2，D3，D5，D6，D8 只出现了 2 次，此时不同代码的海明码 码距不等，为此再补充一位校验位 (假设为 Pv)，使得 Pv = D1⊕D2⊕D3⊕D5⊕D6⊕D8 , 这样使得每个信息位都出现 3 次，当任一信息位发生变化时，将引起 3 个 Pi 的值跟着变化，即合法海明码的码距都为 4。</p>
+<p>​	该例子求得 Pv = 1，故最后求得海明码为：(1 0110 0111 1001)</p>
+<h2 id="2-海明码纠错">2. 海明码纠错</h2>
+<p>​	现在假设第 5 位出错了，也就是第五位在传输的过程中被改为 “1“了（D5 由 0 变为 1）。即得到的数据为 (1 0111 0111 1001)。现在要找出错误的位置（假设现在不知道出错的位置）。</p>
+<p>​	我们继续按上式求解，得到</p>
+<ul>
+<li>S1=P1⊕D1⊕D2⊕D4⊕D5⊕D7 = 1</li>
+<li>S2=P2⊕D1⊕D3⊕D4⊕D6⊕D7 = 0</li>
+<li>S3=P4⊕D2⊕D3⊕D4⊕D8 = 0</li>
+<li>S4=P8⊕D5⊕D6⊕D7⊕D8 = 1</li>
+<li>S5=Pv⊕D1⊕D2⊕D3⊕D5⊕D6⊕D8 = 0</li>
+</ul>
+<p>​	然后将 S5S4S3S2S1 = 01001 转为十进制 = 9，即求得 (1 0111 0111 1001) 第 9 位出错，将 1 改为 0 完成纠错</p>
+<h2 id="3-ps">3. PS</h2>
+<p>​	海明码如果要检测 d 位错误，需要一个海明距为 d+1 的编码方案；</p>
+<p>​	如果要纠出 d 位错误，需要一个海明距为 2d+1 的编码方案；</p>
+<p>​	海明码的纠错能力恒小于等于检错能力。</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2018-09-12 更新</span>
+            </div>
+            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="https://halklein.github.io/2018/09/013/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2018%2f09%2f013%2f&amp;text=%e6%b1%89%e6%98%8e%e7%a0%81%ef%bc%88%e6%b5%b7%e6%98%8e%e7%a0%81%ef%bc%89%e8%ae%a1%e7%ae%97%e4%b8%8e%e7%ba%a0%e9%94%99&amp;via=xxxx" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2018%2f09%2f013%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2018%2f09%2f013%2f&amp;title=%e6%b1%89%e6%98%8e%e7%a0%81%ef%bc%88%e6%b5%b7%e6%98%8e%e7%a0%81%ef%bc%89%e8%ae%a1%e7%ae%97%e4%b8%8e%e7%ba%a0%e9%94%99" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2018%2f09%2f013%2f&amp;description=%e6%b1%89%e6%98%8e%e7%a0%81%ef%bc%88%e6%b5%b7%e6%98%8e%e7%a0%81%ef%bc%89%e8%ae%a1%e7%ae%97%e4%b8%8e%e7%ba%a0%e9%94%99" target="_blank" title="分享到 Pinterest">
+            <i class="fab fa-pinterest fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2018%2f09%2f013%2f&amp;appkey=&amp;title=%e6%b1%89%e6%98%8e%e7%a0%81%ef%bc%88%e6%b5%b7%e6%98%8e%e7%a0%81%ef%bc%89%e8%ae%a1%e7%ae%97%e4%b8%8e%e7%ba%a0%e9%94%99" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="https://halklein.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fas fa-tag fa-fw"></i>&nbsp;操作系统</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://halklein.github.io/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="https://halklein.github.io/2018/08/015/" class="prev" rel="prev" title="八月长沙行"><i class="fas fa-angle-left fa-fw"></i>八月长沙行</a>
+            <a href="https://halklein.github.io/2018/09/017/" class="next" rel="next" title="给我未来的孩子 -- 文/张梅">给我未来的孩子 -- 文/张梅<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://halklein.github.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <span>&nbsp;</span>
+        </a><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
+</body>
+</html>

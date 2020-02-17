@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on HalKlein&#39;s Blog</title>
+    <link>https://halklein.github.io/tags/redis/</link>
+    <description>Recent content in Redis on HalKlein&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 31 Jan 2020 11:54:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://halklein.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spring 整合 Redis</title>
+      <link>https://halklein.github.io/2020/01/032/</link>
+      <pubDate>Fri, 31 Jan 2020 11:54:23 +0800</pubDate>
+      
+      <guid>https://halklein.github.io/2020/01/032/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis 高性能存储入门</title>
+      <link>https://halklein.github.io/2020/01/031/</link>
+      <pubDate>Thu, 30 Jan 2020 15:31:41 +0800</pubDate>
+      
+      <guid>https://halklein.github.io/2020/01/031/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

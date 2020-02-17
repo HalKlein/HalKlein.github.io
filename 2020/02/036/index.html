@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Elasticsearch 入门 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="Elasticsearch 入门" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://halklein.github.io/2020/02/036/" />
+<meta property="article:published_time" content="2020-02-05T11:50:19+08:00" />
+<meta property="article:modified_time" content="2020-02-05T11:50:19+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch 入门"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://halklein.github.io/2020/02/036/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2020/02/035/" /><link rel="next" href="https://halklein.github.io/2020/02/037/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Elasticsearch 入门",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/halklein.github.io\/2020\/02\/036\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Elasticsearch","wordcount":  1883 ,
+        "url": "https:\/\/halklein.github.io\/2020\/02\/036\/","datePublished": "2020-02-05T11:50:19\x2b08:00","dateModified": "2020-02-05T11:50:19\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title animated bounceIn">
+            <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title animated bounceIn">
+                <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Elasticsearch 入门</h1><div class="meta">
+            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
+            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-05>2020-02-05</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 1883 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 4 分钟&nbsp;</div>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#elasticsearch简介">Elasticsearch简介</a></li>
+    <li><a href="#elasticsearch相关术语">Elasticsearch相关术语</a></li>
+    <li><a href="#elasticsearch-的安装">Elasticsearch 的安装</a></li>
+    <li><a href="#elasticsearch-analysis-ik-中文分词插件">Elasticsearch-analysis-ik 中文分词插件</a></li>
+    <li><a href="#postman工具的安装">Postman工具的安装</a></li>
+    <li><a href="#命令测试elasticsearch">命令测试Elasticsearch</a></li>
+    <li><a href="#使用postman访问elasticsearch">使用Postman访问Elasticsearch</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#elasticsearch简介">Elasticsearch简介</a></li>
+    <li><a href="#elasticsearch相关术语">Elasticsearch相关术语</a></li>
+    <li><a href="#elasticsearch-的安装">Elasticsearch 的安装</a></li>
+    <li><a href="#elasticsearch-analysis-ik-中文分词插件">Elasticsearch-analysis-ik 中文分词插件</a></li>
+    <li><a href="#postman工具的安装">Postman工具的安装</a></li>
+    <li><a href="#命令测试elasticsearch">命令测试Elasticsearch</a></li>
+    <li><a href="#使用postman访问elasticsearch">使用Postman访问Elasticsearch</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content"><h2 id="elasticsearch简介">Elasticsearch简介</h2>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/AOeK6Jn94HfgrqQ.png" alt="Elasticsearch" class="lazyload"><figcaption class="image-caption">Elasticsearch</figcaption></figure>
+</p>
+<p>Elasticsearch，分布式搜索引擎，简称ES，是目前最流行性能最好的搜索引擎之一，像Facebook、Github、Wikipedia、Baidu等很多公司都使用ES进行搜索。</p>
+<p>一个分布式的、Restful风格的搜索引擎。</p>
+<p>支持对各种类型的数据的检索。</p>
+<p>搜索速度快，可以提供 <strong>实时</strong> 的搜索服务。</p>
+<p>便于水平扩展，每秒可以处理PB级海量数据。</p>
+</br>
+<h2 id="elasticsearch相关术语">Elasticsearch相关术语</h2>
+<p>**索引：**类似于MySQL中的数据库（Database）。</p>
+<p>**类型：**类似于MySQL中的表（Table）。</p>
+<p>**文档：**类似于MySQL中的一条记录，常用Json格式。</p>
+<p>**字段：**Json中的每一个属性，我们叫做字段。</p>
+<p>注：在Elasticsearch 6.0之后，“类型” 的概念逐渐被废弃，取而代之，“索引” 对应了一张表。</p>
+<p>**集群：**分布式部署，多台Elasticsearch服务器组合使用就是一个集群。</p>
+<p>**节点：**集群中的每一台服务器我们就叫做一个节点。</p>
+<p>**分片：**将一个索引拆分为多个分片来存，提高并发能力。</p>
+<p>**副本：**副本是分片的备份。</p>
+</br>
+<h2 id="elasticsearch-的安装">Elasticsearch 的安装</h2>
+<p><a href="https://www.elastic.co">https://www.elastic.co</a></p>
+<p>这里我使用我当前Springboot版本中父pom推荐的6.8.5版本，注意7.0开始的版本和之前的版本区别较大，所以请根据自己的实际情况慎重选择。</p>
+<p><strong>配置config/elasticsearch.yml文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">cluster.name: community
+path.data: e:\Test\data\elasticsearch-6.8.5\data
+path.logs: e:\Test\data\elasticsearch-6.8.5\logs
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>配置环境变量</strong></p>
+<p>将bin目录添加到系统的Path环境变量中。</p>
+</br>
+<h2 id="elasticsearch-analysis-ik-中文分词插件">Elasticsearch-analysis-ik 中文分词插件</h2>
+<p>英文的分词，ES默认是支持的（只有空格就能分隔），但是中文的分词较为复杂，需要安装插件。</p>
+<p>Github地址：<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank">elasticsearch-analysis-ik</a>
+，请安装与你的ES适配的版本。</p>
+<p>解压的时候，请注意！你<strong>必须</strong>在ES安装目录的plugins文件夹下新建一个名为“ik”的文件夹，将其解压到该目录下。</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/2CfLWpzrRxtvB7b.png" alt="目录示例" class="lazyload"><figcaption class="image-caption">目录示例</figcaption></figure>
+</p>
+<p>其中，config目录下有一个 <code>extra_main.dic</code> 文件，它是常用的中文分词字典库。</p>
+<p>如果有新的词出现，或者你希望添加一些自定义的分词，需要在 IKAnalyzer.cfg.xml 中配置，其中有中文说明 ，这里不再赘述。</p>
+</br>
+<h2 id="postman工具的安装">Postman工具的安装</h2>
+<p><a href="https://www.getpostman.com">https://www.getpostman.com</a></p>
+<p>Postman能够模拟客户端发送HTTP请求，我们如果使用命令来往ES中存数据，这个命令会比较复杂，而ES支持HTTP访问，所以我们使用Postman工具会比使用命令更方便的操作ES。</p>
+</br>
+<h2 id="命令测试elasticsearch">命令测试Elasticsearch</h2>
+<p><strong>启动Elasticsearch</strong></p>
+<p>双击或命令行启动，bin目录下的 elasticsearch.bat 批处理文件以启动ES，启动成功后，能看到绑定的地址和端口，默认是9200端口。</p>
+<p><strong>查看ES集群的健康状况</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">E:\ProgramFile\kafka_2.12-2.4.0
+$ curl -X GET &#34;localhost:9200/_cat/health?v&#34;
+epoch      timestamp cluster   status node.total node.data shards pri relo init unassign pending_tasks max_task_wait_time active_shards_percent
+1580812558 10:35:58  community green           1         1      0   0    0    0        0             0
+ -                100.0%
+</code></pre></td></tr></table>
+</div>
+</div><p>第一行表示标题，第二行是具体数据。 cluster对应集群；status对应健康状态，green表示健康，red表示有问题；后面是一些节点和分片信息。</p>
+<p><strong>查看集群中的节点</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -X GET &#34;localhost:9200/_cat/nodes?v&#34;
+ip        heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+127.0.0.1           11          49   4                          mdi       *      sGjUs63
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>创建索引</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -X PUT &#34;localhost:9200/test&#34;
+{&#34;acknowledged&#34;:true,&#34;shards_acknowledged&#34;:true,&#34;index&#34;:&#34;test&#34;}
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到创建的索引的格式是JSON格式的</p>
+<p><strong>查看集群中的索引</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -X GET &#34;localhost:9200/_cat/indices?v&#34;
+health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   test  ca0IN3o6QLSLjQuDNJqBqg   5   1          0            0      1.1kb          1.1kb
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>删除索引</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ curl -X DELETE &#34;localhost:9200/test&#34;
+{&#34;acknowledged&#34;:true}$ curl -X DELETE &#34;localhost:9200/test&#34;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h2 id="使用postman访问elasticsearch">使用Postman访问Elasticsearch</h2>
+<p><strong>创建索引</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/F4XaHSMkLr2lfTg.png" alt="创建索引" class="lazyload"><figcaption class="image-caption">创建索引</figcaption></figure>
+</p>
+<p><strong>查看集群中的索引</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/qeS42Jxb8dZMNzi.png" alt="查看集群中的索引" class="lazyload"><figcaption class="image-caption">查看集群中的索引</figcaption></figure>
+</p>
+<p><strong>删除索引</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/TLhZPCBVS1OHfAD.png" alt="删除索引" class="lazyload"><figcaption class="image-caption">删除索引</figcaption></figure>
+</p>
+<p><strong>存入JSON格式的数据</strong></p>
+<p>选择PUT请求，填入索引名称和id，其中_doc是占位用的。在Body中，选择raw，再选择数据格式为JSON，填写完毕之后点击发送。</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/wDjQym8R5HsSzUc.png" alt="存入JSON格式的数据" class="lazyload"><figcaption class="image-caption">存入JSON格式的数据</figcaption></figure>
+</p>
+<p><strong>查询存入的数据</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/T3oDpzCXyGiqEQP.png" alt="查询存入的数据" class="lazyload"><figcaption class="image-caption">查询存入的数据</figcaption></figure>
+</p>
+<p><strong>删除存入的数据</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/9vbh4Vu8AjS6WQt.png" alt="删除存入的数据" class="lazyload"><figcaption class="image-caption">删除存入的数据</figcaption></figure>
+</p>
+<p><strong>搜索数据测试</strong></p>
+<p>PUT请求，存如多条数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">l</span><span class="err">o</span><span class="err">c</span><span class="err">a</span><span class="err">l</span><span class="err">h</span><span class="err">o</span><span class="err">s</span><span class="err">t</span><span class="err">:</span><span class="mi">9200</span><span class="err">/</span><span class="err">t</span><span class="err">e</span><span class="err">s</span><span class="err">t</span><span class="err">/</span><span class="err">_</span><span class="err">d</span><span class="err">o</span><span class="err">c</span><span class="err">/</span><span class="mi">1</span>
+<span class="p">{</span>
+	<span class="nt">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;校园招聘求职&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;content&#34;</span><span class="p">:</span><span class="s2">&#34;求一份Java后端开发岗位&#34;</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="err">l</span><span class="err">o</span><span class="err">c</span><span class="err">a</span><span class="err">l</span><span class="err">h</span><span class="err">o</span><span class="err">s</span><span class="err">t</span><span class="err">:</span><span class="mi">9200</span><span class="err">/</span><span class="err">t</span><span class="err">e</span><span class="err">s</span><span class="err">t</span><span class="err">/</span><span class="err">_</span><span class="err">d</span><span class="err">o</span><span class="err">c</span><span class="err">/</span><span class="mi">2</span>
+<span class="p">{</span>
+	<span class="nt">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;招聘信息&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;content&#34;</span><span class="p">:</span><span class="s2">&#34;我公司急需招聘一名资深程序员&#34;</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="err">l</span><span class="err">o</span><span class="err">c</span><span class="err">a</span><span class="err">l</span><span class="err">h</span><span class="err">o</span><span class="err">s</span><span class="err">t</span><span class="err">:</span><span class="mi">9200</span><span class="err">/</span><span class="err">t</span><span class="err">e</span><span class="err">s</span><span class="err">t</span><span class="err">/</span><span class="err">_</span><span class="err">d</span><span class="err">o</span><span class="err">c</span><span class="err">/</span><span class="mi">3</span>
+<span class="p">{</span>
+	<span class="nt">&#34;title&#34;</span><span class="p">:</span><span class="s2">&#34;公司内推&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;content&#34;</span><span class="p">:</span><span class="s2">&#34;本人在某为任职，可推荐Java开发实习生。&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>简单GET查询</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/2wEmJVtP9ho8i4p.png" alt="GET查询" class="lazyload"><figcaption class="image-caption">GET查询</figcaption></figure>
+</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/fw5A89LnYPDb7dm.png" alt="GET查询" class="lazyload"><figcaption class="image-caption">GET查询</figcaption></figure>
+</p>
+<p>可以看到在查询content的时候ES对关键词进行了拆分，再查询，得到了两条数据，匹配度高的在前面。</p>
+<p><strong>复合的多条件查询</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+	<span class="nt">&#34;query&#34;</span><span class="p">:</span><span class="p">{</span>
+		<span class="nt">&#34;multi_match&#34;</span><span class="p">:</span><span class="p">{</span>
+			<span class="nt">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;公司&#34;</span><span class="p">,</span>
+			<span class="nt">&#34;fields&#34;</span><span class="p">:</span><span class="p">[</span><span class="s2">&#34;title&#34;</span><span class="p">,</span><span class="s2">&#34;content&#34;</span><span class="p">]</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/JHIUBVFkOnAbv7w.png" alt="复合的多条件查询" class="lazyload"><figcaption class="image-caption">复合的多条件查询</figcaption></figure>
+</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-02-05 更新</span>
+            </div>
+            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="https://halklein.github.io/2020/02/036/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2020%2f02%2f036%2f&amp;text=Elasticsearch%20%e5%85%a5%e9%97%a8&amp;via=xxxx" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2020%2f02%2f036%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2020%2f02%2f036%2f&amp;title=Elasticsearch%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2020%2f02%2f036%2f&amp;description=Elasticsearch%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Pinterest">
+            <i class="fab fa-pinterest fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2020%2f02%2f036%2f&amp;appkey=&amp;title=Elasticsearch%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="https://halklein.github.io/tags/elasticsearch/"><i class="fas fa-tag fa-fw"></i>&nbsp;Elasticsearch</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://halklein.github.io/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="https://halklein.github.io/2020/02/035/" class="prev" rel="prev" title="Spring 整合 Kafka"><i class="fas fa-angle-left fa-fw"></i>Spring 整合 Kafka</a>
+            <a href="https://halklein.github.io/2020/02/037/" class="next" rel="next" title="Spring 整合 Elasticsearch">Spring 整合 Elasticsearch<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://halklein.github.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <span>&nbsp;</span>
+        </a><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
+</body>
+</html>

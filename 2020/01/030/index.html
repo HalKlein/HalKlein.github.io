@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用 Spring AOP 统一记录日志 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="使用 Spring AOP 统一记录日志" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://halklein.github.io/2020/01/030/" />
+<meta property="article:published_time" content="2020-01-30T12:26:21+08:00" />
+<meta property="article:modified_time" content="2020-01-30T12:26:21+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Spring AOP 统一记录日志"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://halklein.github.io/2020/01/030/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2020/01/029/" /><link rel="next" href="https://halklein.github.io/2020/01/031/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用 Spring AOP 统一记录日志",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/halklein.github.io\/2020\/01\/030\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Spring全家桶, Spring AOP","wordcount":  1146 ,
+        "url": "https:\/\/halklein.github.io\/2020\/01\/030\/","datePublished": "2020-01-30T12:26:21\x2b08:00","dateModified": "2020-01-30T12:26:21\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title animated bounceIn">
+            <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title animated bounceIn">
+                <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">使用 Spring AOP 统一记录日志</h1><div class="meta">
+            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
+            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-01-30>2020-01-30</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 1146 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#需求">需求</a></li>
+    <li><a href="#aop的概念">AOP的概念</a></li>
+    <li><a href="#aop的术语">AOP的术语</a></li>
+    <li><a href="#aop的实现">AOP的实现</a></li>
+    <li><a href="#spring-aop-代理">Spring AOP 代理</a></li>
+    <li><a href="#示例-记录用户访问方法的信息">示例 记录用户访问方法的信息</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#需求">需求</a></li>
+    <li><a href="#aop的概念">AOP的概念</a></li>
+    <li><a href="#aop的术语">AOP的术语</a></li>
+    <li><a href="#aop的实现">AOP的实现</a></li>
+    <li><a href="#spring-aop-代理">Spring AOP 代理</a></li>
+    <li><a href="#示例-记录用户访问方法的信息">示例 记录用户访问方法的信息</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content"><h2 id="需求">需求</h2>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/vaD453kgpyC9nI1.png" alt="需求" class="lazyload"><figcaption class="image-caption">需求</figcaption></figure>
+</p>
+<p>如果我们每次都在业务组件中记录日志，但是记录日志并不是业务需求，它属于系统需求。</p>
+<h2 id="aop的概念">AOP的概念</h2>
+<p><strong>Aspect Oriented Programing</strong></p>
+<p>​	即面向方面（切面）编程。
+​	AOP是一种编程思想，是对OOP的补充，可以进一步提高编程的效率。</p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/hZgODSCvFdHEliQ.png" alt="AOP的概念" class="lazyload"><figcaption class="image-caption">AOP的概念</figcaption></figure>
+</p>
+<h2 id="aop的术语"><strong>AOP的术语</strong></h2>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/FbLUmHqE5BWy7Nx.png" alt="AOP的术语" class="lazyload"><figcaption class="image-caption">AOP的术语</figcaption></figure>
+</p>
+<p><strong>Target</strong>：目标对象，程序中的每一个要处理的Bean我们称之为Target</p>
+<p><strong>Joinpoint</strong>：连接点，目标对象有很多地方能够被织入代码，其可以织入代码的地方，我们称之为连接点</p>
+<p><strong>Aspect</strong>：切面组件，AOP解决统一处理这些系统需求的方式是将代码定义到一个额外的Bean中，Pointcut声明代码到底要织入到哪些对象的哪些位置，Advice通知方法说明这个切面组件要处理怎样的逻辑。</p>
+<p><strong>Weaving</strong>：切面组件在程序运行之前或之后，通过框架织入到某些连接点之上，在编译时织入效率会很高，但是系统未运行时，可能有些条件我们并不能得到，就需要在运行时织入，运行时织入很方便灵活，但是效率不高。</p>
+<h2 id="aop的实现">AOP的实现</h2>
+<p><strong>AspectJ</strong></p>
+<p>​	AspectJ是<strong>语言级</strong>的实现（新的语言），它扩展了Java语言，定义了AOP语法。</p>
+<p>​	AspectJ在<strong>编译期</strong>织入代码，支持各种类型的连接点，它有一个专门的编译器，用来生成遵守Java字节码规范的class文件。</p>
+<p><strong>Spring AOP</strong></p>
+<p>​	Spring AOP使用纯 <strong>Java实现</strong>，它<strong>不需要专门的编译过程</strong>，也<strong>不需要特殊的类装载器</strong>。</p>
+<p>​	Spring AOP在 <strong>运行时</strong> 通过代理的方式织入代码，<strong>只支持方法类型的连接点</strong>。</p>
+<p>​	Spring<strong>支持</strong>对<strong>AspectJ</strong>的集成。</p>
+<h2 id="spring-aop-代理">Spring AOP 代理</h2>
+<p><strong>JDK 动态代理</strong></p>
+<p>​	Java提供的动态代理技术，可以在运行时创建<strong>接口</strong>的代理实例。</p>
+<p>​	Spring AOP<strong>默认</strong>采用此种方式，在接口的代理实例中织入代码。</p>
+<p><strong>CGLib 动态代理</strong></p>
+<p>​	采用底层的<strong>字节码技术</strong>，在运行时创建<strong>子类</strong>代理实例。</p>
+<p>​	当目标对象不存在接口时，Spring AOP会采用此种方式，在子类实例中织入代码。</p>
+<h2 id="示例-记录用户访问方法的信息">示例 记录用户访问方法的信息</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Component</span>
+<span class="c1">// 切面组件
+</span><span class="c1"></span><span class="nd">@Aspect</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceLogAspect</span> <span class="o">{</span>
+
+    <span class="c1">// 记录日志
+</span><span class="c1"></span>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">ServiceLogAspect</span><span class="o">.</span><span class="na">class</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * 定义切点@Pointcut，其中筛选目标，
+</span><span class="cm">     * 第1个*表示返回值任意，
+</span><span class="cm">     * 第2个*表示所有组件，
+</span><span class="cm">     * 第3个*表示所有的方法，
+</span><span class="cm">     * (..)表示所有的参数
+</span><span class="cm">     */</span>
+    <span class="nd">@Pointcut</span><span class="o">(</span><span class="s">&#34;execution(* me.halklein.community.service.*.*(..))&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pointcut</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="c1">// 在连接点开始@Before，pointcut()表示切点是什么
+</span><span class="c1"></span>    <span class="nd">@Before</span><span class="o">(</span><span class="s">&#34;pointcut()&#34;</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">before</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 记录格式：用户[IP地址]，在[xxx]，访问了[me.halklein.community.service.xxx()]
+</span><span class="c1"></span>        <span class="c1">// 获取Request对象
+</span><span class="c1"></span>        <span class="n">ServletRequestAttributes</span> <span class="n">attributes</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServletRequestAttributes</span><span class="o">)</span> <span class="n">RequestContextHolder</span><span class="o">.</span><span class="na">getRequestAttributes</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">getRequest</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// 获取访问者IP
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">ip</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getRemoteHost</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">now</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// 获取类名，方法名
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">target</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">getDeclaringTypeName</span><span class="o">(</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;.&#34;</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">getName</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;用户[%s]，在[%s]，访问了[%s].&#34;</span><span class="o">,</span> <span class="n">ip</span><span class="o">,</span> <span class="n">now</span><span class="o">,</span> <span class="n">target</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>查看日志</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/aCo5ALIVRyr6l9U.png" alt="" class="lazyload"></figure>
+</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-01-30 更新</span>
+            </div>
+            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="https://halklein.github.io/2020/01/030/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f030%2f&amp;text=%e4%bd%bf%e7%94%a8%20Spring%20AOP%20%e7%bb%9f%e4%b8%80%e8%ae%b0%e5%bd%95%e6%97%a5%e5%bf%97&amp;via=xxxx" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f030%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f030%2f&amp;title=%e4%bd%bf%e7%94%a8%20Spring%20AOP%20%e7%bb%9f%e4%b8%80%e8%ae%b0%e5%bd%95%e6%97%a5%e5%bf%97" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f030%2f&amp;description=%e4%bd%bf%e7%94%a8%20Spring%20AOP%20%e7%bb%9f%e4%b8%80%e8%ae%b0%e5%bd%95%e6%97%a5%e5%bf%97" target="_blank" title="分享到 Pinterest">
+            <i class="fab fa-pinterest fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f030%2f&amp;appkey=&amp;title=%e4%bd%bf%e7%94%a8%20Spring%20AOP%20%e7%bb%9f%e4%b8%80%e8%ae%b0%e5%bd%95%e6%97%a5%e5%bf%97" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/"><i class="fas fa-tag fa-fw"></i>&nbsp;Spring全家桶</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="https://halklein.github.io/tags/spring-aop/"><i class="fas fa-tag fa-fw"></i>&nbsp;Spring AOP</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://halklein.github.io/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="https://halklein.github.io/2020/01/029/" class="prev" rel="prev" title="Spring 统一处理异常"><i class="fas fa-angle-left fa-fw"></i>Spring 统一处理异常</a>
+            <a href="https://halklein.github.io/2020/01/031/" class="next" rel="next" title="Redis 高性能存储入门">Redis 高性能存储入门<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://halklein.github.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <span>&nbsp;</span>
+        </a><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
+</body>
+</html>

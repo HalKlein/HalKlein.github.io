@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>常用的元注解 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="常用的元注解" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://halklein.github.io/2020/01/025/" />
+<meta property="article:published_time" content="2020-01-20T20:35:11+08:00" />
+<meta property="article:modified_time" content="2020-01-20T20:35:11+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="常用的元注解"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://halklein.github.io/2020/01/025/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2020/01/024/" /><link rel="next" href="https://halklein.github.io/2020/01/026/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "常用的元注解",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/halklein.github.io\/2020\/01\/025\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Spring全家桶, 元注解","wordcount":  846 ,
+        "url": "https:\/\/halklein.github.io\/2020\/01\/025\/","datePublished": "2020-01-20T20:35:11\x2b08:00","dateModified": "2020-01-20T20:35:11\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title animated bounceIn">
+            <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title animated bounceIn">
+                <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">常用的元注解</h1><div class="meta">
+            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
+            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-01-20>2020-01-20</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 846 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常用的元注解">常用的元注解</a></li>
+    <li><a href="#如何读取注解">如何读取注解</a></li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#常用的元注解">常用的元注解</a></li>
+    <li><a href="#如何读取注解">如何读取注解</a></li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content"><h2 id="常用的元注解">常用的元注解</h2>
+<p>当我们需要自定义注解时，要用到元注解定义我们自己的注解（所谓元注解，就是注解其它注解的注解），其中常见的元注解有以下四个：</p>
+<p><strong>@Target</strong></p>
+<p>由于标识我们自定义注解的使用范围。从源码可以看到可以赋值为ElementType。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="o">;</span>
+
+<span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">(</span><span class="o">{</span><span class="n">ElementType</span><span class="o">.</span><span class="na">ANNOTATION_TYPE</span><span class="o">}</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Target</span> <span class="o">{</span>
+    <span class="n">ElementType</span><span class="o">[</span><span class="o">]</span> <span class="nf">value</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其中ElementType定义如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">ElementType</span> <span class="o">{</span>
+    <span class="n">TYPE</span><span class="o">,</span>	<span class="c1">// 类、接口、枚举类
+</span><span class="c1"></span>    <span class="n">FIELD</span><span class="o">,</span>	<span class="c1">// 成员变量（包括：枚举常量）
+</span><span class="c1"></span>    <span class="n">METHOD</span><span class="o">,</span>	<span class="c1">// 成员方法
+</span><span class="c1"></span>    <span class="n">PARAMETER</span><span class="o">,</span>	<span class="c1">// 方法参数
+</span><span class="c1"></span>    <span class="n">CONSTRUCTOR</span><span class="o">,</span> 	<span class="c1">// 构造方法
+</span><span class="c1"></span>    <span class="n">LOCAL_VARIABLE</span><span class="o">,</span>	<span class="c1">// 局部变量
+</span><span class="c1"></span>    <span class="n">ANNOTATION_TYPE</span><span class="o">,</span>	<span class="c1">// 注解类
+</span><span class="c1"></span>    <span class="n">PACKAGE</span><span class="o">,</span>	<span class="c1">// 包
+</span><span class="c1"></span>    <span class="n">TYPE_PARAMETER</span><span class="o">,</span>	<span class="c1">// 类型参数，JDK 1.8 新增
+</span><span class="c1"></span>    <span class="n">TYPE_USE</span><span class="o">,</span>	<span class="c1">// 使用类型的任何地方，JDK 1.8 新增
+</span><span class="c1"></span>    <span class="n">MODULE</span><span class="o">;</span>	<span class="c1">// 允许在模块上使用注解，JDK 1.9新增
+</span><span class="c1"></span>
+    <span class="kd">private</span> <span class="nf">ElementType</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>@Retention</strong></p>
+<p>用于说明自定义注解的有效时间或者说保留的时间（如：编译时有效、运行时有效等）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="o">;</span>
+
+<span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">(</span><span class="o">{</span><span class="n">ElementType</span><span class="o">.</span><span class="na">ANNOTATION_TYPE</span><span class="o">}</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Retention</span> <span class="o">{</span>
+    <span class="n">RetentionPolicy</span> <span class="nf">value</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">RetentionPolicy</span> <span class="o">{</span>
+    <span class="n">SOURCE</span><span class="o">,</span>	<span class="c1">//源文件
+</span><span class="c1"></span>    <span class="n">CLASS</span><span class="o">,</span>	<span class="c1">//编译时（默认）
+</span><span class="c1"></span>    <span class="n">RUNTIME</span><span class="o">;</span>	<span class="c1">//运行时
+</span><span class="c1"></span>
+    <span class="kd">private</span> <span class="nf">RetentionPolicy</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>@Document</strong></p>
+<p>声明在生成帮助文档的时候要不要把这个自定义注解信息也带上。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="o">;</span>
+
+<span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">(</span><span class="o">{</span><span class="n">ElementType</span><span class="o">.</span><span class="na">ANNOTATION_TYPE</span><span class="o">}</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Documented</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>@Inherited</strong></p>
+<p>使被它修饰的自定义注解具有继承性。子类继承该自定义注解之后也具有该注解。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="o">;</span>
+
+<span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">(</span><span class="o">{</span><span class="n">ElementType</span><span class="o">.</span><span class="na">ANNOTATION_TYPE</span><span class="o">}</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Inherited</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>PS</strong></p>
+<p>一般来说，我们自定义注解，@Target和@Retention是都会用到的，用来指定作用的范围和时机</p>
+<h2 id="如何读取注解">如何读取注解</h2>
+<p>通过AnnotatedElement接口实现对自定义注解的解析</p>
+<p>Method.getDeclaredAnnotations（）
+Method.getAnnotation（Class<T> annotationClass）</p>
+<p><strong>看个例子：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-Java" data-lang="Java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="c1">// 如果拦截到的是一个方法 : instanceof HandlerMethod
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">HandlerMethod</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 转型，方便获取内容
+</span><span class="c1"></span>        <span class="n">HandlerMethod</span> <span class="n">handlerMethod</span> <span class="o">=</span> <span class="o">(</span><span class="n">HandlerMethod</span><span class="o">)</span> <span class="n">handler</span><span class="o">;</span>
+        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">handlerMethod</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// 取注解，取含有自定义注解：LoginRequired，的方法
+</span><span class="c1"></span>        <span class="n">LoginRequired</span> <span class="n">loginRequired</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">LoginRequired</span><span class="o">.</span><span class="na">class</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// 取注解后发现不为空，说明该方法需要登录才能访问，并且检测不到当前用户
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">loginRequired</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span> <span class="o">&amp;</span><span class="o">&amp;</span> <span class="n">hostHolder</span><span class="o">.</span><span class="na">getUser</span><span class="o">(</span><span class="o">)</span> <span class="o">=</span><span class="o">=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 使用response重定向到登录页
+</span><span class="c1"></span>            <span class="n">response</span><span class="o">.</span><span class="na">sendRedirect</span><span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getContextPath</span><span class="o">(</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;/login&#34;</span><span class="o">)</span><span class="o">;</span>
+            <span class="c1">// 拒绝后续访问
+</span><span class="c1"></span>            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2020-01-20 更新</span>
+            </div>
+            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="https://halklein.github.io/2020/01/025/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f025%2f&amp;text=%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%83%e6%b3%a8%e8%a7%a3&amp;via=xxxx" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f025%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f025%2f&amp;title=%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%83%e6%b3%a8%e8%a7%a3" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f025%2f&amp;description=%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%83%e6%b3%a8%e8%a7%a3" target="_blank" title="分享到 Pinterest">
+            <i class="fab fa-pinterest fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2020%2f01%2f025%2f&amp;appkey=&amp;title=%e5%b8%b8%e7%94%a8%e7%9a%84%e5%85%83%e6%b3%a8%e8%a7%a3" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="https://halklein.github.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/"><i class="fas fa-tag fa-fw"></i>&nbsp;Spring全家桶</a>&nbsp;
+                    </span><span class="tag">
+                        <a href="https://halklein.github.io/tags/%E5%85%83%E6%B3%A8%E8%A7%A3/"><i class="fas fa-tag fa-fw"></i>&nbsp;元注解</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://halklein.github.io/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="https://halklein.github.io/2020/01/024/" class="prev" rel="prev" title="记第一次住院"><i class="fas fa-angle-left fa-fw"></i>记第一次住院</a>
+            <a href="https://halklein.github.io/2020/01/026/" class="next" rel="next" title="用前缀树过滤敏感词">用前缀树过滤敏感词<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://halklein.github.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <span>&nbsp;</span>
+        </a><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
+</body>
+</html>

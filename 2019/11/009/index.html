@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TCP 滑动窗口 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="关于 LoveIt 主题"><meta property="og:title" content="TCP 滑动窗口" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://halklein.github.io/2019/11/009/" />
+<meta property="article:published_time" content="2019-11-02T19:45:16+08:00" />
+<meta property="article:modified_time" content="2019-11-02T19:45:16+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TCP 滑动窗口"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://halklein.github.io/2019/11/009/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/11/008/" /><link rel="next" href="https://halklein.github.io/2019/11/010/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TCP 滑动窗口",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/halklein.github.io\/2019\/11\/009\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "计算机网络","wordcount":  1121 ,
+        "url": "https:\/\/halklein.github.io\/2019\/11\/009\/","datePublished": "2019-11-02T19:45:16\x2b08:00","dateModified": "2019-11-02T19:45:16\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/halklein.github.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title animated bounceIn">
+            <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title animated bounceIn">
+                <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">文章</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        </div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">TCP 滑动窗口</h1><div class="meta">
+            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
+                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
+                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
+            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-02>2019-11-02</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 1121 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
+        </div><div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-rtt-和-rto">1. RTT 和 RTO</a></li>
+    <li><a href="#2-tcp的滑动窗口">2. TCP的滑动窗口</a>
+      <ul>
+        <li><a href="#下面模拟tcp缓冲区">下面，模拟TCP缓冲区：</a></li>
+        <li><a href="#窗口数据计算过程">窗口数据计算过程：</a></li>
+        <li><a href="#滑动窗口的基本原理">滑动窗口的基本原理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary>
+                        <div class="post-toc-title">
+                            <span>目录</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+  <ul>
+    <li><a href="#1-rtt-和-rto">1. RTT 和 RTO</a></li>
+    <li><a href="#2-tcp的滑动窗口">2. TCP的滑动窗口</a>
+      <ul>
+        <li><a href="#下面模拟tcp缓冲区">下面，模拟TCP缓冲区：</a></li>
+        <li><a href="#窗口数据计算过程">窗口数据计算过程：</a></li>
+        <li><a href="#滑动窗口的基本原理">滑动窗口的基本原理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content"><h2 id="1-rtt-和-rto">1. RTT 和 RTO</h2>
+<ul>
+<li>RTT（round trip time） 往返时延 ：发送一个数据包到收到对应的ACK，所花费的时间。</li>
+<li>RTO（retransamission timeout） ：重传时间间隔，由RTT计算得出，不是写死的。</li>
+</ul>
+<p>由TCP的重传机制，我们知道Timeout的设置对重置非常重要，设置长了会影响重发效率，设置短了可能导致还没丢失就又重传了。 而网络状况更是复杂，所以我们没有办法设置一个死的Timeout值 。为了动态地设置，TCP引入了RTT， 这样发送端就大约知道需要多少的时间，从而可以方便地设置Timeout——RTO（ Retransmission TimeOut ） ， 以让重传机制更高效。 <a href="http://tools.ietf.org/html/rfc793" target="_blank">RFC793</a>
+ 中有对算法详细的定义。</p>
+<h2 id="2-tcp的滑动窗口">2. TCP的滑动窗口</h2>
+<p>我们都知道，TCP必需要解决的可靠传输以及包乱序（reordering）的问题，所以，TCP必需要知道网络实际的数据处理带宽或是数据处理速度，这样才不会引起网络拥塞，导致丢包。 所以，TCP引入了一些技术和设计来做网络流控，Sliding Window是其中一个技术。TCP头里有一个字段叫Window，又叫Advertised-Window，这个字段是接收端告诉发送端自己还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。</p>
+<h3 id="下面模拟tcp缓冲区"><strong>下面，模拟TCP缓冲区：</strong></h3>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/JUC5zmwxbLkyvFq.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure>
+</p>
+<ul>
+<li>发送端的LastByteAcked指向了被接收端Ack过的位置（表示成功发送确认），LastByteSent表示发出去了，但还没有收到成功确认的Ack，LastByteWritten指向的是上层应用正在写的地方。</li>
+<li>接收端LastByteRead指向了TCP缓冲区中读到的位置，NextByteExpected指向的地方是收到的连续包的最后一个位置，LastByteRcved指向的是收到的包的最后一个位置，我们可以看到中间有些数据还没有到达，所以有数据空白区。</li>
+</ul>
+<h3 id="窗口数据计算过程"><strong>窗口数据计算过程：</strong></h3>
+<ul>
+<li>接收端在给发送端回ACK中，会汇报自己的 <strong>AdvertisedWindow</strong> = MaxRcvBuffer – （LastByteRcvd – Last Byte Read），（LastByteRcvd – LastByteRead）表示接收到的数据已占用缓存的大小;</li>
+<li>发送方根据Advertised Window的值，要保证已发送未确认的数据&lt;= Advertised Window的大小，待发送数据大小**EffectiveWindow **= AdvertisedWindow – (LastByteSent – LastByteAcked)</li>
+</ul>
+<h3 id="滑动窗口的基本原理">滑动窗口的基本原理</h3>
+<p><strong>TCP会话的发送方，滑动窗口示意图</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/cnU7JxGLl1hySEe.png" alt="发送方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">发送方滑动窗口示意图</figcaption></figure>
+发送方滑动窗口示意图</p>
+<p><strong>TCP会话的接收方，滑动窗口示意图</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/rFw3h7ES8Ze2VAb.png" alt="接收方滑动窗口示意图" class="lazyload"><figcaption class="image-caption">接收方滑动窗口示意图</figcaption></figure>
+接收方滑动窗口示意图</p>
+<p>需要指出的是，滑动窗口的大小可以依据一定的策略动态调整。应用会根据自身处理能力的变化，通过对本端TCP接收窗口大小的控制来实现对端的发送窗口进行流量限制。</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2019-11-02 更新</span>
+            </div>
+            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="https://halklein.github.io/2019/11/009/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f009%2f&amp;text=TCP%20%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3&amp;via=xxxx" target="_blank" title="分享到 Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f009%2f" target="_blank" title="分享到 Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f009%2f&amp;title=TCP%20%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" target="_blank" title="分享到 Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f009%2f&amp;description=TCP%20%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" target="_blank" title="分享到 Pinterest">
+            <i class="fab fa-pinterest fa-fw"></i>
+        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f009%2f&amp;appkey=&amp;title=TCP%20%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" target="_blank" title="分享到 Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a></span></div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><span class="tag">
+                        <a href="https://halklein.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><i class="fas fa-tag fa-fw"></i>&nbsp;计算机网络</a>&nbsp;
+                    </span></section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://halklein.github.io/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="https://halklein.github.io/2019/11/008/" class="prev" rel="prev" title="TCP 和 UDP 的区别"><i class="fas fa-angle-left fa-fw"></i>TCP 和 UDP 的区别</a>
+            <a href="https://halklein.github.io/2019/11/010/" class="next" rel="next" title="HTTP 与 HTTPS">HTTP 与 HTTPS<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://halklein.github.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <span>&nbsp;</span>
+        </a><script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+            });
+        });
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
+</body>
+</html>
