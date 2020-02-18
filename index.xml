@@ -18,7 +18,8 @@
 &lt;p&gt;&lt;strong&gt;GitHub&lt;/strong&gt;：https://github.com/halklein&lt;/p&gt;
 &lt;/br&gt;
 &lt;p&gt;My GitHub chart:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;https://halklein.github.io/svg/loading.min.svg&#34; data-sizes=&#34;auto&#34; data-src=&#34;https://ghchart.rshah.org/HalKlein&#34; alt=&#34;GitHub Chart&#34; class=&#34;lazyload&#34;&gt;&lt;figcaption class=&#34;image-caption&#34;&gt;GitHub Chart&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;https://halklein.github.io/svg/loading.min.svg&#34; data-sizes=&#34;auto&#34; data-src=&#34;https://ghchart.rshah.org/HalKlein&#34; alt=&#34;GitHub Chart&#34; title=&#34;GitHub Chart&#34; class=&#34;lazyload&#34;&gt;
+&lt;figcaption class=&#34;image-caption&#34;&gt;GitHub Chart&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;/p&gt;
 </description>
             </item></channel>

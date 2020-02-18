@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/10/005/" /><link rel="next" href="https://halklein.github.io/2019/10/007/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/10/005/" /><link rel="next" href="https://halklein.github.io/2019/10/007/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -59,7 +59,9 @@
         <div class="header-title animated bounceIn">
             <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -72,7 +74,9 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header>
@@ -143,7 +147,8 @@
 </ul>
 <p>在进行数据传输之前，需要在传输数据的两端（客户端和服务器端）创建一个连接，这个连接由一对插口地址唯一标识，即是在IP报文首部的源IP地址、目的IP地址，以及TCP数据报首部的源端口地址和目的端口地址</p>
 <h2 id="2-tcp头部结构">2. TCP头部结构</h2>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/dLhNgTlbYtBA3FW.jpg" alt="" class="lazyload"></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/dLhNgTlbYtBA3FW.jpg" alt="" title="" class="lazyload">
+</figure>
 </p>
 <ol>
 <li>
@@ -185,7 +190,8 @@
 </ol>
 <h2 id="3-tcp三次握手">3. TCP三次握手</h2>
 <p>“握手”是为了<strong>建立连接</strong>，TCP三次握手的流程图如下：</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tbrGiOqwZ6Jpe3K.jpg" alt="" class="lazyload"></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tbrGiOqwZ6Jpe3K.jpg" alt="" title="" class="lazyload">
+</figure>
 </p>
 <p>其中，前两次握手是不允许携带数据的，第三握手可以携带数据，如果第三次握手不携带数据就可以不消耗序号。</p>
 <p><strong>第一次握手</strong></p>
@@ -209,7 +215,8 @@
 <pre class="chroma"><code class="language-c" data-lang="c"><span class="n">ip</span><span class="p">.</span><span class="n">dst</span><span class="o">=</span><span class="o">=</span><span class="mf">61.128</span><span class="mf">.252</span><span class="mf">.10</span> <span class="n">or</span> <span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="o">=</span><span class="o">=</span><span class="mf">61.128</span><span class="mf">.252</span><span class="mf">.10</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/pbmqrR3fvd2xls4.png" alt="" class="lazyload"></figure>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/pbmqrR3fvd2xls4.png" alt="" title="" class="lazyload">
+</figure>
 </p>
 <p>顺便查阅归纳下，<strong>Wireshark的过滤规则</strong>：</p>
 <p><strong>1. 过滤IP</strong></p>
@@ -373,17 +380,7 @@
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="https://halklein.github.io/2019/10/006/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f006%2f&amp;text=TCP%20%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b&amp;via=xxxx" target="_blank" title="分享到 Twitter">
-            <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f006%2f" target="_blank" title="分享到 Facebook">
-            <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f006%2f&amp;title=TCP%20%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" target="_blank" title="分享到 Reddit">
-            <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f006%2f&amp;description=TCP%20%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" target="_blank" title="分享到 Pinterest">
-            <i class="fab fa-pinterest fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f006%2f&amp;appkey=&amp;title=TCP%20%e4%b8%89%e6%ac%a1%e6%8f%a1%e6%89%8b" target="_blank" title="分享到 Weibo">
-            <i class="fab fa-weibo fa-fw"></i>
-        </a></span></div>
+            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://halklein.github.io/2019/10/006/" data-title="TCP 三次握手" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://halklein.github.io/2019/10/006/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://halklein.github.io/2019/10/006/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://halklein.github.io/2019/10/006/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://halklein.github.io/2019/10/006/" data-title="TCP 三次握手" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
         </div>
     </div>
 
@@ -399,7 +396,21 @@
     <div class="post-nav"><a href="https://halklein.github.io/2019/10/005/" class="prev" rel="prev" title="OSI 模型和 TCP/IP 模型"><i class="fas fa-angle-left fa-fw"></i>OSI 模型和 TCP/IP 模型</a>
             <a href="https://halklein.github.io/2019/10/007/" class="next" rel="next" title="TCP 四次挥手">TCP 四次挥手<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
-<div class="comment"></div>
+<div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script><div class="comment"><div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script></div>
     </article></div>
             </main><footer class="footer">
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
@@ -419,6 +430,5 @@
                     { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
-</body>
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
 </html>

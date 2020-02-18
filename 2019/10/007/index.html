@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/10/006/" /><link rel="next" href="https://halklein.github.io/2019/11/008/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/10/006/" /><link rel="next" href="https://halklein.github.io/2019/11/008/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -59,7 +59,9 @@
         <div class="header-title animated bounceIn">
             <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -72,7 +74,9 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header>
@@ -136,7 +140,8 @@
 <p>客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行<code>close()</code>操作即可产生挥手操作。</p>
 <p>以下，我们假设由客户端主动触发close()。</p>
 <h2 id="2-四次挥手流程图">2. 四次挥手流程图</h2>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/5pbistqQF7XTxBV.png" alt="四次挥手流程图" class="lazyload"><figcaption class="image-caption">四次挥手流程图</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/5pbistqQF7XTxBV.png" alt="四次挥手流程图" title="四次挥手流程图" class="lazyload">
+<figcaption class="image-caption">四次挥手流程图</figcaption></figure>
 </p>
 <ul>
 <li>
@@ -163,7 +168,8 @@
 </li>
 </ul>
 <h2 id="3-四次挥手抓包分析">3. 四次挥手抓包分析</h2>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/4ZnKhodQpuNfmiE.png" alt="四次挥手抓包分析" class="lazyload"><figcaption class="image-caption">四次挥手抓包分析</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/4ZnKhodQpuNfmiE.png" alt="四次挥手抓包分析" title="四次挥手抓包分析" class="lazyload">
+<figcaption class="image-caption">四次挥手抓包分析</figcaption></figure>
 </p>
 <h2 id="4-问题">4. 问题</h2>
 <h3 id="为什么会有time_wait状态">为什么会有TIME_WAIT状态？</h3>
@@ -194,7 +200,8 @@
 <pre class="chroma"><code class="language-c" data-lang="c"><span class="n">netstat</span> <span class="o">-</span><span class="n">n</span> <span class="o">|</span> <span class="n">awk</span> <span class="err">&#39;</span><span class="o">/</span><span class="o">^</span><span class="n">tcp</span><span class="o">/</span><span class="p">{</span><span class="o">+</span><span class="o">+</span><span class="n">S</span><span class="p">[</span><span class="err">$</span><span class="n">NF</span><span class="p">]</span><span class="p">}</span><span class="n">END</span><span class="p">{</span><span class="k">for</span><span class="p">(</span><span class="n">a</span> <span class="n">in</span> <span class="n">S</span><span class="p">)</span> <span class="n">print</span> <span class="n">a</span><span class="p">,</span><span class="n">S</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">}</span><span class="err">&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/5XsPjp2oZCmOngW.jpg" alt="MacOS下的测试" class="lazyload"><figcaption class="image-caption">MacOS下的测试</figcaption></figure>
+</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/5XsPjp2oZCmOngW.jpg" alt="MacOS下的测试" title="MacOS下的测试" class="lazyload">
+<figcaption class="image-caption">MacOS下的测试</figcaption></figure>
 </p>
 <h3 id="为什么需要四次握手才能断开连接">为什么需要四次握手才能断开连接？</h3>
 <p>因为全双工，发送方和接收方都需要FIN报文和ACK报文，当被动方收到主动方的FIN报文通知时，它仅仅表示主动方没有数据再发送给被动方了。但未必被动方所有的数据都完整的发送给了主动方，所以被动方不会马上关闭SOCKET，它可能还需要发送一些数据给主动方后，再发送FIN报文给主动方，告诉主动方同意关闭连接，所以这里的ACK报文和FIN报文多数情况下都是分开发送的。</p>
@@ -213,17 +220,7 @@
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="https://halklein.github.io/2019/10/007/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f007%2f&amp;text=TCP%20%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b&amp;via=xxxx" target="_blank" title="分享到 Twitter">
-            <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f007%2f" target="_blank" title="分享到 Facebook">
-            <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f007%2f&amp;title=TCP%20%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b" target="_blank" title="分享到 Reddit">
-            <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f007%2f&amp;description=TCP%20%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b" target="_blank" title="分享到 Pinterest">
-            <i class="fab fa-pinterest fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2019%2f10%2f007%2f&amp;appkey=&amp;title=TCP%20%e5%9b%9b%e6%ac%a1%e6%8c%a5%e6%89%8b" target="_blank" title="分享到 Weibo">
-            <i class="fab fa-weibo fa-fw"></i>
-        </a></span></div>
+            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://halklein.github.io/2019/10/007/" data-title="TCP 四次挥手" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://halklein.github.io/2019/10/007/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://halklein.github.io/2019/10/007/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://halklein.github.io/2019/10/007/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://halklein.github.io/2019/10/007/" data-title="TCP 四次挥手" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
         </div>
     </div>
 
@@ -239,7 +236,21 @@
     <div class="post-nav"><a href="https://halklein.github.io/2019/10/006/" class="prev" rel="prev" title="TCP 三次握手"><i class="fas fa-angle-left fa-fw"></i>TCP 三次握手</a>
             <a href="https://halklein.github.io/2019/11/008/" class="next" rel="next" title="TCP 和 UDP 的区别">TCP 和 UDP 的区别<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
-<div class="comment"></div>
+<div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script><div class="comment"><div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script></div>
     </article></div>
             </main><footer class="footer">
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
@@ -259,6 +270,5 @@
                     { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
-</body>
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
 </html>

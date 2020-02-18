@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/11/010/" /><link rel="next" href="https://halklein.github.io/2019/12/020/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/forkawesome/fork-awesome.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://halklein.github.io/2019/11/010/" /><link rel="next" href="https://halklein.github.io/2019/12/020/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -59,7 +59,9 @@
         <div class="header-title animated bounceIn">
             <a href="https://halklein.github.io/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -72,7 +74,9 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw" title="切换主题"></i></a>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://halklein.github.io/posts" title="">归档</a><a class="menu-item" href="https://halklein.github.io/tags" title="">标签</a><a class="menu-item" href="https://halklein.github.io/categories" title="">分类</a><a class="menu-item" href="https://halklein.github.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
+            </a>
         </div>
     </div>
 </header>
@@ -139,12 +143,14 @@
 <h2 id="什么是socket">什么是Socket？</h2>
 <p>网络套接字（英语：Network socket；又译网络套接字、网络接口、网络插槽）在计算机科学中是电脑网络中行程间数据流的端点。使用以网际协议（Internet Protocol）为通信基础的网络套接字，称为网际套接字（Internet socket）。因为网际协议的流行，现代绝大多数的网络套接字，都是属于网际套接字。</p>
 <p>socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tl96CpP3Qv4fMEV.jpg" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tl96CpP3Qv4fMEV.jpg" alt="img" title="img" class="lazyload">
+<figcaption class="image-caption">img</figcaption></figure>
 </p>
 <p>Socket与TCP/IP协议并没有必然的联系，Socket编程接口在设计的时候就希望能适应其它的网络协议，所以Socket的出现是为了我们更好地使用TCP/IP协议栈，是对TCP/IP协议的抽象，是操作系统对外开放的接口。</p>
 <h2 id="socket通信流程">socket通信流程</h2>
 <p>以使用TCP协议通讯的socket为例，其交互流程大概是这样子的</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/aJRALE8cFmZonkg.png" alt="Socket通信流程" class="lazyload"><figcaption class="image-caption">Socket通信流程</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/aJRALE8cFmZonkg.png" alt="Socket通信流程" title="Socket通信流程" class="lazyload">
+<figcaption class="image-caption">Socket通信流程</figcaption></figure>
 Socket通信流程</p>
 <h2 id="实列">实列</h2>
 <h3 id="编写一个网络应用程序包含客户端和服务端客户端向服务端发送一个字符串服务端收到字符串并打印到命令行同时向客户端返回字符串长度最后客户端输出收到的字符串长度分别用tcp和udp实现"><strong>编写一个网络应用程序，包含客户端和服务端，客户端向服务端发送一个字符串，服务端收到字符串并打印到命令行同时向客户端返回字符串长度，最后客户端输出收到的字符串长度，分别用TCP和UDP实现。</strong></h3>
@@ -305,9 +311,11 @@ Socket通信流程</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/Rg5GzaCweFlMtjL.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/Rg5GzaCweFlMtjL.png" alt="img" title="img" class="lazyload">
+<figcaption class="image-caption">img</figcaption></figure>
 </p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/iITvbCjR18d2HMY.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/iITvbCjR18d2HMY.png" alt="img" title="img" class="lazyload">
+<figcaption class="image-caption">img</figcaption></figure>
 </p>
 <p><strong>UDP方式：</strong></p>
 <p>服务端</p>
@@ -415,7 +423,8 @@ Socket通信流程</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/RuBrkvAVp5aFTx3.png" alt="img" class="lazyload"><figcaption class="image-caption">img</figcaption></figure>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/RuBrkvAVp5aFTx3.png" alt="img" title="img" class="lazyload">
+<figcaption class="image-caption">img</figcaption></figure>
 </p>
 </br>
 <center> ·End </center>
@@ -431,17 +440,7 @@ Socket通信流程</p>
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="https://halklein.github.io/2019/11/011/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
-            <div class="post-info-share"><span><a href="//twitter.com/share?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f011%2f&amp;text=Socket%20%e5%85%a5%e9%97%a8&amp;via=xxxx" target="_blank" title="分享到 Twitter">
-            <i class="fab fa-twitter fa-fw"></i>
-        </a><a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f011%2f" target="_blank" title="分享到 Facebook">
-            <i class="fab fa-facebook-square fa-fw"></i>
-        </a><a href="//reddit.com/submit?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f011%2f&amp;title=Socket%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Reddit">
-            <i class="fab fa-reddit fa-fw"></i>
-        </a><a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f011%2f&amp;description=Socket%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Pinterest">
-            <i class="fab fa-pinterest fa-fw"></i>
-        </a><a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fhalklein.github.io%2f2019%2f11%2f011%2f&amp;appkey=&amp;title=Socket%20%e5%85%a5%e9%97%a8" target="_blank" title="分享到 Weibo">
-            <i class="fab fa-weibo fa-fw"></i>
-        </a></span></div>
+            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://halklein.github.io/2019/11/011/" data-title="Socket 入门" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://halklein.github.io/2019/11/011/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://halklein.github.io/2019/11/011/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://halklein.github.io/2019/11/011/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://halklein.github.io/2019/11/011/" data-title="Socket 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
         </div>
     </div>
 
@@ -457,7 +456,21 @@ Socket通信流程</p>
     <div class="post-nav"><a href="https://halklein.github.io/2019/11/010/" class="prev" rel="prev" title="HTTP 与 HTTPS"><i class="fas fa-angle-left fa-fw"></i>HTTP 与 HTTPS</a>
             <a href="https://halklein.github.io/2019/12/020/" class="next" rel="next" title="数据库索引之 B&#43; Tree、Hash、BitMap">数据库索引之 B&#43; Tree、Hash、BitMap<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
-<div class="comment"></div>
+<div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script><div class="comment"><div id="valine"></div><script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            new Valine({
+                el: '#valine',
+                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+        });
+    </script></div>
     </article></div>
             </main><footer class="footer">
     <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
@@ -477,6 +490,5 @@ Socket通信流程</p>
                     { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script>
-</body>
+    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
 </html>
