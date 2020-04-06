@@ -36,7 +36,7 @@
                 "url": "https:\/\/halklein.github.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "Redis","wordcount":  1601 ,
+            },"genre": "posts","keywords": "Redis","wordcount":  2639 ,
         "url": "https:\/\/halklein.github.io\/2020\/01\/031\/","datePublished": "2020-01-30T15:31:41\x2b08:00","dateModified": "2020-01-30T15:31:41\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
@@ -91,13 +91,20 @@
                     <i class="fas fa-user-circle fa-fw"></i>HalKlein
                 </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://halklein.github.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
             <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-01-30>2020-01-30</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 1601 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 4 分钟&nbsp;</div>
+                <i class="fas fa-pencil-alt fa-fw"></i>约 2639 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 6 分钟&nbsp;</div>
         </div><div class="post-toc" id="post-toc">
                 <h2 class="post-toc-title">目录</h2>
                 <div class="post-toc-content"><nav id="TableOfContents">
   <ul>
     <li><a href="#redis简介">Redis简介</a></li>
+    <li><a href="#为什么-redis-能这么快">为什么 Redis 能这么快？</a>
+      <ul>
+        <li><a href="#它为何能这么快">它为何能这么快？</a></li>
+        <li><a href="#多路-io-复用模型">多路 I/O 复用模型</a></li>
+        <li><a href="#redis-底层数据类型基础">Redis 底层数据类型基础</a></li>
+      </ul>
+    </li>
     <li><a href="#安装-for-windows">安装 for Windows</a></li>
     <li><a href="#redis常用数据类型的使用">Redis常用数据类型的使用</a>
       <ul>
@@ -110,9 +117,16 @@
         </li>
         <li><a href="#集合sets类型数据-测试">集合（sets）类型数据 测试</a></li>
         <li><a href="#有序集合sorted-sets类型数据-测试">有序集合（sorted sets）类型数据 测试</a></li>
+        <li><a href="#其它的数据类型">其它的数据类型</a></li>
       </ul>
     </li>
     <li><a href="#其它的一些常用命令">其它的一些常用命令</a></li>
+    <li><a href="#从海量数据里查询某一固定前缀的key">从海量数据里查询某一固定前缀的key</a>
+      <ul>
+        <li><a href="#keys">KEYS</a></li>
+        <li><a href="#scan-cursor-match-pattern-count-count">SCAN cursor [MATCH pattern] [COUNT count]</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div>
@@ -127,6 +141,13 @@
                     <div class="post-toc-content"><nav id="TableOfContentsMobile">
   <ul>
     <li><a href="#redis简介">Redis简介</a></li>
+    <li><a href="#为什么-redis-能这么快">为什么 Redis 能这么快？</a>
+      <ul>
+        <li><a href="#它为何能这么快">它为何能这么快？</a></li>
+        <li><a href="#多路-io-复用模型">多路 I/O 复用模型</a></li>
+        <li><a href="#redis-底层数据类型基础">Redis 底层数据类型基础</a></li>
+      </ul>
+    </li>
     <li><a href="#安装-for-windows">安装 for Windows</a></li>
     <li><a href="#redis常用数据类型的使用">Redis常用数据类型的使用</a>
       <ul>
@@ -139,9 +160,16 @@
         </li>
         <li><a href="#集合sets类型数据-测试">集合（sets）类型数据 测试</a></li>
         <li><a href="#有序集合sorted-sets类型数据-测试">有序集合（sorted sets）类型数据 测试</a></li>
+        <li><a href="#其它的数据类型">其它的数据类型</a></li>
       </ul>
     </li>
     <li><a href="#其它的一些常用命令">其它的一些常用命令</a></li>
+    <li><a href="#从海量数据里查询某一固定前缀的key">从海量数据里查询某一固定前缀的key</a>
+      <ul>
+        <li><a href="#keys">KEYS</a></li>
+        <li><a href="#scan-cursor-match-pattern-count-count">SCAN cursor [MATCH pattern] [COUNT count]</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
                 </details>
@@ -165,6 +193,48 @@
 </li>
 </ul>
 </br>
+<h2 id="为什么-redis-能这么快">为什么 Redis 能这么快？</h2>
+<p>官方称 Redis 能达到 10w+ QPS （ QPS 即 query per second ，每秒内查询次数 ）</p>
+<h3 id="它为何能这么快">它为何能这么快？</h3>
+<ol>
+<li>完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高</li>
+<li>数据结构简单，对数据操作也简单</li>
+<li>采用单线程，单线程也能处理高并发请求，想多核也可启动多实例</li>
+<li>使用多路 I/O 复用模型，非阻塞 IO</li>
+</ol>
+<h3 id="多路-io-复用模型">多路 I/O 复用模型</h3>
+<p>FD : File Descriptor，文件描述符</p>
+<p>一个打开的文件通过唯一的描述符进行引用，该描述符是打开文件的元数据到文件本身的映射</p>
+<p><strong>传统的阻塞 I/O 模型</strong></p>
+<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="G:%5cBlogImg%5cimage-20200220164714875.png" alt="image-20200220164714875" title="image-20200220164714875" class="lazyload">
+<figcaption class="image-caption">image-20200220164714875</figcaption></figure>
+</p>
+<p>Redis 采用的 I/O 多路复用函数：epoll / kqueue / evport / select ？</p>
+<ul>
+<li>
+<p>因地制宜</p>
+</li>
+<li>
+<p>优先选择时间复杂度为 O(1) 的 I/0 多路复用函数作为底层实现，包括 Solaries 10 中的 evport、Linux 中的 epoll 和 macOS/FreeBSD 中的 kqueue，上述的这些函数都使用了内核内部的结构，并且能够服务几十万的文件描述符。但是如果当前编译环境没有上述函数，就会选择 select 作为备选方案，由于其在使用时会扫描全部监听的描述符，所以其时间复杂度较差 ，并且只能同时服务 1024 个文件描述符，所以一般并不会以 select 作为第一方案使用。</p>
+</li>
+<li>
+<p>以时间复杂度为 O(n) 的 select 作为保底</p>
+</li>
+<li>
+<p>基于 react 设计模式监听 I/O 事件</p>
+</li>
+</ul>
+<h3 id="redis-底层数据类型基础">Redis 底层数据类型基础</h3>
+<ul>
+<li>简单动态字符串</li>
+<li>链表</li>
+<li>字典</li>
+<li>跳跃表</li>
+<li>整数集合</li>
+<li>压缩列表</li>
+<li>对象</li>
+</ul>
+</br>
 <h2 id="安装-for-windows">安装 for Windows</h2>
 <p><strong>下载地址</strong>：https://github.com/microsoftarchive/redis/releases</p>
 <p><strong>默认端口</strong>：<code>6379</code></p>
@@ -177,14 +247,18 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ redis-cli
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 进入 Redis 服务
+$ redis-cli
+# 选择库
 127.0.0.1:6379&gt; select 1
 OK
-127.0.0.1:6379[1]&gt; select 0
-OK
-127.0.0.1:6379&gt;
+# 连通性测试 ping - pong
+127.0.0.1:6379&gt; ping
+PONG
 </code></pre></td></tr></table>
 </div>
 </div><p><strong>刷除库内的数据</strong>：flushdb</p>
@@ -192,6 +266,7 @@ OK
 </br>
 <h2 id="redis常用数据类型的使用">Redis常用数据类型的使用</h2>
 <h3 id="字符串-string类型数据-测试"><strong>字符串 （String）类型数据 测试</strong></h3>
+<p>基本数据类型，二进制安全（ 意思是可以包含多种数据类型 ）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -238,6 +313,7 @@ OK
 </div>
 </div></br>
 <h3 id="哈希hashes类型数据-测试">哈希（hashes）类型数据 测试</h3>
+<p>String 元素组成的字典，适合用于存储对象</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -253,6 +329,7 @@ OK
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-fallback" data-lang="fallback"># Hash存数据
@@ -261,6 +338,7 @@ OK
 # Hash存数据
 127.0.0.1:6379&gt; hset test:user username HalKlein
 (integer) 1
+# 或者 hmset test:user id 1 username HalKlein
 # Hash取数据
 127.0.0.1:6379&gt; hget test:user username
 &#34;HalKlein&#34;
@@ -275,7 +353,7 @@ OK
 <p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/01/30/hIRMju15YPQnHFg.png" alt="Redis列表" title="Redis列表" class="lazyload">
 <figcaption class="image-caption">Redis列表</figcaption></figure>
 </p>
-<p>Redis的列表可以看作一个横向的容器，</p>
+<p>Redis 的列表可以看作一个横向的容器，</p>
 <p>我们往里面存数据时，支持从左边往里“装”，也支持从右边往里“装”，</p>
 <p>取数据时，支持从左边取数据，也支持从右边取数据，</p>
 <p>根据这样的设计，如果我们的数据从一端进，从另一端出，就可以看作是一个<strong>队列</strong>；</p>
@@ -337,7 +415,7 @@ OK
 </div>
 </div></br>
 <h3 id="集合sets类型数据-测试">集合（sets）类型数据 测试</h3>
-<p>集合是无序的，且内容是不能重复的。</p>
+<p>String 元素组成的无序集合，通过哈希表实现，集合是无序的，且内容是不能重复的。Redis 还特别提供了快速的求交集和并集的操作，可以用来实现比如 “ 共同关注 ” 这样的功能。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -382,7 +460,7 @@ OK
 </div>
 </div></br>
 <h3 id="有序集合sorted-sets类型数据-测试">有序集合（sorted sets）类型数据 测试</h3>
-<p>顾名思义，该集合是有序的，它会根据元素的score进行排序（默认由小到大）</p>
+<p>顾名思义，该集合是有序的，它会根据元素的 score 进行排序（默认由小到大）</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -428,6 +506,9 @@ OK
 </code></pre></td></tr></table>
 </div>
 </div></br>
+<h3 id="其它的数据类型">其它的数据类型</h3>
+<p>Redis 还提供其它的一些特殊数据类型，如用于计数的 HyperLogLog ，用于支持存储地理位置信息的 Geo</p>
+</br>
 <h2 id="其它的一些常用命令">其它的一些常用命令</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -522,6 +603,22 @@ hash
 </code></pre></td></tr></table>
 </div>
 </div></br>
+<h2 id="从海量数据里查询某一固定前缀的key">从海量数据里查询某一固定前缀的key</h2>
+<p>首先应该弄清楚数据的规模！</p>
+<h3 id="keys">KEYS</h3>
+<p>如果用 Keys Pattern ：查找所有符合给定模式 pattern 的 key</p>
+<p>比如：keys ha* ，查找所有以 &ldquo;ha&rdquo; 开头的 Key</p>
+<p>由于 Keys 指令是一次性返回所有匹配的 key，如果 key 的数量过大会使服务卡顿，对内存的消耗和Redis服务器来说都是一个隐患。</p>
+<h3 id="scan-cursor-match-pattern-count-count">SCAN cursor [MATCH pattern] [COUNT count]</h3>
+<ul>
+<li>基于游标的迭代器，需要基于上一次的游标延续之前的迭代过程 。</li>
+<li>以 0 作为游标开始一次新的迭代，直到命令返回游标 0 完成一次遍历 。</li>
+<li>但不保证每次执行都返回某个给定数量的元素，另外支持模糊查询 。</li>
+<li>需要注意，一次返回的数量不可控，只能是大概率符合count参数 。</li>
+</ul>
+<p>如：scan 0 match ha* count 10 ，意思是新的迭代查询以 &ldquo;ha&rdquo; 开头的 key ，并且期望每次大约返回 10 个key 。当执行之后返回的第一行数据，是新的游标地址，之后是一个 keys 数据集 。</p>
+<p>注意，通过测试会发现返回的游标并不是每次递增的，也就是说，查询到的 key 有可能会出现重复，需要在外部程序中进行去重 。</p>
+</br>
 <center> ·End </center>
 <center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
     <div class="post-info">
