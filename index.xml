@@ -1,24 +1,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>HalKlein&#39;s Blog | HalKlein&#39;s Blog</title>
-        <link>https://halklein.github.io/</link>
+        <link>https://1024.imfast.io/</link>
         <description>HalKlein&#39;s Blog | HalKlein&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 07 Feb 2020 16:56:03 +0800</lastBuildDate><atom:link href="https://halklein.github.io/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 07 Feb 2020 16:56:03 +0800</lastBuildDate><atom:link href="https://1024.imfast.io/" rel="self" type="application/rss+xml" /><item>
                 <title>Posts</title>
-                <link>https://halklein.github.io/posts/</link>
-                <pubDate>Fri, 07 Feb 2020 16:56:03 +0800</pubDate><guid>https://halklein.github.io/posts/</guid>
+                <link>https://1024.imfast.io/posts/</link>
+                <pubDate>Fri, 07 Feb 2020 16:56:03 +0800</pubDate><guid>https://1024.imfast.io/posts/</guid>
                 <description></description>
             </item><item>
                 <title>About</title>
-                <link>https://halklein.github.io/about/</link>
-                <pubDate>Thu, 10 Oct 2019 12:55:48 +0800</pubDate><guid>https://halklein.github.io/about/</guid>
+                <link>https://1024.imfast.io/about/</link>
+                <pubDate>Thu, 10 Oct 2019 12:55:48 +0800</pubDate><guid>https://1024.imfast.io/about/</guid>
                 <description>&lt;h1 id=&#34;关于我&#34;&gt;关于我&lt;/h1&gt;
 &lt;p&gt;大四，软件工程在读。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;邮箱&lt;/strong&gt;：dev_&lt;a href=&#34;mailto:lh@163.com&#34;&gt;lh@163.com&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;GitHub&lt;/strong&gt;：https://github.com/halklein&lt;/p&gt;
 &lt;/br&gt;
 &lt;p&gt;My GitHub chart:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;https://halklein.github.io/svg/loading.min.svg&#34; data-sizes=&#34;auto&#34; data-src=&#34;https://ghchart.rshah.org/HalKlein&#34; alt=&#34;GitHub Chart&#34; title=&#34;GitHub Chart&#34; class=&#34;lazyload&#34;&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src=&#34;https://1024.imfast.io/svg/loading.min.svg&#34; data-sizes=&#34;auto&#34; data-src=&#34;https://ghchart.rshah.org/HalKlein&#34; alt=&#34;GitHub Chart&#34; title=&#34;GitHub Chart&#34; class=&#34;lazyload&#34;&gt;
 &lt;figcaption class=&#34;image-caption&#34;&gt;GitHub Chart&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;/p&gt;
 </description>
