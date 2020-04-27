@@ -114,30 +114,34 @@
                     </summary>
                     <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#一密集索引和稀疏索引">一、密集索引和稀疏索引</a></li>
-    <li><a href="#二如何定位并优化慢查询-sql">二、如何定位并优化慢查询 Sql</a>
+    <li>
       <ul>
-        <li><a href="#21-根据慢日志定位慢查询-sql">2.1 根据慢日志定位慢查询 sql</a></li>
-        <li><a href="#22-使用-explain-等工具分析sql">2.2 使用 explain 等工具分析sql</a>
+        <li><a href="#一密集索引和稀疏索引">一、密集索引和稀疏索引</a></li>
+        <li><a href="#二如何定位并优化慢查询-sql">二、如何定位并优化慢查询 Sql</a>
           <ul>
-            <li><a href="#type-字段">type 字段</a></li>
-            <li><a href="#extra-字段">Extra 字段</a></li>
+            <li><a href="#21-根据慢日志定位慢查询-sql">2.1 根据慢日志定位慢查询 sql</a></li>
+            <li><a href="#22-使用-explain-等工具分析sql">2.2 使用 explain 等工具分析sql</a>
+              <ul>
+                <li><a href="#type-字段">type 字段</a></li>
+                <li><a href="#extra-字段">Extra 字段</a></li>
+              </ul>
+            </li>
+            <li><a href="#23-修改-sql-或者尽量让-sql-走索引">2.3 修改 sql 或者尽量让 sql 走索引</a></li>
           </ul>
         </li>
-        <li><a href="#23-修改-sql-或者尽量让-sql-走索引">2.3 修改 sql 或者尽量让 sql 走索引</a></li>
-      </ul>
-    </li>
-    <li><a href="#三联合索引的最左匹配原则的成因">三、联合索引的最左匹配原则的成因</a>
-      <ul>
-        <li>
+        <li><a href="#三联合索引的最左匹配原则的成因">三、联合索引的最左匹配原则的成因</a>
           <ul>
-            <li><a href="#详细规则如下">详细规则如下：</a></li>
-            <li><a href="#成因">成因</a></li>
+            <li>
+              <ul>
+                <li><a href="#详细规则如下">详细规则如下：</a></li>
+                <li><a href="#成因">成因</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
+        <li><a href="#四索引是建立得越多越好吗">四、索引是建立得越多越好吗？</a></li>
       </ul>
     </li>
-    <li><a href="#四索引是建立得越多越好吗">四、索引是建立得越多越好吗？</a></li>
   </ul>
 </nav></div>
                 </details>
