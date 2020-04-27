@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Redis 高性能存储入门 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="HalKlein&#39;s Blog"><meta property="og:title" content="Redis 高性能存储入门" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://1024.imfast.io/zh-cn/posts/031/" />
+<meta property="article:published_time" content="2020-01-30T15:31:41+08:00" />
+<meta property="article:modified_time" content="2020-01-30T15:31:41+08:00" /><meta property="og:site_name" content="HalKlein&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis 高性能存储入门"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://1024.imfast.io/zh-cn/posts/031/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/zh-cn/posts/030/" /><link rel="next" href="https://1024.imfast.io/zh-cn/posts/032/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis 高性能存储入门",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/1024.imfast.io\/zh-cn\/posts\/031\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "zh-cn","keywords": "Redis","wordcount":  718 ,
+        "url": "https:\/\/1024.imfast.io\/zh-cn\/posts\/031\/","datePublished": "2020-01-30","dateModified": "2020-01-30","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/031/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" title="" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/031/" selected>English</option></select>
+                </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animated pulse faster">Redis 高性能存储入门</h1><div class="content" id="content"><h2 id="redis简介">Redis简介</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/30/TSIZAhWOYXGcjVn.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
+<ul>
+<li>
+<p>Redis是一款基于键值对的<strong>NoSQL</strong>数据库，它的值支持多种数据结构：
+字符串（strings）、哈希（hashes）、列表（lists）、集合（sets）、有序集合（sorted sets）等。</p>
+</li>
+<li>
+<p>Redis将所有的数据都存放在内存中，所以它的读写性能十分惊人。
+同时，Redis还可以将内存中的数据以快照 (RDB，适合空闲的时候进行定时备份) 或日志 (AOF，可以实时存储，但恢复速度慢)  的形式保存到硬盘上，以保证数据的安全性。</p>
+</li>
+<li>
+<p>Redis典型的应用场景包括：<strong>缓存</strong>、<strong>排行榜</strong>、<strong>计数器</strong>、<strong>社交网络</strong>、<strong>消息队列</strong> (但Redis不是专业的消息队列工具) 等。</p>
+<p>官网：https://redis.io</p>
+<p>Windows平台：https://github.com/microsoftarchive/redis</p>
+</li>
+</ul>
+</br>
+<h2 id="为什么-redis-能这么快">为什么 Redis 能这么快？</h2>
+<p>官方称 Redis 能达到 10w+ QPS （ QPS 即 query per second ，每秒内查询次数 ）</p>
+<h3 id="它为何能这么快">它为何能这么快？</h3>
+<ol>
+<li>完全基于内存，绝大部分请求是纯粹的内存操作，执行效率高</li>
+<li>数据结构简单，对数据操作也简单</li>
+<li>采用单线程，单线程也能处理高并发请求，想多核也可启动多实例</li>
+<li>使用多路 I/O 复用模型，非阻塞 IO</li>
+</ol>
+<h3 id="多路-io-复用模型">多路 I/O 复用模型</h3>
+<p>FD : File Descriptor，文件描述符</p>
+<p>一个打开的文件通过唯一的描述符进行引用，该描述符是打开文件的元数据到文件本身的映射</p>
+<p><strong>传统的阻塞 I/O 模型</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="G:%5cBlogImg%5cimage-20200220164714875.png,  1.5x,  2x"
+        data-src=""
+        alt="image-20200220164714875"
+        title="image-20200220164714875" /></p>
+<p>Redis 采用的 I/O 多路复用函数：epoll / kqueue / evport / select ？</p>
+<ul>
+<li>
+<p>因地制宜</p>
+</li>
+<li>
+<p>优先选择时间复杂度为 O(1) 的 I/0 多路复用函数作为底层实现，包括 Solaries 10 中的 evport、Linux 中的 epoll 和 macOS/FreeBSD 中的 kqueue，上述的这些函数都使用了内核内部的结构，并且能够服务几十万的文件描述符。但是如果当前编译环境没有上述函数，就会选择 select 作为备选方案，由于其在使用时会扫描全部监听的描述符，所以其时间复杂度较差 ，并且只能同时服务 1024 个文件描述符，所以一般并不会以 select 作为第一方案使用。</p>
+</li>
+<li>
+<p>以时间复杂度为 O(n) 的 select 作为保底</p>
+</li>
+<li>
+<p>基于 react 设计模式监听 I/O 事件</p>
+</li>
+</ul>
+<h3 id="redis-底层数据类型基础">Redis 底层数据类型基础</h3>
+<ul>
+<li>简单动态字符串</li>
+<li>链表</li>
+<li>字典</li>
+<li>跳跃表</li>
+<li>整数集合</li>
+<li>压缩列表</li>
+<li>对象</li>
+</ul>
+</br>
+<h2 id="安装-for-windows">安装 for Windows</h2>
+<p><strong>下载地址</strong>：https://github.com/microsoftarchive/redis/releases</p>
+<p><strong>默认端口</strong>：<code>6379</code></p>
+<p>Redis默认内置了16个库 ，可以通过 select 0-15 进行切换，默认进入0</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 进入 Redis 服务
+$ redis-cli
+# 选择库
+127.0.0.1:6379&gt; select 1
+OK
+# 连通性测试 ping - pong
+127.0.0.1:6379&gt; ping
+PONG
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>刷除库内的数据</strong>：flushdb</p>
+<p>注意Redis中key的命名提倡使用 <code>:</code> 连接而不是 <code>_</code></p>
+</br>
+<h2 id="redis常用数据类型的使用">Redis常用数据类型的使用</h2>
+<h3 id="字符串-string类型数据-测试"><strong>字符串 （String）类型数据 测试</strong></h3>
+<p>基本数据类型，二进制安全（ 意思是可以包含多种数据类型 ）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 存String测试
+127.0.0.1:6379&gt; set author HalKlein
+OK
+# 查询String数据
+127.0.0.1:6379&gt; get author
+&#34;HalKlein&#34;
+127.0.0.1:6379&gt;
+127.0.0.1:6379&gt; set count 1
+OK
+127.0.0.1:6379&gt; get count
+&#34;1&#34;
+# 加1
+127.0.0.1:6379&gt; incr count
+(integer) 2
+# 减1
+127.0.0.1:6379&gt; decr count
+(integer) 1
+127.0.0.1:6379&gt;
+
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h3 id="哈希hashes类型数据-测试">哈希（hashes）类型数据 测试</h3>
+<p>String 元素组成的字典，适合用于存储对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Hash存数据
+127.0.0.1:6379&gt; hset test:user id 1
+(integer) 1
+# Hash存数据
+127.0.0.1:6379&gt; hset test:user username HalKlein
+(integer) 1
+# 或者 hmset test:user id 1 username HalKlein
+# Hash取数据
+127.0.0.1:6379&gt; hget test:user username
+&#34;HalKlein&#34;
+# Hash取数据
+127.0.0.1:6379&gt; hget test:user id
+&#34;1&#34;
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h3 id="列表lists类型数据-测试">列表（lists）类型数据 测试</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/30/hIRMju15YPQnHFg.png,  1.5x,  2x"
+        data-src=""
+        alt="Redis列表"
+        title="Redis列表" /></p>
+<p>Redis 的列表可以看作一个横向的容器，</p>
+<p>我们往里面存数据时，支持从左边往里“装”，也支持从右边往里“装”，</p>
+<p>取数据时，支持从左边取数据，也支持从右边取数据，</p>
+<p>根据这样的设计，如果我们的数据从一端进，从另一端出，就可以看作是一个<strong>队列</strong>；</p>
+<p>如果我们的数据从一端进，也从该端出，就可以看作是一个<strong>栈</strong>；</p>
+<h4 id="list左进右出演示"><strong>List左进右出演示</strong></h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># List左端进数据
+127.0.0.1:6379&gt; lpush test:ids 101 102 103
+(integer) 3
+# List长度查询
+127.0.0.1:6379&gt; llen test:ids
+(integer) 3
+# 根据List下标查数据
+127.0.0.1:6379&gt; lindex test:ids 0
+&#34;103&#34;
+# 查询List某范围之间的数据
+127.0.0.1:6379&gt; lrange test:ids 0 2
+1) &#34;103&#34;
+2) &#34;102&#34;
+3) &#34;101&#34;
+# 从右端弹出数据
+127.0.0.1:6379&gt; rpop test:ids
+&#34;101&#34;
+# 从右端弹出数据
+127.0.0.1:6379&gt; rpop test:ids
+&#34;102&#34;
+# List长度查询
+127.0.0.1:6379&gt; llen test:ids
+(integer) 1
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h3 id="集合sets类型数据-测试">集合（sets）类型数据 测试</h3>
+<p>String 元素组成的无序集合，通过哈希表实现，集合是无序的，且内容是不能重复的。Redis 还特别提供了快速的求交集和并集的操作，可以用来实现比如 “ 共同关注 ” 这样的功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 集合中添加数据
+127.0.0.1:6379&gt; sadd test:student aaa bbb ccc ddd eee
+(integer) 5
+# 统计集合中元素个数
+127.0.0.1:6379&gt; scard test:student
+(integer) 5
+# 从集合中随机弹出一个元素
+127.0.0.1:6379&gt; spop test:student
+&#34;aaa&#34;
+# 从集合中随机弹出一个元素
+127.0.0.1:6379&gt; spop test:student
+&#34;eee&#34;
+# 查看集合中的元素
+127.0.0.1:6379&gt; smembers test:student
+1) &#34;bbb&#34;
+2) &#34;ccc&#34;
+3) &#34;ddd&#34;
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h3 id="有序集合sorted-sets类型数据-测试">有序集合（sorted sets）类型数据 测试</h3>
+<p>顾名思义，该集合是有序的，它会根据元素的 score 进行排序（默认由小到大）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 有序集合添加数据
+127.0.0.1:6379&gt; zadd test:teachers 20 aaa 10 bbb 50 ccc 30 ddd 40 eee
+(integer) 5
+# 统计有序集合中元素数量
+127.0.0.1:6379&gt; zcard test:teachers
+(integer) 5
+# 查询有序集合中的元素的score
+127.0.0.1:6379&gt; zscore test:teachers eee
+&#34;40&#34;
+# 查询有序集合中元素的位置排名
+127.0.0.1:6379&gt; zrank test:teachers eee
+(integer) 3
+# 查询某个范围间的所有元素
+127.0.0.1:6379&gt; zrange test:teachers 0 3
+1) &#34;bbb&#34;
+2) &#34;aaa&#34;
+3) &#34;ddd&#34;
+4) &#34;eee&#34;
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h3 id="其它的数据类型">其它的数据类型</h3>
+<p>Redis 还提供其它的一些特殊数据类型，如用于计数的 HyperLogLog ，用于支持存储地理位置信息的 Geo</p>
+</br>
+<h2 id="其它的一些常用命令">其它的一些常用命令</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 查询所有的key
+127.0.0.1:6379&gt; keys *
+1) &#34;author&#34;
+2) &#34;test:user&#34;
+3) &#34;count&#34;
+4) &#34;test:ids&#34;
+5) &#34;test:student&#34;
+6) &#34;test:teachers&#34;
+# 查询以 ‘test’开头的key
+127.0.0.1:6379&gt; keys test*
+1) &#34;test:user&#34;
+2) &#34;test:ids&#34;
+3) &#34;test:student&#34;
+4) &#34;test:teachers&#34;
+# 查询某个key对应的value的值的类型
+127.0.0.1:6379&gt; type test:user
+hash
+# 查询某个key是否存在
+127.0.0.1:6379&gt; exists test:user
+(integer) 1
+# 删除某个key，会连带value一起删除
+127.0.0.1:6379&gt; del test:user
+(integer) 1
+# 再次查询某个key是否存在
+127.0.0.1:6379&gt; exists test:user
+(integer) 0
+# 指定某个key的有效时间
+127.0.0.1:6379&gt; expire test:student 10
+(integer) 1
+# 查询所有的key
+127.0.0.1:6379&gt; keys *
+1) &#34;author&#34;
+2) &#34;count&#34;
+3) &#34;test:ids&#34;
+4) &#34;test:student&#34;
+5) &#34;test:teachers&#34;
+# 10多秒后，再次查询所有的key
+127.0.0.1:6379&gt; keys *
+1) &#34;author&#34;
+2) &#34;count&#34;
+3) &#34;test:ids&#34;
+4) &#34;test:teachers&#34;
+127.0.0.1:6379&gt;
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h2 id="从海量数据里查询某一固定前缀的key">从海量数据里查询某一固定前缀的key</h2>
+<p>首先应该弄清楚数据的规模！</p>
+<h3 id="keys">KEYS</h3>
+<p>如果用 Keys Pattern ：查找所有符合给定模式 pattern 的 key</p>
+<p>比如：keys ha* ，查找所有以 &ldquo;ha&rdquo; 开头的 Key</p>
+<p>由于 Keys 指令是一次性返回所有匹配的 key，如果 key 的数量过大会使服务卡顿，对内存的消耗和Redis服务器来说都是一个隐患。</p>
+<h3 id="scan-cursor-match-pattern-count-count">SCAN cursor [MATCH pattern] [COUNT count]</h3>
+<ul>
+<li>基于游标的迭代器，需要基于上一次的游标延续之前的迭代过程 。</li>
+<li>以 0 作为游标开始一次新的迭代，直到命令返回游标 0 完成一次遍历 。</li>
+<li>但不保证每次执行都返回某个给定数量的元素，另外支持模糊查询 。</li>
+<li>需要注意，一次返回的数量不可控，只能是大概率符合count参数 。</li>
+</ul>
+<p>如：scan 0 match ha* count 10 ，意思是新的迭代查询以 &ldquo;ha&rdquo; 开头的 key ，并且期望每次大约返回 10 个key 。当执行之后返回的第一行数据，是新的游标地址，之后是一个 keys 数据集 。</p>
+<p>注意，通过测试会发现返回的游标并不是每次递增的，也就是说，查询到的 key 有可能会出现重复，需要在外部程序中进行去重 。</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div>
+    </div></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/halklein" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
+</html>
