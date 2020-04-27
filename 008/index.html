@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>TCP 和 UDP 的区别 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="HalKlein&#39;s Blog"><meta property="og:title" content="TCP 和 UDP 的区别" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://1024.imfast.io/008/" />
+<meta property="article:published_time" content="2019-11-01T14:26:16+08:00" />
+<meta property="article:modified_time" content="2019-11-01T14:26:16+08:00" /><meta property="og:site_name" content="HalKlein&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="TCP 和 UDP 的区别"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://1024.imfast.io/008/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/007/" /><link rel="next" href="https://1024.imfast.io/009/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "TCP 和 UDP 的区别",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/1024.imfast.io\/008\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "计算机网络","wordcount":  61 ,
+        "url": "https:\/\/1024.imfast.io\/008\/","datePublished": "2019-11-01","dateModified": "2019-11-01","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/008/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" title="" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/008/" selected>English</option></select>
+                </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">TCP 和 UDP 的区别</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-01>2019-11-01</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 61 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>1 min&nbsp;<span id="/008/" class="leancloud_visitors" data-flag-title="TCP 和 UDP 的区别">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="content" id="content"><h2 id="1-udp协议">1. UDP协议</h2>
+<p><strong>用户数据报协议</strong>（英语：<strong>U</strong>ser <strong>D</strong>atagram <strong>P</strong>rotocol，缩写：<strong>UDP</strong>；又称<strong>用户数据包协议</strong>）是一个简单的面向数据报的通信协议，位于OSI模型的传输层。该协议由 <a href="https://zh.wikipedia.org/w/index.php?title=David_P._Reed&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener noreffer">David P. Reed</a>
+ 在1980年设计且在<a href="https://tools.ietf.org/html/rfc768" target="_blank" rel="noopener noreffer">RFC 768</a>
+中被规范。典型网络上的众多使用UDP协议的关键应用在一定程度上是相似的。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/tk53hsSwfUxFKAE.png,  1.5x,  2x"
+        data-src=""
+        alt="UDP头部结构"
+        title="UDP头部结构" /></p>
+<p><strong>UDP头部包含了以下几个数据：</strong></p>
+<ul>
+<li>两个16位的端口号，分别为源端口（可选）和目标端口</li>
+<li>数据报的长度</li>
+<li>数据报的检验和（IPv4 可选字段），该字段用于发现头部信息和数据中的错误</li>
+</ul>
+<p>UDP相比于TCP明显要简单很多，因此UDP头部开销小，只有8个字节，在传输数据报文时是很高效的。当然也就不支持错误重传，滑动窗口等精细的控制。</p>
+<p><strong>UDP的特点：</strong></p>
+<ul>
+<li>面向非连接，传输数据之前不需要先建立连接。</li>
+<li>不维护连接状态，支持同时向多个客户端传输相同的消息， 支持一对一、一对多、多对多、多对一的传输方式，也就是说 UDP 提供了单播，多播，广播的功能。</li>
+<li>数据包报头只有8个字节，额外开销较小</li>
+<li>吞吐量只受限于数据生成速率、传输速率以及机器性能</li>
+<li>不可靠：尽最大努力交付，不保证可靠交付，不需要维持复杂的链接状态表</li>
+<li>面向报文，不对应用程序提交的报文信息进行拆分或者合并</li>
+</ul>
+<h2 id="2-tcp和udp的区别">2. TCP和UDP的区别</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否连接</td>
+<td>面向连接</td>
+<td>无连接</td>
+</tr>
+<tr>
+<td>可靠性</td>
+<td>可靠传输，使用流量控制和拥塞控制</td>
+<td>不可靠传输，不使用流量控制和拥塞控制</td>
+</tr>
+<tr>
+<td>有序性</td>
+<td>有序</td>
+<td>无序</td>
+</tr>
+<tr>
+<td>速率</td>
+<td>慢</td>
+<td>快</td>
+</tr>
+<tr>
+<td>量级</td>
+<td>重量级</td>
+<td>轻量级</td>
+</tr>
+<tr>
+<td>连接对象个数</td>
+<td>只支持一对一通信</td>
+<td>支持一对一，一对多，多对一、多对多通信</td>
+</tr>
+<tr>
+<td>传输方式</td>
+<td>面向字节流</td>
+<td>面向报文</td>
+</tr>
+<tr>
+<td>首部开销</td>
+<td>首部最小20字节，最大60字节</td>
+<td>首部开销小，仅8字节</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>要求可靠传输的应用，例如文件传输</td>
+<td>实时应用（IP电话、视频会议、直播等）</td>
+</tr>
+</tbody>
+</table>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>The article was updated on 2019-11-01</span>
+            </div>
+            <div class="post-info-license"><span>Published under the CC BY-NC 4.0 license</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/008/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/008/" data-title="TCP 和 UDP 的区别" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/008/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://1024.imfast.io/008/" data-title="TCP 和 UDP 的区别"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="Share on Pocket" data-sharer="pocket" data-url="https://1024.imfast.io/008/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://1024.imfast.io/008/" data-title="TCP 和 UDP 的区别"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="https://1024.imfast.io/008/" data-title="TCP 和 UDP 的区别" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="https://1024.imfast.io/008/" data-title="TCP 和 UDP 的区别"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/007/" class="prev" rel="prev" title="TCP 四次挥手"><i class="fas fa-angle-left fa-fw"></i>TCP 四次挥手</a>
+            <a href="/009/" class="next" rel="next" title="TCP 滑动窗口">TCP 滑动窗口<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"><div id="valine"></div><script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️Say something, this comment supports Markdown grammar, please leave a message! ...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/halklein" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script src="/lib/valine/Valine.min.js"></script><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
+</html>

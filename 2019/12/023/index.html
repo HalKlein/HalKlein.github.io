@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/12/022/" /><link rel="next" href="https://1024.imfast.io/2020/01/024/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/12/022/" /><link rel="next" href="https://1024.imfast.io/2020/01/024/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "Web 项目的一些调试技巧",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2019\/12\/023\/"
@@ -37,7 +38,7 @@
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","keywords": "Spring全家桶, 调试","wordcount":  1339 ,
-        "url": "https:\/\/1024.imfast.io\/2019\/12\/023\/","datePublished": "2019-12-28T20:14:16\x2b08:00","dateModified": "2019-12-28T20:14:16\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/1024.imfast.io\/2019\/12\/023\/","datePublished": "2019-12-28","dateModified": "2019-12-28","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,33 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Web 项目的一些调试技巧</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-28>2019-12-28</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 1339 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-响应状态码的含义">1. 响应状态码的含义</a></li>
-    <li><a href="#2-服务端断点调试技巧">2. 服务端断点调试技巧</a></li>
-    <li><a href="#3-客户端断点调试技巧">3. 客户端断点调试技巧</a></li>
-    <li><a href="#4-设置日志级别并将日志输出到不同的终端">4. 设置日志级别，并将日志输出到不同的终端</a></li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Web 项目的一些调试技巧</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-28>2019-12-28</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2019/12/023/" class="leancloud_visitors" data-flag-title="Web 项目的一些调试技巧">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#1-响应状态码的含义">1. 响应状态码的含义</a></li>
     <li><a href="#2-服务端断点调试技巧">2. 服务端断点调试技巧</a></li>
@@ -121,7 +121,7 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="1-响应状态码的含义">1. 响应状态码的含义</h2>
+            </div><div class="content" id="content"><h2 id="1-响应状态码的含义">1. 响应状态码的含义</h2>
 <p><code>200 OK</code>，表明请求已经成功. 默认情况下状态码为200的响应可以被缓存。</p>
 <p><code>302 Found</code>，重定向，服务器发送 <code>302</code> 状态码和一个新的 <code>url </code> 让浏览器再发一次新的请求，实现功能的跳转。</p>
 <p><code>404 Not Found</code>，往往是路径配置有误。</p>
@@ -133,21 +133,36 @@
 <p>按 <code>F7</code> 可以进入到当前行执行的方法内部，查看更详细的调试信息</p>
 <p>按 <code>F9</code> 可以一直向下执行直到遇到下一个断点处，注意在调试期间也可以在之后的程序代码中继续打断点，用于跳过一些繁杂的循环或者确定正确的程序段。</p>
 <p>有些信息可能是以Hash值显示，这时可以在下方调试框中展开看信息信息：</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/28/ZM548VEUdLiYyaW.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/28/ZM548VEUdLiYyaW.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>如果断点太多，你还可以批量管理断点：</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/28/jRGKmuvIPdsegJk.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/28/jRGKmuvIPdsegJk.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <h2 id="3-客户端断点调试技巧">3. 客户端断点调试技巧</h2>
 <p>这里主要是指对 JS 的调试。以Chrome浏览器为例，调出如下页面，<code>F10</code>进入下一条语句，<code>F11</code>进入当前语句，<code>F8</code>到下一个断点或执行到底。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/28/hBezrIyuPVgJNUb.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/28/hBezrIyuPVgJNUb.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <h2 id="4-设置日志级别并将日志输出到不同的终端">4. 设置日志级别，并将日志输出到不同的终端</h2>
-<p>Spring boot内置默认的日志工具 <a href="https://logback.qos.ch" target="_blank">Logback</a>
- ，<a href="http://logback.qos.ch/manual/index.html" target="_blank">参考手册</a>
+<p>Spring boot内置默认的日志工具 <a href="https://logback.qos.ch" target="_blank" rel="noopener noreffer">Logback</a>
+ ，<a href="http://logback.qos.ch/manual/index.html" target="_blank" rel="noopener noreffer">参考手册</a>
 </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -413,58 +428,83 @@ logging.file.name = E:/Test/community.log
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2019-12-28 更新</span>
+                <span>%!(EXTRA string=2019-12-28)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2019/12/023/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2019/12/023/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/12/023/" data-title="Web 项目的一些调试技巧" data-via="xxxx" data-hashtags="Spring全家桶,调试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/12/023/" data-hashtag="Spring全家桶"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/12/023/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/12/023/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/12/023/" data-title="Web 项目的一些调试技巧" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/12/023/" data-title="Web 项目的一些调试技巧" data-via="xxxx" data-hashtags="Spring全家桶,调试"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/12/023/" data-hashtag="Spring全家桶"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/12/023/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/12/023/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/12/023/" data-title="Web 项目的一些调试技巧" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6/"><i class="fas fa-tag fa-fw"></i>&nbsp;Spring全家桶</a>&nbsp;
-                    </span><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E8%B0%83%E8%AF%95/"><i class="fas fa-tag fa-fw"></i>&nbsp;调试</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6">Spring全家桶</a>,&nbsp;<a href="/tags/%E8%B0%83%E8%AF%95">调试</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2019/12/022/" class="prev" rel="prev" title="用 iTerm2 美化你的 Mac 终端"><i class="fas fa-angle-left fa-fw"></i>用 iTerm2 美化你的 Mac 终端</a>
-            <a href="https://1024.imfast.io/2020/01/024/" class="next" rel="next" title="记第一次住院">记第一次住院<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2019/12/022/" class="prev" rel="prev" title="用 iTerm2 美化你的 Mac 终端"><i class="fas fa-angle-left fa-fw"></i>用 iTerm2 美化你的 Mac 终端</a>
+            <a href="/2020/01/024/" class="next" rel="next" title="记第一次住院">记第一次住院<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

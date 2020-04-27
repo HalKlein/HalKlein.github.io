@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
     <head>
 	<meta name="generator" content="Hugo 0.64.1" />
         <meta charset="utf-8">
@@ -7,14 +7,14 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>HalKlein&#39;s Blog</title>
-        <meta name="Description" content="一个进击的Java程序员"><meta property="og:title" content="HalKlein&#39;s Blog" />
-<meta property="og:description" content="一个进击的Java程序员" />
+        <meta name="Description" content="HalKlein&#39;s Blog"><meta property="og:title" content="HalKlein&#39;s Blog" />
+<meta property="og:description" content="HalKlein&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://1024.imfast.io/" />
-<meta property="og:updated_time" content="2020-02-07T16:56:03+08:00" />
+<meta property="og:updated_time" content="2020-04-27T07:51:53+08:00" /><meta property="og:site_name" content="HalKlein&#39;s Blog" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="HalKlein&#39;s Blog"/>
-<meta name="twitter:description" content="一个进击的Java程序员"/>
+<meta name="twitter:description" content="HalKlein&#39;s Blog"/>
 <meta name="theme-color" content="#ffffff">
 <meta name="msapplication-TileColor" content="#da532c">
 <link rel="canonical" href="https://1024.imfast.io/" />
@@ -24,14 +24,14 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="alternate" href="/index.xml" type="application/rss+xml" title="HalKlein&#39;s Blog">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="HalKlein&#39;s Blog"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="HalKlein&#39;s Blog"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "https:\/\/1024.imfast.io\/","author": {
+        "url": "https:\/\/1024.imfast.io\/","inLanguage": "en","author": {
                 "@type": "Person",
                 "name": "HalKlein"
-            },"description": "一个进击的Java程序员","image": "https:\/\/1024.imfast.io\/cover.png","thumbnailUrl": "https:\/\/1024.imfast.io\/logo.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "HalKlein\x27s Blog"
+            },"description": "HalKlein\x27s Blog","image": "https:\/\/1024.imfast.io\/cover.png","thumbnailUrl": "https:\/\/1024.imfast.io\/logo.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "HalKlein\x27s Blog"
     }
     </script></head>
     <body><script>
@@ -41,28 +41,31 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/" selected>English</option><option value="/zh-cn/">简体中文</option><option value="/fr/">Français</option></select>
+                </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" title="" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/" selected>English</option><option value="/zh-cn/">简体中文</option><option value="/fr/">Français</option></select>
+                </a></div>
     </div>
 </header>
 
@@ -72,82 +75,103 @@
 </script>
 <main class="main">
                 <div class="container"><div class="page home"><div class="home-profile"><div class="home-avatar">
-            <a href="/posts">
-                <img src=/images/avatar.png alt="avatar" title="主页">
-            </a>
-        </div><h2 class="home-description">宽和慈善，不忤于物，进退沉浮，自得而已</h2><div class="home-social-links"><a href="https://github.com/halklein" rel="me noopener noreffer" target="_blank" title="GitHub"><i class="fab fa-github-alt fa-fw"></i></a>
-<a href="https://twitter.com/xxxx" rel="me noopener noreffer" target="_blank" title="Twitter"><i class="fab fa-twitter fa-fw"></i></a>
-<a href="https://t.me/xxxx" rel="me noopener noreffer" target="_blank" title="Telegram"><i class="fab fa-telegram-plane fa-fw"></i></a>
-<a href="https://www.reddit.com/user/xxxx" rel="me noopener noreffer" target="_blank" title="Reddit"><i class="fab fa-reddit fa-fw"></i></a>
-<a href="https://stackoverflow.com/users/xxxx" rel="me noopener noreffer" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow fa-fw"></i></a>
-<a href="https://weibo.com/xxxx" rel="me noopener noreffer" target="_blank" title="微博"><i class="fab fa-weibo fa-fw"></i></a>
-<a href="mailto:xxxx@outlook.com" rel="me noopener noreffer" target="_blank" title="Email"><i class="far fa-envelope fa-fw"></i></a>
+            <a href="/posts"><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="/images/avatar.png,  1.5x,  2x"
+        data-src=""
+        alt="avatar"
+        title="Home" /></a>
+        </div><h2 class="home-description"><div id="id-6dbbeb" class="typeit"></div></h2><div class="home-social-links"><a href="https://github.com/halklein" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a>
+<a href="https://t.me/xxxx" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw"></i></a>
+<a href="https://www.zhihu.com/people/xxxx" title="知乎" target="_blank" rel="noopener noreffer me"><i class="loveit it-zhihu-line"></i></a>
+<a href="https://space.bilibili.com/xxxx" title="bilibili" target="_blank" rel="noopener noreffer me"><i class="loveit it-bilibili-fill"></i></a>
+<a href="mailto:dev_lh@163.com" title="Email" rel="noopener noreffer me"><i class="far fa-envelope fa-fw"></i></a>
 </div>
 </div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2019/10/005/">OSI 模型和 TCP/IP 模型</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2019-10-31>2019-10-31</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a></span></div><div class="content">1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型 ，由国际标准化组织</div><div class="post-footer">
-        <a href="https://1024.imfast.io/2019/10/005/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><i class="fas fa-tag fa-fw"></i>&nbsp;计算机网络</a>
-                    </span></div></div>
+        <a href="/006/">TCP 三次握手</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2019-10-31>2019-10-31</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                        <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                    </a></span></div><div class="content"></div><div class="post-footer">
+        <a href="/006/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></div></div>
 </article>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2019/10/002/">采坑小记</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2019-10-15>2019-10-15</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="https://1024.imfast.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/">生命不息折腾不止</a></span></div><div class="content"></div><div class="post-footer">
-        <a href="https://1024.imfast.io/2019/10/002/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E5%8D%9A%E5%AE%A2/"><i class="fas fa-tag fa-fw"></i>&nbsp;博客</a>
-                    </span><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E6%8A%98%E8%85%BE/"><i class="fas fa-tag fa-fw"></i>&nbsp;折腾</a>
-                    </span></div></div>
+        <a href="/005/">OSI 模型和 TCP/IP 模型</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2019-10-31>2019-10-31</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                        <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                    </a></span></div><div class="content">1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型 ，由国际标准化组织 提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。
+物理层（Physical Layer） 在局部局域网上传送数据帧 （data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis
+数据链路层**（Datalink Layer）** 定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： HDLC 、PPP、STP等。
+网络层 （Network Layer） 在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：IP、ICMP（互联网控制报文协议）、ARP（地址转换协议）、RARP（反向地址转换协议）
+传输层（Transport Layer） OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：TCP（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），UDP（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。
+会话层（Session Layer） 负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。
+通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。
+常见的协议有 ADSP、RPC 等。
+表示层（Presentation Layer） 应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有ASCII、SSL/TLS 等。
+应用层（Application Layer） 是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 HTTP，FTP，TELNET、SMTP 等。
+OSI模型 数据传输流程概览 2. TCP/IP四层网络模型 提出 OSI模型是一个定义良好的协议规范集，定义了开放系统的层次结构和之间的关系，但并没有提供一个可实现的方法，其并非一个标准，而是一个慨念型框架。TCP/IP是被广泛使用的OSI模型的实现。
+简介 TCP/IP协议栈是美国国防部高级研究计划局计算机网（Advanced Research Projects Agency Network，ARPANET）和其后继因特网使用的参考模型。ARPANET是由美国国防部（U.S．Department of Defense，DoD）赞助的研究网络。最初，它只连接了美国境内的四所大学。随后的几年中，它通过租用的电话线连接了数百所大学和政府部门。最终ARPANET发展成为全球规模最大的互连网络-因特网。最初的ARPANET于1990年永久性地关闭。</div><div class="post-footer">
+        <a href="/005/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></div></div>
 </article>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2019/10/001/">博客迁移 Hugo</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2019-10-10>2019-10-10</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="https://1024.imfast.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/">生命不息折腾不止</a></span></div><div class="content"></div><div class="post-footer">
-        <a href="https://1024.imfast.io/2019/10/001/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E6%8A%98%E8%85%BE/"><i class="fas fa-tag fa-fw"></i>&nbsp;折腾</a>
-                    </span><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E5%8D%9A%E5%AE%A2/"><i class="fas fa-tag fa-fw"></i>&nbsp;博客</a>
-                    </span></div></div>
+        <a href="/002/">采坑小记</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2019-10-15>2019-10-15</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2">
+                        <i class="far fa-folder fa-fw"></i>生命不息折腾不止
+                    </a></span></div><div class="content"></div><div class="post-footer">
+        <a href="/002/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%8D%9A%E5%AE%A2">博客</a>,&nbsp;<a href="/tags/%E6%8A%98%E8%85%BE">折腾</a></div></div>
 </article>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2019/03/012/">算法比赛模板（一）</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2019-03-23>2019-03-23</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a></span></div><div class="content"></div><div class="post-footer">
-        <a href="https://1024.imfast.io/2019/03/012/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E7%AE%97%E6%B3%95/"><i class="fas fa-tag fa-fw"></i>&nbsp;算法</a>
-                    </span></div></div>
+        <a href="/001/">博客迁移 Hugo</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2019-10-10>2019-10-10</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2">
+                        <i class="far fa-folder fa-fw"></i>生命不息折腾不止
+                    </a></span></div><div class="content"></div><div class="post-footer">
+        <a href="/001/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%8A%98%E8%85%BE">折腾</a>,&nbsp;<a href="/tags/%E5%8D%9A%E5%AE%A2">博客</a></div></div>
 </article>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2018/11/019/">为何要探索宇宙？</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2018-11-05>2018-11-05</time>&nbsp;<span class="post-category">收录于&nbsp;</span></div><div class="content"></div><div class="post-footer">
-        <a href="https://1024.imfast.io/2018/11/019/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E7%94%B5%E5%BD%B1/"><i class="fas fa-tag fa-fw"></i>&nbsp;电影</a>
-                    </span><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E8%BD%AC%E8%BD%BD/"><i class="fas fa-tag fa-fw"></i>&nbsp;转载</a>
-                    </span></div></div>
+        <a href="/012/">算法比赛模板（一）</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2019-03-23>2019-03-23</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                        <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                    </a></span></div><div class="content"></div><div class="post-footer">
+        <a href="/012/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95">算法</a></div></div>
 </article>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="https://1024.imfast.io/2018/09/014/">纪念姚贝儿诞辰 37 周年</a>
-    </h1><div class="meta"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-            <i class="fas fa-user-circle fa-fw"></i>HalKlein
-        </a>发布于  <time datetime=2018-09-26>2018-09-26</time>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i>
-                        <a href="https://1024.imfast.io/categories/%E9%9A%8F%E7%AC%94%E5%BD%95/">随笔录</a></span></div><div class="content"></div><div class="post-footer">
-        <a href="https://1024.imfast.io/2018/09/014/">阅读全文</a><div class="post-tags"><span class="tag">
-                        &nbsp;<a href="https://1024.imfast.io/tags/%E6%AD%8C%E6%89%8B/"><i class="fas fa-tag fa-fw"></i>&nbsp;歌手</a>
-                    </span></div></div>
+        <a href="/019/">为何要探索宇宙？</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;<span class="post-publish">
+            published on&nbsp;<time datetime=2018-11-05>2018-11-05</time>
+        </span>&nbsp;
+            <span class="post-category">included in<a href="/categories/%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%E5%8F%AF%E4%BB%A5%E6%94%BB%E7%8E%89">
+                        <i class="far fa-folder fa-fw"></i>他山之石，可以攻玉
+                    </a></span></div><div class="content"></div><div class="post-footer">
+        <a href="/019/">Read More</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%94%B5%E5%BD%B1">电影</a>,&nbsp;<a href="/tags/%E8%BD%AC%E8%BD%BD">转载</a></div></div>
 </article>
 <ul class="pagination"><li class="page-item ">
                     <span class="page-link">
@@ -173,22 +197,40 @@
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
-        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/halklein" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        window.typeitArr = [["id-6dbbeb"]];
+    </script><script>
+        window.contentMap = {"id-6dbbeb":"A Clean, Elegant but Advanced Hugo Theme"};
+    </script><link rel="stylesheet" href="/lib/iconfont/iconfont.min.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/typeit/typeit.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

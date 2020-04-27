@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2018/01/018/" /><link rel="next" href="https://1024.imfast.io/2018/08/015/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2018/01/018/" /><link rel="next" href="https://1024.imfast.io/2018/08/015/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "一个月过软件设计师考试指南",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2018\/08\/016\/"
@@ -37,7 +38,7 @@
                 "width":  800 ,
                 "height":  600 
             },"genre": "posts","keywords": "考证","wordcount":  2724 ,
-        "url": "https:\/\/1024.imfast.io\/2018\/08\/016\/","datePublished": "2018-08-02T10:39:32\x2b08:00","dateModified": "2018-08-02T10:39:32\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/1024.imfast.io\/2018\/08\/016\/","datePublished": "2018-08-02","dateModified": "2018-08-02","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,45 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">一个月过软件设计师考试指南</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-08-02>2018-08-02</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 2724 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 6 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#先谈上午题">先谈上午题</a>
-      <ul>
-        <li><a href="#1学知识点">1.学知识点。</a></li>
-        <li><a href="#2做真题">2.做真题。</a></li>
-        <li><a href="#3冲刺阶段">3.冲刺阶段。</a></li>
-      </ul>
-    </li>
-    <li><a href="#再谈下午题">再谈下午题</a>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#heading"></a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">一个月过软件设计师考试指南</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-08-02>2018-08-02</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2018/08/016/" class="leancloud_visitors" data-flag-title="一个月过软件设计师考试指南">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#先谈上午题">先谈上午题</a>
       <ul>
@@ -145,7 +133,7 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><blockquote>
+            </div><div class="content" id="content"><blockquote>
 <p>我是2018年上半年通过的软件设计师考试，准备了近一个月（内容还是有点多），成绩就不贴出来献丑了.</p>
 </blockquote>
 <h1 id="为什么考"><strong>为什么考？</strong></h1>
@@ -160,9 +148,14 @@
 <h1 id="1首先是要知道怎么考考什么"><strong>1.首先是要知道怎么考，考什么</strong></h1>
 <p>软件设计师考试，分为 <em>上午的基础知识考试</em> 和 <em>下午的运用技术考试</em>  分值都是满分75分，两次成绩都达到45分就算通过；</p>
 <p>下面我们看看考试都考些什么（一目了然）</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/10/6FjtvHB7mr5WSTh.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/10/6FjtvHB7mr5WSTh.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>考点明细</p>
 <p>More Actions：   计算机组成与结构      |-  计算机基本工作原理      |-  存储系统      |-  输入输出系统      |-  总线系统      |-  指令系统和计算机体系结构      |-  系统性能评测和可靠性基础      |-  信息安全和病毒防护     程序语言      |-  程序设计语言基本概念      |-  汇编、编译、解释系统      |-  文法分析     操作系统      |-  操作系统定义、分类及功能      |-  进程管理      |-  存储管理      |-  设备管理      |-  文件管理      |-  作业管理     软件工程基础知识      |-  软件工程概述      |-  软件开发项目管理      |-  软件工具与开发环境      |-  软件过程管理      |-  软件质量管理     系统开发与运行      |-  结构化分析和设计      |-  系统设计知识      |-  系统的测试与维护     网络与多媒体基础知识      |-  ISO／OSI网络体系结构      |-  网络互连硬件      |-  网络协议      |-  Internet应用      |-  网络安全      |-  声音及其数字化      |-  图形和图像      |-  动画与视频      |-  多媒体计算机      |-  多媒体网络     数据库技术      |-  数据库基础知识      |-  E-R模型      |-  关系代数和关系模型      |-  SQL语言      |-  关系数据库的规范化      |-  控制功能     算法与数据结构      |-  线性结构      |-  数组、矩阵和广义表      |-  树      |-  图      |-  查找算法      |-  排序算法      |-  算法分析及常用算法     面向对象技术      |-  面向对象的基本概念      |-  面向对象程序设计      |-  面向对象开发技术      |-  面向对象分析与设计方法      |-  设计模式     标准化和知识产权      |-  标准化      |-  知识产权     专业英语      |-  专业英语</p>
 <h1 id="2说说怎么准备"><strong>2.说说怎么准备</strong></h1>
@@ -187,19 +180,19 @@
 这是一般很权威的书了，图书馆一般也有去借来看就行了没必要买；
 </code></pre></td></tr></table>
 </div>
-</div><p>如果你现在即将考试了，没有时间，那么你可以直接在B站看<a href="https://www.bilibili.com/video/av16597767/?p=1" target="_blank">希赛网的软件设计师视频教程</a>
+</div><p>如果你现在即将考试了，没有时间，那么你可以直接在B站看<a href="https://www.bilibili.com/video/av16597767/?p=1" target="_blank" rel="noopener noreffer">希赛网的软件设计师视频教程</a>
  ，以快速的过一遍知识点。而且希赛也会总结什么是重点，不是打广告，这个又不要钱</p>
 <p>建议看没看过上面那本书的同学都看一下这个视频；（我当时就是直接刷视频的，书只看了70页左右，说白了就是懒2333）</p>
 <blockquote>
 <p>希赛的视频我建议在电脑上全屏看，手机上看效果不好，容易分散注意力</p>
 </blockquote>
 <h3 id="2做真题"><strong>2.做真题。</strong></h3>
-<p>我是在“<a href="http://www.rkpass.cn/index.html" target="_blank">软件在线</a>
+<p>我是在“<a href="http://www.rkpass.cn/index.html" target="_blank" rel="noopener noreffer">软件在线</a>
 ”刷真题的，会有解析，如果有错每个人都可以反馈或提供更好的答案；</p>
 <p>只是，软考在线的 智能真题库 是付费的，不过可以通过刷访问量获取积分用来兑换时长，但是刷访问量你不可能把自己的链接到处发给朋友让他们帮你点击吧</p>
 <p>那样效率太低了，可能还刷不满，所以下面给大家提供一个方法，怎么去刷访问量</p>
 <blockquote>
-<p>1.首先去下载一个<a href="http://www.spiritsoft.cn/" target="_blank">流量精灵</a>
+<p>1.首先去下载一个<a href="http://www.spiritsoft.cn/" target="_blank" rel="noopener noreffer">流量精灵</a>
  ，这个东西我确定是否有毒，毕竟目前挖矿脚本满天飞，我检测过它确实有异常流量，应该是推广广告的；</p>
 <p>2.出于安全考虑，建议在找一台废电脑或在虚拟机里面安装流量精灵使用</p>
 <p>3.然后，将你的链接给流量精灵去刷就行了，这个应该很简单，自己去弄一下；</p>
@@ -275,56 +268,83 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2018-08-02 更新</span>
+                <span>%!(EXTRA string=2018-08-02)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2018/08/016/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2018/08/016/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2018/08/016/" data-title="一个月过软件设计师考试指南" data-via="xxxx" data-hashtags="考证"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2018/08/016/" data-hashtag="考证"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2018/08/016/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2018/08/016/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2018/08/016/" data-title="一个月过软件设计师考试指南" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2018/08/016/" data-title="一个月过软件设计师考试指南" data-via="xxxx" data-hashtags="考证"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2018/08/016/" data-hashtag="考证"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2018/08/016/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2018/08/016/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2018/08/016/" data-title="一个月过软件设计师考试指南" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E8%80%83%E8%AF%81/"><i class="fas fa-tag fa-fw"></i>&nbsp;考证</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%80%83%E8%AF%81">考证</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2018/01/018/" class="prev" rel="prev" title="风"><i class="fas fa-angle-left fa-fw"></i>风</a>
-            <a href="https://1024.imfast.io/2018/08/015/" class="next" rel="next" title="八月长沙行">八月长沙行<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2018/01/018/" class="prev" rel="prev" title="风"><i class="fas fa-angle-left fa-fw"></i>风</a>
+            <a href="/2018/08/015/" class="next" rel="next" title="八月长沙行">八月长沙行<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

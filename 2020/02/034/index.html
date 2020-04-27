@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2020/02/033/" /><link rel="next" href="https://1024.imfast.io/2020/02/035/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2020/02/033/" /><link rel="next" href="https://1024.imfast.io/2020/02/035/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "Kafka 入门",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2020\/02\/034\/"
@@ -36,8 +37,8 @@
                 "url": "https:\/\/1024.imfast.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "Kafka, 消息中间件","wordcount":  1382 ,
-        "url": "https:\/\/1024.imfast.io\/2020\/02\/034\/","datePublished": "2020-02-02T09:38:38\x2b08:00","dateModified": "2020-02-02T09:38:38\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "Kafka, 消息中间件","wordcount":  1380 ,
+        "url": "https:\/\/1024.imfast.io\/2020\/02\/034\/","datePublished": "2020-02-02","dateModified": "2020-02-02","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,34 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Kafka 入门</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-02>2020-02-02</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 1382 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#kafka简介">Kafka简介</a></li>
-    <li><a href="#kafka的特点">Kafka的特点</a></li>
-    <li><a href="#kafka相关术语">Kafka相关术语</a></li>
-    <li><a href="#安装kafka">安装Kafka</a></li>
-    <li><a href="#使用kafka示例">使用Kafka，示例</a></li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Kafka 入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-02>2020-02-02</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2020/02/034/" class="leancloud_visitors" data-flag-title="Kafka 入门">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#kafka简介">Kafka简介</a></li>
     <li><a href="#kafka的特点">Kafka的特点</a></li>
@@ -123,7 +122,7 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="kafka简介">Kafka简介</h2>
+            </div><div class="content" id="content"><h2 id="kafka简介">Kafka简介</h2>
 <p>早先的时候Kafka只是一个消息队列，只是用来发消息，后来经过不断的完善，扩充自己的功能，慢慢的其功能就不再仅仅局限于消息队列了，所以其官网自称：Apache Kafka® is <em>a distributed streaming platform</em> 。其应用也十分广泛，消息系统、日志收集、用户行为追踪、流式处理等。</p>
 </br>
 <h2 id="kafka的特点">Kafka的特点</h2>
@@ -136,13 +135,23 @@
 <p><strong>Zookeeper</strong>：是一个独立的应用和概念，用来管理集群，Kafka需要做集群，就可以使用Zookeeper 。</p>
 <p><strong>Topic</strong>：消息队列实现的方式大致有两种：点对点的方式，发布订阅方式；Kafka采用发布订阅方式，生产者把消息发布到的空间就叫Topic 。</p>
 <p><strong>Partition</strong>：分区，对Topic的分区，可以对多个分区进行多线程写入，提高并发能力  。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/02/uyw86jHIfW5ahsD.png" alt="Partition" title="Partition" class="lazyload">
-<figcaption class="image-caption">Partition</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/02/uyw86jHIfW5ahsD.png,  1.5x,  2x"
+        data-src=""
+        alt="Partition"
+        title="Partition" /></p>
 <p><strong>Offset</strong>：消息在Partition内存放的索引</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/02/2dwDHtVxsqeEG8S.png" alt="Offset" title="Offset" class="lazyload">
-<figcaption class="image-caption">Offset</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/02/2dwDHtVxsqeEG8S.png,  1.5x,  2x"
+        data-src=""
+        alt="Offset"
+        title="Offset" /></p>
 <p><strong>Replica</strong>：副本，对数据做备份，Kafka是分布式的所以为了保证可靠性数据不会只存一份，需要通过副本的形式对数据存储很多份，每个分区有多个副本。分为 Leader Replica（主副本） 和 Follower Replica （随从副本），如果主副本失效了，那么集群会从众多随从副本中选一个新的作为主副本。</p>
 </br>
 <h2 id="安装kafka">安装Kafka</h2>
@@ -279,58 +288,83 @@ Hello Kafka
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2020-02-02 更新</span>
+                <span>%!(EXTRA string=2020-02-02)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2020/02/034/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2020/02/034/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2020/02/034/" data-title="Kafka 入门" data-via="xxxx" data-hashtags="Kafka,消息中间件"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2020/02/034/" data-hashtag="Kafka"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2020/02/034/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2020/02/034/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2020/02/034/" data-title="Kafka 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2020/02/034/" data-title="Kafka 入门" data-via="xxxx" data-hashtags="Kafka,消息中间件"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2020/02/034/" data-hashtag="Kafka"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2020/02/034/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2020/02/034/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2020/02/034/" data-title="Kafka 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/kafka/"><i class="fas fa-tag fa-fw"></i>&nbsp;Kafka</a>&nbsp;
-                    </span><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/"><i class="fas fa-tag fa-fw"></i>&nbsp;消息中间件</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/kafka">Kafka</a>,&nbsp;<a href="/tags/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6">消息中间件</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2020/02/033/" class="prev" rel="prev" title="阻塞队列 BlockingQueue"><i class="fas fa-angle-left fa-fw"></i>阻塞队列 BlockingQueue</a>
-            <a href="https://1024.imfast.io/2020/02/035/" class="next" rel="next" title="Spring 整合 Kafka">Spring 整合 Kafka<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2020/02/033/" class="prev" rel="prev" title="阻塞队列 BlockingQueue"><i class="fas fa-angle-left fa-fw"></i>阻塞队列 BlockingQueue</a>
+            <a href="/2020/02/035/" class="next" rel="next" title="Spring 整合 Kafka">Spring 整合 Kafka<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

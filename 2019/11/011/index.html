@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/11/010/" /><link rel="next" href="https://1024.imfast.io/2019/12/020/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/11/010/" /><link rel="next" href="https://1024.imfast.io/2019/12/020/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "Socket 入门",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2019\/11\/011\/"
@@ -36,8 +37,8 @@
                 "url": "https:\/\/1024.imfast.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "计算机网络","wordcount":  2169 ,
-        "url": "https:\/\/1024.imfast.io\/2019\/11\/011\/","datePublished": "2019-11-05T09:31:12\x2b08:00","dateModified": "2019-11-05T09:31:12\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "计算机网络","wordcount":  2155 ,
+        "url": "https:\/\/1024.imfast.io\/2019\/11\/011\/","datePublished": "2019-11-05","dateModified": "2019-11-05","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,41 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Socket 入门</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-05>2019-11-05</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 2169 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 5 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#进程间通信">进程间通信</a></li>
-    <li><a href="#什么是socket">什么是Socket？</a></li>
-    <li><a href="#socket通信流程">socket通信流程</a></li>
-    <li><a href="#实列">实列</a>
-      <ul>
-        <li><a href="#编写一个网络应用程序包含客户端和服务端客户端向服务端发送一个字符串服务端收到字符串并打印到命令行同时向客户端返回字符串长度最后客户端输出收到的字符串长度分别用tcp和udp实现">编写一个网络应用程序，包含客户端和服务端，客户端向服务端发送一个字符串，服务端收到字符串并打印到命令行同时向客户端返回字符串长度，最后客户端输出收到的字符串长度，分别用TCP和UDP实现。</a>
-          <ul>
-            <li><a href="#tcp方式">TCP方式：</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Socket 入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-05>2019-11-05</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2019/11/011/" class="leancloud_visitors" data-flag-title="Socket 入门">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#进程间通信">进程间通信</a></li>
     <li><a href="#什么是socket">什么是Socket？</a></li>
@@ -137,21 +129,31 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="进程间通信">进程间通信</h2>
+            </div><div class="content" id="content"><h2 id="进程间通信">进程间通信</h2>
 <p>网络中进程进行通信的前提是每个进程都要有唯一的标识，在本地计算机中我们可以用PID来唯一标识一个进程，可以多个计算机处在网络中时，不同计算机的进程PID冲突的可能性就很大。怎么办呢？我们知道IP地址可以唯一标识主机，而TCP协议和端口号可以唯一标识主机的一个进程，这样我们就可以用 IP+协议+端口号 来唯一标识网络中的一个进程了。</p>
 <p>使用TCP/IP协议的应用程序通常采用应用编程接口：UNIX BSD的套接字（socket）和UNIX System V的TLI（已经被淘汰），来实现网络进程之间的通信。就目前而言，几乎所有的应用程序都是采用socket。</p>
 <h2 id="什么是socket">什么是Socket？</h2>
 <p>网络套接字（英语：Network socket；又译网络套接字、网络接口、网络插槽）在计算机科学中是电脑网络中行程间数据流的端点。使用以网际协议（Internet Protocol）为通信基础的网络套接字，称为网际套接字（Internet socket）。因为网际协议的流行，现代绝大多数的网络套接字，都是属于网际套接字。</p>
 <p>socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭）。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/tl96CpP3Qv4fMEV.jpg" alt="img" title="img" class="lazyload">
-<figcaption class="image-caption">img</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/tl96CpP3Qv4fMEV.jpg,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
 <p>Socket与TCP/IP协议并没有必然的联系，Socket编程接口在设计的时候就希望能适应其它的网络协议，所以Socket的出现是为了我们更好地使用TCP/IP协议栈，是对TCP/IP协议的抽象，是操作系统对外开放的接口。</p>
 <h2 id="socket通信流程">socket通信流程</h2>
 <p>以使用TCP协议通讯的socket为例，其交互流程大概是这样子的</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/aJRALE8cFmZonkg.png" alt="Socket通信流程" title="Socket通信流程" class="lazyload">
-<figcaption class="image-caption">Socket通信流程</figcaption></figure>
-Socket通信流程</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/aJRALE8cFmZonkg.png,  1.5x,  2x"
+        data-src=""
+        alt="Socket通信流程"
+        title="Socket通信流程" />Socket通信流程</p>
 <h2 id="实列">实列</h2>
 <h3 id="编写一个网络应用程序包含客户端和服务端客户端向服务端发送一个字符串服务端收到字符串并打印到命令行同时向客户端返回字符串长度最后客户端输出收到的字符串长度分别用tcp和udp实现"><strong>编写一个网络应用程序，包含客户端和服务端，客户端向服务端发送一个字符串，服务端收到字符串并打印到命令行同时向客户端返回字符串长度，最后客户端输出收到的字符串长度，分别用TCP和UDP实现。</strong></h3>
 <h4 id="tcp方式">TCP方式：</h4>
@@ -311,12 +313,22 @@ Socket通信流程</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/Rg5GzaCweFlMtjL.png" alt="img" title="img" class="lazyload">
-<figcaption class="image-caption">img</figcaption></figure>
-</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/iITvbCjR18d2HMY.png" alt="img" title="img" class="lazyload">
-<figcaption class="image-caption">img</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/Rg5GzaCweFlMtjL.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/iITvbCjR18d2HMY.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
 <p><strong>UDP方式：</strong></p>
 <p>服务端</p>
 <div class="highlight"><div class="chroma">
@@ -423,65 +435,97 @@ Socket通信流程</p>
 </code></pre></td></tr></table>
 </div>
 </div><p>运行</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/RuBrkvAVp5aFTx3.png" alt="img" title="img" class="lazyload">
-<figcaption class="image-caption">img</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/RuBrkvAVp5aFTx3.png,  1.5x,  2x"
+        data-src=""
+        alt="img"
+        title="img" /></p>
 </br>
 <center> ·End </center>
 <center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2019-11-05 更新</span>
+                <span>%!(EXTRA string=2019-11-05)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2019/11/011/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2019/11/011/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/11/011/" data-title="Socket 入门" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/11/011/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/11/011/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/11/011/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/11/011/" data-title="Socket 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/11/011/" data-title="Socket 入门" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/11/011/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/11/011/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/11/011/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/11/011/" data-title="Socket 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><i class="fas fa-tag fa-fw"></i>&nbsp;计算机网络</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2019/11/010/" class="prev" rel="prev" title="HTTP 与 HTTPS"><i class="fas fa-angle-left fa-fw"></i>HTTP 与 HTTPS</a>
-            <a href="https://1024.imfast.io/2019/12/020/" class="next" rel="next" title="数据库索引之 B&#43; Tree、Hash、BitMap">数据库索引之 B&#43; Tree、Hash、BitMap<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2019/11/010/" class="prev" rel="prev" title="HTTP 与 HTTPS"><i class="fas fa-angle-left fa-fw"></i>HTTP 与 HTTPS</a>
+            <a href="/2019/12/020/" class="next" rel="next" title="数据库索引之 B&#43; Tree、Hash、BitMap">数据库索引之 B&#43; Tree、Hash、BitMap<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

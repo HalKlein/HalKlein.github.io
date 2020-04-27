@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Spring 整合 Elasticsearch | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="HalKlein&#39;s Blog"><meta property="og:title" content="Spring 整合 Elasticsearch" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://1024.imfast.io/037/" />
+<meta property="article:published_time" content="2020-02-07T16:56:03+08:00" />
+<meta property="article:modified_time" content="2020-02-07T16:56:03+08:00" /><meta property="og:site_name" content="HalKlein&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring 整合 Elasticsearch"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://1024.imfast.io/037/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/036/" /><link rel="next" href="https://1024.imfast.io/038/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring 整合 Elasticsearch",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/1024.imfast.io\/037\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Spring全家桶, Elasticsearch","wordcount":  921 ,
+        "url": "https:\/\/1024.imfast.io\/037\/","datePublished": "2020-02-07","dateModified": "2020-02-07","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/037/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" title="" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/037/" selected>English</option></select>
+                </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Spring 整合 Elasticsearch</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-07>2020-02-07</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 921 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>5 min&nbsp;<span id="/037/" class="leancloud_visitors" data-flag-title="Spring 整合 Elasticsearch">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title">Contents</h2>
+                <div class="toc-content" id="toc-content-auto"></div>
+            </div>
+            <div class="toc" id="toc-static">
+                <details>
+                    <summary>
+                        <div class="toc-title">
+                            <span>Contents</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#引入依赖">引入依赖</a></li>
+    <li><a href="#配置elasticsearch">配置Elasticsearch</a></li>
+    <li><a href="#spring-data-elasticsearch">Spring Data Elasticsearch</a>
+      <ul>
+        <li><a href="#解决elasticsearch和redis的冲突">解决Elasticsearch和Redis的冲突</a></li>
+        <li><a href="#访问elasticsearch">访问Elasticsearch</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content" id="content"><h2 id="引入依赖">引入依赖</h2>
+<p>spring-boot-starter-data-elasticsearch</p>
+<p><a href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch">https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--</span><span class="c"> Spring整合Elasticsearch </span><span class="c">--&gt;</span>
+<span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>spring-boot-starter-data-elasticsearch<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h2 id="配置elasticsearch">配置Elasticsearch</h2>
+<p>cluster-name、cluster-nodes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 配置 Elasticsearch
+spring.data.elasticsearch.cluster-name=community
+spring.data.elasticsearch.cluster-nodes=localhost:9300
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<h2 id="spring-data-elasticsearch">Spring Data Elasticsearch</h2>
+<h3 id="解决elasticsearch和redis的冲突">解决Elasticsearch和Redis的冲突</h3>
+<p>因为Elasticsearch和Redis底层都是基于Netty的，导致它们在使用Netty的时候会出现冲突</p>
+<p><strong>查看NettyRuntime类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">setAvailableProcessors</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">availableProcessors</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ObjectUtil</span><span class="o">.</span><span class="na">checkPositive</span><span class="o">(</span><span class="n">availableProcessors</span><span class="o">,</span> <span class="s">&#34;availableProcessors&#34;</span><span class="o">)</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">availableProcessors</span> <span class="o">!</span><span class="o">=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                <span class="n">Locale</span><span class="o">.</span><span class="na">ROOT</span><span class="o">,</span>
+                <span class="s">&#34;availableProcessors is already set to [%d], rejecting [%d]&#34;</span><span class="o">,</span>
+                <span class="k">this</span><span class="o">.</span><span class="na">availableProcessors</span><span class="o">,</span>
+                <span class="n">availableProcessors</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="n">message</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">availableProcessors</span> <span class="o">=</span> <span class="n">availableProcessors</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>查看Netty4Utils类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setAvailableProcessors</span><span class="o">(</span><span class="kd">final</span> <span class="kt">int</span> <span class="n">availableProcessors</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// we set this to false in tests to avoid tests that randomly set processors from stepping on each other
+</span><span class="c1"></span>    <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">set</span> <span class="o">=</span> <span class="n">Booleans</span><span class="o">.</span><span class="na">parseBoolean</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;es.set.netty.runtime.available.processors&#34;</span><span class="o">,</span> <span class="s">&#34;true&#34;</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="o">!</span><span class="n">set</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/*
+</span><span class="cm">     * This can be invoked twice, once from Netty4Transport and another time from Netty4HttpServerTransport; however,
+</span><span class="cm">     * Netty4Runtime#availableProcessors forbids settings the number of processors twice so we prevent double invocation here.
+</span><span class="cm">     */</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isAvailableProcessorsSet</span><span class="o">.</span><span class="na">compareAndSet</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">NettyRuntime</span><span class="o">.</span><span class="na">setAvailableProcessors</span><span class="o">(</span><span class="n">availableProcessors</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">availableProcessors</span> <span class="o">!</span><span class="o">=</span> <span class="n">NettyRuntime</span><span class="o">.</span><span class="na">availableProcessors</span><span class="o">(</span><span class="o">)</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/*
+</span><span class="cm">         * We have previously set the available processors yet either we are trying to set it to a different value now or there is a bug
+</span><span class="cm">         * in Netty and our previous value did not take, bail.
+</span><span class="cm">         */</span>
+        <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                <span class="n">Locale</span><span class="o">.</span><span class="na">ROOT</span><span class="o">,</span>
+                <span class="s">&#34;available processors value [%d] did not match current value [%d]&#34;</span><span class="o">,</span>
+                <span class="n">availableProcessors</span><span class="o">,</span>
+                <span class="n">NettyRuntime</span><span class="o">.</span><span class="na">availableProcessors</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="n">message</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到Netty4Utils中调用了NettyRuntime.setAvailableProcessors，其中的参数availableProcessors只要不等于0就会报错，但是Redis调用Netty后该参数已经不为0。为了使程序不执行到这一段，我们看到之前有一段类似“开关”一样的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="o">!</span><span class="n">set</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">return</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>只要在这里程序返回了，之后的代码就不会执行，所以我们可以将set的值设置为false，但是此操作必须要在服务启动之初就进行，基于此我们可以在Application中进行设置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.annotation.PostConstruct</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CommunityApplication</span> <span class="o">{</span>
+
+   <span class="c1">// 该注解用于管理Bean的生命周期，主要是管理Bean的初始化方法，由该注解所修饰的方法会在构造器调用完以后被执行
+</span><span class="c1"></span>   <span class="nd">@PostConstruct</span>
+   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="o">)</span><span class="o">{</span>
+      <span class="c1">// 解决Netty启动冲突的问题
+</span><span class="c1"></span>      <span class="c1">// 设置为“false”，底层在用的时候会进行转型
+</span><span class="c1"></span>      <span class="c1">// see Netty4Utils.setAvailableProcessors
+</span><span class="c1"></span>      <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&#34;es.set.netty.runtime.available.processors&#34;</span><span class="o">,</span><span class="s">&#34;false&#34;</span><span class="o">)</span><span class="o">;</span>
+   <span class="o">}</span>
+
+
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[</span><span class="o">]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CommunityApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span><span class="o">;</span>
+   <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="访问elasticsearch">访问Elasticsearch</h3>
+<p><strong>实体类</strong></p>
+<p>这里不象Mybatis要写xml配置文件，直接在实体类上写注解就行。</p>
+<p>Spring整合ES提供的这项技术，其底层在访问ES服务器的时候，它自动的将实体数据和ES服务器中的索引进行映射。所以我们需要在实体类上加上注解，并且在属性上也要加上必要的注解对应ES中的字段。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// indexName：索引名，type：旧版的ES就直接写_doc好了，shards：分片数量，replicas：副本数量
+</span><span class="c1"></span><span class="nd">@Document</span><span class="o">(</span><span class="n">indexName</span> <span class="o">=</span> <span class="s">&#34;discusspost&#34;</span><span class="o">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;_doc&#34;</span><span class="o">,</span> <span class="n">shards</span> <span class="o">=</span> <span class="n">6</span><span class="o">,</span> <span class="n">replicas</span> <span class="o">=</span> <span class="n">3</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DiscussPost</span> <span class="o">{</span>
+
+    <span class="nd">@Id</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Integer</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">userId</span><span class="o">;</span>
+
+    <span class="c1">// 搜索的主要数据，analyzer存储时的解析器，searchAnalyzer搜索时的解析器，这里使用中文分词插件ik作为解析器
+</span><span class="c1"></span>    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span> <span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_mord&#34;</span><span class="o">,</span> <span class="n">searchAnalyzer</span> <span class="o">=</span> <span class="s">&#34;ik_smart&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Text</span><span class="o">,</span> <span class="n">analyzer</span> <span class="o">=</span> <span class="s">&#34;ik_max_mord&#34;</span><span class="o">,</span> <span class="n">searchAnalyzer</span> <span class="o">=</span> <span class="s">&#34;ik_smart&#34;</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Integer</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">type</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Integer</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">status</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Date</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">createTime</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Integer</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">commentCount</span><span class="o">;</span>
+
+    <span class="nd">@Field</span><span class="o">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FieldType</span><span class="o">.</span><span class="na">Double</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">Double</span> <span class="n">score</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>Repository接口</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Repository</span>
+<span class="c1">// 需要继承ElasticsearchRepository，加上泛型，声明该接口要处理的实体类是谁，以及ID是什么类型
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DiscussPostRepository</span> <span class="kd">extends</span> <span class="n">ElasticsearchRepository</span><span class="o">&lt;</span><span class="n">DiscussPost</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>存入数据的测试方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootTest</span>
+<span class="c1">//使用正式环境里面的配置类
+</span><span class="c1"></span><span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="n">CommunityApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ElasticsearchTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">DiscussPostMapper</span> <span class="n">discussPostMapper</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">DiscussPostRepository</span> <span class="n">discussPostRepository</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">ElasticsearchTemplate</span> <span class="n">elasticsearchTemplate</span><span class="o">;</span>
+
+	<span class="c1">// 插入一条数据
+</span><span class="c1"></span>    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsert</span><span class="o">(</span><span class="o">)</span><span class="o">{</span>
+        <span class="n">discussPostRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">discussPostMapper</span><span class="o">.</span><span class="na">selectDiscussPostById</span><span class="o">(</span><span class="n">289</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 插入多条数据
+</span><span class="c1"></span>    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInsertList</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">discussPostRepository</span><span class="o">.</span><span class="na">saveAll</span><span class="o">(</span><span class="n">discussPostMapper</span><span class="o">.</span><span class="na">selectDiscussPosts</span><span class="o">(</span><span class="n">155</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">100</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>修改数据的测试方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testUpdate</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 其实就是修改数据之后，进行覆盖插入，不演示了
+</span><span class="c1"></span><span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>删除数据的测试方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 删除数据
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDelete</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 删除单条数据
+</span><span class="c1"></span>    <span class="n">discussPostRepository</span><span class="o">.</span><span class="na">deleteById</span><span class="o">(</span><span class="n">289</span><span class="o">)</span><span class="o">;</span>
+    <span class="c1">// 删除所有数据
+</span><span class="c1"></span>    <span class="n">discussPostRepository</span><span class="o">.</span><span class="na">deleteAll</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>查询数据 ByRepository</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 查询数据 ByRepository
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSearchByRepository</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SearchQuery</span> <span class="n">searchQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NativeSearchQueryBuilder</span><span class="o">(</span><span class="o">)</span>
+            <span class="c1">// 搜索关键字和范围
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">multiMatchQuery</span><span class="o">(</span><span class="s">&#34;Client例子&#34;</span><span class="o">,</span> <span class="s">&#34;title&#34;</span><span class="o">,</span> <span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 排序方式
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;type&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;score&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;createTime&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 分页
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withPageable</span><span class="o">(</span><span class="n">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">10</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 高亮部分，添加标签
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withHighlightFields</span><span class="o">(</span>
+                    <span class="k">new</span> <span class="n">HighlightBuilder</span><span class="o">.</span><span class="na">Field</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">preTags</span><span class="o">(</span><span class="s">&#34;&lt;em&gt;&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">postTags</span><span class="o">(</span><span class="s">&#34;&lt;/em&gt;&#34;</span><span class="o">)</span><span class="o">,</span>
+                    <span class="k">new</span> <span class="n">HighlightBuilder</span><span class="o">.</span><span class="na">Field</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">preTags</span><span class="o">(</span><span class="s">&#34;&lt;em&gt;&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">postTags</span><span class="o">(</span><span class="s">&#34;&lt;/em&gt;&#34;</span><span class="o">)</span>
+            <span class="o">)</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="c1">// elasticremplate.queryForPage（searchQuery，class，SearchResultMapper）
+</span><span class="c1"></span>    <span class="c1">// 底层获取得到了高亮显示的值，但是进行进一步的处理。
+</span><span class="c1"></span>
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">DiscussPost</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="n">discussPostRepository</span><span class="o">.</span><span class="na">search</span><span class="o">(</span><span class="n">searchQuery</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getTotalElements</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getTotalPages</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getNumber</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getSize</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">DiscussPost</span> <span class="n">post</span> <span class="o">:</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">post</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>查询数据 ByTemplate</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 查询数据 ByTemplate
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSearchByTemplate</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SearchQuery</span> <span class="n">searchQuery</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NativeSearchQueryBuilder</span><span class="o">(</span><span class="o">)</span>
+            <span class="c1">// 搜索关键字和范围
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withQuery</span><span class="o">(</span><span class="n">QueryBuilders</span><span class="o">.</span><span class="na">multiMatchQuery</span><span class="o">(</span><span class="s">&#34;Client例子&#34;</span><span class="o">,</span> <span class="s">&#34;title&#34;</span><span class="o">,</span> <span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 排序方式
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;type&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;score&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">withSort</span><span class="o">(</span><span class="n">SortBuilders</span><span class="o">.</span><span class="na">fieldSort</span><span class="o">(</span><span class="s">&#34;createTime&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">order</span><span class="o">(</span><span class="n">SortOrder</span><span class="o">.</span><span class="na">DESC</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 分页
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withPageable</span><span class="o">(</span><span class="n">PageRequest</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">10</span><span class="o">)</span><span class="o">)</span>
+            <span class="c1">// 高亮部分，添加标签
+</span><span class="c1"></span>            <span class="o">.</span><span class="na">withHighlightFields</span><span class="o">(</span>
+                    <span class="k">new</span> <span class="n">HighlightBuilder</span><span class="o">.</span><span class="na">Field</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">preTags</span><span class="o">(</span><span class="s">&#34;&lt;em&gt;&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">postTags</span><span class="o">(</span><span class="s">&#34;&lt;/em&gt;&#34;</span><span class="o">)</span><span class="o">,</span>
+                    <span class="k">new</span> <span class="n">HighlightBuilder</span><span class="o">.</span><span class="na">Field</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">preTags</span><span class="o">(</span><span class="s">&#34;&lt;em&gt;&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">postTags</span><span class="o">(</span><span class="s">&#34;&lt;/em&gt;&#34;</span><span class="o">)</span>
+            <span class="o">)</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="n">Page</span><span class="o">&lt;</span><span class="n">DiscussPost</span><span class="o">&gt;</span> <span class="n">page</span> <span class="o">=</span> <span class="n">elasticsearchTemplate</span><span class="o">.</span><span class="na">queryForPage</span><span class="o">(</span><span class="n">searchQuery</span><span class="o">,</span> <span class="n">DiscussPost</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">SearchResultMapper</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">AggregatedPage</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">mapResults</span><span class="o">(</span><span class="n">SearchResponse</span> <span class="n">searchResponse</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">aClass</span><span class="o">,</span> <span class="n">Pageable</span> <span class="n">pageable</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">SearchHits</span> <span class="n">hits</span> <span class="o">=</span> <span class="n">searchResponse</span><span class="o">.</span><span class="na">getHits</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">hits</span><span class="o">.</span><span class="na">getTotalHits</span><span class="o">(</span><span class="o">)</span> <span class="o">&lt;</span><span class="o">=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">DiscussPost</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">SearchHit</span> <span class="n">hit</span> <span class="o">:</span> <span class="n">hits</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">DiscussPost</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscussPost</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;id&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">id</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">userId</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;userId&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">userId</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">title</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">title</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="n">content</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">status</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;status&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">status</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">createTime</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;createTime&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">createTime</span><span class="o">)</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="n">String</span> <span class="n">commentCount</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getSourceAsMap</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;commentCount&#34;</span><span class="o">)</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setCommentCount</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">commentCount</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="c1">// 处理高亮显示的结果
+</span><span class="c1"></span>                <span class="n">HighlightField</span> <span class="n">titleField</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getHighlightFields</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;title&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">titleField</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">// 用带有标签的覆盖
+</span><span class="c1"></span>                    <span class="n">post</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="n">titleField</span><span class="o">.</span><span class="na">getFragments</span><span class="o">(</span><span class="o">)</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="n">HighlightField</span> <span class="n">contentField</span> <span class="o">=</span> <span class="n">hit</span><span class="o">.</span><span class="na">getHighlightFields</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;content&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">contentField</span> <span class="o">!</span><span class="o">=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">post</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="n">contentField</span><span class="o">.</span><span class="na">getFragments</span><span class="o">(</span><span class="o">)</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">post</span><span class="o">)</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">return</span> <span class="k">new</span> <span class="n">AggregatedPageImpl</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">pageable</span><span class="o">,</span>
+                    <span class="n">hits</span><span class="o">.</span><span class="na">getTotalHits</span><span class="o">(</span><span class="o">)</span><span class="o">,</span> <span class="n">searchResponse</span><span class="o">.</span><span class="na">getAggregations</span><span class="o">(</span><span class="o">)</span><span class="o">,</span> <span class="n">searchResponse</span><span class="o">.</span><span class="na">getScrollId</span><span class="o">(</span><span class="o">)</span><span class="o">,</span> <span class="n">hits</span><span class="o">.</span><span class="na">getMaxScore</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">mapSearchHit</span><span class="o">(</span><span class="n">SearchHit</span> <span class="n">searchHit</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">aClass</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getTotalElements</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getTotalPages</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getNumber</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">getSize</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">DiscussPost</span> <span class="n">post</span> <span class="o">:</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">post</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>The article was updated on 2020-02-07</span>
+            </div>
+            <div class="post-info-license"><span>Published under the CC BY-NC 4.0 license</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/037/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/037/" data-title="Spring 整合 Elasticsearch" data-hashtags="Spring全家桶,Elasticsearch"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/037/" data-hashtag="Spring全家桶"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://1024.imfast.io/037/" data-title="Spring 整合 Elasticsearch"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="Share on Pocket" data-sharer="pocket" data-url="https://1024.imfast.io/037/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://1024.imfast.io/037/" data-title="Spring 整合 Elasticsearch"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="https://1024.imfast.io/037/" data-title="Spring 整合 Elasticsearch" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="https://1024.imfast.io/037/" data-title="Spring 整合 Elasticsearch"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6">Spring全家桶</a>,&nbsp;<a href="/tags/elasticsearch">Elasticsearch</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/036/" class="prev" rel="prev" title="Elasticsearch 入门"><i class="fas fa-angle-left fa-fw"></i>Elasticsearch 入门</a>
+            <a href="/038/" class="next" rel="next" title="Shortcodes Tests">Shortcodes Tests<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"><div id="valine"></div><script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️Say something, this comment supports Markdown grammar, please leave a message! ...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/halklein" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/valine/Valine.min.js"></script><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
+</html>

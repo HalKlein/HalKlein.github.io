@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2020/02/035/" /><link rel="next" href="https://1024.imfast.io/2020/02/037/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2020/02/035/" /><link rel="next" href="https://1024.imfast.io/2020/02/037/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "Elasticsearch 入门",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2020\/02\/036\/"
@@ -36,8 +37,8 @@
                 "url": "https:\/\/1024.imfast.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "Elasticsearch","wordcount":  1883 ,
-        "url": "https:\/\/1024.imfast.io\/2020\/02\/036\/","datePublished": "2020-02-05T11:50:19\x2b08:00","dateModified": "2020-02-05T11:50:19\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "Elasticsearch","wordcount":  1819 ,
+        "url": "https:\/\/1024.imfast.io\/2020\/02\/036\/","datePublished": "2020-02-05","dateModified": "2020-02-05","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,36 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Elasticsearch 入门</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-05>2020-02-05</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 1883 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 4 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#elasticsearch简介">Elasticsearch简介</a></li>
-    <li><a href="#elasticsearch相关术语">Elasticsearch相关术语</a></li>
-    <li><a href="#elasticsearch-的安装">Elasticsearch 的安装</a></li>
-    <li><a href="#elasticsearch-analysis-ik-中文分词插件">Elasticsearch-analysis-ik 中文分词插件</a></li>
-    <li><a href="#postman工具的安装">Postman工具的安装</a></li>
-    <li><a href="#命令测试elasticsearch">命令测试Elasticsearch</a></li>
-    <li><a href="#使用postman访问elasticsearch">使用Postman访问Elasticsearch</a></li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Elasticsearch 入门</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-02-05>2020-02-05</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2020/02/036/" class="leancloud_visitors" data-flag-title="Elasticsearch 入门">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#elasticsearch简介">Elasticsearch简介</a></li>
     <li><a href="#elasticsearch相关术语">Elasticsearch相关术语</a></li>
@@ -127,10 +124,15 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="elasticsearch简介">Elasticsearch简介</h2>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/AOeK6Jn94HfgrqQ.png" alt="Elasticsearch" title="Elasticsearch" class="lazyload">
-<figcaption class="image-caption">Elasticsearch</figcaption></figure>
-</p>
+            </div><div class="content" id="content"><h2 id="elasticsearch简介">Elasticsearch简介</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/AOeK6Jn94HfgrqQ.png,  1.5x,  2x"
+        data-src=""
+        alt="Elasticsearch"
+        title="Elasticsearch" /></p>
 <p>Elasticsearch，分布式搜索引擎，简称ES，是目前最流行性能最好的搜索引擎之一，像Facebook、Github、Wikipedia、Baidu等很多公司都使用ES进行搜索。</p>
 <p>一个分布式的、Restful风格的搜索引擎。</p>
 <p>支持对各种类型的数据的检索。</p>
@@ -169,12 +171,17 @@ path.logs: e:\Test\data\elasticsearch-6.8.5\logs
 </br>
 <h2 id="elasticsearch-analysis-ik-中文分词插件">Elasticsearch-analysis-ik 中文分词插件</h2>
 <p>英文的分词，ES默认是支持的（只有空格就能分隔），但是中文的分词较为复杂，需要安装插件。</p>
-<p>Github地址：<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank">elasticsearch-analysis-ik</a>
+<p>Github地址：<a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener noreffer">elasticsearch-analysis-ik</a>
 ，请安装与你的ES适配的版本。</p>
 <p>解压的时候，请注意！你<strong>必须</strong>在ES安装目录的plugins文件夹下新建一个名为“ik”的文件夹，将其解压到该目录下。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/2CfLWpzrRxtvB7b.png" alt="目录示例" title="目录示例" class="lazyload">
-<figcaption class="image-caption">目录示例</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/2CfLWpzrRxtvB7b.png,  1.5x,  2x"
+        data-src=""
+        alt="目录示例"
+        title="目录示例" /></p>
 <p>其中，config目录下有一个 <code>extra_main.dic</code> 文件，它是常用的中文分词字典库。</p>
 <p>如果有新的词出现，或者你希望添加一些自定义的分词，需要在 IKAnalyzer.cfg.xml 中配置，其中有中文说明 ，这里不再赘述。</p>
 </br>
@@ -255,30 +262,60 @@ yellow open   test  ca0IN3o6QLSLjQuDNJqBqg   5   1          0            0      
 </div></br>
 <h2 id="使用postman访问elasticsearch">使用Postman访问Elasticsearch</h2>
 <p><strong>创建索引</strong></p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/F4XaHSMkLr2lfTg.png" alt="创建索引" title="创建索引" class="lazyload">
-<figcaption class="image-caption">创建索引</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/F4XaHSMkLr2lfTg.png,  1.5x,  2x"
+        data-src=""
+        alt="创建索引"
+        title="创建索引" /></p>
 <p><strong>查看集群中的索引</strong></p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/qeS42Jxb8dZMNzi.png" alt="查看集群中的索引" title="查看集群中的索引" class="lazyload">
-<figcaption class="image-caption">查看集群中的索引</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/qeS42Jxb8dZMNzi.png,  1.5x,  2x"
+        data-src=""
+        alt="查看集群中的索引"
+        title="查看集群中的索引" /></p>
 <p><strong>删除索引</strong></p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/TLhZPCBVS1OHfAD.png" alt="删除索引" title="删除索引" class="lazyload">
-<figcaption class="image-caption">删除索引</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/TLhZPCBVS1OHfAD.png,  1.5x,  2x"
+        data-src=""
+        alt="删除索引"
+        title="删除索引" /></p>
 <p><strong>存入JSON格式的数据</strong></p>
 <p>选择PUT请求，填入索引名称和id，其中_doc是占位用的。在Body中，选择raw，再选择数据格式为JSON，填写完毕之后点击发送。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/wDjQym8R5HsSzUc.png" alt="存入JSON格式的数据" title="存入JSON格式的数据" class="lazyload">
-<figcaption class="image-caption">存入JSON格式的数据</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/wDjQym8R5HsSzUc.png,  1.5x,  2x"
+        data-src=""
+        alt="存入JSON格式的数据"
+        title="存入JSON格式的数据" /></p>
 <p><strong>查询存入的数据</strong></p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/T3oDpzCXyGiqEQP.png" alt="查询存入的数据" title="查询存入的数据" class="lazyload">
-<figcaption class="image-caption">查询存入的数据</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/T3oDpzCXyGiqEQP.png,  1.5x,  2x"
+        data-src=""
+        alt="查询存入的数据"
+        title="查询存入的数据" /></p>
 <p><strong>删除存入的数据</strong></p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/9vbh4Vu8AjS6WQt.png" alt="删除存入的数据" title="删除存入的数据" class="lazyload">
-<figcaption class="image-caption">删除存入的数据</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/9vbh4Vu8AjS6WQt.png,  1.5x,  2x"
+        data-src=""
+        alt="删除存入的数据"
+        title="删除存入的数据" /></p>
 <p><strong>搜索数据测试</strong></p>
 <p>PUT请求，存如多条数据</p>
 <div class="highlight"><div class="chroma">
@@ -318,12 +355,22 @@ yellow open   test  ca0IN3o6QLSLjQuDNJqBqg   5   1          0            0      
 </code></pre></td></tr></table>
 </div>
 </div><p>简单GET查询</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/2wEmJVtP9ho8i4p.png" alt="GET查询" title="GET查询" class="lazyload">
-<figcaption class="image-caption">GET查询</figcaption></figure>
-</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/fw5A89LnYPDb7dm.png" alt="GET查询" title="GET查询" class="lazyload">
-<figcaption class="image-caption">GET查询</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/2wEmJVtP9ho8i4p.png,  1.5x,  2x"
+        data-src=""
+        alt="GET查询"
+        title="GET查询" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/fw5A89LnYPDb7dm.png,  1.5x,  2x"
+        data-src=""
+        alt="GET查询"
+        title="GET查询" /></p>
 <p>可以看到在查询content的时候ES对关键词进行了拆分，再查询，得到了两条数据，匹配度高的在前面。</p>
 <p><strong>复合的多条件查询</strong></p>
 <div class="highlight"><div class="chroma">
@@ -348,65 +395,97 @@ yellow open   test  ca0IN3o6QLSLjQuDNJqBqg   5   1          0            0      
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2020/02/05/JHIUBVFkOnAbv7w.png" alt="复合的多条件查询" title="复合的多条件查询" class="lazyload">
-<figcaption class="image-caption">复合的多条件查询</figcaption></figure>
-</p>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/02/05/JHIUBVFkOnAbv7w.png,  1.5x,  2x"
+        data-src=""
+        alt="复合的多条件查询"
+        title="复合的多条件查询" /></p>
 </br>
 <center> ·End </center>
 <center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2020-02-05 更新</span>
+                <span>%!(EXTRA string=2020-02-05)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2020/02/036/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2020/02/036/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2020/02/036/" data-title="Elasticsearch 入门" data-via="xxxx" data-hashtags="Elasticsearch"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2020/02/036/" data-hashtag="Elasticsearch"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2020/02/036/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2020/02/036/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2020/02/036/" data-title="Elasticsearch 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2020/02/036/" data-title="Elasticsearch 入门" data-via="xxxx" data-hashtags="Elasticsearch"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2020/02/036/" data-hashtag="Elasticsearch"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2020/02/036/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2020/02/036/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2020/02/036/" data-title="Elasticsearch 入门" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/elasticsearch/"><i class="fas fa-tag fa-fw"></i>&nbsp;Elasticsearch</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/elasticsearch">Elasticsearch</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2020/02/035/" class="prev" rel="prev" title="Spring 整合 Kafka"><i class="fas fa-angle-left fa-fw"></i>Spring 整合 Kafka</a>
-            <a href="https://1024.imfast.io/2020/02/037/" class="next" rel="next" title="Spring 整合 Elasticsearch">Spring 整合 Elasticsearch<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2020/02/035/" class="prev" rel="prev" title="Spring 整合 Kafka"><i class="fas fa-angle-left fa-fw"></i>Spring 整合 Kafka</a>
+            <a href="/2020/02/037/" class="next" rel="next" title="Spring 整合 Elasticsearch">Spring 整合 Elasticsearch<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

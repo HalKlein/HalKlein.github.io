@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/12/021/" /><link rel="next" href="https://1024.imfast.io/2019/12/023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/12/021/" /><link rel="next" href="https://1024.imfast.io/2019/12/023/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "用 iTerm2 美化你的 Mac 终端",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2019\/12\/022\/"
@@ -36,8 +37,8 @@
                 "url": "https:\/\/1024.imfast.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "美化, MacOS","wordcount":  839 ,
-        "url": "https:\/\/1024.imfast.io\/2019\/12\/022\/","datePublished": "2019-12-25T11:38:03\x2b08:00","dateModified": "2019-12-25T11:38:03\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "美化, MacOS","wordcount":  823 ,
+        "url": "https:\/\/1024.imfast.io\/2019\/12\/022\/","datePublished": "2019-12-25","dateModified": "2019-12-25","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,41 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">用 iTerm2 美化你的 Mac 终端</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2/">生命不息折腾不止</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-25>2019-12-25</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 839 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#先看看效果图">先看看效果图</a></li>
-    <li><a href="#安装-iterm2">安装 iTerm2</a></li>
-    <li><a href="#下载配色方案">下载配色方案</a></li>
-    <li><a href="#更换-zsh-默认的主题">更换 zsh 默认的主题</a></li>
-    <li><a href="#更换字体">更换字体</a></li>
-    <li><a href="#插件">插件</a>
-      <ul>
-        <li><a href="#zsh-autosuggestion">zsh-autosuggestion</a></li>
-        <li><a href="#zsh-syntax-highlighting">zsh-syntax-highlighting</a></li>
-        <li><a href="#colorls">colorls</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">用 iTerm2 美化你的 Mac 终端</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%94%9F%E5%91%BD%E4%B8%8D%E6%81%AF%E6%8A%98%E8%85%BE%E4%B8%8D%E6%AD%A2">
+                                <i class="far fa-folder fa-fw"></i>生命不息折腾不止
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-25>2019-12-25</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2019/12/022/" class="leancloud_visitors" data-flag-title="用 iTerm2 美化你的 Mac 终端">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#先看看效果图">先看看效果图</a></li>
     <li><a href="#安装-iterm2">安装 iTerm2</a></li>
@@ -137,15 +129,20 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="先看看效果图">先看看效果图</h2>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/25/bAyehHXWCwkLPSR.png" alt="效果图" title="效果图" class="lazyload">
-<figcaption class="image-caption">效果图</figcaption></figure>
-</p>
+            </div><div class="content" id="content"><h2 id="先看看效果图">先看看效果图</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/25/bAyehHXWCwkLPSR.png,  1.5x,  2x"
+        data-src=""
+        alt="效果图"
+        title="效果图" /></p>
 <h2 id="安装-iterm2">安装 iTerm2</h2>
-<p>下载安装 <a href="https://www.iterm2.com/" target="_blank">iterm2</a>
+<p>下载安装 <a href="https://www.iterm2.com/" target="_blank" rel="noopener noreffer">iterm2</a>
 </p>
 <p><a href="https://iterm2.com/downloads/stable/latest">https://iterm2.com/downloads/stable/latest</a></p>
-<p>安装 <a href="https://ohmyz.sh/" target="_blank">oh-my-zsh</a>
+<p>安装 <a href="https://ohmyz.sh/" target="_blank" rel="noopener noreffer">oh-my-zsh</a>
 </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -183,7 +180,7 @@
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="n">brew</span> <span class="n">install</span> <span class="n">wget</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>如需科学上网：<a href="https://www.noxxxx.com/mac-%e4%b8%8b%e7%bb%88%e7%ab%af%e8%b5%b0-ss-%e4%bb%a3%e7%90%86.html" target="_blank">参考</a>
+</div><p>如需科学上网：<a href="https://www.noxxxx.com/mac-%e4%b8%8b%e7%bb%88%e7%ab%af%e8%b5%b0-ss-%e4%bb%a3%e7%90%86.html" target="_blank" rel="noopener noreffer">参考</a>
 </p>
 <p>在终端中直接运行命令</p>
 <div class="highlight"><div class="chroma">
@@ -205,19 +202,29 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="下载配色方案">下载配色方案</h2>
-<p>你可以在 <a href="https://iterm2colorschemes.com/" target="_blank">这里</a>
+<p>你可以在 <a href="https://iterm2colorschemes.com/" target="_blank" rel="noopener noreffer">这里</a>
  查看配色方案。（这里我选择 <strong>Tomorrow Night Eighties</strong>）</p>
-<p>然后到 <a href="https://github.com/mbadolato/iTerm2-Color-Schemes" target="_blank">这里</a>
+<p>然后到 <a href="https://github.com/mbadolato/iTerm2-Color-Schemes" target="_blank" rel="noopener noreffer">这里</a>
  下载 iterm2 的配色方案</p>
 <p>下载好之后，在iTerm2首选项中导入配色方案：</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/25/b73i1KHnfIRov8N.png" alt="首选项" title="首选项" class="lazyload">
-<figcaption class="image-caption">首选项</figcaption></figure>
-</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/25/BTOsYSQXWUZhHV3.png" alt="选择配色文件" title="选择配色文件" class="lazyload">
-<figcaption class="image-caption">选择配色文件</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/25/b73i1KHnfIRov8N.png,  1.5x,  2x"
+        data-src=""
+        alt="首选项"
+        title="首选项" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/25/BTOsYSQXWUZhHV3.png,  1.5x,  2x"
+        data-src=""
+        alt="选择配色文件"
+        title="选择配色文件" /></p>
 <h2 id="更换-zsh-默认的主题">更换 zsh 默认的主题</h2>
-<p>我使用的主题是<a href="https://github.com/Powerlevel9k/powerlevel9k/" target="_blank">powerlevel9k</a>
+<p>我使用的主题是<a href="https://github.com/Powerlevel9k/powerlevel9k/" target="_blank" rel="noopener noreffer">powerlevel9k</a>
 </p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -247,7 +254,7 @@
 </div><p>之后运行 <code>source ~/.zshrc</code> 命令，让其生效。</p>
 <h2 id="更换字体">更换字体</h2>
 <p>直接使用 <code>powerlevel9k</code> 主题的话，因为默认字体不支持 icon，会出现一些乱码。</p>
-<p>因为 <code>powerlevel9k</code> 中用到了大量的 icon，但是只有部分的字体支持 icon。目前对 icon 的支持得比较好的字体是 <a href="https://www.nerdfonts.com/#home" target="_blank">Nerd Font</a>
+<p>因为 <code>powerlevel9k</code> 中用到了大量的 icon，但是只有部分的字体支持 icon。目前对 icon 的支持得比较好的字体是 <a href="https://www.nerdfonts.com/#home" target="_blank" rel="noopener noreffer">Nerd Font</a>
 。brew 提供了 nerd 字体的安装。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -274,9 +281,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>安装字体成功后，就可以在 iterm2 中设置了：</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/25/LqtHU8Z95oBdiFD.png" alt="更改字体" title="更改字体" class="lazyload">
-<figcaption class="image-caption">更改字体</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/25/LqtHU8Z95oBdiFD.png,  1.5x,  2x"
+        data-src=""
+        alt="更改字体"
+        title="更改字体" /></p>
 <h2 id="插件">插件</h2>
 <p><code>oh-my-zsh</code> 有很多好用的插件，安装好的插件需要在 <code>~/.zshrc</code> 中的 <code>plugins=(git autojump cp extract sudo z zsh-syntax-highlighting zsh-autosuggestions)</code> 依次写入配置，用空格分开。</p>
 <p><strong>autojump</strong></p>
@@ -341,58 +353,83 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2019-12-25 更新</span>
+                <span>%!(EXTRA string=2019-12-25)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2019/12/022/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2019/12/022/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/12/022/" data-title="用 iTerm2 美化你的 Mac 终端" data-via="xxxx" data-hashtags="美化,MacOS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/12/022/" data-hashtag="美化"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/12/022/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/12/022/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/12/022/" data-title="用 iTerm2 美化你的 Mac 终端" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/12/022/" data-title="用 iTerm2 美化你的 Mac 终端" data-via="xxxx" data-hashtags="美化,MacOS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/12/022/" data-hashtag="美化"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/12/022/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/12/022/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/12/022/" data-title="用 iTerm2 美化你的 Mac 终端" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E7%BE%8E%E5%8C%96/"><i class="fas fa-tag fa-fw"></i>&nbsp;美化</a>&nbsp;
-                    </span><span class="tag">
-                        <a href="https://1024.imfast.io/tags/macos/"><i class="fas fa-tag fa-fw"></i>&nbsp;MacOS</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%BE%8E%E5%8C%96">美化</a>,&nbsp;<a href="/tags/macos">MacOS</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2019/12/021/" class="prev" rel="prev" title="关于数据库索引的一些问题"><i class="fas fa-angle-left fa-fw"></i>关于数据库索引的一些问题</a>
-            <a href="https://1024.imfast.io/2019/12/023/" class="next" rel="next" title="Web 项目的一些调试技巧">Web 项目的一些调试技巧<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2019/12/021/" class="prev" rel="prev" title="关于数据库索引的一些问题"><i class="fas fa-angle-left fa-fw"></i>关于数据库索引的一些问题</a>
+            <a href="/2019/12/023/" class="next" rel="next" title="Web 项目的一些调试技巧">Web 项目的一些调试技巧<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

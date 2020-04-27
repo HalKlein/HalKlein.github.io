@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Spring事务管理 | HalKlein&#39;s Blog</title>
+        <meta name="Description" content="HalKlein&#39;s Blog"><meta property="og:title" content="Spring事务管理" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://1024.imfast.io/028/" />
+<meta property="article:published_time" content="2020-01-28T18:59:06+08:00" />
+<meta property="article:modified_time" content="2020-01-28T18:59:06+08:00" /><meta property="og:site_name" content="HalKlein&#39;s Blog" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring事务管理"/>
+<meta name="twitter:description" content=""/>
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#da532c">
+<link rel="canonical" href="https://1024.imfast.io/028/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/027/" /><link rel="next" href="https://1024.imfast.io/029/" /><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring事务管理",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/1024.imfast.io\/028\/"
+        },"image": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/cover.png",
+                "width":  800 ,
+                "height":  600 
+            },"genre": "posts","keywords": "Spring全家桶, 事务管理","wordcount":  470 ,
+        "url": "https:\/\/1024.imfast.io\/028\/","datePublished": "2020-01-28","dateModified": "2020-01-28","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                "@type": "Organization",
+                "name": "xxxx",
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/1024.imfast.io\/logo.png",
+                "width":  127 ,
+                "height":  40 
+                }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
+            },"description": ""
+    }
+    </script></head>
+    <body><script>
+            if (!window.localStorage || !window.localStorage.getItem('theme')) {window.isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;} else {
+                window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            }
+            window.isDark && document.body.classList.add('dark-theme');
+        </script><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
+        </div>
+        <div class="menu"><a class="menu-item" href="/posts/" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/028/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-wrapper">
+        <div class="header-container">
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="" rel="noopener noreffer">Posts</a><a class="menu-item" href="/tags/" title="" rel="noopener noreffer">Tags</a><a class="menu-item" href="/categories/" title="" rel="noopener noreffer">Categories</a><a class="menu-item" href="/categories/documentation/" title="" rel="noopener noreffer">Docs</a><a class="menu-item" href="/about/" title="" rel="noopener noreffer">About</a><a class="menu-item" href="https://github.com/halklein" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">English<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/028/" selected>English</option></select>
+                </a></div>
+    </div>
+</header>
+
+<script>
+    window.desktopHeaderMode = "fixed";
+    window.mobileHeaderMode = "auto";
+</script>
+<main class="main">
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">Spring事务管理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category">included in<a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2020-01-28>2020-01-28</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>about 470 words&nbsp;
+                <i class="far fa-clock fa-fw"></i>3 min&nbsp;<span id="/028/" class="leancloud_visitors" data-flag-title="Spring事务管理">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title">Contents</h2>
+                <div class="toc-content" id="toc-content-auto"></div>
+            </div>
+            <div class="toc" id="toc-static">
+                <details>
+                    <summary>
+                        <div class="toc-title">
+                            <span>Contents</span>
+                            <span><i class="details icon fas fa-angle-down"></i></span>
+                        </div>
+                    </summary>
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是事务">什么是事务</a></li>
+    <li><a href="#事务的特性acid">事务的特性（ACID）</a></li>
+    <li><a href="#事务的隔离性">事务的隔离性</a>
+      <ul>
+        <li><a href="#常见的并发异常">常见的并发异常</a></li>
+        <li><a href="#常见的隔离级别">常见的隔离级别</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现机制">实现机制</a>
+      <ul>
+        <li><a href="#悲观锁数据库">悲观锁（数据库）</a></li>
+        <li><a href="#乐观锁自定义">乐观锁（自定义）</a></li>
+      </ul>
+    </li>
+    <li><a href="#spring-事务管理httpsdocsspringiospringdocscurrentspring-framework-referencedata-accesshtmlspring-data-tier">Spring 事务管理</a>
+      <ul>
+        <li>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#transactional-注解的属性信息">@Transactional 注解的属性信息</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#声明式事务示例">声明式事务示例</a></li>
+        <li><a href="#编程式事务示例">编程式事务示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </details>
+            </div><div class="content" id="content"><h2 id="什么是事务">什么是事务</h2>
+<p>事务是由N步数据库操作序列组成的逻辑执行单元，这系列操作要么全执行，要么全放弃执行。</p>
+<h2 id="事务的特性acid">事务的特性（ACID）</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/NesIWh9K742wjdP.png,  1.5x,  2x"
+        data-src=""
+        alt="事务的特性"
+        title="事务的特性" /></p>
+<p>原子性（Atomicity）：事务是应用中不可再分的最小执行体。</p>
+<p>一致性（Consistency）：事务执行的结果，须使数据从一个一致性状态，变为另一个一致性状态。</p>
+<p>隔离性（Isolation）：各个事务的执行互不干扰，任何事务的内部操作对其他的事务都是隔离的。</p>
+<p>持久性（Durability）：事务一旦提交，对数据所做的任何改变都要记录到永久存储器中。</p>
+<h2 id="事务的隔离性">事务的隔离性</h2>
+<ul>
+<li>
+<p>常见的并发异常</p>
+<p>第一类丢失更新、第二类丢失更新。</p>
+<p>脏读、不可重复读、幻读。</p>
+</li>
+<li>
+<p>常见的隔离级别</p>
+<p>Read Uncommitted：读取未提交的数据。</p>
+<p>Read Committed：读取已提交的数据。</p>
+<p>Repeatable Read：可重复读。</p>
+<p>Serializable：串行化 （性能低）。</p>
+</li>
+</ul>
+<h3 id="常见的并发异常">常见的并发异常</h3>
+<p><strong>第一类丢失更新</strong></p>
+<p>某一个事务的回滚，导致另外一个事务已更新的数据丢失了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/r3B2UXDYupGqRtb.png,  1.5x,  2x"
+        data-src=""
+        alt="第一类丢失更新"
+        title="第一类丢失更新" /></p>
+<p><strong>第二类丢失更新</strong></p>
+<p>某一个事务的提交，导致另外一个事务已更新的数据丢失了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/PHW9FnDOIZ6gRid.png,  1.5x,  2x"
+        data-src=""
+        alt="第二类丢失更新"
+        title="第二类丢失更新" /></p>
+<p><strong>脏读</strong></p>
+<p>某一个事务，读取了另外一个事务未提交的数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/uDXo7y28nI3ZVBs.png,  1.5x,  2x"
+        data-src=""
+        alt="脏读"
+        title="脏读" /></p>
+<p><strong>不可重复读</strong></p>
+<p>某一个事务，对同一个数据前后读取的结果不一致。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/ZdOCKQrPpyBYE36.png,  1.5x,  2x"
+        data-src=""
+        alt="不可重复读"
+        title="不可重复读" /></p>
+<p><strong>幻读</strong></p>
+<p>某一个事务，对同一个表前后查询到的行数不一致。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/CoYSLuRg2tQPWMf.png,  1.5x,  2x"
+        data-src=""
+        alt="幻读"
+        title="幻读" /></p>
+<h3 id="常见的隔离级别">常见的隔离级别</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2020/01/28/1lMsQTVYJGynihg.png,  1.5x,  2x"
+        data-src=""
+        alt="常见的隔离级别"
+        title="常见的隔离级别" /></p>
+<p>一般来说，我们选择中间两种。第一中几乎没有改善；第四种由于性能非常低，一般是不选用的，除非是金融类业务，政府部分数据等才考虑。</p>
+<h2 id="实现机制">实现机制</h2>
+<h3 id="悲观锁数据库">悲观锁（数据库）</h3>
+<p><strong>共享锁（S锁）</strong></p>
+<p>事务A对某数据加了共享锁后，其他事务只能对该数据加共享锁，但不能加排他锁。</p>
+<p><strong>排他锁（X锁）</strong></p>
+<p>事务A对某数据加了排他锁后，其他事务对该数据既不能加共享锁，也不能加排他锁。</p>
+<h3 id="乐观锁自定义">乐观锁（自定义）</h3>
+<p><strong>版本号、时间戳等</strong></p>
+<p>在更新数据前，检查版本号是否发生变化。若变化则取消本次更新，否则就更新数据（版本号+1）。</p>
+<h2 id="spring-事务管理httpsdocsspringiospringdocscurrentspring-framework-referencedata-accesshtmlspring-data-tier"><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/data-access.html#spring-data-tier" target="_blank" rel="noopener noreffer">Spring 事务管理</a>
+</h2>
+<ul>
+<li>
+<p>声明式事务</p>
+<p>通过XML配置，声明某方法的事务特征。</p>
+<p>通过注解，声明某方法的事务特征。</p>
+</li>
+<li>
+<p>编程式事务</p>
+<p>通过 TransactionTemplate 管理事务，并通过它执行数据库的操作。</p>
+</li>
+</ul>
+<p>声明式事务基于 AOP，将具体业务逻辑与事务处理解耦。声明式事务管理使业务代码逻辑不受污染，因此在实际使用中声明式事务用的比较多。声明式事务有两种方式，一种是在配置文件（xml）中做相关的事务规则声明，另一种是基于@Transactional 注解的方式，注释配置是目前流行的使用方式。</p>
+<h5 id="transactional-注解的属性信息">@Transactional 注解的属性信息</h5>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">name</td>
+<td align="left">当在配置文件中有多个 TransactionManager , 可以用该属性指定选择哪个事务管理器。</td>
+</tr>
+<tr>
+<td align="left">propagation</td>
+<td align="left">事务的传播行为，默认值为 REQUIRED。</td>
+</tr>
+<tr>
+<td align="left">isolation</td>
+<td align="left">事务的隔离度，默认值采用 DEFAULT。</td>
+</tr>
+<tr>
+<td align="left">timeout</td>
+<td align="left">事务的超时时间，默认值为-1。如果超过该时间限制但事务还没有完成，则自动回滚事务。</td>
+</tr>
+<tr>
+<td align="left">read-only</td>
+<td align="left">指定事务是否为只读事务，默认值为 false；为了忽略那些不需要事务的方法，比如读取数据，可以设置 read-only 为 true。</td>
+</tr>
+<tr>
+<td align="left">rollback-for</td>
+<td align="left">用于指定能够触发事务回滚的异常类型，如果有多个异常类型需要指定，各类型之间可以通过逗号分隔。</td>
+</tr>
+<tr>
+<td align="left">no-rollback- for</td>
+<td align="left">抛出 no-rollback-for 指定的异常类型，不回滚事务。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="声明式事务示例">声明式事务示例</h3>
+<p><strong>业务方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="cm">/*Spring容器管理的Bean默认是单例的，如果需要每次getBean都新建一个实例，需要加上如下
+</span><span class="cm">@Scope(&#34;singleton&#34;)是默认的（单例的）*/</span>
+<span class="nd">@Scope</span><span class="o">(</span><span class="s">&#34;prototype&#34;</span><span class="o">)</span> <span class="c1">// 非单例，（极少使用）
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AlphaService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">DiscussPostMapper</span> <span class="n">discussPostMapper</span><span class="o">;</span>
+
+    <span class="cm">/**
+</span><span class="cm">     * Spring 事务管理测试
+</span><span class="cm">     * Spring 事务管理，加注解：@Transactional，设置事务级别：isolation = Isolation.READ_COMMITTED
+</span><span class="cm">     * propagation 事务的传播机制，解决事务交叉问题。如【 业务方法A 去调用 业务方法B 】他们都加有事务注解，那么B的事务应该以谁为准？的问题
+</span><span class="cm">     *      REQUIRED 支持当前事务（外部事务，上例事务A），如果不存在则创建新事务
+</span><span class="cm">     *      REQUIRES_NEW 创建一个新的事务，并且暂定当前事务（外部事务）
+</span><span class="cm">     *      NESTED 如果存在当前事务（外部事务），则嵌套在该事务中执行（B有独立的提交和回滚），否则就和 REQUIRED 一样
+</span><span class="cm">     *
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="nd">@Transactional</span><span class="o">(</span><span class="n">isolation</span> <span class="o">=</span> <span class="n">Isolation</span><span class="o">.</span><span class="na">READ_COMMITTED</span><span class="o">,</span> <span class="n">propagation</span> <span class="o">=</span> <span class="n">Propagation</span><span class="o">.</span><span class="na">REQUIRED</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">save1</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 新增用户
+</span><span class="c1"></span>        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&#34;alpha&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setSalt</span><span class="o">(</span><span class="n">CommunityUtil</span><span class="o">.</span><span class="na">generateUUID</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">CommunityUtil</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">&#34;123&#34;</span><span class="o">)</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="na">getSalt</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;alpha@qq.com&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setHeaderUrl</span><span class="o">(</span><span class="s">&#34;http://image.nowcoder.com/99t.png&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">user</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">userMapper</span><span class="o">.</span><span class="na">insertUser</span><span class="o">(</span><span class="n">user</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">// 新增帖子
+</span><span class="c1"></span>        <span class="n">DiscussPost</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscussPost</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">post</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">post</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">post</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="s">&#34;新人报道&#34;</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">post</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">discussPostMapper</span><span class="o">.</span><span class="na">insertDiscussPost</span><span class="o">(</span><span class="n">post</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="c1">// 人工制造错误，用于测试
+</span><span class="c1"></span>        <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="s">&#34;abc&#34;</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="s">&#34;OK&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>测试类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootTest</span>
+<span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="n">CommunityApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransactionTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">AlphaService</span> <span class="n">alphaService</span><span class="o">;</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSave1</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">alphaService</span><span class="o">.</span><span class="na">save1</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>测试结果</strong></p>
+<p>没有在数据库中新增用户，也没有新增一条帖子。</p>
+<h3 id="编程式事务示例">编程式事务示例</h3>
+<p><strong>业务方法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="cm">/*Spring容器管理的Bean默认是单例的，如果需要每次getBean都新建一个实例，需要加上如下
+</span><span class="cm">@Scope(&#34;singleton&#34;)是默认的（单例的）*/</span>
+<span class="nd">@Scope</span><span class="o">(</span><span class="s">&#34;prototype&#34;</span><span class="o">)</span> <span class="c1">//非单例，（极少使用）
+</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AlphaService</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">DiscussPostMapper</span> <span class="n">discussPostMapper</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">TransactionTemplate</span> <span class="n">transactionTemplate</span><span class="o">;</span>
+
+    
+    <span class="cm">/**
+</span><span class="cm">     * 编程式事务示例
+</span><span class="cm">     * 1. 注入 TransactionTemplate ，这个Bean是Spring自动创建并装配到容器中的，所以直接注入即可
+</span><span class="cm">     * @return
+</span><span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">save2</span><span class="o">(</span><span class="o">)</span><span class="o">{</span>
+        <span class="c1">// 设置事务级别
+</span><span class="c1"></span>        <span class="n">transactionTemplate</span><span class="o">.</span><span class="na">setIsolationLevel</span><span class="o">(</span><span class="n">TransactionDefinition</span><span class="o">.</span><span class="na">ISOLATION_READ_COMMITTED</span><span class="o">)</span><span class="o">;</span>
+        <span class="c1">// 设置传播机制
+</span><span class="c1"></span>        <span class="n">transactionTemplate</span><span class="o">.</span><span class="na">setPropagationBehavior</span><span class="o">(</span><span class="n">transactionTemplate</span><span class="o">.</span><span class="na">PROPAGATION_REQUIRED</span><span class="o">)</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">transactionTemplate</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">TransactionCallback</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">Object</span> <span class="nf">doInTransaction</span><span class="o">(</span><span class="n">TransactionStatus</span> <span class="n">transactionStatus</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// 新增用户
+</span><span class="c1"></span>                <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&#34;beta&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setSalt</span><span class="o">(</span><span class="n">CommunityUtil</span><span class="o">.</span><span class="na">generateUUID</span><span class="o">(</span><span class="o">)</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">CommunityUtil</span><span class="o">.</span><span class="na">md5</span><span class="o">(</span><span class="s">&#34;123&#34;</span><span class="o">)</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="na">getSalt</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setEmail</span><span class="o">(</span><span class="s">&#34;beta@qq.com&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setHeaderUrl</span><span class="o">(</span><span class="s">&#34;http://image.nowcoder.com/999t.png&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">user</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">userMapper</span><span class="o">.</span><span class="na">insertUser</span><span class="o">(</span><span class="n">user</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="c1">// 新增帖子
+</span><span class="c1"></span>                <span class="n">DiscussPost</span> <span class="n">post</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiscussPost</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">&#34;你好&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="s">&#34;我是新人&#34;</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">post</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="o">)</span><span class="o">)</span><span class="o">;</span>
+                <span class="n">discussPostMapper</span><span class="o">.</span><span class="na">insertDiscussPost</span><span class="o">(</span><span class="n">post</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="c1">// 人工制造错误，用于测试
+</span><span class="c1"></span>                <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="s">&#34;abc&#34;</span><span class="o">)</span><span class="o">;</span>
+
+                <span class="k">return</span> <span class="s">&#34;OK&#34;</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>测试类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@SpringBootTest</span>
+<span class="nd">@ContextConfiguration</span><span class="o">(</span><span class="n">classes</span> <span class="o">=</span> <span class="n">CommunityApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransactionTests</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">AlphaService</span> <span class="n">alphaService</span><span class="o">;</span>
+
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSave2</span><span class="o">(</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">alphaService</span><span class="o">.</span><span class="na">save2</span><span class="o">(</span><span class="o">)</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">obj</span><span class="o">)</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>测试结果</strong></p>
+<p>同上，没有在数据库中新增用户，也没有新增一条帖子。</p>
+<p><strong>PS</strong></p>
+<p>一般情况下我们选用简单的声明式事务，但是如果有些业务方法过于复杂，而我们只希望管理其中一部分事务，则选用编程式事务。</p>
+</br>
+<center> ·End </center>
+<center> 转载请注明出处: <a href="https://halklein.github.io/">https://halklein.github.io/</a> </center></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>The article was updated on 2020-01-28</span>
+            </div>
+            <div class="post-info-license"><span>Published under the CC BY-NC 4.0 license</span></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/028/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/028/" data-title="Spring事务管理" data-hashtags="Spring全家桶,事务管理"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/028/" data-hashtag="Spring全家桶"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://1024.imfast.io/028/" data-title="Spring事务管理"><i class="fab fa-hacker-news fa-fw"></i></a><a href="javascript:void(0);" title="Share on Pocket" data-sharer="pocket" data-url="https://1024.imfast.io/028/"><i class="fab fa-get-pocket fa-fw"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://1024.imfast.io/028/" data-title="Spring事务管理"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="Share on Blogger" data-sharer="blogger" data-url="https://1024.imfast.io/028/" data-title="Spring事务管理" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="Share on Evernote" data-sharer="evernote" data-url="https://1024.imfast.io/028/" data-title="Spring事务管理"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/spring%E5%85%A8%E5%AE%B6%E6%A1%B6">Spring全家桶</a>,&nbsp;<a href="/tags/%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86">事务管理</a></section>
+        <section>
+            <span><a href="javascript:window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/027/" class="prev" rel="prev" title="IDEA 引入依赖失败的解决办法"><i class="fas fa-angle-left fa-fw"></i>IDEA 引入依赖失败的解决办法</a>
+            <a href="/029/" class="next" rel="next" title="Spring 统一处理异常">Spring 统一处理异常<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div class="comment"><div id="valine"></div><script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️Say something, this comment supports Markdown grammar, please leave a message! ...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
+    </article></div>
+            </main><footer class="footer">
+    <div class="copyright"><div class="copyright-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
+        </div>
+
+        <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/halklein" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+    </div>
+</footer>
+</div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
+            <i class="fas fa-chevron-up fa-fw"></i>
+        </a><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
+            });
+        });
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/valine/Valine.min.js"></script><script src="/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
+</html>

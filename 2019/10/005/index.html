@@ -23,11 +23,12 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/10/002/" /><link rel="next" href="https://1024.imfast.io/2019/10/006/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/css/lib/animate/animate.min.css"><script type="application/ld+json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="prev" href="https://1024.imfast.io/2019/10/002/" /><link rel="next" href="https://1024.imfast.io/2019/10/006/" /><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/all.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/animate.min.css" ><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "headline": "OSI 模型和 TCP\/IP 模型",
+        "inLanguage": "zh",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/1024.imfast.io\/2019\/10\/005\/"
@@ -36,8 +37,8 @@
                 "url": "https:\/\/1024.imfast.io\/cover.png",
                 "width":  800 ,
                 "height":  600 
-            },"genre": "posts","keywords": "计算机网络","wordcount":  2586 ,
-        "url": "https:\/\/1024.imfast.io\/2019\/10\/005\/","datePublished": "2019-10-31T09:06:36\x2b08:00","dateModified": "2019-10-31T09:06:36\x2b08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            },"genre": "posts","keywords": "计算机网络","wordcount":  2574 ,
+        "url": "https:\/\/1024.imfast.io\/2019\/10\/005\/","datePublished": "2019-10-31","dateModified": "2019-10-31","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
                 "@type": "Organization",
                 "name": "xxxx",
                 "logo": {
@@ -46,6 +47,9 @@
                 "width":  127 ,
                 "height":  40 
                 }
+            },"author": {
+                "@type": "Person",
+                "name": "HalKlein"
             },"description": ""
     }
     </script></head>
@@ -56,28 +60,27 @@
             window.isDark && document.body.classList.add('dark-theme');
         </script><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
-        <div class="header-title animated bounceIn">
-            <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+        <div class="header-title">
+            <a href="/">HalKlein&#39;s Blog</a>
         </div>
-        <div class="menu"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu"><a class="menu-item" href="/posts" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" rel="noopener noreffer">关于</a><span class="menu-item">|</span>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header><header class="mobile" id="header-mobile">
     <div class="header-wrapper">
         <div class="header-container">
-            <div class="header-title animated bounceIn">
-                <a href="https://1024.imfast.io/">HalKlein&#39;s Blog</a>
+            <div class="header-title">
+                <a href="/">HalKlein&#39;s Blog</a>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="https://1024.imfast.io/posts" title="">归档</a><a class="menu-item" href="https://1024.imfast.io/tags" title="">标签</a><a class="menu-item" href="https://1024.imfast.io/categories" title="">分类</a><a class="menu-item" href="https://1024.imfast.io/about" title="">关于</a><a href="javascript:void(0);" class="theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-rotate-180 fa-fw"></i>
-            </a>
-        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts" title="" rel="noopener noreffer">归档</a><a class="menu-item" href="/tags" title="" rel="noopener noreffer">标签</a><a class="menu-item" href="/categories" title="" rel="noopener noreffer">分类</a><a class="menu-item" href="/about" title="" rel="noopener noreffer">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
     </div>
 </header>
 
@@ -86,57 +89,30 @@
     window.mobileHeaderMode = "auto";
 </script>
 <main class="main">
-                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">OSI 模型和 TCP/IP 模型</h1><div class="meta">
-            <div class="meta-line"><a class="author" href="https://halklein.github.io" rel="author" target="_blank">
-                    <i class="fas fa-user-circle fa-fw"></i>HalKlein
-                </a>&nbsp;<span class="post-category">收录于&nbsp;<i class="far fa-folder fa-fw"></i><a href="https://1024.imfast.io/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF/">编程是一门艺术</a>&nbsp;</span></div>
-            <div class="meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-10-31>2019-10-31</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 2586 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>预计阅读 6 分钟&nbsp;</div>
-        </div><div class="post-toc" id="post-toc">
-                <h2 class="post-toc-title">目录</h2>
-                <div class="post-toc-content"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-osi-开放式系统互联参考模型">1. OSI 开放式系统互联参考模型</a>
-      <ul>
-        <li><a href="#物理层physical-layer">物理层（Physical Layer）</a></li>
-        <li><a href="#数据链路层datalink-layer">数据链路层**（Datalink Layer）**</a></li>
-        <li><a href="#网络层-network-layer">网络层 （Network Layer）</a></li>
-        <li><a href="#传输层transport-layer">传输层（Transport Layer）</a></li>
-        <li><a href="#会话层session-layer">会话层（Session Layer）</a></li>
-        <li><a href="#表示层presentation-layer">表示层（Presentation Layer）</a></li>
-        <li><a href="#应用层application-layer">应用层（Application Layer）</a></li>
-        <li><a href="#osi模型-数据传输流程概览">OSI模型 数据传输流程概览</a></li>
-      </ul>
-    </li>
-    <li><a href="#2-tcpip四层网络模型">2. TCP/IP四层网络模型</a>
-      <ul>
-        <li><a href="#提出">提出</a></li>
-        <li><a href="#简介">简介</a></li>
-        <li><a href="#层次">层次</a></li>
-        <li><a href="#对应关系及协议整理">对应关系及协议整理</a></li>
-        <li><a href="#tcpip模型-数据传输流程概览">TCP/IP模型 数据传输流程概览</a></li>
-      </ul>
-    </li>
-    <li><a href="#3-问题">3. 问题</a>
-      <ul>
-        <li><a href="#交换机工作在osi的哪一层">交换机工作在OSI的哪一层？</a></li>
-        <li><a href="#路由器工作在osi的哪一层">路由器工作在OSI的哪一层？</a></li>
-        <li><a href="#ping命令使用osi哪一层协议">PING命令使用OSI哪一层协议？</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
+                <div class="container"><article class="page single"><h1 class="single-title animated flipInX">OSI 模型和 TCP/IP 模型</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://halklein.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>HalKlein</a>
+</span>&nbsp;
+                    <span class="post-category"><a href="/categories/%E7%BC%96%E7%A8%8B%E6%98%AF%E4%B8%80%E9%97%A8%E8%89%BA%E6%9C%AF">
+                                <i class="far fa-folder fa-fw"></i>编程是一门艺术
+                            </a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-10-31>2019-10-31</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;<span id="/2019/10/005/" class="leancloud_visitors" data-flag-title="OSI 模型和 TCP/IP 模型">
+                        <i class="far fa-eye fa-fw"></i><span class=leancloud-visitors-count></span>&nbsp;
+                    </span>&nbsp;</div>
+        </div><div class="toc" id="toc-auto">
+                <h2 class="toc-title"></h2>
+                <div class="toc-content" id="toc-content-auto"></div>
             </div>
-            <div class="post-toc-mobile" id="post-toc-mobile">
+            <div class="toc" id="toc-static">
                 <details>
                     <summary>
-                        <div class="post-toc-title">
-                            <span>目录</span>
+                        <div class="toc-title">
+                            <span></span>
                             <span><i class="details icon fas fa-angle-down"></i></span>
                         </div>
                     </summary>
-                    <div class="post-toc-content"><nav id="TableOfContentsMobile">
+                    <div class="toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#1-osi-开放式系统互联参考模型">1. OSI 开放式系统互联参考模型</a>
       <ul>
@@ -169,50 +145,90 @@
   </ul>
 </nav></div>
                 </details>
-            </div><div class="content"><h2 id="1-osi-开放式系统互联参考模型">1. OSI 开放式系统互联参考模型</h2>
-<p><strong>开放式系统互联模型</strong>（英语：<strong>O</strong>pen <strong>S</strong>ystem <strong>I</strong>nterconnection Model，缩写：OSI；简称为<strong>OSI模型</strong>）是一种<a href="https://zh.wikipedia.org/wiki/%e6%a6%82%e5%bf%b5%e6%a8%a1%e5%9e%8b" target="_blank">概念模型</a>
-，由<a href="https://zh.wikipedia.org/wiki/%e5%9b%bd%e9%99%85%e6%a0%87%e5%87%86%e5%8c%96%e7%bb%84%e7%bb%87" target="_blank">国际标准化组织</a>
+            </div><div class="content" id="content"><h2 id="1-osi-开放式系统互联参考模型">1. OSI 开放式系统互联参考模型</h2>
+<p><strong>开放式系统互联模型</strong>（英语：<strong>O</strong>pen <strong>S</strong>ystem <strong>I</strong>nterconnection Model，缩写：OSI；简称为<strong>OSI模型</strong>）是一种<a href="https://zh.wikipedia.org/wiki/%e6%a6%82%e5%bf%b5%e6%a8%a1%e5%9e%8b" target="_blank" rel="noopener noreffer">概念模型</a>
+，由<a href="https://zh.wikipedia.org/wiki/%e5%9b%bd%e9%99%85%e6%a0%87%e5%87%86%e5%8c%96%e7%bb%84%e7%bb%87" target="_blank" rel="noopener noreffer">国际标准化组织</a>
 提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。</p>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/TLr5NUxWHKmJszP.gif" alt="OSI 开放式系统互联参考模型" title="OSI 开放式系统互联参考模型" class="lazyload">
-<figcaption class="image-caption">OSI 开放式系统互联参考模型</figcaption></figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/TLr5NUxWHKmJszP.gif,  1.5x,  2x"
+        data-src=""
+        alt="OSI 开放式系统互联参考模型"
+        title="OSI 开放式系统互联参考模型" /></p>
 <h3 id="物理层physical-layer">物理层（Physical Layer）</h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/N2o1gwMl95GfFsD.png" alt="" title="" class="lazyload">
-</figure>
-</p>
-<p>在局部局域网上传送<a href="https://zh.wikipedia.org/wiki/%e6%95%b0%e6%8d%ae%e5%b8%a7" target="_blank">数据帧</a>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/N2o1gwMl95GfFsD.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
+<p>在局部局域网上传送<a href="https://zh.wikipedia.org/wiki/%e6%95%b0%e6%8d%ae%e5%b8%a7" target="_blank" rel="noopener noreffer">数据帧</a>
 （data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis</p>
 <h3 id="数据链路层datalink-layer">数据链路层**（Datalink Layer）**</h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/oSpjkPZy9ftYGVa.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/oSpjkPZy9ftYGVa.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： <code>HDLC</code> 、<code>PPP</code>、<code>STP</code>等。</p>
 <h3 id="网络层-network-layer">网络层 <strong>（Network Layer）</strong></h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/wexCdOuZ2QH54B3.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/wexCdOuZ2QH54B3.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：<code>IP</code>、<code>ICMP</code>（互联网控制报文协议）、<code>ARP</code>（地址转换协议）、<code>RARP</code>（反向地址转换协议）</p>
 <h3 id="传输层transport-layer"><strong>传输层（Transport Layer）</strong></h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/YQgGIThdiAEn23f.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/YQgGIThdiAEn23f.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：<code>TCP</code>（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），<code>UDP</code>（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。</p>
 <h3 id="会话层session-layer"><strong>会话层（Session Layer）</strong></h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/4hayBOXImwVbAct.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/4hayBOXImwVbAct.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。</p>
 <p>通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。</p>
 <p>常见的协议有 <code>ADSP</code>、<code>RPC</code> 等。</p>
 <h3 id="表示层presentation-layer"><strong>表示层（Presentation Layer）</strong></h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/PRd9vurV1UCfqTw.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/PRd9vurV1UCfqTw.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有<code>ASCII</code>、<code>SSL/TLS</code> 等。</p>
 <h3 id="应用层application-layer"><strong>应用层（Application Layer）</strong></h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/qTcn6Y3klSOetdN.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/qTcn6Y3klSOetdN.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <p>是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 <code>HTTP</code>，<code>FTP</code>，<code>TELNET</code>、<code>SMTP</code> 等。</p>
 <h3 id="osi模型-数据传输流程概览">OSI模型 数据传输流程概览</h3>
 <p><img src="https://i.loli.net/2019/12/09/peH8BVr75dWE34c.png" alt="" style="zoom:67%;" /></p>
@@ -229,9 +245,14 @@
 <p><strong>网络层</strong>：负责提供基本的数据封包传送功能，让每一块数据包都能够到达目的主机（但不检查是否被正确接收），如网际协议（IP）。</p>
 <p><strong>网络接口层</strong>：对实际的网络媒体的管理，定义如何使用实际网络（如Ethernet、Serial Line等）来传送数据。</p>
 <h3 id="对应关系及协议整理">对应关系及协议整理</h3>
-<p><figure><img src="/svg/loading.min.svg" data-sizes="auto" data-src="https://i.loli.net/2019/12/09/Ip71j6NFub3Ugr5.png" alt="" title="" class="lazyload">
-</figure>
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.small.min.svg"
+        data-sizes="auto"
+        data-srcset="https://i.loli.net/2019/12/09/Ip71j6NFub3Ugr5.png,  1.5x,  2x"
+        data-src=""
+        alt=""
+        title="" /></p>
 <h3 id="tcpip模型-数据传输流程概览">TCP/IP模型 数据传输流程概览</h3>
 <p><img src="https://i.loli.net/2019/12/09/NWbI9otOVEwkJaL.png" alt="" style="zoom:50%;" /></p>
 <h2 id="3-问题">3. 问题</h2>
@@ -246,56 +267,83 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2019-10-31 更新</span>
+                <span>%!(EXTRA string=2019-10-31)</span>
             </div>
-            <div class="post-info-license"><span>采用 CC BY-NC 4.0 协议发布</span></div>
+            <div class="post-info-license"><span>%!(EXTRA string=CC BY-NC 4.0)</span></div>
         </div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="https://1024.imfast.io/2019/10/005/index.md" target="_blank">阅读原始文档</a>
+                            <a class="link-to-markdown" href="/2019/10/005/index.md" target="_blank"></a>
                         </span></div>
-            <div class="post-info-share"><span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/10/005/" data-title="OSI 模型和 TCP/IP 模型" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/10/005/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/10/005/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/10/005/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/10/005/" data-title="OSI 模型和 TCP/IP 模型" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title=" Twitter" data-sharer="twitter" data-url="https://1024.imfast.io/2019/10/005/" data-title="OSI 模型和 TCP/IP 模型" data-via="xxxx" data-hashtags="计算机网络"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title=" Facebook" data-sharer="facebook" data-url="https://1024.imfast.io/2019/10/005/" data-hashtag="计算机网络"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title=" Pinterest" data-sharer="pinterest" data-url="https://1024.imfast.io/2019/10/005/"><i class="fab fa-pinterest fa-fw"></i></a><a href="javascript:void(0);" title=" Reddit" data-sharer="reddit" data-url="https://1024.imfast.io/2019/10/005/"><i class="fab fa-reddit fa-fw"></i></a><a href="javascript:void(0);" title=" 微博" data-sharer="weibo" data-url="https://1024.imfast.io/2019/10/005/" data-title="OSI 模型和 TCP/IP 模型" data-ralateuid="xxxx"><i class="fab fa-weibo fa-fw"></i></a></span>
+            </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section><span class="tag">
-                        <a href="https://1024.imfast.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><i class="fas fa-tag fa-fw"></i>&nbsp;计算机网络</a>&nbsp;
-                    </span></section>
+        <section><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C">计算机网络</a></section>
         <section>
-            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://1024.imfast.io/">主页</a></span>
+            <span><a href="javascript:window.history.back();"></a></span>&nbsp;|&nbsp;<span><a href="/"></a></span>
         </section>
     </div>
 
-    <div class="post-nav"><a href="https://1024.imfast.io/2019/10/002/" class="prev" rel="prev" title="采坑小记"><i class="fas fa-angle-left fa-fw"></i>采坑小记</a>
-            <a href="https://1024.imfast.io/2019/10/006/" class="next" rel="next" title="TCP 三次握手">TCP 三次握手<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/2019/10/002/" class="prev" rel="prev" title="采坑小记"><i class="fas fa-angle-left fa-fw"></i>采坑小记</a>
+            <a href="/2019/10/006/" class="next" rel="next" title="TCP 三次握手">TCP 三次握手<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div class="comment"><div id="valine"></div><script>
-        document.addEventListener("DOMContentLoaded", function(event) {
-            new Valine({
-                el: '#valine',
-                appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
-                appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'zh-cn',visitor: true,recordIP: true,});
-        });
-    </script></div>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                new Valine({
+                    el: '#valine',
+                    appId: 'BIXI8s2vTwvmFlbkAuuNgrnf-gzGzoHsz',
+                    appKey: 'wcaWqzossbz7FKzuPxsSnwou',placeholder: '✒️说点什么吧，该评论支持Markdown语法，请文明留言!...',verify: true,avatar: 'retro',pageSize: 10,lang: 'en',visitor: true,recordIP: true,});
+            });
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://valine.js.org/">comments powered by Valine.</a>
+        </noscript></div>
     </article></div>
             </main><footer class="footer">
-    <div class="copyright"><div class="copyright-line">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+    <div class="copyright"><div class="copyright-line">%!(EXTRA string=<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a>) |  - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer"><i class="far fa-heart fa-fw"></i> LoveIt</a>
         </div>
 
         <div class="copyright-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2018 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://1024.imfast.io/" target="_blank">HalKlein</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
     </div>
 </footer>
 </div><a href="#" class="dynamic-to-top animated faster" id="dynamic-to-top">
-            <span>&nbsp;</span>
+            <i class="fas fa-chevron-up fa-fw"></i>
         </a><script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "\\(", right: "\\)", display: false },
-                    { left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },]
+        document.addEventListener('DOMContentLoaded', function () {
+            lightGallery(document.getElementById('content'), {
+                selector: '.lightgallery',
+                speed: 400,
+                hideBarsDelay: 2000,
+                thumbnail: true,
+                exThumbImage: 'data-thumbnail',
+                thumbWidth: 80,
+                thumbContHeight: 80,
             });
         });
-    </script><link rel="stylesheet" href="/css/lib/katex/katex.min.css"><link rel="stylesheet" href="/css/lib/katex/copy-tex.min.css"><script src="/js/lib/valine/Valine.min.js"></script><script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.js"></script><script src="/js/lib/sharer/sharer.min.js"></script><script src="/js/lib/lazysizes/lazysizes.min.js"></script><script src="/js/lib/katex/katex.min.js"></script><script src="/js/lib/katex/auto-render.min.js"></script><script src="/js/lib/katex/copy-tex.min.js"></script><script src="/js/lib/katex/mhchem.min.js"></script><script src=/js/theme.min.js></script></body>
+    </script><script>
+        document.addEventListener('DOMContentLoaded', function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '\\[', right: '\\]', display: true },{ left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },{ left: '$', right: '$', display: false },],
+                strict: false,
+            });
+        });
+    </script><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.css" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.css" ><link rel="stylesheet" href="/lib/valine/valine.css"><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/valine@1.3.10/dist/Valine.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/smooth-scroll.polyfills.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/lazysizes.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/katex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/auto-render.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/copy-tex.min.js" ><link rel="stylesheet" href="https://files.cnblogs.com/files/cqlh/mhchem.min.js" ><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/lg-zoom.min.js"></script><script src="/js/theme.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-158597174-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</body>
 </html>

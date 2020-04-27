@@ -5,325 +5,345 @@
     <link>https://1024.imfast.io/posts/</link>
     <description>Recent content in Posts on HalKlein&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
+    <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Fri, 07 Feb 2020 16:56:03 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2020 07:51:53 +0800</lastBuildDate>
     
 	<atom:link href="https://1024.imfast.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Shortcodes Tests</title>
+      <link>https://1024.imfast.io/038/</link>
+      <pubDate>Mon, 27 Apr 2020 07:51:53 +0800</pubDate>
+      
+      <guid>https://1024.imfast.io/038/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spring 整合 Elasticsearch</title>
-      <link>https://1024.imfast.io/2020/02/037/</link>
+      <link>https://1024.imfast.io/037/</link>
       <pubDate>Fri, 07 Feb 2020 16:56:03 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/02/037/</guid>
+      <guid>https://1024.imfast.io/037/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Elasticsearch 入门</title>
-      <link>https://1024.imfast.io/2020/02/036/</link>
+      <link>https://1024.imfast.io/036/</link>
       <pubDate>Wed, 05 Feb 2020 11:50:19 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/02/036/</guid>
+      <guid>https://1024.imfast.io/036/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring 整合 Kafka</title>
-      <link>https://1024.imfast.io/2020/02/035/</link>
+      <link>https://1024.imfast.io/035/</link>
       <pubDate>Sun, 02 Feb 2020 09:41:30 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/02/035/</guid>
+      <guid>https://1024.imfast.io/035/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kafka 入门</title>
-      <link>https://1024.imfast.io/2020/02/034/</link>
+      <link>https://1024.imfast.io/034/</link>
       <pubDate>Sun, 02 Feb 2020 09:38:38 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/02/034/</guid>
+      <guid>https://1024.imfast.io/034/</guid>
       <description></description>
     </item>
     
     <item>
       <title>阻塞队列 BlockingQueue</title>
-      <link>https://1024.imfast.io/2020/02/033/</link>
+      <link>https://1024.imfast.io/033/</link>
       <pubDate>Sat, 01 Feb 2020 19:23:29 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/02/033/</guid>
+      <guid>https://1024.imfast.io/033/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring 整合 Redis</title>
-      <link>https://1024.imfast.io/2020/01/032/</link>
+      <link>https://1024.imfast.io/032/</link>
       <pubDate>Fri, 31 Jan 2020 11:54:23 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/032/</guid>
+      <guid>https://1024.imfast.io/032/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Redis 高性能存储入门</title>
-      <link>https://1024.imfast.io/2020/01/031/</link>
+      <link>https://1024.imfast.io/031/</link>
       <pubDate>Thu, 30 Jan 2020 15:31:41 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/031/</guid>
+      <guid>https://1024.imfast.io/031/</guid>
       <description></description>
     </item>
     
     <item>
       <title>使用 Spring AOP 统一记录日志</title>
-      <link>https://1024.imfast.io/2020/01/030/</link>
+      <link>https://1024.imfast.io/030/</link>
       <pubDate>Thu, 30 Jan 2020 12:26:21 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/030/</guid>
+      <guid>https://1024.imfast.io/030/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring 统一处理异常</title>
-      <link>https://1024.imfast.io/2020/01/029/</link>
+      <link>https://1024.imfast.io/029/</link>
       <pubDate>Thu, 30 Jan 2020 11:57:56 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/029/</guid>
+      <guid>https://1024.imfast.io/029/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring事务管理</title>
-      <link>https://1024.imfast.io/2020/01/028/</link>
+      <link>https://1024.imfast.io/028/</link>
       <pubDate>Tue, 28 Jan 2020 18:59:06 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/028/</guid>
+      <guid>https://1024.imfast.io/028/</guid>
       <description></description>
     </item>
     
     <item>
       <title>IDEA 引入依赖失败的解决办法</title>
-      <link>https://1024.imfast.io/2020/01/027/</link>
+      <link>https://1024.imfast.io/027/</link>
       <pubDate>Mon, 27 Jan 2020 19:11:39 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/027/</guid>
+      <guid>https://1024.imfast.io/027/</guid>
       <description></description>
     </item>
     
     <item>
       <title>用前缀树过滤敏感词</title>
-      <link>https://1024.imfast.io/2020/01/026/</link>
+      <link>https://1024.imfast.io/026/</link>
       <pubDate>Mon, 27 Jan 2020 12:09:44 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/026/</guid>
+      <guid>https://1024.imfast.io/026/</guid>
       <description></description>
     </item>
     
     <item>
       <title>常用的元注解</title>
-      <link>https://1024.imfast.io/2020/01/025/</link>
+      <link>https://1024.imfast.io/025/</link>
       <pubDate>Mon, 20 Jan 2020 20:35:11 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/025/</guid>
+      <guid>https://1024.imfast.io/025/</guid>
       <description></description>
     </item>
     
     <item>
       <title>记第一次住院</title>
-      <link>https://1024.imfast.io/2020/01/024/</link>
+      <link>https://1024.imfast.io/024/</link>
       <pubDate>Fri, 03 Jan 2020 15:18:12 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2020/01/024/</guid>
+      <guid>https://1024.imfast.io/024/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Web 项目的一些调试技巧</title>
-      <link>https://1024.imfast.io/2019/12/023/</link>
+      <link>https://1024.imfast.io/023/</link>
       <pubDate>Sat, 28 Dec 2019 20:14:16 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/12/023/</guid>
+      <guid>https://1024.imfast.io/023/</guid>
       <description></description>
     </item>
     
     <item>
       <title>用 iTerm2 美化你的 Mac 终端</title>
-      <link>https://1024.imfast.io/2019/12/022/</link>
+      <link>https://1024.imfast.io/022/</link>
       <pubDate>Wed, 25 Dec 2019 11:38:03 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/12/022/</guid>
+      <guid>https://1024.imfast.io/022/</guid>
       <description></description>
     </item>
     
     <item>
       <title>关于数据库索引的一些问题</title>
-      <link>https://1024.imfast.io/2019/12/021/</link>
+      <link>https://1024.imfast.io/021/</link>
       <pubDate>Tue, 24 Dec 2019 21:22:50 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/12/021/</guid>
+      <guid>https://1024.imfast.io/021/</guid>
       <description></description>
     </item>
     
     <item>
       <title>数据库索引之 B&#43; Tree、Hash、BitMap</title>
-      <link>https://1024.imfast.io/2019/12/020/</link>
+      <link>https://1024.imfast.io/020/</link>
       <pubDate>Tue, 24 Dec 2019 19:54:38 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/12/020/</guid>
+      <guid>https://1024.imfast.io/020/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Socket 入门</title>
-      <link>https://1024.imfast.io/2019/11/011/</link>
+      <link>https://1024.imfast.io/011/</link>
       <pubDate>Tue, 05 Nov 2019 09:31:12 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/11/011/</guid>
+      <guid>https://1024.imfast.io/011/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HTTP 与 HTTPS</title>
-      <link>https://1024.imfast.io/2019/11/010/</link>
+      <link>https://1024.imfast.io/010/</link>
       <pubDate>Sun, 03 Nov 2019 15:52:12 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/11/010/</guid>
+      <guid>https://1024.imfast.io/010/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TCP 滑动窗口</title>
-      <link>https://1024.imfast.io/2019/11/009/</link>
+      <link>https://1024.imfast.io/009/</link>
       <pubDate>Sat, 02 Nov 2019 19:45:16 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/11/009/</guid>
+      <guid>https://1024.imfast.io/009/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TCP 和 UDP 的区别</title>
-      <link>https://1024.imfast.io/2019/11/008/</link>
+      <link>https://1024.imfast.io/008/</link>
       <pubDate>Fri, 01 Nov 2019 14:26:16 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/11/008/</guid>
+      <guid>https://1024.imfast.io/008/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TCP 四次挥手</title>
-      <link>https://1024.imfast.io/2019/10/007/</link>
+      <link>https://1024.imfast.io/007/</link>
       <pubDate>Thu, 31 Oct 2019 13:56:16 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/10/007/</guid>
+      <guid>https://1024.imfast.io/007/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TCP 三次握手</title>
-      <link>https://1024.imfast.io/2019/10/006/</link>
+      <link>https://1024.imfast.io/006/</link>
       <pubDate>Thu, 31 Oct 2019 09:14:18 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/10/006/</guid>
+      <guid>https://1024.imfast.io/006/</guid>
       <description></description>
     </item>
     
     <item>
       <title>OSI 模型和 TCP/IP 模型</title>
-      <link>https://1024.imfast.io/2019/10/005/</link>
+      <link>https://1024.imfast.io/005/</link>
       <pubDate>Thu, 31 Oct 2019 09:06:36 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/10/005/</guid>
-      <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型 ，由国际标准化组织</description>
+      <guid>https://1024.imfast.io/005/</guid>
+      <description>1. OSI 开放式系统互联参考模型 开放式系统互联模型（英语：Open System Interconnection Model，缩写：OSI；简称为OSI模型）是一种概念模型 ，由国际标准化组织 提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。定义于ISO/IEC 7498-1。
+物理层（Physical Layer） 在局部局域网上传送数据帧 （data frame），它负责管理电脑通信设备和网络媒体之间的互通， 定义物理设备标准，如网线的接口类型、光纤的接口类型、各种传输介质的传输速率 ，主要作用是传输比特流（就是由1、0转化为电流强弱来进行传输,到达目的地后在转化为1、0，也就是我们常说的数模转换与模数转换），这一层的数据叫做比特，单位是bit比特。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡、 调制解调器等。典型的协议有 RS 232C、RS 449/422/423、V.24 和 X.21、X.21bis
+数据链路层**（Datalink Layer）** 定义了如何让格式化数据以进行传输，以及如何让控制对物理介质的访问，这一层通常还提供错误检测和纠正，以确保数据的可靠传输。交换机(二层)、网桥设备在这一层。数据链路层协议的代表包括： HDLC 、PPP、STP等。
+网络层 （Network Layer） 在位于不同地理位置的网络中的两个主机系统之间提供连接和路径选择，Internet的发展使得从世界各站点访问信息的用户数大大增加，而网络层正是管理这种连接的层。网络层负责在源机器和目标机器之间建立它们所使用的路由。路由器在该层。协议有：IP、ICMP（互联网控制报文协议）、ARP（地址转换协议）、RARP（反向地址转换协议）
+传输层（Transport Layer） OSI 模型中最重要的一层。定义了一些传输数据的协议和端口号（WWW端口80等），如：TCP（传输控制协议，传输效率低，可靠性强，用于传输可靠性要求高，数据量大的数据），UDP（用户数据报协议，与TCP特性恰恰相反，用于传输可靠性要求不高，数据量小的数据，如QQ聊天数据就是通过这种方式传输的）， 主要是将从下层接收的数据进行分段和传输，到达目的地址后再进行重组，常常把这一层数据叫做段。
+会话层（Session Layer） 负责在网络中的两节点之间建立、维持和终止通信。 会话层的功能包括：建立通信链接，保持会话过程通信链接的畅通，同步两个节点之间的对话，决定通信是否被中断以及通信中断时决定从何处重新发送。
+通过传输层（端口号：传输端口与接收端口）建立数据传输的通路，主要在你的系统之间发起会话或者接受会话请求（设备之间需要互相认识可以是IP也可以是MAC或者是主机名）。
+常见的协议有 ADSP、RPC 等。
+表示层（Presentation Layer） 应用程序和网络之间的翻译官，在表示层，数据将按照网络能理解的方案进行格式化；这种格式化也因所使用网络的类型不同而不同。表示层管理数据的解密与加密，如系统口令的处理。可确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。例如，PC程序与另一台计算机进行通信，其中一台计算机使用扩展二一十进制交换码（EBCDIC），而另一台则使用美国信息交换标准码（ASCII）来表示相同的字符。如有必要，表示层会通过使用一种通格式来实现多种数据格式之间的转换。 常见的协议有ASCII、SSL/TLS 等。
+应用层（Application Layer） 是最靠近用户的OSI层，这一层为用户的应用程序（例如电子邮件、文件传输和终端仿真）提供网络服务 。常见的协议有 HTTP，FTP，TELNET、SMTP 等。
+OSI模型 数据传输流程概览 2. TCP/IP四层网络模型 提出 OSI模型是一个定义良好的协议规范集，定义了开放系统的层次结构和之间的关系，但并没有提供一个可实现的方法，其并非一个标准，而是一个慨念型框架。TCP/IP是被广泛使用的OSI模型的实现。
+简介 TCP/IP协议栈是美国国防部高级研究计划局计算机网（Advanced Research Projects Agency Network，ARPANET）和其后继因特网使用的参考模型。ARPANET是由美国国防部（U.S．Department of Defense，DoD）赞助的研究网络。最初，它只连接了美国境内的四所大学。随后的几年中，它通过租用的电话线连接了数百所大学和政府部门。最终ARPANET发展成为全球规模最大的互连网络-因特网。最初的ARPANET于1990年永久性地关闭。</description>
     </item>
     
     <item>
       <title>采坑小记</title>
-      <link>https://1024.imfast.io/2019/10/002/</link>
+      <link>https://1024.imfast.io/002/</link>
       <pubDate>Tue, 15 Oct 2019 12:46:35 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/10/002/</guid>
+      <guid>https://1024.imfast.io/002/</guid>
       <description></description>
     </item>
     
     <item>
       <title>博客迁移 Hugo</title>
-      <link>https://1024.imfast.io/2019/10/001/</link>
+      <link>https://1024.imfast.io/001/</link>
       <pubDate>Thu, 10 Oct 2019 14:56:35 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/10/001/</guid>
+      <guid>https://1024.imfast.io/001/</guid>
       <description></description>
     </item>
     
     <item>
       <title>算法比赛模板（一）</title>
-      <link>https://1024.imfast.io/2019/03/012/</link>
+      <link>https://1024.imfast.io/012/</link>
       <pubDate>Sat, 23 Mar 2019 21:47:12 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2019/03/012/</guid>
+      <guid>https://1024.imfast.io/012/</guid>
       <description></description>
     </item>
     
     <item>
       <title>为何要探索宇宙？</title>
-      <link>https://1024.imfast.io/2018/11/019/</link>
+      <link>https://1024.imfast.io/019/</link>
       <pubDate>Mon, 05 Nov 2018 19:22:46 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/11/019/</guid>
+      <guid>https://1024.imfast.io/019/</guid>
       <description></description>
     </item>
     
     <item>
       <title>纪念姚贝儿诞辰 37 周年</title>
-      <link>https://1024.imfast.io/2018/09/014/</link>
+      <link>https://1024.imfast.io/014/</link>
       <pubDate>Wed, 26 Sep 2018 20:00:35 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/09/014/</guid>
+      <guid>https://1024.imfast.io/014/</guid>
       <description></description>
     </item>
     
     <item>
       <title>给我未来的孩子 -- 文/张梅</title>
-      <link>https://1024.imfast.io/2018/09/017/</link>
+      <link>https://1024.imfast.io/017/</link>
       <pubDate>Sat, 15 Sep 2018 19:55:11 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/09/017/</guid>
+      <guid>https://1024.imfast.io/017/</guid>
       <description></description>
     </item>
     
     <item>
       <title>汉明码（海明码）计算与纠错</title>
-      <link>https://1024.imfast.io/2018/09/013/</link>
+      <link>https://1024.imfast.io/013/</link>
       <pubDate>Wed, 12 Sep 2018 20:36:39 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/09/013/</guid>
+      <guid>https://1024.imfast.io/013/</guid>
       <description></description>
     </item>
     
     <item>
       <title>八月长沙行</title>
-      <link>https://1024.imfast.io/2018/08/015/</link>
+      <link>https://1024.imfast.io/015/</link>
       <pubDate>Wed, 29 Aug 2018 19:39:09 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/08/015/</guid>
+      <guid>https://1024.imfast.io/015/</guid>
       <description></description>
     </item>
     
     <item>
       <title>一个月过软件设计师考试指南</title>
-      <link>https://1024.imfast.io/2018/08/016/</link>
+      <link>https://1024.imfast.io/016/</link>
       <pubDate>Thu, 02 Aug 2018 10:39:32 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/08/016/</guid>
+      <guid>https://1024.imfast.io/016/</guid>
       <description></description>
     </item>
     
     <item>
       <title>风</title>
-      <link>https://1024.imfast.io/2018/01/018/</link>
+      <link>https://1024.imfast.io/018/</link>
       <pubDate>Tue, 23 Jan 2018 13:07:27 +0800</pubDate>
       
-      <guid>https://1024.imfast.io/2018/01/018/</guid>
+      <guid>https://1024.imfast.io/018/</guid>
       <description></description>
     </item>
     
