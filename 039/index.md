@@ -1,13 +1,9 @@
-# Docker学习笔记
+# Docker 学习笔记
 
-
-Docker 是一个开源的应用容器引擎，诞生于 2013 年初，基于 Go 语言实现， dotCloud 公司出品（后改名为 Docker Inc，Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux 机器上。容器是完全使用沙箱机制，相互隔离，容器性能开销极低。Docker 从 17.03 版本之后分为 CE Community Edition: 社区版） 和 EE Enterprise Edition: 企业版）
 
 <!--more-->
 
 # 1.Docker 概述
-
-![图片](https://uploader.shimo.im/f/Xy8J4pYtX0PYkQUE.png!thumbnail)
 
 * Docker 是一个开源的应用容器引擎
 * 诞生于 2013 年初，基于 Go 语言实现， dotCloud 公司出品（后改名为 Docker Inc
@@ -46,7 +42,7 @@ docker -v
 
 # 3.Docker 架构
 
-![图片](https://uploader.shimo.im/f/HufKhXF83VAlXTsj.png!thumbnail)
+![Docker 架构](https://i.loli.net/2020/04/27/CSXD7M8YKz4eEFi.png)
 
 1. **镜像**（ Image Docker 镜像（ Image ），就相当于是一个 root 文件系统。比如官方镜像ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。
 2. **容器**（ Container ））：镜像 Image ）和容器 Container ）的关系，就像是面向对象程序设计中的类和对象一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。
@@ -85,7 +81,7 @@ sudo systemctl restart docker
 
 # 5.Docker 命令
 
-![图片](https://uploader.shimo.im/f/rKDPQhqMdjgtQJL4.png!thumbnail)
+![Docker 命令](https://i.loli.net/2020/04/27/lcf3xV4iDI5Zaqb.png)
 
 ## 服务相关命令
 
@@ -190,7 +186,7 @@ Docker 容器和外部机器可以直接交换文件吗？    不能
 3. 一个数据卷可以**被多个容器同时挂载**
 4. 一个容器也可以被**挂载多个数据卷**
 
-![图片](https://uploader.shimo.im/f/V1kIXY9xekYijaef.png!thumbnail)
+![数据卷](https://i.loli.net/2020/04/27/JTq8SvaK576Dy1V.png)
 
 ### 数据卷作用
 
@@ -229,7 +225,7 @@ docker run -id --name=c1 -v /root/data:/root/data_container centos:7
 1. 多个容器挂载同一数据卷
 2. 数据卷容器
 
-![图片](https://uploader.shimo.im/f/JwSpbGkGzkcaULqn.png!thumbnail)
+![数据卷容器](https://i.loli.net/2020/04/27/VjCKXriOgsz7xco.png)
 
 ### ## 配置数据卷容器
 
@@ -261,7 +257,7 @@ docker run -it --name=c2 --volumes-from c3 centos:7
 
 ④ 操作容器中的 mysql
 
-![图片](https://uploader.shimo.im/f/9vkOm2cnrqktd2v9.png!thumbnail)
+![MySQL 部署](https://i.loli.net/2020/04/27/yOzr1bScBhIHUw7.png)
 
 * 容器内的网络服务和外部机器不能直接通信
 * 外部机器和宿主机可以直接通信
@@ -315,11 +311,11 @@ mysql:8.0.19
 docker exec -it c_mysql /bin/bash
 ```
 
-![图片](https://uploader.shimo.im/f/9Fv1MF7cIcQcOYmu.png!thumbnail)
+![操作mysql](https://i.loli.net/2020/04/27/4OQjbYXWgpvNThH.png)
 
 ### 使用外部机器连接容器中的mysql
 
-![图片](https://uploader.shimo.im/f/kQDCorPGFjANd6Ot.png!thumbnail)
+![连接容器中的mysql](https://i.loli.net/2020/04/27/4lbf2amgSpIHs93.png)
 
 <br/>
 
@@ -358,7 +354,7 @@ tomcat:9.0.34-jdk8-openjdk
 
 ### 使用外部机器访问tomcat
 
-![图片](https://uploader.shimo.im/f/VCsD6a4tzLkzMbWo.png!thumbnail)
+![外部机器访问tomcat](https://i.loli.net/2020/04/27/OjJ8iQXpsNaT9ze.png)
 
 <br/>
 
@@ -447,7 +443,7 @@ nginx
 
 在html目录下，新建index.html，访问测试：
 
-![图片](https://uploader.shimo.im/f/tIBWOxHtq7QCrBYP.png!thumbnail)
+![外部机器访问nginx](https://i.loli.net/2020/04/27/soJIzYpdgQk7xr5.png)
 
 <br/>
 
@@ -477,7 +473,7 @@ docker run -id --name=c_redis -p 6379:6379 redis:5.0
 redis-cli -h 192.168.91.137 -p 6379
 ```
 
-![图片](https://uploader.shimo.im/f/pBIEcLXl1nQ1mdCZ.png!thumbnail)
+![外部机器连接redis](https://i.loli.net/2020/04/27/dlqwpsPf9tNHTx1.png)
 
 
 # 8.DockerFile
@@ -508,7 +504,7 @@ Centos 的 iso 镜像文件包含 bootfs 和 rootfs ，而 docker 的 centos 镜
 
 Linux文件系统由 bootfs 和 rootfs 两部分组成
 
-![图片](https://uploader.shimo.im/f/RLxZ5sknEGfrMbJ2.png!thumbnail)
+![Linux文件系统](https://i.loli.net/2020/04/27/BXs1D2apmGcI7Pz.png)
 
 * bootfs ：包含 bootloader （引导加载程序）和 kernel （内核
 * rootfs：root 文件系统， 包含的就是典型 Linux 系统中的 /dev，/proc ，/bin ，/etc 等标准目录和文件
@@ -524,13 +520,13 @@ Linux文件系统由 bootfs 和 rootfs 两部分组成
 * 一个镜像可以放在另一个镜像的上面。位于下面的镜像称为父镜像，最底部的镜像成为基础镜像。
 * 当从一个镜像启动容器时， Docker 会在最顶层加载一个读写文件系统作为容器
 
-## ![图片](https://uploader.shimo.im/f/lj39ePLFSxPVisA8.png!thumbnail)
+![Docker镜像原理](https://i.loli.net/2020/04/27/8Rmo1DydIejihlN.png)
 
 ## 镜像制作，容器转为镜像
 
 ### 1.容器转为镜像
 
-![图片](https://uploader.shimo.im/f/2l4QSvCnZ35yBg4s.png!thumbnail)
+![容器转为镜像](https://i.loli.net/2020/04/27/95juz8RflTmX6Dk.png)
 
 ```shell
 # 容器转为镜像
@@ -678,7 +674,7 @@ docker build -f ./myspringboot_project_dockerfile -t app .
 docker run -id -p 9000:8080 app
 ```
 
-![图片](https://uploader.shimo.im/f/EiN94CThqzTZs5de.png!thumbnail)
+![案例 2](https://i.loli.net/2020/04/27/ZIO2uyLRiH1wVdb.png)
 
 如果想使用Nginx反向代理，甚至更复杂的操作可以采用Docker compose服务编排，参考下一节 Docker 服务编排 - 使用docker compose编排nginx+springboot项目
 
@@ -702,7 +698,7 @@ Docker Compose是一个编排多容器分布式部署的工具，提供命令集
 2. 使用 docker compose.yml 定义组成应用的各服务
 3. 运行 docker compose up 启动应用
 
-![图片](https://uploader.shimo.im/f/ex97ZLnbGgG35jx1.png!thumbnail)
+![Docker Compose](https://i.loli.net/2020/04/27/9Vv7CBt4H5MNAok.png)
 
 ## Docker Compose 安装使用，案例
 
@@ -807,7 +803,7 @@ docker-compose up
 
 [http://192.168.149.135/hello](http://192.168.149.135/hello)
 
-![图片](https://uploader.shimo.im/f/MbPioLp5oksPFyXv.png!thumbnail)
+![docker compose编排nginx+springboot项目](https://i.loli.net/2020/04/27/somw9qS375BM2GX.png)
 
 
 # Docker 私有仓库
@@ -845,7 +841,7 @@ docker tag centos:7 私有仓库服务器IP:5000/centos:7
 docker push 私有仓库服务器IP:5000/centos:7
 ```
 
-![图片](https://uploader.shimo.im/f/YzHD98UbMEmmZC0X.png!thumbnail)
+![上传镜像到私有仓库](https://i.loli.net/2020/04/27/intNBWfx16FXhK5.png)
 
 ## 从私有仓库拉取镜像
 
@@ -865,7 +861,7 @@ docker pull 私有仓库服务器ip:5000/centos:7
 * 容器化软件在任何环境中都能够始终如一地运行。
 * 容器赋予了软件独立性，使其免受外在环境差异的影响，从而有助于减少团队间在相同基础设施上运行不同软件时的冲突。
 
-![图片](https://uploader.shimo.im/f/RDVTaBFjlCYk7rHZ.png!thumbnail)
+![Docker容器虚拟化](https://i.loli.net/2020/04/27/kOjClIDbFe91cNX.png)
 
 ## 相同：
 
@@ -887,5 +883,9 @@ docker pull 私有仓库服务器ip:5000/centos:7
 
 </br>
 
-<center> ·End </center>
-<center> 转载请注明出处: <a href="https://1024.imfast.io/">https://1024.imfast.io/</a> </center>
+{{< style "text-align: center" >}}
+·End<br/>
+
+转载请注明出处: <a href="https://1024.imfast.io/">https://1024.imfast.io/
+
+{{< /style >}}

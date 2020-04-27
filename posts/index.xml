@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>Docker学习笔记</title>
+      <title>Docker 学习笔记</title>
       <link>https://1024.imfast.io/039/</link>
       <pubDate>Mon, 27 Apr 2020 13:54:34 +0800</pubDate>
       
       <guid>https://1024.imfast.io/039/</guid>
-      <description>&lt;p&gt;Docker 是一个开源的应用容器引擎，诞生于 2013 年初，基于 Go 语言实现， dotCloud 公司出品（后改名为 Docker Inc，Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的Linux 机器上。容器是完全使用沙箱机制，相互隔离，容器性能开销极低。Docker 从 17.03 版本之后分为 CE Community Edition: 社区版） 和 EE Enterprise Edition: 企业版）&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
